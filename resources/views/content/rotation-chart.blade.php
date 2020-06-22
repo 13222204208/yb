@@ -208,6 +208,11 @@
 								icon: 1,
 								time: 3000
 							});
+              setTimeout(function() {
+          
+layer.closeAll(); //关闭所有的弹出层
+
+}, 2000);
 						} else {
 							console.log(res);
 							layer.msg('保存失败', {
@@ -336,15 +341,6 @@
            //console.log(data);return false;
           form.val("formUpdate", data);
           setFormValue(obj, data);
-
-/*           var openTakeaway = data.f_mission_state;
-          console.log(openTakeaway);
-          if (openTakeaway == 1) {
-            $("#taskState").prop("checked", true);
-          } else {
-            $("#taskState").prop("checked", false);
-          } */
-
 
           form.render();
         } else if (layEvent === 'LAYTABLE_TIPS') {

@@ -126,11 +126,17 @@ Route::prefix('pay')->group(function () {
 
     Route::post('add/bank/card','Pay\BankCardController@addBankCard');//增加银行卡
     Route::get('query/bank/card','Pay\BankCardController@queryBankCard');//银行卡列表
+    Route::post('del/bank/card','Pay\BankCardController@delBankCard');//银行卡列表
+    Route::post('update/bank/card','Pay\BankCardController@updateBankCard');//更新银行卡
     
     //微信支付
     Route::get('wechat-pay', function () {
         return view('pay.wechat-pay');
-    });   
+    }); 
+    Route::post('upload/wechat/img','Pay\WechatPayController@uploadWechatImg');//上传微信二维码  
+    Route::post('create/wechat/pay','Pay\WechatPayController@createWechatPay');//保存微信
+    Route::get('query/wechat','Pay\WechatPayController@queryWechat');//微信列表
+    Route::post('del/wechat','Pay\WechatPayController@delWechat');//删除一个微信
     
     //支付宝支付
     Route::get('alipay-pay', function () {

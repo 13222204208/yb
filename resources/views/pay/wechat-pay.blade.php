@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <title>支付管理</title>
+  <title>新增二维码</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
 </head>
 
@@ -33,11 +34,10 @@
   </div>
   <table id="demo" lay-filter="test"></table>
   <script type="text/html" id="barDemo">
-
-    <a class="layui-btn layui-btn-xs" lay-event="agree">开启</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="resuse">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="resuse">删除</a>
-  </script>     
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+  
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  </script>
 
   <div class="layui-row" id="popCreateTask" style="display:none;">
     <form class="layui-form layui-from-pane" required lay-verify="required" style="margin:20px">
@@ -45,61 +45,61 @@
       <div class="layui-form-item">
         <label class="layui-form-label">二维码名称</label>
         <div class="layui-input-block">
-          <input type="text" name="f_mission_content" required lay-verify="required" autocomplete="off" placeholder="请输入二维码名称" value="" class="layui-input">
+          <input type="text" name="wechat_name" required lay-verify="required" autocomplete="off" placeholder="请输入二维码名称" value="" class="layui-input">
+        </div>
+      </div>
+
+      <input type="hidden" name="wechat_url" class="image">
+      <div class="layui-form-item">
+        <div class="layui-upload" style="margin-left: 20%;">
+          <button type="button" class="layui-btn" id="test-upload-normal">上传二维码</button>
+          <div class="layui-upload-list">
+            <img class="layui-upload-img" src="" id="test-upload-normal-img" style="width:150px" alt="图片预览">
+          </div>
         </div>
       </div>
 
       <div class="layui-form-item">
-        <div class="layui-upload" style="margin-left: 20%;">
-            <button type="button" class="layui-btn" id="test1">上传二维码</button>
-            <div class="layui-upload-list">
-              <img class="layui-upload-img" id="demo1">
-              <p id="demoText"></p>
-            </div>
-          </div>   
-     </div>
-
-      <div class="layui-form-item">
         <label class="layui-form-label">单笔最低充值</label>
         <div class="layui-input-block">
-          <input type="number" name="f_mission_weight" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+          <input type="number" name="min_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
         </div>
       </div>
 
       <div class="layui-form-item">
         <label class="layui-form-label">单笔最高充值</label>
         <div class="layui-input-block">
-          <input type="number" name="f_mission_weight" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+          <input type="number" name="max_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
         </div>
       </div>
 
       <div class="layui-form-item">
         <label class="layui-form-label">单日充值上限</label>
         <div class="layui-input-block">
-          <input type="number" name="f_mission_weight" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+          <input type="number" name="day_max_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
         </div>
       </div>
 
       <div class="layui-form-item">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-block">
-          <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="开启|关闭">
+          <input type="checkbox" checked="" name="state" lay-skin="switch" lay-filter="switchTest" lay-text="开启|关闭">
         </div>
       </div>
 
       <div class="layui-form-item">
         <label class="layui-form-label">今日充值金额</label>
         <div class="layui-input-block">
-          <input type="number" name="f_mission_weight" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+          <input type="number" name="day_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
         </div>
       </div>
-     
-      
+
+
 
       <div class="layui-form-item ">
         <div class="layui-input-block">
           <div class="layui-footer" style="left: 0;">
-            <button class="layui-btn" lay-submit="" lay-filter="createTask">新增微信二维码</button>
+            <button class="layui-btn" lay-submit="" lay-filter="setWechatPay">新增微信二维码</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
           </div>
         </div>
@@ -108,21 +108,68 @@
   </div>
 
 
- 
+
 
 
 
   <script src="/layuiadmin/layui/layui.js"></script>
   <script src="/layuiadmin/layui/jquery3.2.js"></script>
   <script>
-    layui.use(['table', 'form', 'laydate', 'util', 'jquery'], function() {
+    layui.use(['table', 'form', 'jquery', 'upload', 'layer'], function() {
       var table = layui.table;
-      var laydate = layui.laydate;
+      var layer = layui.layer;
       var form = layui.form;
       var util = layui.util;
       var $ = layui.jquery;
+      var upload = layui.upload;
 
 
+      //普通图片上传
+      var uploadInst = upload.render({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        elem: '#test-upload-normal',
+        accept: 'images',
+        size: 3000,
+        url: 'upload/wechat/img',
+        before: function(obj) {
+          //预读本地文件示例，不支持ie8
+          obj.preview(function(index, file, result) {
+            $('#test-upload-normal-img').attr('src', result); //图片链接（base64）
+          });
+        },
+        done: function(res) {
+          if (res.status == 200) {
+            console.log(window.location.hostname + '/' + res.path);
+            var img_url = window.location.hostname + '/' + res.path;
+            $(" input[ name='wechat_url' ] ").val(img_url);
+            return layer.msg('图片上传成功', {
+              offset: '15px',
+              icon: 1,
+              time: 2000
+            });
+          }
+          //如果上传失败
+          if (res.status == 403) {
+            return layer.msg('上传失败', {
+              offset: '15px',
+              icon: 2,
+              time: 2000
+            });
+          }
+          //上传成功
+        },
+        error: function(error) {
+          console.log(error);
+          //演示失败状态，并实现重传
+          var demoText = $('#test-upload-demoText');
+          demoText.html('<span style="color: #FF5722;">图片上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+          demoText.find('.demo-reload').on('click', function() {
+            uploadInst.upload();
+          });
+        }
+      });
 
 
 
@@ -136,11 +183,48 @@
         });
       });
 
+      form.on('submit(setWechatPay)', function(data) {
+        var data = data.field;
+        console.log(data);
+        $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: "create/wechat/pay",
+          method: 'POST',
+          data: data,
+          success: function(res) {
+            console.log(res);
+            if (res.status == 200) {
+              layer.msg('保存成功', {
+                offset: '15px',
+                icon: 1,
+                time: 3000
+              });
+              setTimeout(function() {
+
+                layer.closeAll(); //关闭所有的弹出层
+                location.href="wechatPay";
+
+              }, 2000);
+            } else {
+              console.log(res);
+              layer.msg('保存失败', {
+                offset: '15px',
+                icon: 2,
+                time: 3000
+              })
+            }
+          }
+        });
+        return false;
+      });
+
       //第一个实例
       table.render({
         elem: '#demo',
         height: 600,
-
+        url:'query/wechat',
         page: true //开启分页
           ,
         cols: [
@@ -151,32 +235,32 @@
               width: 80,
               align: 'center',
               sort: true
-            },{
-              field: 'name',
+            }, {
+              field: 'wechat_name',
               title: '二维码名称',
               width: 180,
               align: 'center',
               sort: true
-            },{
-              field: 'bank',
+            }, {
+              field: 'wechat_url',
               title: '二维码',
-              width: 180,
+              width: 280,
               align: 'center',
               sort: true
             },
             {
-              field: 'min',
+              field: 'min_money',
               title: '单笔最低充值',
               align: 'center',
               width: 130,
             }, {
-              field: 'max',
+              field: 'max_money',
               title: '单笔最高充值',
               width: 130,
               align: 'center',
               sort: true
             }, {
-              field: 'full',
+              field: 'day_max_money',
               title: '单日充值上限',
               align: 'center',
               width: 130
@@ -184,103 +268,30 @@
               field: 'state',
               title: '状态',
               align: 'center',
-              width: 150
+              width: 150,
+              templet: function(d) {
+                if (d.state == 1) {
+                  return "开启";
+                }else if(d.state == "on"){
+                  return "开启";
+                }else{
+                  return "关闭";
+                }
+              }
             }, {
-              field: 'num',
+              field: 'day_money',
               title: '今日充值金额',
               align: 'center',
               width: 180
-            },{
+            }, {
               fixed: 'right',
-              title:"操作",
+              title: "操作",
               width: 150,
               align: 'center',
               toolbar: '#barDemo'
             }
           ]
-        ],data: [{
-            "id": "206"
-       ,"name": "李商隐"
-      ,"bank": "斗鱼虎牙"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李商隐"
-      ,"bank": "斗鱼虎牙"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李商隐"
-      ,"bank": "斗鱼虎牙"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李商隐"
-      ,"bank": "斗鱼虎牙"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李商隐"
-      ,"bank": "斗鱼虎牙"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李商隐"
-      ,"bank": "斗鱼虎牙"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李商隐"
-      ,"bank": "斗鱼虎牙"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李商隐"
-      ,"bank": "斗鱼虎牙"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李商隐"
-      ,"bank": "斗鱼虎牙"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },
-    ],
+        ],
         parseData: function(res) { //res 即为原始返回的数据
           console.log(res);
           return {
@@ -296,24 +307,24 @@
 
       });
 
-
       table.on('tool(test)', function(obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 
-        /*         if (layEvent === 'del') { //删除
+                 if (layEvent === 'del') { //删除
                   layer.confirm('真的删除行么', function(index) {
                     $.ajax({
-                      url: "{{url('/del/horse')}}",
-                      type: 'get',
+                      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                      url: "del/wechat",
+                      type: 'post',                     
                       datatype: 'json',
                       data: {
-                        'id': data.f_id
+                        'id': data.id
                       }, //向服务端发送删除的id
                       success: function(res) {
                         console.log(res);
-                        if (res == '{"status":200}') {
+                        if (res.status == 200) {
                           obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                           layer.close(index);
                           console.log(index);
@@ -330,48 +341,19 @@
                     layer.close(index);
                     //向服务端发送删除指令
                   });
-                } else  */
+                } else  
         if (layEvent === 'edit') { //编辑
 
           layer.open({
             //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
             type: 1,
-            title: "编辑任务",
-            area: ['620px', '550px'],
+            title: "编辑轮播图",
+            area: ['620px', '650px'],
             content: $("#popUpdateTask") //引用的弹出层的页面层的方式加载修改界面表单
           });
-          // console.log(data);
-          form.val("updateTask", data);
+           //console.log(data);return false;
+          form.val("formUpdate", data);
           setFormValue(obj, data);
-
-          var openTakeaway = data.f_mission_state;
-          console.log(openTakeaway);
-          if (openTakeaway == 1) {
-            $("#taskState").prop("checked", true);
-          } else {
-            $("#taskState").prop("checked", false);
-          }
-
-          var openTakeawayTwo = data.f_mission_day_refresh;
-          if (openTakeawayTwo == 1) {
-            $("#taskRefresh").prop("checked", true);
-          } else {
-            $("#taskRefresh").prop("checked", false);
-          }
-
-          var stime = util.toDateString(data.f_mission_start_time * 1000, "yyyy-MM-dd HH:mm:ss");
-          var ctime = util.toDateString(data.f_mission_close_time * 1000, "yyyy-MM-dd HH:mm:ss");
-          laydate.render({ //日期时间选择器
-            elem: '#f_mission_start_time',
-            value: stime,
-            type: 'datetime'
-          });
-
-          laydate.render({
-            elem: '#f_mission_close_time',
-            value: ctime,
-            type: 'datetime'
-          });
 
           form.render();
         } else if (layEvent === 'LAYTABLE_TIPS') {
@@ -379,33 +361,23 @@
         }
       });
       //更新广告信息
-      //监听弹出框表单提交，massage是修改界面的表单数据'submit(demo11),是修改按钮的绑定
       function setFormValue(obj, data) {
-        form.on('submit(updateOneTask)', function(massage) {
-          massage.field.f_mission_id = data.f_mission_id;
-          if (massage.field.f_mission_day_refresh == "on") { //每日刷新
-            massage.field.f_mission_day_refresh = 1;
-          } else {
-            massage.field.f_mission_day_refresh = 2;
-          }
-
-          if (massage.field.f_mission_state == "on") { //任务状态
-            massage.field.f_mission_state = 1;
-          } else {
-            massage.field.f_mission_state = 2;
-          }
-          updateData = massage.field;
-          // console.log(updateData); return false;
+        form.on('submit(editChart)', function(massage) {
+          massage= massage.field; //console.log(massage);return false;
           $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: "{{url('/update/game/task')}}",
+            url: "update/rotation/chart",
             type: 'post',
-            data: updateData,
+            data: {
+              id: data.id,
+              img_sort:massage.img_sort,
+              state:massage.state
+            },
             success: function(msg) {
               console.log(msg);
-              if (msg == '{"status":200}') {
+              if (msg.status == 200) {
                 layer.closeAll('loading');
                 layer.load(2);
                 layer.msg("修改成功", {
@@ -413,10 +385,13 @@
                 });
                 setTimeout(function() {
 
+                  obj.update({
+                    img_sort:massage.img_sort,
+              state:massage.state
+                  }); //修改成功修改表格数据不进行跳转              
                   layer.closeAll(); //关闭所有的弹出层
-                  window.location.href = "/game/task-management";
 
-                }, 2000);
+                }, 1000);
 
               } else {
                 layer.msg("修改失败", {
@@ -427,7 +402,6 @@
           })
           return false;
         })
-
       }
 
     });

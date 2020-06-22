@@ -35,9 +35,9 @@
   <table id="demo" lay-filter="test"></table>
   <script type="text/html" id="barDemo">
 
-    <a class="layui-btn layui-btn-xs" lay-event="agree">开启</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="resuse">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="resuse">删除</a>
+    <!-- <a class="layui-btn layui-btn-xs" lay-event="agree">开启</a> -->
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
   </script>     
 
   <div class="layui-row" id="popCreateTask" style="display:none;">
@@ -125,7 +125,72 @@
 
 
  
+  <div class="layui-row" id="popUpdateBank" style="display:none;">
+    <form class="layui-form layui-from-pane" required lay-verify="required" lay-filter="formUpdate" style="margin:20px">
 
+      <div class="layui-form-item">
+        <label class="layui-form-label">持卡人</label>
+        <div class="layui-input-block">
+          <input type="text" name="card_name" disabled="" required lay-verify="required" autocomplete="off" placeholder="持卡人姓名" value="" class="layui-input">
+        </div>
+      </div>
+
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">开户行</label>
+        <div class="layui-input-block">
+          <input type="text" name="open_bank" disabled="" required lay-verify="required" autocomplete="off" placeholder="开户行具体信息" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">卡号</label>
+        <div class="layui-input-block">
+          <input type="number" name="card_num" disabled="" required lay-verify="required" autocomplete="off" placeholder="请输入银行卡号" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">单笔最低充值</label>
+        <div class="layui-input-block">
+          <input type="number" name="min_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">单笔最高充值</label>
+        <div class="layui-input-block">
+          <input type="number" name="max_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">单日充值上限</label>
+        <div class="layui-input-block">
+          <input type="number" name="day_max_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block">
+          <input type="checkbox" checked="" name="state" lay-skin="switch" lay-filter="switchTest" lay-text="开启|关闭">
+        </div>
+      </div>
+
+   
+     
+      
+
+      <div class="layui-form-item ">
+        <div class="layui-input-block">
+          <div class="layui-footer" style="left: 0;">
+            <button class="layui-btn" lay-submit="" lay-filter="updateBank">确定</button>
+            
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 
 
   <script src="/layuiadmin/layui/layui.js"></script>
@@ -234,7 +299,16 @@
               field: 'state',
               title: '状态',
               align: 'center',
-              width: 150
+              width: 150,
+              templet: function(d) {
+                if (d.state == 1) {
+                  return "开启";
+                }else if(d.state == "on"){
+                  return "开启";
+                }else{
+                  return "关闭";
+                }
+              },
             }, {
               field: 'day_money',
               title: '今日充值金额',
@@ -270,18 +344,19 @@
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 
-        /*         if (layEvent === 'del') { //删除
+                 if (layEvent === 'del') { //删除
                   layer.confirm('真的删除行么', function(index) {
                     $.ajax({
-                      url: "{{url('/del/horse')}}",
-                      type: 'get',
+                      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                      url: "del/bank/card",
+                      type: 'post',                     
                       datatype: 'json',
                       data: {
-                        'id': data.f_id
+                        'id': data.id
                       }, //向服务端发送删除的id
                       success: function(res) {
                         console.log(res);
-                        if (res == '{"status":200}') {
+                        if (res.status == 200) {
                           obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                           layer.close(index);
                           console.log(index);
@@ -298,82 +373,40 @@
                     layer.close(index);
                     //向服务端发送删除指令
                   });
-                } else  */
+                } else  
         if (layEvent === 'edit') { //编辑
 
           layer.open({
             //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
             type: 1,
-            title: "编辑任务",
-            area: ['620px', '550px'],
-            content: $("#popUpdateTask") //引用的弹出层的页面层的方式加载修改界面表单
+            title: "编辑活动",
+            area: ['620px', '650px'],
+            content: $("#popUpdateBank") //引用的弹出层的页面层的方式加载修改界面表单
           });
-          // console.log(data);
-          form.val("updateTask", data);
+           //console.log(data);return false;
+          form.val("formUpdate", data);
           setFormValue(obj, data);
-
-          var openTakeaway = data.f_mission_state;
-          console.log(openTakeaway);
-          if (openTakeaway == 1) {
-            $("#taskState").prop("checked", true);
-          } else {
-            $("#taskState").prop("checked", false);
-          }
-
-          var openTakeawayTwo = data.f_mission_day_refresh;
-          if (openTakeawayTwo == 1) {
-            $("#taskRefresh").prop("checked", true);
-          } else {
-            $("#taskRefresh").prop("checked", false);
-          }
-
-          var stime = util.toDateString(data.f_mission_start_time * 1000, "yyyy-MM-dd HH:mm:ss");
-          var ctime = util.toDateString(data.f_mission_close_time * 1000, "yyyy-MM-dd HH:mm:ss");
-          laydate.render({ //日期时间选择器
-            elem: '#f_mission_start_time',
-            value: stime,
-            type: 'datetime'
-          });
-
-          laydate.render({
-            elem: '#f_mission_close_time',
-            value: ctime,
-            type: 'datetime'
-          });
 
           form.render();
         } else if (layEvent === 'LAYTABLE_TIPS') {
           layer.alert('Hi，头部工具栏扩展的右侧图标。');
         }
       });
-      //更新广告信息
-      //监听弹出框表单提交，massage是修改界面的表单数据'submit(demo11),是修改按钮的绑定
+   
       function setFormValue(obj, data) {
-        form.on('submit(updateOneTask)', function(massage) {
-          massage.field.f_mission_id = data.f_mission_id;
-          if (massage.field.f_mission_day_refresh == "on") { //每日刷新
-            massage.field.f_mission_day_refresh = 1;
-          } else {
-            massage.field.f_mission_day_refresh = 2;
-          }
-
-          if (massage.field.f_mission_state == "on") { //任务状态
-            massage.field.f_mission_state = 1;
-          } else {
-            massage.field.f_mission_state = 2;
-          }
-          updateData = massage.field;
-          // console.log(updateData); return false;
+        form.on('submit(updateBank)', function(massage) {
+          massage= massage.field; 
+          massage.id = data.id; //console.log(massage);return false;
           $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: "{{url('/update/game/task')}}",
+            url: "update/bank/card",
             type: 'post',
-            data: updateData,
+            data: massage,
             success: function(msg) {
               console.log(msg);
-              if (msg == '{"status":200}') {
+              if (msg.status == 200) {
                 layer.closeAll('loading');
                 layer.load(2);
                 layer.msg("修改成功", {
@@ -381,10 +414,15 @@
                 });
                 setTimeout(function() {
 
+                  obj.update({
+                    'min_money':massage.min_money,
+                    'max_money':massage.max_money,
+                    'day_max_money':massage.day_max_money,
+                    'state':massage.state     
+                  }); //修改成功修改表格数据不进行跳转              
                   layer.closeAll(); //关闭所有的弹出层
-                  window.location.href = "/game/task-management";
 
-                }, 2000);
+                }, 1000);
 
               } else {
                 layer.msg("修改失败", {
@@ -395,8 +433,8 @@
           })
           return false;
         })
-
       }
+  
 
     });
   </script>

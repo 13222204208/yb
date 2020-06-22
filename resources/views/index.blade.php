@@ -178,8 +178,7 @@
                 <dd><a lay-href="pay/alipay-pay">支付宝支付</a></dd>
               </dl>
             </li>
-
-            
+    
             <li data-name="template" class="layui-nav-item">
               <a href="javascript:;" lay-tips="系统管理" lay-direction="2">
                 <i class="layui-icon layui-icon-set"></i>

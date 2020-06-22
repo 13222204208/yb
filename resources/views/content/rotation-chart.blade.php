@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>轮播图</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
 </head>
 
@@ -31,40 +32,31 @@
       </div>
     </div>
   </div>
-  <table id="demo" lay-filter="test"></table>
+  <table id="LAY_table_user" lay-filter="test"></table>
   <script type="text/html" id="barDemo">
 
-    <a class="layui-btn layui-btn-xs" lay-event="agree">开启</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="resuse">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="resuse">删除</a>
+    <a class="layui-btn  layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
   </script>     
 
   <div class="layui-row" id="popCreateTask" style="display:none;">
     <form class="layui-form layui-from-pane" required lay-verify="required" style="margin:20px">
 
 
-
+    <input type="hidden" name="img_url" class="image" >
       <div class="layui-form-item">
         <div class="layui-upload" style="margin-left: 20%;">
-            <button type="button" class="layui-btn" id="test1">上传图片</button>
-            <div class="layui-upload-list">
-              <img class="layui-upload-img" id="demo1">
-              <p id="demoText"></p>
-            </div>
+        <button type="button" class="layui-btn" id="test-upload-normal">上传图片</button>
+                  <div class="layui-upload-list">
+                    <img class="layui-upload-img" src="" id="test-upload-normal-img" style="width:150px" alt="图片预览">
+                  </div>
           </div>   
      </div>
 
       <div class="layui-form-item">
-        <label class="layui-form-label">链接</label>
-        <div class="layui-input-block">
-          <input type="text" name="f_mission_weight" required lay-verify="required" autocomplete="off" placeholder="请输入链接" class="layui-input">
-        </div>
-      </div>
-
-      <div class="layui-form-item">
         <label class="layui-form-label">排序</label>
         <div class="layui-input-block">
-          <input type="number" name="f_mission_weight" required lay-verify="required" autocomplete="off" placeholder="" class="layui-input">
+          <input type="number" name="img_sort" required lay-verify="required" autocomplete="off" placeholder="" class="layui-input">
         </div>
       </div>
 
@@ -72,19 +64,55 @@
       <div class="layui-form-item">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-block">
-          <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="开启|关闭">
+          <input type="checkbox" checked="" name="state" lay-skin="switch" lay-filter="switchTest" lay-text="开启|关闭">
         </div>
       </div>
-
-
-     
-      
 
       <div class="layui-form-item ">
         <div class="layui-input-block">
           <div class="layui-footer" style="left: 0;">
             <button class="layui-btn" lay-submit="" lay-filter="createTask">新建轮播图</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="layui-row" id="popUpdateTask" style="display:none;">
+    <form class="layui-form layui-from-pane" required lay-verify="required" lay-filter="formUpdate"  style="margin:20px">
+
+<!-- 
+    <input type="hidden" name="img_url" class="image" >
+      <div class="layui-form-item">
+        <div class="layui-upload" style="margin-left: 20%;">
+        <button type="button" class="layui-btn" id="test-upload-normal">上传图片</button>
+                  <div class="layui-upload-list">
+                    <img class="layui-upload-img" src="" id="test-upload-normal-img" style="width:150px" alt="图片预览">
+                  </div>
+          </div>   
+     </div> -->
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-block">
+          <input type="number" name="img_sort" required lay-verify="required" autocomplete="off" placeholder="" class="layui-input">
+        </div>
+      </div>
+
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block">
+          <input type="checkbox" checked="" name="state" lay-skin="switch" lay-filter="switchTest" lay-text="开启|关闭">
+        </div>
+      </div>
+
+      <div class="layui-form-item ">
+        <div class="layui-input-block">
+          <div class="layui-footer" style="left: 0;">
+            <button class="layui-btn" lay-submit="" lay-filter="editChart">修改轮播图</button>
+<!--             <button type="reset" class="layui-btn layui-btn-primary">重置</button> -->
           </div>
         </div>
       </div>
@@ -99,34 +127,105 @@
   <script src="/layuiadmin/layui/layui.js"></script>
   <script src="/layuiadmin/layui/jquery3.2.js"></script>
   <script>
-    layui.use(['table', 'form', 'laydate', 'util', 'jquery'], function() {
+    layui.use(['table', 'form',  'jquery','upload'], function() {
       var table = layui.table;
       var laydate = layui.laydate;
       var form = layui.form;
       var util = layui.util;
       var $ = layui.jquery;
-
-
-
-
+      var  upload = layui.upload;
 
       $(document).on('click', '#task-management', function() {
         layer.open({
           //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
           type: 1,
-          title: "新增微信二维码",
-          area: ['620px', '480px'],
+          title: "新建轮播图",
+          area: ['620px', '380px'],
           content: $("#popCreateTask") //引用的弹出层的页面层的方式加载修改界面表单
         });
       });
 
-      //第一个实例
-      table.render({
-        elem: '#demo',
-        height: 600,
+      //普通图片上传
+      var uploadInst = upload.render({
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        elem: '#test-upload-normal',
+        accept:'images',
+        size:3000,
+        url: 'upload/rotation/img',
+        before: function(obj) {      
+          //预读本地文件示例，不支持ie8
+          obj.preview(function(index, file, result) {
+            $('#test-upload-normal-img').attr('src', result); //图片链接（base64）
+          });
+        },
+        done: function(res) {
+          if (res.status == 200) { 
+            console.log(window.location.hostname+'/'+res.path);
+            var img_url= window.location.hostname+'/'+res.path;
+            $(" input[ name='img_url' ] ").val(img_url);
+            return layer.msg('图片上传成功',{
+                offset: '15px',
+                icon: 1,
+                time: 2000
+              });            
+          }
+          //如果上传失败
+          if (res.status == 403) {
+            return layer.msg('上传失败',{
+                offset: '15px',
+                icon: 2,
+                time: 2000
+              });
+          }
+          //上传成功
+        },
+        error: function(error) {
+          console.log(error);
+          //演示失败状态，并实现重传
+          var demoText = $('#test-upload-demoText');
+          demoText.html('<span style="color: #FF5722;">图片上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+          demoText.find('.demo-reload').on('click', function() {
+            uploadInst.upload();
+          });
+        }
+      });
 
-        page: true //开启分页
-          ,
+      form.on('submit(createTask)', function(data) {//新建轮播图
+				var data = data.field;
+				console.log(data);
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					url: "create/chart",
+					method: 'POST',
+					data: data,
+					success: function(res) {
+						console.log(res);
+						if (res.status == 200) {
+							layer.msg('保存成功', {
+								offset: '15px',
+								icon: 1,
+								time: 3000
+							});
+						} else {
+							console.log(res);
+							layer.msg('保存失败', {
+								offset: '15px',
+								icon: 2,
+								time: 3000
+							})
+						}
+					}
+				});
+				return false;
+			});
+
+      table.render({
+        height: 600,
+        url: "query/rotation/list",
+        page: true, //开启分页
+        elem: '#LAY_table_user',
         cols: [
           [ //表头
             {
@@ -136,20 +235,14 @@
               align: 'center',
               sort: true
             },{
-              field: 'name',
-              title: '图片',
-              width: 180,
-              align: 'center',
-              sort: true
-            },{
-              field: 'bank',
+              field: 'img_url',
               title: '链接',
-              width: 180,
+              width: 280,
               align: 'center',
               sort: true
             },
             {
-              field: 'min',
+              field: 'img_sort',
               title: '排序',
               align: 'center',
               width: 130,
@@ -157,92 +250,30 @@
               field: 'state',
               title: '状态',
               align: 'center',
-              width: 150
+              width: 150,
+              templet: function(d) {
+                if (d.state == 1) {
+                  return "开启";
+                }else if(d.state == "on"){
+                  return "开启";
+                }else{
+                  return "关闭";
+                }
+              },
             }, {
-              field: 'num',
+              field: 'created_at',
               title: '创建时间',
               align: 'center',
               width: 180
             },{
               fixed: 'right',
               title:"操作",
-              width: 150,
+              width: 180,
               align: 'center',
               toolbar: '#barDemo'
             }
           ]
-        ],data: [{
-            "id": "206"
-       ,"name": "图片1"
-      ,"bank": "htpps://www.baidu.com"
-      ,"min": "1"
-      ,"state": "已开启"
-      ,"num": "2016-03-05"
-    },{
-            "id": "206"
-       ,"name": "图片1"
-      ,"bank": "htpps://www.baidu.com"
-      ,"min": "1"
-      ,"state": "已开启"
-      ,"num": "2016-03-05"
-    },{
-            "id": "206"
-       ,"name": "图片1"
-      ,"bank": "htpps://www.baidu.com"
-      ,"min": "1"
-      ,"state": "已开启"
-      ,"num": "2016-03-05"
-    },{
-            "id": "206"
-       ,"name": "图片1"
-      ,"bank": "htpps://www.baidu.com"
-      ,"min": "1"
-      ,"state": "已开启"
-      ,"num": "2016-03-05"
-    },{
-            "id": "206"
-       ,"name": "图片1"
-      ,"bank": "htpps://www.baidu.com"
-      ,"min": "1"
-      ,"state": "已开启"
-      ,"num": "2016-03-05"
-    },{
-            "id": "206"
-       ,"name": "图片1"
-      ,"bank": "htpps://www.baidu.com"
-      ,"min": "1"
-      ,"state": "已开启"
-      ,"num": "2016-03-05"
-    },{
-            "id": "206"
-       ,"name": "图片1"
-      ,"bank": "htpps://www.baidu.com"
-      ,"min": "1"
-      ,"state": "已开启"
-      ,"num": "2016-03-05"
-    },{
-            "id": "206"
-       ,"name": "图片1"
-      ,"bank": "htpps://www.baidu.com"
-      ,"min": "1"
-      ,"state": "已开启"
-      ,"num": "2016-03-05"
-    },{
-            "id": "206"
-       ,"name": "图片1"
-      ,"bank": "htpps://www.baidu.com"
-      ,"min": "1"
-      ,"state": "已开启"
-      ,"num": "2016-03-05"
-    },{
-            "id": "206"
-       ,"name": "图片1"
-      ,"bank": "htpps://www.baidu.com"
-      ,"min": "1"
-      ,"state": "已开启"
-      ,"num": "2016-03-05"
-    },
-    ],
+        ],
         parseData: function(res) { //res 即为原始返回的数据
           console.log(res);
           return {
@@ -252,11 +283,10 @@
             "data": res.data //解析数据列表
           }
         },
-        toolbar: '#toolbarDemo',
-        title: '后台广告管理',
+        title: '后台用户',
         totalRow: true
 
-      });
+      }); 
 
 
       table.on('tool(test)', function(obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
@@ -264,18 +294,19 @@
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 
-        /*         if (layEvent === 'del') { //删除
+                 if (layEvent === 'del') { //删除
                   layer.confirm('真的删除行么', function(index) {
                     $.ajax({
-                      url: "{{url('/del/horse')}}",
-                      type: 'get',
+                      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                      url: "del/rotation/chart",
+                      type: 'post',                     
                       datatype: 'json',
                       data: {
-                        'id': data.f_id
+                        'id': data.id
                       }, //向服务端发送删除的id
                       success: function(res) {
                         console.log(res);
-                        if (res == '{"status":200}') {
+                        if (res.status == 200) {
                           obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                           layer.close(index);
                           console.log(index);
@@ -292,48 +323,28 @@
                     layer.close(index);
                     //向服务端发送删除指令
                   });
-                } else  */
+                } else  
         if (layEvent === 'edit') { //编辑
 
           layer.open({
             //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
             type: 1,
-            title: "编辑任务",
-            area: ['620px', '550px'],
+            title: "编辑轮播图",
+            area: ['620px', '650px'],
             content: $("#popUpdateTask") //引用的弹出层的页面层的方式加载修改界面表单
           });
-          // console.log(data);
-          form.val("updateTask", data);
+           //console.log(data);return false;
+          form.val("formUpdate", data);
           setFormValue(obj, data);
 
-          var openTakeaway = data.f_mission_state;
+/*           var openTakeaway = data.f_mission_state;
           console.log(openTakeaway);
           if (openTakeaway == 1) {
             $("#taskState").prop("checked", true);
           } else {
             $("#taskState").prop("checked", false);
-          }
+          } */
 
-          var openTakeawayTwo = data.f_mission_day_refresh;
-          if (openTakeawayTwo == 1) {
-            $("#taskRefresh").prop("checked", true);
-          } else {
-            $("#taskRefresh").prop("checked", false);
-          }
-
-          var stime = util.toDateString(data.f_mission_start_time * 1000, "yyyy-MM-dd HH:mm:ss");
-          var ctime = util.toDateString(data.f_mission_close_time * 1000, "yyyy-MM-dd HH:mm:ss");
-          laydate.render({ //日期时间选择器
-            elem: '#f_mission_start_time',
-            value: stime,
-            type: 'datetime'
-          });
-
-          laydate.render({
-            elem: '#f_mission_close_time',
-            value: ctime,
-            type: 'datetime'
-          });
 
           form.render();
         } else if (layEvent === 'LAYTABLE_TIPS') {
@@ -341,33 +352,23 @@
         }
       });
       //更新广告信息
-      //监听弹出框表单提交，massage是修改界面的表单数据'submit(demo11),是修改按钮的绑定
       function setFormValue(obj, data) {
-        form.on('submit(updateOneTask)', function(massage) {
-          massage.field.f_mission_id = data.f_mission_id;
-          if (massage.field.f_mission_day_refresh == "on") { //每日刷新
-            massage.field.f_mission_day_refresh = 1;
-          } else {
-            massage.field.f_mission_day_refresh = 2;
-          }
-
-          if (massage.field.f_mission_state == "on") { //任务状态
-            massage.field.f_mission_state = 1;
-          } else {
-            massage.field.f_mission_state = 2;
-          }
-          updateData = massage.field;
-          // console.log(updateData); return false;
+        form.on('submit(editChart)', function(massage) {
+          massage= massage.field; //console.log(massage);return false;
           $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: "{{url('/update/game/task')}}",
+            url: "update/rotation/chart",
             type: 'post',
-            data: updateData,
+            data: {
+              id: data.id,
+              img_sort:massage.img_sort,
+              state:massage.state
+            },
             success: function(msg) {
               console.log(msg);
-              if (msg == '{"status":200}') {
+              if (msg.status == 200) {
                 layer.closeAll('loading');
                 layer.load(2);
                 layer.msg("修改成功", {
@@ -375,10 +376,13 @@
                 });
                 setTimeout(function() {
 
+                  obj.update({
+                    img_sort:massage.img_sort,
+              state:massage.state
+                  }); //修改成功修改表格数据不进行跳转              
                   layer.closeAll(); //关闭所有的弹出层
-                  window.location.href = "/game/task-management";
 
-                }, 2000);
+                }, 1000);
 
               } else {
                 layer.msg("修改失败", {
@@ -389,7 +393,6 @@
           })
           return false;
         })
-
       }
 
     });

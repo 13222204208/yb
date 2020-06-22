@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>支付管理</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
 </head>
 
@@ -45,61 +46,67 @@
       <div class="layui-form-item">
         <label class="layui-form-label">持卡人</label>
         <div class="layui-input-block">
-          <input type="text" name="f_mission_content" required lay-verify="required" autocomplete="off" placeholder="持卡人姓名" value="" class="layui-input">
+          <input type="text" name="card_name" required lay-verify="required" autocomplete="off" placeholder="持卡人姓名" value="" class="layui-input">
         </div>
       </div>
 
       <div class="layui-form-item">
         <label class="layui-form-label">银行名称</label>
         <div class="layui-input-inline">
-          <select name="f_mission_event" required id="f_mission_event">
-            <option value="0">中国银行</option>
-            <option value="1">工商银行</option>
-            <option value="2">建设银行</option>
-            <option value="3">人民银行</option>
+          <select name="bank_name" required id="f_mission_event">
+            <option value="中国银行">中国银行</option>
+            <option value="工商银行">工商银行</option>
+            <option value="建设银行">建设银行</option>
+            <option value="人民银行">人民银行</option>
           </select>
         </div>
 
       </div>
       <div class="layui-form-item">
+        <label class="layui-form-label">开户行</label>
+        <div class="layui-input-block">
+          <input type="text" name="open_bank" required lay-verify="required" autocomplete="off" placeholder="开户行具体信息" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
         <label class="layui-form-label">卡号</label>
         <div class="layui-input-block">
-          <input type="number" name="f_mission_weight" required lay-verify="required" autocomplete="off" placeholder="请输入银行卡号" class="layui-input">
+          <input type="number" name="card_num" required lay-verify="required" autocomplete="off" placeholder="请输入银行卡号" class="layui-input">
         </div>
       </div>
 
       <div class="layui-form-item">
         <label class="layui-form-label">单笔最低充值</label>
         <div class="layui-input-block">
-          <input type="number" name="f_mission_weight" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+          <input type="number" name="min_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
         </div>
       </div>
 
       <div class="layui-form-item">
         <label class="layui-form-label">单笔最高充值</label>
         <div class="layui-input-block">
-          <input type="number" name="f_mission_weight" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+          <input type="number" name="max_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
         </div>
       </div>
 
       <div class="layui-form-item">
         <label class="layui-form-label">单日充值上限</label>
         <div class="layui-input-block">
-          <input type="number" name="f_mission_weight" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+          <input type="number" name="day_max_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
         </div>
       </div>
 
       <div class="layui-form-item">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-block">
-          <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="开启|关闭">
+          <input type="checkbox" checked="" name="state" lay-skin="switch" lay-filter="switchTest" lay-text="开启|关闭">
         </div>
       </div>
 
       <div class="layui-form-item">
         <label class="layui-form-label">今日充值金额</label>
         <div class="layui-input-block">
-          <input type="number" name="f_mission_weight" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+          <input type="number" name="day_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
         </div>
       </div>
      
@@ -108,7 +115,7 @@
       <div class="layui-form-item ">
         <div class="layui-input-block">
           <div class="layui-footer" style="left: 0;">
-            <button class="layui-btn" lay-submit="" lay-filter="createTask">绑定银行卡</button>
+            <button class="layui-btn" lay-submit="" lay-filter="createTask">确定</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
           </div>
         </div>
@@ -131,10 +138,6 @@
       var util = layui.util;
       var $ = layui.jquery;
 
-
-
-
-
       $(document).on('click', '#task-management', function() {
         layer.open({
           //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
@@ -145,11 +148,43 @@
         });
       });
 
+      form.on('submit(createTask)', function(data) {
+        console.log(data.field);
+        $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: "add/bank/card",
+          method: 'POST',
+          data: data.field,
+          dataType: 'json',
+          success: function(res) {
+            // console.log(res);
+            if (res.status == 200) {
+              layer.msg('新增成功', {
+                offset: '15px',
+                icon: 1,
+                time: 2000
+              }, function() {
+                location.href = 'bank-card';
+              })
+            } else if (res.status == 403) {
+              layer.msg('填写错误', {
+                offset: '15px',
+                icon: 2,
+                time: 3000
+              })
+            }
+          }
+        });
+        return false;
+      });
+
       //第一个实例
       table.render({
         elem: '#demo',
         height: 600,
-
+        url:'query/bank/card',
         page: true //开启分页
           ,
         cols: [
@@ -161,37 +196,37 @@
               align: 'center',
               sort: true
             },{
-              field: 'name',
+              field: 'card_name',
               title: '持卡人',
               width: 180,
               align: 'center',
               sort: true
             },{
-              field: 'bank',
+              field: 'bank_name',
               title: '银行',
               width: 180,
               align: 'center',
               sort: true
             },
             {
-              field: 'card',
+              field: 'card_num',
               title: '卡号',
               align: 'center',
               width: 220
             },
             {
-              field: 'min',
+              field: 'min_money',
               title: '单笔最低充值',
               align: 'center',
               width: 130,
             }, {
-              field: 'max',
+              field: 'max_money',
               title: '单笔最高充值',
               width: 130,
               align: 'center',
               sort: true
             }, {
-              field: 'full',
+              field: 'day_max_money',
               title: '单日充值上限',
               align: 'center',
               width: 130
@@ -201,7 +236,7 @@
               align: 'center',
               width: 150
             }, {
-              field: 'num',
+              field: 'day_money',
               title: '今日充值金额',
               align: 'center',
               width: 180
@@ -213,88 +248,7 @@
               toolbar: '#barDemo'
             }
           ]
-        ],data: [{
-            "id": "206"
-       ,"name": "李白"
-      ,"bank": "中国人民银行"
-      ,"card": "633333312321513"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李白"
-      ,"bank": "中国人民银行"
-      ,"card": "633333312321513"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李白"
-      ,"bank": "中国人民银行"
-      ,"card": "633333312321513"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李白"
-      ,"bank": "中国人民银行"
-      ,"card": "633333312321513"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李白"
-      ,"bank": "中国人民银行"
-      ,"card": "633333312321513"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李白"
-      ,"bank": "中国人民银行"
-      ,"card": "633333312321513"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李白"
-      ,"bank": "中国人民银行"
-      ,"card": "633333312321513"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },{
-            "id": "206"
-       ,"name": "李白"
-      ,"bank": "中国人民银行"
-      ,"card": "633333312321513"
-      ,"min": "1000"
-      ,"max": "1000000"
-      ,"full": "10000000"
-      ,"state": "开启"
-      ,"num": "10000"
-    },
-    ],
+        ],
         parseData: function(res) { //res 即为原始返回的数据
           console.log(res);
           return {

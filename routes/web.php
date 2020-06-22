@@ -116,10 +116,16 @@ Route::prefix('pay')->group(function () {
         return view('pay.pay-clear');
     });
 
+    Route::post('update/open/state','Pay\PayClearController@updateOpenState');//更新支付开放状态
+    Route::get('query/open/state','Pay\PayClearController@queryOpenState');//更新支付开放状态
+
     //银行卡
     Route::get('bank-card', function () {
         return view('pay.bank-card');
     });
+
+    Route::post('add/bank/card','Pay\BankCardController@addBankCard');//增加银行卡
+    Route::get('query/bank/card','Pay\BankCardController@queryBankCard');//银行卡列表
     
     //微信支付
     Route::get('wechat-pay', function () {
@@ -142,15 +148,32 @@ Route::prefix('system')->group(function () {
         return view('system.parameter-setting');
     });
 
+    Route::post('update/member/recharge','System\parameterSettingController@updateMemberRecharge');//更新会员充值
+    Route::get('query/member/recharge','System\parameterSettingController@queryMemberRecharge');//查看会员充值
+
+    Route::post('update/member/draw/money','System\parameterSettingController@updateDrawMoney');//更新会员提款
+    Route::get('query/member/draw/money','System\parameterSettingController@queryDrawMoney');//查看会员提款
+
     //后台帐号
     Route::get('background-account', function () {
         return view('system.background-account');
     });
+
+    Route::post('add/account','System\BackgroundAccountController@addAccount');//添加后台管理帐号
+    Route::get('query/account','System\BackgroundAccountController@queryAccount');//添加后台管理帐号
+    Route::get('query/account/{account_num}/','System\BackgroundAccountController@queryOneAccount');
+    Route::get('query/account/role/{role}','System\BackgroundAccountController@queryAccountRole');
+    Route::post('del/account','System\BackgroundAccountController@delAccount');//删除一个帐号
+    Route::post('update/account','System\BackgroundAccountController@updateAccount');//更新帐号信息
     
     //权限设置
     Route::get('permission-settings', function () {
         return view('system.permission-settings');
-    });     
+    });    
+    
+    Route::post('add/role','System\permissionSettingsController@addRole');//添加角色名称
+    Route::get('query/role','System\permissionSettingsController@queryRole');//查询角色名称
+    Route::post('add/role/scope','System\permissionSettingsController@addRoleScope');//编辑角色权限范围
     
 });
 
@@ -167,11 +190,16 @@ Route::prefix('activity')->group(function () {
     Route::get('activity-list', function () {
         return view('activity.activity-list');
     });
+    Route::get('query/activity/list','Activity\ActivityController@queryActivityList');//活动列表
+    Route::post('update/activity','Activity\ActivityController@updateActivity');//更新活动
+    Route::post('del/activity','Activity\ActivityController@delActivity');//更新活动
 
     //新增活动
     Route::get('add-activity', function () {
         return view('activity.add-activity');
     });
+    Route::post('upload/activity/img','Activity\ActivityController@uploadActivityImg');//上传活动图片
+    Route::post('create/activity','Activity\ActivityController@createActivity');//上传活动
     
     //申请列表
     Route::get('ask-list', function () {
@@ -188,10 +216,19 @@ Route::prefix('content')->group(function () {
         return view('content.rotation-chart');
     });
 
+    Route::post('/upload/rotation/img','Content\RotationChartController@uploadRotationImg');//上传轮播图片
+    Route::post('create/chart','Content\RotationChartController@createChart');//创建轮播图片
+    Route::get('query/rotation/list','Content\RotationChartController@queryRotationList');//轮播列表
+    Route::post('del/rotation/chart','Content\RotationChartController@delRotationChart');//删除一个轮播图
+    Route::post('update/rotation/chart','Content\RotationChartController@updateRotationChart');//更新一个轮播图
+
     //跑马灯
     Route::get('running-horse-lamp', function () {
         return view('content.running-horse-lamp');
     }); 
+
+    Route::post('create/running/horse','Content\RunningHorselampController@createRunHorse');//创建跑马灯
+    Route::get('query/running/horse','Content\RunningHorselampController@queryRunHorse');//查看跑马灯列表
     
 });
 
@@ -207,3 +244,7 @@ Route::get('feedback/feedback-list', function () {
    //反馈列表
     return view('feedback.feedback-list');
 });
+
+Route::get('feedback/query/feedback/list','Feedback\FeedbackListController@feedbackList');
+Route::post('feedback/agree','Feedback\FeedbackListController@feedbackAgree');
+Route::post('feedback/resuse','Feedback\FeedbackListController@feedbackResuse');

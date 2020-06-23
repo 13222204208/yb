@@ -108,7 +108,63 @@
   </div>
 
 
+  <div class="layui-row" id="updateWechat" style="display:none;">
+    <form class="layui-form layui-from-pane" required lay-verify="required" lay-filter="editWechat" style="margin:20px">
 
+      <div class="layui-form-item">
+        <label class="layui-form-label">二维码名称</label>
+        <div class="layui-input-block">
+          <input type="text" name="wechat_name" required lay-verify="required" autocomplete="off" placeholder="请输入二维码名称" value="" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">单笔最低充值</label>
+        <div class="layui-input-block">
+          <input type="number" name="min_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">单笔最高充值</label>
+        <div class="layui-input-block">
+          <input type="number" name="max_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">单日充值上限</label>
+        <div class="layui-input-block">
+          <input type="number" name="day_max_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block">
+          <input type="checkbox" checked="" name="state" lay-skin="switch" lay-filter="switchTest" lay-text="开启|关闭">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">今日充值金额</label>
+        <div class="layui-input-block">
+          <input type="number" name="day_money" required lay-verify="required" autocomplete="off" placeholder="请输入金额" class="layui-input">
+        </div>
+      </div>
+
+
+
+      <div class="layui-form-item ">
+        <div class="layui-input-block">
+          <div class="layui-footer" style="left: 0;">
+            <button class="layui-btn" lay-submit="" lay-filter="setWechatPay">确定</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 
 
 
@@ -347,12 +403,12 @@
           layer.open({
             //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
             type: 1,
-            title: "编辑轮播图",
-            area: ['620px', '650px'],
-            content: $("#popUpdateTask") //引用的弹出层的页面层的方式加载修改界面表单
+            title: "编辑",
+            area: ['620px', '600px'],
+            content: $("#updateWechat") //引用的弹出层的页面层的方式加载修改界面表单
           });
            //console.log(data);return false;
-          form.val("formUpdate", data);
+          form.val("editWechat", data);
           setFormValue(obj, data);
 
           form.render();
@@ -360,21 +416,18 @@
           layer.alert('Hi，头部工具栏扩展的右侧图标。');
         }
       });
-      //更新广告信息
+      
       function setFormValue(obj, data) {
-        form.on('submit(editChart)', function(massage) {
-          massage= massage.field; //console.log(massage);return false;
+        form.on('submit(setWechatPay)', function(massage) {
+          massage= massage.field; //
+          massage.id = data.id;
           $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: "update/rotation/chart",
+            url: "update/wechat",
             type: 'post',
-            data: {
-              id: data.id,
-              img_sort:massage.img_sort,
-              state:massage.state
-            },
+            data: massage,
             success: function(msg) {
               console.log(msg);
               if (msg.status == 200) {
@@ -386,12 +439,16 @@
                 setTimeout(function() {
 
                   obj.update({
-                    img_sort:massage.img_sort,
-              state:massage.state
+                    wechat_name:massage.wechat_name,
+                    min_money:massage.min_money,
+                    max_money:massage.max_money,
+                    day_max_money:massage.day_max_money,
+                    state:massage.state,
+                    day_money:massage.day_money
                   }); //修改成功修改表格数据不进行跳转              
                   layer.closeAll(); //关闭所有的弹出层
 
-                }, 1000);
+                }, 1500);
 
               } else {
                 layer.msg("修改失败", {

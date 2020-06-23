@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Pay;
 
-use App\Model\WechatPay;
+use App\Model\Alipay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-class WechatPayController extends Controller
+class AlipayController extends Controller
 {
-    public function uploadWechatImg(Request $request)
+    public function uploadAlipayImg(Request $request)
     {
         $file = $request->file('file');
-        $url_path = 'uploads\wechatImg'; //轮播图片目录
+        $url_path = 'uploads\alipayImg';
         $rule = ['jpg', 'png', 'gif', 'jpeg'];
         if ($file->isValid()) {
             $clientName = $file->getClientOriginalName();
@@ -24,7 +24,7 @@ class WechatPayController extends Controller
             }
             $newName = md5(date("Y-m-d H:i:s") . $clientName) . "." . $entension;
             $path = $file->move($url_path, $newName);
-            $url_path= "uploads/wechatImg";
+            $url_path= "uploads/alipayImg";
             $namePath = $url_path . '/' . $newName;
            
             if ($namePath) {
@@ -39,7 +39,7 @@ class WechatPayController extends Controller
 
     }
 
-    public function createWechatPay(Request $request)
+    public function createAlipay(Request $request)
     {
         if ($request->ajax()) {
             if ($request->state == "on") {
@@ -47,15 +47,15 @@ class WechatPayController extends Controller
             }else{
                 $state = 0;
             }
-            $wechat = new WechatPay;
-            $wechat->wechat_name = $request->wechat_name;
-            $wechat->wechat_url = $request->wechat_url;
-            $wechat->min_money = intval($request->min_money);
-            $wechat->max_money = intval($request->max_money);
-            $wechat->day_max_money = intval($request->day_max_money);
-            $wechat->state = intval($state);
-            $wechat->day_money = intval($request->day_money);
-            $status = $wechat->save();
+            $alipay = new Alipay;
+            $alipay->alipay_name = $request->alipay_name;
+            $alipay->alipay_url = $request->alipay_url;
+            $alipay->min_money = intval($request->min_money);
+            $alipay->max_money = intval($request->max_money);
+            $alipay->day_max_money = intval($request->day_max_money);
+            $alipay->state = intval($state);
+            $alipay->day_money = intval($request->day_money);
+            $status = $alipay->save();
 
             if ($status) {
                 return response()->json([ 'status' => 200]);
@@ -65,18 +65,18 @@ class WechatPayController extends Controller
         }
     }
 
-    public function queryWechat(Request $request)
+    public function queryAlipay(Request $request)
     {
         $limit = $request->get('limit');
-        $data = DB::table('bg_wechat_pay')->paginate($limit);
+        $data = DB::table('bg_alipay')->paginate($limit);
         return $data;
     }
 
-    public function delWechat(Request $request)
+    public function delAlipay(Request $request)
     {
         if ($request->ajax()) {
-            $wechat = WechatPay::find($request->id);
-            $status= $wechat->delete();
+            $alipay = Alipay::find($request->id);
+            $status= $alipay->delete();
 
             if ($status) {
                 return response()->json([ 'status' => 200]);
@@ -86,7 +86,7 @@ class WechatPayController extends Controller
         }
     }
 
-    public function updateWechat(Request $request)
+    public function updateAlipay(Request $request)
     {
         if ($request->ajax()) {
             if ($request->state == "on") {
@@ -94,14 +94,14 @@ class WechatPayController extends Controller
             }else{
                 $state = 0;
             }
-            $wechat = WechatPay::find($request->id);
-            $wechat->wechat_name = $request->wechat_name;
-            $wechat->min_money = intval($request->min_money);
-            $wechat->max_money = intval($request->max_money);
-            $wechat->day_max_money = intval($request->day_max_money);
-            $wechat->state = intval($state);
-            $wechat->day_money = intval($request->day_money);
-            $status = $wechat->save();
+            $alipay = Alipay::find($request->id);
+            $alipay->alipay_name = $request->alipay_name;
+            $alipay->min_money = intval($request->min_money);
+            $alipay->max_money = intval($request->max_money);
+            $alipay->day_max_money = intval($request->day_max_money);
+            $alipay->state = intval($state);
+            $alipay->day_money = intval($request->day_money);
+            $status = $alipay->save();
 
             if ($status) {
                 return response()->json([ 'status' => 200]);

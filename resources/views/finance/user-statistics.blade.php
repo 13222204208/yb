@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Layui</title>
+  <title>用户统计</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -25,133 +25,73 @@
 <script src="/layuiadmin/layui/layui.js"></script>
 
 <script>
-layui.use('table', function(){
+layui.use(['table','jquery'], function(){
   var table = layui.table;
-  
+  var $ = layui.jquery;
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
-/*     ,url: '/demo/table/user/' */
+    ,url: 'query/user/statistics' 
     ,cols: [[
-/*       {field:'id', title: 'ID', width:80, sort: true} */
-      {field:'username', title: '用户名', width:120}
-      ,{field:'cz', title: '真实姓名', width:120}
-      ,{field:'jl', title: '存款次数', width:120}
-      ,{field:'name', title: '存款总额', width:120}
-      ,{field:'phone', title: '提款次数',  width:160}
-      ,{field:'ip', title: '提款总额',  width:160}
-      ,{field:'zctime', title: '返水总额',sort: true, width:160}
-      ,{field:'dltime', title: '奖励总额', sort: true, width:160}
-      ,{field:'lxtime', title: '盈亏总额', sort: true, width:160}
+       {field:'id', title: 'ID', width:80, sort: true} 
+      ,{field:'username', title: '用户名', width:120}
+      ,{field:'true_name', title: '真实姓名', width:120}
+      ,{field:'deposit_num', title: '存款次数', width:120}
+      ,{field:'deposit_sum', title: '存款总额', width:120}
+      ,{field:'draw_money_num', title: '提款次数',  width:160}
+      ,{field:'draw_money_sum', title: '提款总额',  width:160}
+      ,{field:'backwater_sum', title: '返水总额',sort: true, width:160}
+      ,{field:'reward_sum', title: '奖励总额', sort: true, width:160}
+      ,{field:'profit_loss_sum', title: '盈亏总额', sort: true, width:160}
     ]]
-    ,data: [{
-      "username": "zhangsan"
-      ,"cz": "张三"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },{
-      "username": "zhangsan"
-      ,"cz": "张三"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },{
-      "username": "zhangsan"
-      ,"cz": "张三"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },{
-      "username": "zhangsan"
-      ,"cz": "张三"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },{
-      "username": "zhangsan"
-      ,"cz": "张三"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },{
-      "username": "zhangsan"
-      ,"cz": "张三"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },{
-      "username": "zhangsan"
-      ,"cz": "张三"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },{
-      "username": "zhangsan"
-      ,"cz": "张三"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },]
+    , parseData: function(res) { //res 即为原始返回的数据
+          return {
+            "code": '0', //解析接口状态
+            "msg": res.message, //解析提示文本
+            "count": res.total, //解析数据长度
+            "data": res.data //解析数据列表
+          }
+        }
     ,id: 'testReload'
     ,page: true
     ,height: 610
   });
-  
-  var $ = layui.$, active = {
-    reload: function(){
-      var demoReload = $('#demoReload');
-      
-      //执行重载
-      table.reload('testReload', {
-        page: {
-          curr: 1 //重新从第 1 页开始
-        }
-        ,where: {
-          key: {
-            id: demoReload.val()
+
+  $('.demoTable .layui-btn').on('click', function(){
+    var username = $('#demoReload').val();
+    table.render({
+    elem: '#LAY_table_user'
+    ,url: 'search/user/statistics' 
+    ,where:{
+      username:username
+    }
+    ,cols: [[
+       {field:'id', title: 'ID', width:80, sort: true} 
+      ,{field:'username', title: '用户名', width:120}
+      ,{field:'true_name', title: '真实姓名', width:120}
+      ,{field:'deposit_num', title: '存款次数', width:120}
+      ,{field:'deposit_sum', title: '存款总额', width:120}
+      ,{field:'draw_money_num', title: '提款次数',  width:160}
+      ,{field:'draw_money_sum', title: '提款总额',  width:160}
+      ,{field:'backwater_sum', title: '返水总额',sort: true, width:160}
+      ,{field:'reward_sum', title: '奖励总额', sort: true, width:160}
+      ,{field:'profit_loss_sum', title: '盈亏总额', sort: true, width:160}
+    ]]
+    , parseData: function(res) { //res 即为原始返回的数据
+          return {
+            "code": '0', //解析接口状态
+            "msg": res.message, //解析提示文本
+            "count": res.total, //解析数据长度
+            "data": res.data //解析数据列表
           }
         }
-      }, 'data');
-    }
-  };
-  
-  $('.demoTable .layui-btn').on('click', function(){
-    var type = $(this).data('type');
-    active[type] ? active[type].call(this) : '';
+    ,id: 'testReload'
+    ,page: true
+    ,height: 610
   });
+  });
+  
+
 });
 </script>
 

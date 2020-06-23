@@ -54,16 +54,27 @@ Route::prefix('finance')->group(function () {
     Route::get('recharge-application', function () {
         return view('finance.recharge-application');
     });
+    Route::get('query/recharge','Finance\RechargeController@queryRecharge');//获取申请列表
+    Route::post('agree/recharge','Finance\RechargeController@agreeRecharge');//同意申请
+    Route::post('resuse/recharge','Finance\RechargeController@resuseRecharge');//拒绝申请
+    Route::get('search/recharge','Finance\RechargeController@searchRecharge');//搜索
 
     //提款申请
     Route::get('withdrawal-applications', function () {
         return view('finance.withdrawal-applications');
     });
+    Route::get('query/withdrawal','Finance\WithdrawalController@queryWithdrawal');//获取提款申请列表
+    Route::post('agree/withdrawal','Finance\WithdrawalController@agreeWithdrawal');//同意申请
+    Route::post('resuse/withdrawal','Finance\WithdrawalController@resuseWithdrawal');//拒绝申请
+    Route::get('search/withdrawal','Finance\WithdrawalController@searchWithdrawal');//搜索
     
     //用户统计
     Route::get('user-statistics', function () {
         return view('finance.user-statistics');
     });   
+    Route::get('query/user/statistics','Finance\UserStatisticsController@queryUserStatistics');//用户统计
+    Route::get('search/user/statistics','Finance\UserStatisticsController@searchUserStatistics');//搜索用户
+
     
     //帐单统计
     Route::get('billing-statistics', function () {
@@ -107,6 +118,8 @@ Route::get('rebate/rebate-rate', function () {
    //返水等级
     return view('rebate.rebate-rate');
 });
+Route::post('rebate/create/rebate','Rebate\RebateRateController@createRebate');//新建返水
+Route::get('rebate/query/rebate','Rebate\RebateRateController@queryRebate');//返水列表
 
 //支付管理
 Route::prefix('pay')->group(function () {
@@ -137,11 +150,17 @@ Route::prefix('pay')->group(function () {
     Route::post('create/wechat/pay','Pay\WechatPayController@createWechatPay');//保存微信
     Route::get('query/wechat','Pay\WechatPayController@queryWechat');//微信列表
     Route::post('del/wechat','Pay\WechatPayController@delWechat');//删除一个微信
+    Route::post('update/wechat','Pay\WechatPayController@updateWechat');//更新一个微信
     
     //支付宝支付
     Route::get('alipay-pay', function () {
         return view('pay.alipay-pay');
-    });   
+    });
+    Route::post('upload/alipay/img','Pay\AlipayController@uploadAlipayImg');//上传支付宝二维码
+    Route::post('create/alipay','Pay\AlipayController@createAlipay');//保存支付宝
+    Route::get('query/alipay','Pay\AlipayController@queryAlipay');//支付宝列表
+    Route::post('del/alipay','Pay\AlipayController@delAlipay');//删除一个支付宝
+    Route::post('update/alipay','Pay\AlipayController@updateAlipay');//更新一个支付宝
     
 });
 

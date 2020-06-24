@@ -28,21 +28,31 @@ Route::prefix('user')->group(function () {
     Route::get('user-list', function () {
         return view('user.user-list');
     });
+    Route::get('query/user/list','User\UserListController@queryUserList');//获取用户列表
+    Route::get('search/user/list','User\UserListController@searchUserList');//搜索用户名
 
     //帐号操作
     Route::get('account-operation', function () {
         return view('user.account-operation');
     });
+    Route::post('search/user/nickname','User\AccountOperationController@searchUserNickname');//查询用户
+    Route::post('reset/user/phone','User\AccountOperationController@resetUserPhone');//重置手机号
+    Route::post('reset/user/password','User\AccountOperationController@resetUserPassword');//重置密码
+    Route::post('reset/user/take/password','User\AccountOperationController@resetUserTakePassword');//重置取款密码
+    Route::post('update/account/status','User\AccountOperationController@updateAccountStatus');//帐号封禁 
     
     //用户追踪
     Route::get('user-tracking', function () {
         return view('user.user-tracking');
     });   
+    Route::get('query/tracking','User\UserTrackingController@queryTracking');//查询用户追踪
+    Route::get('search/tracking','User\UserTrackingController@searchTracking');//搜索用户
     
     //流失统计
     Route::get('loss-statistics', function () {
         return view('user.loss-statistics');
     });   
+    Route::get('query/user/loss','User\LossStatisticsController@queryUserLoss');//流失统计
     
 });
 
@@ -100,16 +110,24 @@ Route::prefix('record')->group(function () {
     Route::get('betting-records', function () {
         return view('record.betting-records');
     });
+    Route::get('query/betting','Record\BettingController@queryBetting');//投注记录列表
+    Route::get('query/platform/name','Record\BettingController@queryPlatformName');//获取平台名字
+    Route::get('search/betting','Record\BettingController@searchBetting');//搜索
 
     //登录记录
     Route::get('login-record', function () {
         return view('record.login-record');
     });
+    Route::get('query/login/record','Record\LoginRecordController@queryLoginRecord');//查询登陆记录
+    Route::get('search/login/record','Record\LoginRecordController@searchLoginRecord');//搜索登陆记录
     
     //交易记录
     Route::get('transaction-records', function () {
         return view('record.transaction-records');
     });   
+    Route::get('query/transaction','Record\TransactionController@queryTransaction');//查询交易记录
+    Route::get('query/business/type','Record\TransactionController@queryBusinessType');//查询交易类型
+    Route::get('search/transaction','Record\TransactionController@searchTransaction');//搜索交易记录
     
 });
 
@@ -203,9 +221,20 @@ Route::prefix('system')->group(function () {
 });
 
 //平台管理
-Route::get('platform/platform-list', function () { 
-    //平台列表
-    return view('platform.platform-list');
+Route::prefix('platform')->group(function () {
+        Route::get('platform-list', function () { 
+            //平台列表
+            return view('platform.platform-list');
+        });
+        ROute::get('query/platform','Platform\PlatformListController@queryPlatform');//查看平台列表
+        ROute::post('update/platform','Platform\PlatformListController@updatePlatform');//编辑平台
+
+        Route::get('add-platform', function () { 
+            //添加平台
+            return view('platform.add-platform');
+        });
+        ROute::post('upload/platform/img','Platform\PlatformListController@uploadPlatformImg');//上传平台 入口图
+        ROute::post('create/platform','Platform\PlatformListController@createPlatform');//添加平台信息
 });
 
 //活动管理
@@ -230,7 +259,9 @@ Route::prefix('activity')->group(function () {
     Route::get('ask-list', function () {
         return view('activity.ask-list');
     });     
-    
+    Route::get('query/apply/list','Activity\ApplyActivityController@queryApplyList');//查看活动申请列表
+    Route::post('agree/apply/activity','Activity\ApplyActivityController@agreeApplyActivity');//同意活动申请
+    Route::post('resuse/apply/activity','Activity\ApplyActivityController@resuseApplyActivity');//拒绝活动申请
 });
 
 //内容管理

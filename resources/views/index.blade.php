@@ -198,7 +198,7 @@
               </a>
               <dl class="layui-nav-child">
                 <dd><a lay-href="platform/platform-list">平台列表</a></dd>
-  
+                <dd><a lay-href="platform/add-platform">添加平台</a></dd>
               </dl>
             </li>
 

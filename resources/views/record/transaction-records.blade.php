@@ -14,48 +14,53 @@
 </head>
 <body> 
  
-<div class="demoTable" style="margin:20px;">
-  查询用户或者订单号：
-  <div class="layui-inline">
-    <input class="layui-input" name="id" id="demoReload" autocomplete="off">
-  </div>
-  <button class="layui-btn" data-type="reload">查询</button>
-</div>
+<div class="mainTop layui-clear" style="margin:20px">
 
-<div class="mainTop layui-clear">
+<div class="fr">
+  <form class="layui-form layui-from-pane" required lay-verify="required" action="">
+    <div class="layui-form-item">
+      用户名：
+      <div class="layui-inline">
+        <input class="layui-input" name="username" autocomplete="off">
+      </div>
+      订单号:
+      <div class="layui-inline">
+        <input class="layui-input" name="order_num" autocomplete="off">
+      </div>
+      <div class="layui-inline">
+        <label class="layui-form-label">交易类型：</label>
+        <div class="layui-input-inline">
+          <select name="business_type"  class="select_wd120">
+            <option value="">全部</option>
+    
+          </select>
+        </div>
+      </div>
+      <div class="layui-inline">
+        <label class="layui-form-label">开始时间：</label>
+        <div class="layui-input-inline">
 
-    <div class="fr">
-        <form class="layui-form" action="">
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">交易类型：</label>
-                    <div class="layui-input-inline">
-                        <select name="city" lay-verify="required" class="select_wd120">
-                          <option value="">全部</option>
-                            <option value="0">存款</option>
-                            <option value="1">取款</option>
-                            <option value="2">奖励</option>
-                            <option value="3">返水</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">起止时间：</label>
-                    <div class="layui-input-inline">
-                        <input type="text" class="layui-input dateIcon" id="dateTime" placeholder="请选择时间范围"
-                               style="width: 240px;">
-                    </div>
-                    
-                </div>
-                <div class="layui-inline">
-                    <div class="layui-input-inline">
-                        <button type="button" class="layui-btn layui-btn-blue">搜索</button>
-                    </div>
-                </div>
-            </div>
+          <input type="text" name="startTime" class="layui-input" id="startTime" placeholder="yyyy-MM-dd HH:mm:ss">
+        </div>
 
-        </form>
+      </div>
+
+      <div class="layui-inline">
+        <label class="layui-form-label">结束时间：</label>
+        <div class="layui-input-inline">
+          <input type="text" class="layui-input" name="stopTime" id="stopTime" placeholder="yyyy-MM-dd HH:mm:ss">
+        </div>
+
+      </div>
+      <div class="layui-inline">
+        <div class="layui-input-inline">
+          <button type="button" class="layui-btn layui-btn-blue" lay-submit=""  lay-filter="search">搜索</button>
+        </div>
+      </div>
     </div>
+
+  </form>
+</div>
 </div>
  
 <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table> 
@@ -64,106 +69,136 @@
 <script src="/layuiadmin/layui/layui.js"></script>
 
 <script>
-layui.use(['table','laydate'], function(){
-  var table = layui.table;
-  var laydate = layui.laydate;
-  laydate.render({
-    elem: '#dateTime'
-    ,range: true
-  });
+    layui.use(['table', 'laydate', 'jquery', 'form'], function() {
+      var table = layui.table;
+      var laydate = layui.laydate;
+      var $ = layui.jquery;
+      var form = layui.form;
+
+      laydate.render({
+        elem: '#startTime',
+        type: 'datetime'
+      });
+      //日期时间范围
+      laydate.render({
+        elem: '#stopTime',
+        type: 'datetime',
+        max: getNowFormatDate()
+      });
+
+
+      function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month +
+          seperator1 + strDate + " " + date.getHours() + seperator2 +
+          date.getMinutes() + seperator2 + date.getSeconds();
+        return currentdate;
+      }
+
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "query/business/type",
+        method: 'get',
+        dataType: 'json',
+        success: function(res) {
+          status = res.status;
+          business_type = res.data; console.log(business_type);
+          if (status == 200) {
+            options = "<option value=''>全部</option>";
+            for (var i = 0; i < business_type.length; i++) {
+             // var business_type= business_type[i];
+
+              options += '<option value="' + business_type[i] + '">' + business_type[i] + '</option>';
+            }
+
+            $("select[name='business_type']").html(options);
+            form.render('select');
+          } else if (res.status == 403) {
+            layer.msg('错误', {
+              offset: '15px',
+              icon: 2,
+              time: 3000
+            })
+          }
+        }
+      });
+
+      form.on('submit(search)', function(data) {
+        var data = data.field;
+        console.log(data);
+        //return false;
+        table.render({
+        elem: '#LAY_table_user',
+        url: 'search/transaction',
+        where:{
+          order_num :data.order_num,
+          username :data.username,
+          business_type:data.business_type,
+          startTime:data.startTime,
+          stopTime:data.stopTime
+        },
+        cols: [[
+      {field:'id', title: 'ID', width:80, sort: true}
+      ,{field:'username', title: '用户名', width:150}
+      ,{field:'order_num', title: '订单号', width:220}
+      ,{field:'business_type', title: '交易类型', width:180}
+      ,{field:'business_money', title: '交易金额', width:120}
+      ,{field:'balance', title: '钱包余额', width:120}
+      ,{field:'ask_time', title: '申请时间',  width:260}
+      ,{field:'auditing_time', title: '审核时间',sort: true, width:260}
+    ]],
+        parseData: function(res) { //res 即为原始返回的数据
+          return {
+            "code": '0', //解析接口状态
+            "msg": res.message, //解析提示文本
+            "count": res.total, //解析数据长度
+            "data": res.data //解析数据列表
+          }
+        },
+        id: 'testReload',
+        page: true,
+      });
+        return false;
+      });
   
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
-/*     ,url: '/demo/table/user/' */
+  ,url: 'query/transaction'
     ,cols: [[
-
       {field:'id', title: 'ID', width:80, sort: true}
-      ,{field:'username', title: '用户名', width:120}
-      ,{field:'order', title: '订单号', width:120}
-      ,{field:'cz', title: '交易类型', width:120}
-      ,{field:'jl', title: '金额', width:120}
-      ,{field:'name', title: '钱包余额', width:260}
-      ,{field:'phone', title: '申请时间',  width:260}
-      ,{field:'zctime', title: '审核时间',sort: true, width:160}
+      ,{field:'username', title: '用户名', width:150}
+      ,{field:'order_num', title: '订单号', width:220}
+      ,{field:'business_type', title: '交易类型', width:180}
+      ,{field:'business_money', title: '交易金额', width:120}
+      ,{field:'balance', title: '钱包余额', width:120}
+      ,{field:'ask_time', title: '申请时间',  width:260}
+      ,{field:'auditing_time', title: '审核时间',sort: true, width:260}
 
     ]]
-    ,data: [{
-      "id": "10001"
-      ,"order": "12345678945"
-      ,"username": "杜甫"
-      ,"cz": "银行"
-      ,"jl": "60万"
-      ,"name": "50万"
-      ,"phone": "2018-10-14"
-      ,"zctime": "2016-10-14"
-    },{
-      "id": "10001"
-      ,"order": "12345678945"
-      ,"username": "杜甫"
-      ,"cz": "银行"
-      ,"jl": "60万"
-      ,"name": "50万"
-      ,"phone": "2018-10-14"
-      ,"zctime": "2016-10-14"
-    },{
-      "id": "10001"
-      ,"order": "12345678945"
-      ,"username": "杜甫"
-      ,"cz": "银行"
-      ,"jl": "60万"
-      ,"name": "50万"
-      ,"phone": "2018-10-14"
-      ,"zctime": "2016-10-14"
-    },{
-      "id": "10001"
-      ,"order": "12345678945"
-      ,"username": "杜甫"
-      ,"cz": "银行"
-      ,"jl": "60万"
-      ,"name": "50万"
-      ,"phone": "2018-10-14"
-      ,"zctime": "2016-10-14"
-    },{
-      "id": "10001"
-      ,"order": "12345678945"
-      ,"username": "杜甫"
-      ,"cz": "银行"
-      ,"jl": "60万"
-      ,"name": "50万"
-      ,"phone": "2018-10-14"
-      ,"zctime": "2016-10-14"
-    },{
-      "id": "10001"
-      ,"order": "12345678945"
-      ,"username": "杜甫"
-      ,"cz": "银行"
-      ,"jl": "60万"
-      ,"name": "50万"
-      ,"phone": "2018-10-14"
-      ,"zctime": "2016-10-14"
-    },{
-      "id": "10001"
-      ,"order": "12345678945"
-      ,"username": "杜甫"
-      ,"cz": "银行"
-      ,"jl": "60万"
-      ,"name": "50万"
-      ,"phone": "2018-10-14"
-      ,"zctime": "2016-10-14"
-    },{
-      "id": "10001"
-      ,"order": "12345678945"
-      ,"username": "杜甫"
-      ,"cz": "银行"
-      ,"jl": "60万"
-      ,"name": "50万"
-      ,"phone": "2018-10-14"
-      ,"zctime": "2016-10-14"
-    },]
+    ,parseData: function(res) { //res 即为原始返回的数据
+              return {
+                "code": '0', //解析接口状态
+                "msg": res.message, //解析提示文本
+                "count": res.total, //解析数据长度
+                "data": res.data //解析数据列表
+              }
+            }
     ,id: 'testReload'
     ,page: true
-    ,height: 610
+   
   });
   
   var $ = layui.$, active = {

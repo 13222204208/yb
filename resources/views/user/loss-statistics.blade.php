@@ -23,60 +23,35 @@ layui.use('table', function(){
   
   table.render({
     elem: '#test'
- /*    ,url:'/demo/table/user/' */
+    ,url:'query/user/loss' 
     ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
     ,cols: [[
       {field:'id', width:80, title: 'ID', sort: true}
       ,{field:'username', width:140, title: '用户名'}
-      ,{field:'day', width:180, title: '流失天数', sort: true}
-      ,{field:'time', width:180, title: '最后登录时间'}
+      ,{field:'login_time', width:180, title: '流失天数', sort: true,
+        templet: function(d) {
+          var timestamp = Date.parse(new Date()) /1000 ;
+          var timeDate = d.login_time;
+          var Time = new Date(timeDate);
+          var logintime = Time.getTime()/1000;
+          var day = parseInt((parseInt(timestamp)-parseInt(logintime))/3600/24);
+          return day+"天";
+              }
+      
+      }
+      ,{field:'login_time', width:180, title: '最后登录时间'}
 
-    ]],data: [{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"day": "十五天"
-      ,"time": "2020-05-03 18:30"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"day": "十五天"
-      ,"time": "2020-05-03 18:30"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"day": "十五天"
-      ,"time": "2020-05-03 18:30"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"day": "十五天"
-      ,"time": "2020-05-03 18:30"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"day": "十五天"
-      ,"time": "2020-05-03 18:30"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"day": "十五天"
-      ,"time": "2020-05-03 18:30"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"day": "十五天"
-      ,"time": "2020-05-03 18:30"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"day": "十五天"
-      ,"time": "2020-05-03 18:30"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"day": "十五天"
-      ,"time": "2020-05-03 18:30"
-    },]
+    ]],parseData: function(res) { //res 即为原始返回的数据
+          return {
+            "code": '0', //解析接口状态
+            "msg": res.message, //解析提示文本
+            "count": res.total, //解析数据长度
+            "data": res.data //解析数据列表
+          }
+        }
+    ,id: 'testReload'
+    ,page: true
+    
   });
 });
 </script>

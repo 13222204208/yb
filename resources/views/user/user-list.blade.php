@@ -12,7 +12,7 @@
 <body> 
  
 <div class="demoTable" style="margin:20px;">
-  搜索帐号：
+  搜索用户名：
   <div class="layui-inline">
     <input class="layui-input" name="id" id="demoReload" autocomplete="off">
   </div>
@@ -25,138 +25,94 @@
 <script src="/layuiadmin/layui/layui.js"></script>
 
 <script>
-layui.use('table', function(){
+layui.use(['table','jquery'], function(){
   var table = layui.table;
-  
+  var $ = layui.jquery;
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
-/*     ,url: '/demo/table/user/' */
+    ,url: 'query/user/list' 
     ,cols: [[
 
       {field:'id', title: 'ID', width:80, sort: true}
       ,{field:'username', title: '用户名', width:120}
-      ,{field:'cz', title: '充值帐户', width:120}
-      ,{field:'jl', title: '奖励帐户', width:120}
-      ,{field:'name', title: '真实姓名', width:120}
+      ,{field:'recharge_account', title: '充值帐户', width:120}
+      ,{field:'reward_account', title: '奖励帐户', width:120}
+      ,{field:'true_name', title: '真实姓名', width:120}
       ,{field:'phone', title: '手机号',  width:160}
-      ,{field:'ip', title: '注册IP',  width:160}
-      ,{field:'zctime', title: '注册时间',sort: true, width:160}
-      ,{field:'dltime', title: '上次登录时间', sort: true, width:160}
-      ,{field:'lxtime', title: '上次离线时间', sort: true, width:160}
-      ,{field:'zx', title: '是否在线', sort: true, width:135}
+      ,{field:'register_ip', title: '注册IP',  width:160}
+      ,{field:'register_time', title: '注册时间',sort: true, width:160}
+      ,{field:'login_time', title: '上次登录时间', sort: true, width:160}
+      ,{field:'off_time', title: '上次离线时间', sort: true, width:160}
+      ,{field:'state', title: '是否在线', sort: true, width:135,
+        templet: function(d) {
+                if (d.state === 0) {
+                  return "离线";
+                }else if(d.state === 1){
+                  return "在线";
+                }else{
+                  return "未知";
+                }
+              }
+      }
     ]]
-    ,data: [{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"cz": "xianxin@layui.com"
-      ,"jl": "yangpp"
-      ,"name": "浙江"
-      ,"phone": "132222333333"
-      ,"ip": "192.168.0.8"
-      ,"zctime": "2016-10-14"
-      ,"dltime": "2016-10-14"
-      ,"lxtime": "2016-10-14"
-      ,"zx": "在线"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"cz": "xianxin@layui.com"
-      ,"jl": "yangpp"
-      ,"name": "浙江"
-      ,"phone": "132222333333"
-      ,"ip": "192.168.0.8"
-      ,"zctime": "2016-10-14"
-      ,"dltime": "2016-10-14"
-      ,"lxtime": "2016-10-14"
-      ,"zx": "在线"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"cz": "xianxin@layui.com"
-      ,"jl": "yangpp"
-      ,"name": "浙江"
-      ,"phone": "132222333333"
-      ,"ip": "192.168.0.8"
-      ,"zctime": "2016-10-14"
-      ,"dltime": "2016-10-14"
-      ,"lxtime": "2016-10-14"
-      ,"zx": "在线"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"cz": "xianxin@layui.com"
-      ,"jl": "yangpp"
-      ,"name": "浙江"
-      ,"phone": "132222333333"
-      ,"ip": "192.168.0.8"
-      ,"zctime": "2016-10-14"
-      ,"dltime": "2016-10-14"
-      ,"lxtime": "2016-10-14"
-      ,"zx": "在线"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"cz": "xianxin@layui.com"
-      ,"jl": "yangpp"
-      ,"name": "浙江"
-      ,"phone": "132222333333"
-      ,"ip": "192.168.0.8"
-      ,"zctime": "2016-10-14"
-      ,"dltime": "2016-10-14"
-      ,"lxtime": "2016-10-14"
-      ,"zx": "在线"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"cz": "xianxin@layui.com"
-      ,"jl": "yangpp"
-      ,"name": "浙江"
-      ,"phone": "132222333333"
-      ,"ip": "192.168.0.8"
-      ,"zctime": "2016-10-14"
-      ,"dltime": "2016-10-14"
-      ,"lxtime": "2016-10-14"
-      ,"zx": "在线"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"cz": "xianxin@layui.com"
-      ,"jl": "yangpp"
-      ,"name": "浙江"
-      ,"phone": "132222333333"
-      ,"ip": "192.168.0.8"
-      ,"zctime": "2016-10-14"
-      ,"dltime": "2016-10-14"
-      ,"lxtime": "2016-10-14"
-      ,"zx": "在线"
-    },]
+    , parseData: function(res) { //res 即为原始返回的数据
+          return {
+            "code": '0', //解析接口状态
+            "msg": res.message, //解析提示文本
+            "count": res.total, //解析数据长度
+            "data": res.data //解析数据列表
+          }
+        }
     ,id: 'testReload'
     ,page: true
     ,height: 610
   });
   
-  var $ = layui.$, active = {
-    reload: function(){
-      var demoReload = $('#demoReload');
-      
-      //执行重载
-      table.reload('testReload', {
-        page: {
-          curr: 1 //重新从第 1 页开始
-        }
-        ,where: {
-          key: {
-            id: demoReload.val()
+  $('.demoTable .layui-btn').on('click', function(){
+    var username = $('#demoReload').val();
+    console.log(username);
+    table.render({
+    elem: '#LAY_table_user'
+    ,url: 'search/user/list' 
+    ,where:{
+      username:username
+    }
+    ,cols: [[
+      {field:'id', title: 'ID', width:80, sort: true}
+      ,{field:'username', title: '用户名', width:120}
+      ,{field:'recharge_account', title: '充值帐户', width:120}
+      ,{field:'reward_account', title: '奖励帐户', width:120}
+      ,{field:'true_name', title: '真实姓名', width:120}
+      ,{field:'phone', title: '手机号',  width:160}
+      ,{field:'register_ip', title: '注册IP',  width:160}
+      ,{field:'register_time', title: '注册时间',sort: true, width:160}
+      ,{field:'login_time', title: '上次登录时间', sort: true, width:160}
+      ,{field:'off_time', title: '上次离线时间', sort: true, width:160}
+      ,{field:'state', title: '是否在线', sort: true, width:135,
+        templet: function(d) {
+                if (d.state === 0) {
+                  return "离线";
+                }else if(d.state === 1){
+                  return "在线";
+                }else{
+                  return "未知";
+                }
+              }
+      }
+    ]]
+    , parseData: function(res) { //res 即为原始返回的数据
+          return {
+            "code": '0', //解析接口状态
+            "msg": res.message, //解析提示文本
+            "count": res.total, //解析数据长度
+            "data": res.data //解析数据列表
           }
         }
-      }, 'data');
-    }
-  };
-  
-  $('.demoTable .layui-btn').on('click', function(){
-    var type = $(this).data('type');
-    active[type] ? active[type].call(this) : '';
+    ,id: 'testReload'
+    ,page: true
+    ,height: 610
+  });
   });
 });
 </script>

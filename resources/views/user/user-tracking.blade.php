@@ -25,99 +25,64 @@
 <script src="/layuiadmin/layui/layui.js"></script>
 
 <script>
-layui.use('table', function(){
+layui.use(['table','jquery'], function(){
   var table = layui.table;
-  
+  var $= layui.jquery;
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
-/*     ,url: '/demo/table/user/' */
+   ,url: 'query/tracking'
     ,cols: [[
       
       {field:'id', title: 'ID', width:80, sort: true}
       ,{field:'username', title: '用户名', width:120}
-      ,{field:'ip', title: '登录IP',  width:160}
-      ,{field:'pt', title: '在玩平台', width:120}
-      ,{field:'yx', title: '在玩游戏及房间号', width:180}
-
-     
-
-    ]]
-    ,data: [{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"ip": "192.168.0.8"
-      ,"pt": "多玩"
-      ,"yx": "天龙八部第八号房间"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"ip": "192.168.0.8"
-      ,"pt": "多玩"
-      ,"yx": "天龙八部第八号房间"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"ip": "192.168.0.8"
-      ,"pt": "多玩"
-      ,"yx": "天龙八部第八号房间"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"ip": "192.168.0.8"
-      ,"pt": "多玩"
-      ,"yx": "天龙八部第八号房间"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"ip": "192.168.0.8"
-      ,"pt": "多玩"
-      ,"yx": "天龙八部第八号房间"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"ip": "192.168.0.8"
-      ,"pt": "多玩"
-      ,"yx": "天龙八部第八号房间"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"ip": "192.168.0.8"
-      ,"pt": "多玩"
-      ,"yx": "天龙八部第八号房间"
-    },{
-      "id": "10001"
-      ,"username": "杜甫"
-      ,"ip": "192.168.0.8"
-      ,"pt": "多玩"
-      ,"yx": "天龙八部第八号房间"
-    },]
-    ,id: 'testReload'
-    ,page: true
-    ,height: 610
-  });
-  
-  var $ = layui.$, active = {
-    reload: function(){
-      var demoReload = $('#demoReload');
-      
-      //执行重载
-      table.reload('testReload', {
-        page: {
-          curr: 1 //重新从第 1 页开始
-        }
-        ,where: {
-          key: {
-            id: demoReload.val()
+      ,{field:'login_ip', title: '登录IP',  width:160}
+      ,{field:'platform_name', title: '在玩平台', width:180}
+      ,{field:'game_name', title: '在玩游戏', width:180}
+      ,{field:'room_num', title: '房间号', width:180}
+    ]],
+    parseData: function(res) { //res 即为原始返回的数据
+          return {
+            "code": '0', //解析接口状态
+            "msg": res.message, //解析提示文本
+            "count": res.total, //解析数据长度
+            "data": res.data //解析数据列表
           }
         }
-      }, 'data');
-    }
-  };
+    ,id: 'testReload'
+    ,page: true
+  });
+  
   
   $('.demoTable .layui-btn').on('click', function(){
-    var type = $(this).data('type');
-    active[type] ? active[type].call(this) : '';
+    var username = $('#demoReload').val();
+    table.render({
+    elem: '#LAY_table_user'
+   ,url: 'search/tracking'
+   ,where:{
+     username:username
+   }
+    ,cols: [[
+      
+      {field:'id', title: 'ID', width:80, sort: true}
+      ,{field:'username', title: '用户名', width:120}
+      ,{field:'login_ip', title: '登录IP',  width:160}
+      ,{field:'platform_name', title: '在玩平台', width:180}
+      ,{field:'game_name', title: '在玩游戏', width:180}
+      ,{field:'room_num', title: '房间号', width:180}
+    ]],
+    parseData: function(res) { //res 即为原始返回的数据
+          return {
+            "code": '0', //解析接口状态
+            "msg": res.message, //解析提示文本
+            "count": res.total, //解析数据长度
+            "data": res.data //解析数据列表
+          }
+        }
+    ,id: 'testReload'
+    ,page: true
+    ,height:600
+  });
   });
 });
 </script>

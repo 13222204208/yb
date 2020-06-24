@@ -14,42 +14,47 @@
 </head>
 <body> 
  
-<div class="demoTable" style="margin:20px;">
-  查询用户：
-  <div class="layui-inline">
-    <input class="layui-input" name="id" id="demoReload" autocomplete="off">
-  </div>
-  <button class="layui-btn" data-type="reload">查询</button>
-</div>
+<div class="mainTop layui-clear" style="margin:20px">
 
-<div class="mainTop layui-clear">
+<div class="fr">
+  <form class="layui-form layui-from-pane" required lay-verify="required" action="">
+    <div class="layui-form-item">
+      用户名：
+      <div class="layui-inline">
+        <input class="layui-input" name="username" autocomplete="off">
+      </div>
 
-    <div class="fr">
-        <form class="layui-form" action="">
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">登陆IP：</label>
-                    <div class="layui-input-inline">
-                        <input class="layui-input" name="ip" id="login-ip" placeholder="请填写登录IP" autocomplete="off">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">起止时间：</label>
-                    <div class="layui-input-inline">
-                        <input type="text" class="layui-input dateIcon" id="dateTime" placeholder="请选择时间范围"
-                               style="width: 240px;">
-                    </div>
-                    
-                </div>
-                <div class="layui-inline">
-                    <div class="layui-input-inline">
-                        <button type="button" class="layui-btn layui-btn-blue">搜索</button>
-                    </div>
-                </div>
-            </div>
+      登陆IP：
+      <div class="layui-inline">
+        <input class="layui-input" name="login_ip" autocomplete="off">
+      </div>
 
-        </form>
+  
+      <div class="layui-inline">
+        <label class="layui-form-label">开始时间：</label>
+        <div class="layui-input-inline">
+
+          <input type="text" name="startTime" class="layui-input" id="startTime" placeholder="yyyy-MM-dd HH:mm:ss">
+        </div>
+
+      </div>
+
+      <div class="layui-inline">
+        <label class="layui-form-label">结束时间：</label>
+        <div class="layui-input-inline">
+          <input type="text" class="layui-input" name="stopTime" id="stopTime" placeholder="yyyy-MM-dd HH:mm:ss">
+        </div>
+
+      </div>
+      <div class="layui-inline">
+        <div class="layui-input-inline">
+          <button type="button" class="layui-btn layui-btn-blue" lay-submit=""  lay-filter="search">搜索</button>
+        </div>
+      </div>
     </div>
+
+  </form>
+</div>
 </div>
  
 <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table> 
@@ -58,87 +63,95 @@
 <script src="/layuiadmin/layui/layui.js"></script>
 
 <script>
-layui.use(['table','laydate'], function(){
-  var table = layui.table;
-  var laydate = layui.laydate;
-  laydate.render({
-    elem: '#dateTime'
-    ,range: true
-  });
+ layui.use(['table', 'laydate', 'jquery', 'form'], function() {
+      var table = layui.table;
+      var laydate = layui.laydate;
+      var $ = layui.jquery;
+      var form = layui.form;
+      laydate.render({
+        elem: '#startTime',
+        type: 'datetime',
+        max: getNowFormatDate()
+      });
+      //日期时间范围
+      laydate.render({
+        elem: '#stopTime',
+        type: 'datetime',
+        max: getNowFormatDate()
+      });
+
+
+      function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month +
+          seperator1 + strDate + " " + date.getHours() + seperator2 +
+          date.getMinutes() + seperator2 + date.getSeconds();
+        return currentdate;
+      }
+
   
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
-/*     ,url: '/demo/table/user/' */
+     ,url: 'query/login/record'
     ,cols: [[
-      {field:'username', title: '用户名', width:200}
-      ,{field:'ip', title: '登陆IP', width:220}
-      ,{field:'zctime', title: '登陆时间',sort: true, width:260}
+      {field:'id', title: 'ID', width:80}
+      ,{field:'username', title: '用户名', width:200}
+      ,{field:'login_ip', title: '登陆IP', width:220}
+      ,{field:'updated_at', title: '登陆时间',sort: true, width:260}
     ]]
-    ,data: [{
-      "username": "杜甫"
-      ,"ip": "192.168.1.1"
-      ,"zctime": "2016-10-14"
-    },{
-      "username": "杜甫"
-      ,"ip": "192.168.1.1"
-      ,"zctime": "2016-10-14"
-    },{
-      "username": "杜甫"
-      ,"ip": "192.168.1.1"
-      ,"zctime": "2016-10-14"
-    },{
-      "username": "杜甫"
-      ,"ip": "192.168.1.1"
-      ,"zctime": "2016-10-14"
-    },{
-      "username": "杜甫"
-      ,"ip": "192.168.1.1"
-      ,"zctime": "2016-10-14"
-    },{
-      "username": "杜甫"
-      ,"ip": "192.168.1.1"
-      ,"zctime": "2016-10-14"
-    },{
-      "username": "杜甫"
-      ,"ip": "192.168.1.1"
-      ,"zctime": "2016-10-14"
-    },{
-      "username": "杜甫"
-      ,"ip": "192.168.1.1"
-      ,"zctime": "2016-10-14"
-    },{
-      "username": "杜甫"
-      ,"ip": "192.168.1.1"
-      ,"zctime": "2016-10-14"
-    },]
+    ,parseData: function(res) { //res 即为原始返回的数据
+              return {
+                "code": '0', //解析接口状态
+                "msg": res.message, //解析提示文本
+                "count": res.total, //解析数据长度
+                "data": res.data //解析数据列表
+              }
+            }
     ,id: 'testReload'
     ,page: true
-    ,height: 610
   });
-  
-  var $ = layui.$, active = {
-    reload: function(){
-      var demoReload = $('#demoReload');
-      
-      //执行重载
-      table.reload('testReload', {
-        page: {
-          curr: 1 //重新从第 1 页开始
+  form.on('submit(search)', function(data) {
+        var data = data.field;
+        console.log(data); 
+        table.render({
+        elem: '#LAY_table_user'
+        ,url: 'search/login/record'
+        ,where:{
+          login_ip :data.login_ip,
+          username :data.username,
+          startTime:data.startTime,
+          stopTime:data.stopTime
         }
-        ,where: {
-          key: {
-            id: demoReload.val()
-          }
-        }
-      }, 'data');
-    }
-  };
-  
-  $('.demoTable .layui-btn').on('click', function(){
-    var type = $(this).data('type');
-    active[type] ? active[type].call(this) : '';
-  });
+        ,cols: [[
+      {field:'id', title: 'ID', width:80}
+      ,{field:'username', title: '用户名', width:200}
+      ,{field:'login_ip', title: '登陆IP', width:220}
+      ,{field:'updated_at', title: '登陆时间',sort: true, width:260}
+    ]]
+        ,parseData: function(res) { //res 即为原始返回的数据
+              return {
+                "code": '0', //解析接口状态
+                "msg": res.message, //解析提示文本
+                "count": res.total, //解析数据长度
+                "data": res.data //解析数据列表
+              }
+            }
+        ,id: 'testReload'
+        ,page: true
+      });
+        return false;
+      });
 });
 </script>
 

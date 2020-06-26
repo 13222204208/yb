@@ -21,6 +21,12 @@ Route::get('home/homepage', function () {
    
     return view('home.homepage');
 });
+Route::get('home/query/today/betting/records','Home\HomePageController@todayBettingRecords');//今日投注
+Route::get('home/query/today/recharge/records','Home\HomePageController@todayRechargeRecords');//今日存款
+Route::get('home/query/today/withdrawal/records','Home\HomePageController@todayWithdrawalRecords');//今日提款
+Route::get('home/query/today/award/records','Home\HomePageController@todayAwardRecords');//发放奖励
+Route::get('home/query/today/register/user','Home\HomePageController@todayRegisterUser');//今日注册会员
+Route::get('home/query/year/register/user','Home\HomePageController@yearRegisterUser');//今年注册会员
 
 //用户管理
 Route::prefix('user')->group(function () {

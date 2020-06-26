@@ -10,7 +10,7 @@ $factory->define(Withdrawal::class, function (Faker $faker) {
     return [
         'order_num'=>$faker->shuffle('123456789abcdefghijk'),
         'username'=>$faker->phoneNumber,
-        'draw_money'=>$faker->randomNumber(5, true),
+        'draw_money'=>$faker->randomNumber(4, true),
         'make_card'=>$faker->creditCardNumber,
         'account_holder'=>$faker->name('female'),
         'bank_holder'=> $faker->creditCardType,

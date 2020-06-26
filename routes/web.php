@@ -27,6 +27,11 @@ Route::get('home/query/today/withdrawal/records','Home\HomePageController@todayW
 Route::get('home/query/today/award/records','Home\HomePageController@todayAwardRecords');//发放奖励
 Route::get('home/query/today/register/user','Home\HomePageController@todayRegisterUser');//今日注册会员
 Route::get('home/query/year/register/user','Home\HomePageController@yearRegisterUser');//今年注册会员
+Route::get('home/query/year/cash/flow','Home\HomePageController@yearCashFlow');//今年资金流动
+Route::get('home/query/year/betting/records','Home\HomePageController@yearBettingRecords');//今年平台下注情况
+Route::get('home/query/money/switch/control','Home\HomePageController@moneySwitchControl');//转帐监控
+Route::get('home/query/money/rollout/control','Home\HomePageController@moneyRolloutControl');//转出监控
+Route::get('home/query/same/ip','Home\HomePageController@sameIp');//相同ip下登入的会员帐号
 
 //用户管理
 Route::prefix('user')->group(function () {

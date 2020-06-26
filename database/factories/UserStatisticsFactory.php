@@ -10,11 +10,13 @@ $factory->define(UserStatistics::class, function (Faker $faker) {
         'username'=>$faker->phoneNumber,
         'true_name'=>$faker->name('female'),
         'deposit_num'=>$faker->randomNumber(3, true),
-        'deposit_sum'=>$faker->randomNumber(7, true),
-        'draw_money_num'=>$faker->randomNumber(3, true),
-        'draw_money_sum'=>$faker->randomNumber(7, true),
+        'deposit_sum'=>$faker->randomNumber(4, true),
+        'draw_money_num'=>$faker->randomNumber(2, true),
+        'draw_money_sum'=>$faker->randomNumber(4, true),
+        'backwater_num'=>$faker->randomNumber(2, true),
         'backwater_sum'=>$faker->randomNumber(6, true),
-        'reward_sum'=>$faker->randomNumber(6, true),
-        'profit_loss_sum'=>$faker->randomNumber(6, true),
+        'reward_num'=>$faker->randomNumber(2, true),
+        'reward_sum'=>$faker->randomNumber(4, true),
+        'profit_loss_sum'=>$faker->randomNumber(4, true),
     ];
 });

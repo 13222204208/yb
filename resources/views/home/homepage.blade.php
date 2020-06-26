@@ -183,42 +183,7 @@
 
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>127.0.0.1</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>127.0.0.1</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>127.0.0.1</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>127.0.0.1</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>127.0.0.1</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>127.0.0.1</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>127.0.0.1</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
+                <tbody id="repeatIP">
                   <tr>
                     <td><span class="first">yangpanda</span></td>
                     <td><span>127.0.0.1</span></td>
@@ -232,66 +197,25 @@
 
         <div class="layui-col-sm4">
           <div class="layui-card">
-            <div class="layui-card-header">转帐监控(统计大额转入转出的会员帐号)</div>
+            <div class="layui-card-header">转帐监控(统计大额转入的会员帐号)</div>
             <div class="layui-card-body">
               <table class="layui-table layuiadmin-page-table" lay-skin="line">
                 <thead>
                   <tr>
                     <th>帐号</th>
                     <th>转入金额</th>
-                    <th>转出金额</th>
                     <th>时间</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="moneySwitch">
                   <tr>
                     <td><span class="first">yangpanda</span></td>
                     <td><span>100万</span></td>
                     <td><span>80万</span></td>
                     <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
                   </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>100万</span></td>
-                    <td><span>80万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>100万</span></td>
-                    <td><span>80万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>100万</span></td>
-                    <td><span>80万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>100万</span></td>
-                    <td><span>80万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>100万</span></td>
-                    <td><span>80万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>100万</span></td>
-                    <td><span>80万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>100万</span></td>
-                    <td><span>80万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
+         
+            
                 </tbody>
               </table>
             </div>
@@ -311,47 +235,13 @@
                     <th>转出时间</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="moneyRollout">
                   <tr>
                     <td><span class="first">yangpanda</span></td>
                     <td><span>60万</span></td>
                     <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
                   </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>60万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>60万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>60万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>60万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>60万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>60万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
-                  <tr>
-                    <td><span class="first">yangpanda</span></td>
-                    <td><span>60万</span></td>
-                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
-                  </tr>
+                
                 </tbody>
               </table>
             </div>
@@ -488,6 +378,95 @@
         }
       });
 
+
+      $.ajax({ //转帐监控大于八万
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "query/money/switch/control",
+        method: 'get',
+        dataType: 'json',
+        success: function(res) {
+          data= res.data;
+          if (res.status == 200) {
+            options ="";
+            for (let i = 0; i < data.length; i++) {
+              options += '<tr>'+
+                  '<td><span class="first">'+data[i].username+'</span></td>'+
+                  '<td><span>'+data[i].recharge_money+'</span></td>'+
+                  '<td><i class="layui-icon layui-icon-log">'+data[i].remit_time+'</i></td>'+
+                  '</tr>'
+            }
+            $("#moneySwitch").html(options);
+          } else if (res.status == 403) {
+            layer.msg('错误', {
+              offset: '15px',
+              icon: 2,
+              time: 3000
+            })
+          }
+        }
+      });
+
+      $.ajax({ //频繁转出的会员帐号
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "query/money/rollout/control",
+        method: 'get',
+        dataType: 'json',
+        success: function(res) {
+          data= res.data;
+          if (res.status == 200) {
+            options ="";
+            for (let i = 0; i < data.length; i++) {
+              options += '<tr>'+
+                  '<td><span class="first">'+data[i].username+'</span></td>'+
+                  '<td><span>'+data[i].draw_money+'</span></td>'+
+                  '<td><i class="layui-icon layui-icon-log">'+data[i].ask_time+'</i></td>'+
+                  '</tr>'
+            }
+            $("#moneyRollout").html(options);
+          } else if (res.status == 403) {
+            layer.msg('错误', {
+              offset: '15px',
+              icon: 2,
+              time: 3000
+            })
+          }
+        }
+      });
+
+      $.ajax({ //相同IP下登入的会员帐号
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "query/same/ip",
+        method: 'get',
+        dataType: 'json',
+        success: function(res) {
+          
+          data= res.data;/* console.log(data);return false; */
+          if (res.status == 200) {
+            options ="";
+            for (let i = 0; i < data.length; i++) {
+              options += '<tr>'+
+                  '<td><span class="first">'+data[i].username+'</span></td>'+
+                  '<td><span>'+data[i].login_ip+'</span></td>'+
+                  '<td><i class="layui-icon layui-icon-log">'+data[i].created_at+'</i></td>'+
+                  '</tr>'
+            }
+            $("#repeatIP").html(options);
+          } else if (res.status == 403) {
+            layer.msg('错误', {
+              offset: '15px',
+              icon: 2,
+              time: 3000
+            })
+          }
+        }
+      });
+
       $.ajax({ //统计今年注册人数
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -502,11 +481,9 @@
           if (res.status == 200) {
             arr = [];
             peo = [];
-            for (let i = 0; i < data.length; i++) {
-              arr.push(data[i].date);
-            }
             
             for (let i = 0; i < data.length; i++) {
+              arr.push(data[i].date);
               peo.push(data[i].value);
             }
 
@@ -558,12 +535,34 @@
       });
 
 
-      //资金流动趋势
+      $.ajax({ //资金流动趋势
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "query/year/cash/flow",
+        method: 'get',
+        dataType: 'json',
+        success: function(res) {
+            data= res.data;
+          if (res.status == 200) {
+            date = [];
+            deposit = [];
+            draw_money =[];
+            reward = [];
+            
+            for (let i = 0; i < data.length; i++) {
+              date.push(data[i].date);
+              deposit.push(data[i].deposit);
+              draw_money.push(data[i].draw_money);
+              reward.push(data[i].reward);
+            }
+
+               //资金流动趋势
       var myChart = echarts.init(document.getElementById('cityChart'));
       // 指定图表的配置项和数据
       var option = {
         title: {
-          text: '万元'
+          text: '元'
         },
         tooltip: {
           trigger: 'axis'
@@ -585,7 +584,7 @@
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+          data: date
         },
         yAxis: {
           type: 'value',
@@ -595,19 +594,19 @@
             name: "存款",
             color: 'green',
             type: "line",
-            data: [320, 232, 201, 234, 390, 430, 410, 201, 234, 390, 430, 410]
+            data: deposit
           },
           {
             name: "提款",
             type: "line",
             color: 'red',
-            data: [220, 182, 191, 234, 290, 330, 310, 191, 234, 290, 330, 310]
+            data: draw_money
           },
           {
             name: "奖励",
             color: 'yellow',
             type: "line",
-            data: [150, 232, 201, 154, 190, 330, 410, 201, 154, 190, 330, 410]
+            data: reward
           }
         ]
       };
@@ -615,18 +614,51 @@
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option, true);
 
-      //平台下注概况
+
+          } else if (res.status == 403) {
+            layer.msg('错误', {
+              offset: '15px',
+              icon: 2,
+              time: 3000
+            })
+          }
+        }
+      });
+
+      $.ajax({ //平台下注情况
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "query/year/betting/records",
+        method: 'get',
+        dataType: 'json',
+        success: function(res) {
+          option_data_selected= res;
+          console.log(option_data_selected);
+          var new_series=new Array();
+            var legend_data = new Array();
+            var date = new Array;
+            for(var x1 in option_data_selected){
+                var new_series_per_obj=new Object();
+                new_series_per_obj.name=x1;
+                new_series_per_obj.type='line';
+                new_series_per_obj.data=option_data_selected[x1]['bottom'];
+                new_series.push(new_series_per_obj);
+                legend_data.push(new_series_per_obj.name);
+                date=option_data_selected[x1]['date'];
+            }
+  
       var myChart = echarts.init(document.getElementById('bottom-pour'));
       // 指定图表的配置项和数据
       var option = {
         title: {
-          text: '万元'
+          text: '元'
         },
         tooltip: {
           trigger: 'axis'
         },
         legend: {
-          data: ["平台1", "平台2", "平台3"]
+          data: legend_data
         },
         grid: {
           left: '3%',
@@ -642,35 +674,36 @@
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+          data: date
         },
         yAxis: {
           type: 'value',
           name: '金额'
         },
-        series: [{
-            name: "平台1",
-            color: 'green',
-            type: "line",
-            data: [320, 232, 201, 234, 390, 430, 410, 201, 234, 390, 430, 410]
-          },
-          {
-            name: "平台2",
-            type: "line",
-            color: 'red',
-            data: [220, 182, 191, 234, 290, 330, 310, 191, 234, 290, 330, 310]
-          },
-          {
-            name: "平台3",
-            color: 'yellow',
-            type: "line",
-            data: [150, 232, 201, 154, 190, 330, 410, 201, 154, 190, 330, 410]
-          }
-        ]
+        series: new_series
       };
 
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option, true);
+/*           if (res.status == 200) {
+            date = [];
+            platform = [];
+            bottom =[];
+            
+            for (let i = 0; i < data.length; i++) {
+              platform.push(data[i]);
+            }
+            console.log(platform);
+          } else if (res.status == 403) {
+            layer.msg('错误', {
+              offset: '15px',
+              icon: 2,
+              time: 3000
+            })
+          } */
+        }
+      });
+
     });
   </script>
 </body>

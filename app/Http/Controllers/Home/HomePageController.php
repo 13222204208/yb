@@ -114,4 +114,91 @@ class HomePageController extends Controller
             return response()->json(['status'=>403]);
         } 
     }
+
+    public function yearCashFlow()
+    {
+        $time=Carbon::now()->toDateString();
+        $subtime = Carbon::now()->subYears(1);
+         $data = UserStatistics::whereBetween('created_at',[$subtime,$time])
+         ->selectRaw('DATE_FORMAT(created_at,"%Y-%m") as date,SUM(deposit_sum) as deposit,SUM(draw_money_sum) as draw_money,SUM(reward_sum) as reward')
+         ->groupBy('date')->get();
+
+        if (!is_null($data)) {
+            return response()->json(['status'=>200,'data'=>$data]);
+        }else{
+            return response()->json(['status'=>403]);
+        } 
+    }
+
+    public function yearBettingRecords()
+    {
+        $time=Carbon::now()->toDateString();
+        $subtime = Carbon::now()->subYears(1);
+         $datas = Betting::whereBetween('bottom_pour_time',[$subtime,$time])
+       //  ->selectRaw('DATE_FORMAT(bottom_pour_time,"%Y-%m") as date,SUM(bottom_pour) as bottom')
+         ->select(DB::raw('DATE_FORMAT(bottom_pour_time,"%Y-%m") as date ,SUM(bottom_pour) as bottom ,platform_name') )
+         ->groupBy('platform_name','date')->get();
+
+ 
+        $result = array();
+        foreach ($datas as $data) {//把字段值相同的平台名称值拼装成 一个数组
+            isset($result[$data['platform_name']]) || $result[$data['platform_name']] = array();
+            $result[$data['platform_name']]['bottom'][] = $data['bottom'];
+            $result[$data['platform_name']]['date'][] = $data['date'];
+        }
+        return $result;
+
+        if (!is_null($data)) {
+            return response()->json(['status'=>200,'data'=>$result]);
+        }else{
+            return response()->json(['status'=>403]);
+        } 
+    }
+
+    public function moneySwitchControl()
+    {
+        $data = Recharge::where('recharge_money','>',80000)->where('state',1)->get();
+        if(!is_null($data)){
+            return response()->json(['status'=>200,'data'=>$data]);
+        }else{
+            return response()->json(['status'=>403]);
+        } 
+    }
+
+    public function moneyRolloutControl()
+    {
+        $data = Withdrawal::where('draw_money','>',80000)->where('state',1)->get();
+        if(!is_null($data)){
+            return response()->json(['status'=>200,'data'=>$data]);
+        }else{
+            return response()->json(['status'=>403]);
+        } 
+    }
+
+    public function sameIp()
+    {
+       /*  $data = Betting::groupBy('login_ip')->having('count(login_ip)','>',2) 
+        ->get(); */
+
+            $datas = DB::table('bg_betting')
+                ->select('login_ip')
+                ->groupBy('login_ip')
+                ->havingRaw('count(login_ip) > 1')
+                ->get()->map(function ($value) {
+                    return (array)$value;
+                })->toArray();
+
+                $result = array();
+                foreach($datas as $data){
+                    $result[]= $data['login_ip'];
+                }
+                
+          $ipData = Betting::whereIn('login_ip',$result)->get();
+           
+        if(!is_null($ipData)){
+            return response()->json(['status'=>200,'data'=>$ipData]);
+        }else{
+            return response()->json(['status'=>403]);
+        }  
+    }
 }

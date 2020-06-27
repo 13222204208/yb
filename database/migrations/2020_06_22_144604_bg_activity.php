@@ -28,6 +28,7 @@ class BgActivity extends Migration
             $table->integer('award_num')->comment('活动奖励的金额');
             $table->string('activity_describe',600)->default('')->comment('活动的描述');
             $table->integer('activity_state')->default(1)->comment('活动状态1为开启 0为关闭');
+            $table->timestamps();
         });
     }
 

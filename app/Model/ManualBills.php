@@ -4,8 +4,8 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Activity extends Model
+class ManualBills extends Model
 {
-    protected $table = 'bg_activity';
+    protected $table = 'bg_manual_bills';
     protected $guarded = [];
 }

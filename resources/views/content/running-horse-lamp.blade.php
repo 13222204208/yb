@@ -201,12 +201,16 @@
 					success: function(res) {
 						console.log(res);
 						if (res.status == 200) {
-							layer.msg('保存成功', {
+              layer.msg('保存成功', {
 								offset: '15px',
 								icon: 1,
 								time: 3000
 							});
-              layer.closeAll(); 
+              setTimeout(function() {
+          
+layer.closeAll(); //关闭所有的弹出层
+location.href="running-horse-lamp";
+}, 2000);
 						} else {
 							console.log(res);
 							layer.msg('保存失败', {

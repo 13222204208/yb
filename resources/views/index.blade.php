@@ -41,14 +41,12 @@
         </ul>
         <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
           
-          <li class="layui-nav-item" lay-unselect>
+<!--           <li class="layui-nav-item" lay-unselect>
             <a lay-href="app/message/index" layadmin-event="message" lay-text="消息中心">
               <i class="layui-icon layui-icon-notice"></i>  
-              
-              <!-- 如果有新消息，则显示小圆点 -->
               <span class="layui-badge-dot"></span>
             </a>
-          </li>
+          </li> -->
           <li class="layui-nav-item layui-hide-xs" lay-unselect>
             <a href="javascript:;" layadmin-event="theme">
               <i class="layui-icon layui-icon-theme"></i>
@@ -66,15 +64,20 @@
           </li>
           <li class="layui-nav-item" lay-unselect>
             <a href="javascript:;">
-              <cite>贤心</cite>
+              <cite>{{session('nickname')}}</cite>
             </a>
             <dl class="layui-nav-child">
-              <dd><a lay-href="set/user/info">基本资料</a></dd>
-              <dd><a lay-href="set/user/password">修改密码</a></dd>
+              <dd><a lay-href="bguser/basic/document">基本资料</a></dd>
+              <dd><a lay-href="bguser/password">修改密码</a></dd>
               <hr>
-              <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+              <dd layadmin-event="" style="text-align: center;" ><a onclick="logout()">退出</a></dd>
             </dl>
           </li>
+          <script>
+              function logout(){
+                top.location.href="/logout";
+              }
+          </script>
           
           <li class="layui-nav-item layui-hide-xs" lay-unselect>
             <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>
@@ -84,6 +87,45 @@
           </li>
         </ul>
       </div>
+
+      <div class="layui-row" id="popUpdateTest" style="display:none;">
+    <form class="layui-form layui-from-pane" required lay-verify="required" lay-filter="formUpdate" style="margin:20px">
+
+
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">名称</label>
+        <div class="layui-input-block">
+          <input type="text" name="nickname" required lay-verify="required" autocomplete="off" placeholder="" value="" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">角色</label>
+        <div class="layui-input-block">
+          <select name="role" lay-filter="aihao">
+
+          </select>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block">
+          <input type="text" name="state"  autocomplete="off" placeholder="" value="" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item ">
+        <div class="layui-input-block">
+          <div class="layui-footer" style="left: 0;">
+            <button class="layui-btn" lay-submit="" lay-filter="editAccount">修改</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
       
       <!-- 侧边菜单 -->
       <div class="layui-side layui-side-menu">
@@ -291,10 +333,14 @@
   <script src="/layuiadmin/layui/layui.js"></script>
   <script>
   layui.config({
-    base: '../layuiadmin/' //静态资源所在路径
+    base: '/layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use('index');
+  }).use(['index']),function(){
+     
+
+    
+  };
   </script>
 </body>
 </html>

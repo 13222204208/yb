@@ -32,149 +32,52 @@ layui.use('table', function(){
   
   table.render({
     elem: '#test'
- /*    ,url:'/demo/table/user/' */
+   ,url:'query/manual/bills'
     ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
     ,cols: [[
       {field:'time', width:180, title: '时间', sort: true}
-      ,{field:'type', width:140, title: '交易类型'}
-      ,{field:'card', width:180, title: '银行卡号'}
-      ,{field:'ren', width:120, title: '操作人'}
-      ,{field:'content', width:320, title: '备注'}
+      ,{field:'business_type', width:140, title: '交易类型'}
+      ,{field:'bank_card', width:180, title: '银行卡号'}
+      ,{field:'operation', width:120, title: '操作人'}
+      ,{field:'remarks', width:320, title: '备注'}
 
-    ]],data: [{
-      "time": "2020-05-03 18:30"
-      ,"type": "银行转帐"
-      ,"card": "645678946546546"
-      ,"ren": "管理员"
-      ,"content": "床前明月光，一二三四王，上山打老虎"
-    },{
-      "time": "2020-05-03 18:30"
-      ,"type": "银行转帐"
-      ,"card": "645678946546546"
-      ,"ren": "管理员"
-      ,"content": "床前明月光，一二三四王，上山打老虎"
-    },{
-      "time": "2020-05-03 18:30"
-      ,"type": "银行转帐"
-      ,"card": "645678946546546"
-      ,"ren": "管理员"
-      ,"content": "床前明月光，一二三四王，上山打老虎"
-    },{
-      "time": "2020-05-03 18:30"
-      ,"type": "银行转帐"
-      ,"card": "645678946546546"
-      ,"ren": "管理员"
-      ,"content": "床前明月光，一二三四王，上山打老虎"
-    },{
-      "time": "2020-05-03 18:30"
-      ,"type": "银行转帐"
-      ,"card": "645678946546546"
-      ,"ren": "管理员"
-      ,"content": "床前明月光，一二三四王，上山打老虎"
-    },{
-      "time": "2020-05-03 18:30"
-      ,"type": "银行转帐"
-      ,"card": "645678946546546"
-      ,"ren": "管理员"
-      ,"content": "床前明月光，一二三四王，上山打老虎"
-    },{
-      "time": "2020-05-03 18:30"
-      ,"type": "银行转帐"
-      ,"card": "645678946546546"
-      ,"ren": "管理员"
-      ,"content": "床前明月光，一二三四王，上山打老虎"
-    },]
+    ]],parseData: function(res) { //res 即为原始返回的数据
+          return {
+            "code": '0', //解析接口状态
+            "msg": res.message, //解析提示文本
+            "count": res.total, //解析数据长度
+            "data": res.data //解析数据列表
+          }
+        }
+    ,id: 'testReload'
+    ,page: true
   });
 
   table.render({
     elem: '#billing'
-/*     ,url: '/demo/table/user/' */
+     ,url: 'query/bill/statistics' 
     ,cols: [[
 /*       {field:'id', title: 'ID', width:80, sort: true} */
-      {field:'username', title: '充值次数', width:120}
-      ,{field:'cz', title: '充值总额', width:120}
-      ,{field:'phone', title: '提款次数',  width:160}
-      ,{field:'ip', title: '提款总额',  width:160}
-      ,{field:'jl', title: '奖励次数', width:120}
-      ,{field:'dltime', title: '奖励总额', sort: true, width:160}
-      ,{field:'name', title: '返水次数', width:120}
-      ,{field:'zctime', title: '返水总额',sort: true, width:160}
-      ,{field:'lxtime', title: '本期收益', sort: true, width:160}
+      {field:'deposit_num', title: '充值次数', width:120}
+      ,{field:'deposit_sum', title: '充值总额', width:120}
+      ,{field:'draw_money_num', title: '提款次数',  width:160}
+      ,{field:'draw_money_sum', title: '提款总额',  width:160}
+      ,{field:'reward_num', title: '奖励次数', width:120}
+      ,{field:'reward_sum', title: '奖励总额', sort: true, width:160}
+      ,{field:'backwater_num', title: '返水次数', width:120}
+      ,{field:'backwater_sum', title: '返水总额',sort: true, width:160}
+      ,{field:'profit_loss_sum', title: '本期收益', sort: true, width:160}
     ]]
-    ,data: [{
-      "username": "13"
-      ,"cz": "15606"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },{
-      "username": "13"
-      ,"cz": "15606"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },{
-      "username": "13"
-      ,"cz": "15606"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },{
-      "username": "13"
-      ,"cz": "15606"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },{
-      "username": "13"
-      ,"cz": "15606"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },{
-      "username": "13"
-      ,"cz": "15606"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },{
-      "username": "13"
-      ,"cz": "15606"
-      ,"jl": "23"
-      ,"name": "234234"
-      ,"phone": "11"
-      ,"ip": "19218"
-      ,"zctime": "1234"
-      ,"dltime": "6541"
-      ,"lxtime": "12356"
-    },]
+    ,parseData: function(res) { //res 即为原始返回的数据
+          return {
+            "code": '0', //解析接口状态
+            "msg": res.message, //解析提示文本
+            "count": res.total, //解析数据长度
+            "data": res.data //解析数据列表
+          }
+        }
     ,id: 'testReload'
     ,page: true
-    ,height: 610
   });
 });
 </script>

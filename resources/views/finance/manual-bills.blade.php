@@ -5,6 +5,7 @@
   <title>Layui</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
@@ -21,7 +22,7 @@
                     <div class="layui-inline">
                       <label class="layui-form-label">时间</label>
                       <div class="layui-input-inline">
-                        <input type="text" class="layui-input" id="datetime" placeholder="yyyy-MM-dd HH:mm:ss">
+                        <input type="text" name="time" class="layui-input" id="datetime" placeholder="yyyy-MM-dd HH:mm:ss">
                       </div>
                     </div>
                   </div>
@@ -29,12 +30,12 @@
               <div class="layui-form-item">
                 <label class="layui-form-label">交易类型</label>
                 <div class="layui-input-block">
-                  <select name="f_weights" required lay-verify="required">
-                    <option value="0">存款</option>
-                    <option value="3">提款</option>
-                    <option value="2">奖励</option>
-                    <option value="1">返水</option>
-                    <option value="4">其它</option>
+                  <select name="business_type" required lay-verify="required">
+                    <option value="存款">存款</option>
+                    <option value="提款">提款</option>
+                    <option value="奖励">奖励</option>
+                    <option value="返水">返水</option>
+                    <option value="其它">其它</option>
                   </select>
                 </div>
               </div>
@@ -42,21 +43,21 @@
               <div class="layui-form-item">
                 <label class="layui-form-label">银行卡号</label>
                 <div class="layui-input-block">
-                  <input type="number" name="title" required  lay-verify="required" placeholder="平台对应的发生交易所用的银行卡号" autocomplete="off" class="layui-input">
+                  <input type="number" name="bank_card" required  lay-verify="required" placeholder="平台对应的发生交易所用的银行卡号" autocomplete="off" class="layui-input">
                 </div>
               </div>
 
               <div class="layui-form-item">
                 <label class="layui-form-label">操作人</label>
                 <div class="layui-input-block">
-                  <input type="text" name="title" required  lay-verify="required" placeholder="平台系统用户" autocomplete="off" class="layui-input">
+                  <input type="text" name="operation" required  lay-verify="required" placeholder="平台系统用户" autocomplete="off" class="layui-input">
                 </div>
               </div>
     
               <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">备注</label>
                 <div class="layui-input-block">
-                  <textarea name="f_text" required placeholder="请输入内容" class="layui-textarea"></textarea>
+                  <textarea name="remarks" required placeholder="请输入内容" class="layui-textarea"></textarea>
                 </div>
               </div>  
               
@@ -93,27 +94,6 @@
         
         form.render(null, 'component-form-group');
     
-        laydate.render({
-          elem: '#LAY-component-form-start-time',
-          type: 'time'
-        });
-    
-        laydate.render({
-          elem: '#LAY-component-form-over-time',
-          type: 'time'
-        });
-        
-        laydate.render({
-          elem: '#LAY-component-form-start-date',
-          type: 'date'
-        });
-    
-        laydate.render({
-          elem: '#LAY-component-form-over-date',
-          type: 'date'
-        });
-        
-    
         
         /* 监听提交 */
         form.on('submit(component-form-demo1)', function(data){
@@ -123,22 +103,20 @@
                             headers: {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
-                                url: "{{url('add/horse')}}",
+                                url: "add/manual/bills",
                                 method: 'POST',
                                 data: data,
                                 success: function(res) {
                                     console.log(res);
-                                    if (res == '{"status":200}') {
+                                    if (res.status == 200) {
                                     layer.msg('添加成功',{
                                         offset: '15px',
                                         icon: 1,
                                         time: 3000
-                                    }, function(){
-                                        location.href= "{{url('/create/horse')}}";
                                     })
                                     }else{
-                                        console.log(res);
-                                    layer.msg('添加失败,日期间隔必须大于一天或等于一天',{
+                                     
+                                    layer.msg('添加失败',{
                                         offset: '15px',
                                         icon: 2,
                                         time: 3000

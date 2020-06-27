@@ -40,7 +40,6 @@
       });
 
       table.render({
-        height: 600,
         url: "query/feedback/list",
         page: true, //开启分页
         elem: '#LAY_table_user',

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
    
@@ -13,8 +13,25 @@ Route::get('login', function () {
    
     return view('login.login');
 });
-
 Route::post('login/login','Login\LoginController@login');//后台登录验证
+
+//后台登录
+Route::get('/logout', function (Request $request) {
+    $request->session()->flush();
+    return redirect('login');
+});
+
+//后台用户基本资料
+Route::get('bguser/basic/document', function () { 
+    return view('bguser.basic-document');
+});
+Route::get('bguser/basic/query/bguser/basic/document','BgUser\BasicDocumentController@basicDocument');//获取后台用户基本资料
+
+//修改后台用户密码
+Route::get('bguser/password', function () { 
+    return view('bguser.password');
+});
+Route::post('bguser/set/mypass','BgUser\BasicDocumentController@setMypass');//修改后台用户密码
 
 //后台主页
 Route::get('home/homepage', function () {
@@ -106,11 +123,15 @@ Route::prefix('finance')->group(function () {
     Route::get('manual-bills', function () {
         return view('finance.manual-bills');
     });
+    Route::post('add/manual/bills','Finance\ManualBillsController@addManualBills');//添加人工帐单
+    Route::get('query/manual/bills','Finance\BillingStatisticsController@queryManualBills');//查看本期帐单
+    Route::get('query/bill/statistics','Finance\BillingStatisticsController@queryBillStatistics');//查看帐单统计
     
     //历史帐单
     Route::get('historical-billing', function () {
         return view('finance.historical-billing');
     });    
+    Route::get('del/historical/bill','Finance\BillingStatisticsController@delHistoricalBill');//删除帐单统计
     
 });
 
@@ -304,6 +325,7 @@ Route::get('news/inside-the-station', function () {
    //站内信
     return view('news.inside-the-station');
 });
+Route::post('news/send/news','News\SendNewsController@sendNews');
 
 
 //反馈管理

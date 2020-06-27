@@ -1,9 +1,9 @@
 <?php
 
-use App\Model\Feedback;
+use App\Model\Activity;
 use Illuminate\Database\Seeder;
 
-class FeedbackTableSeeder extends Seeder
+class ActivityTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class FeedbackTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Feedback::class, 100)->create();
+        factory(Activity::class, 100)->create();
     }
 }

@@ -1,23 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
 Route::get('/', function () {
-   
+
     return view('index');
 })->middleware('adminLogin');
 
 //后台登录
 Route::get('login', function () {
-   
+
     return view('login.login');
 });
-Route::get('/admin/code','Login\LoginController@adminLogin');//后台登录验证码
+Route::get('admin/code','Login\LoginController@adminLogin');//后台登录验证码
 Route::post('login/login','Login\LoginController@login');//后台登录验证
 
 //后台登录
-Route::get('/logout', function (Request $request) {
+Route::get('logout', function (Illuminate\Http\Request $request) {
     $request->session()->flush();
     return redirect('login');
 });
@@ -338,3 +337,8 @@ Route::get('feedback/feedback-list', function () {
 Route::get('feedback/query/feedback/list','Feedback\FeedbackListController@feedbackList');
 Route::post('feedback/agree','Feedback\FeedbackListController@feedbackAgree');
 Route::post('feedback/resuse','Feedback\FeedbackListController@feedbackResuse');
+
+Route::get('404', function () {
+
+    return view('404');
+});

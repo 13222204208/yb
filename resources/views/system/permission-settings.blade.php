@@ -50,17 +50,17 @@
     <div class="layui-form-item">
       <label class="layui-form-label">权限范围</label>
       <div class="layui-input-block">
-        <input type="checkbox" name="limits[]" lay-skin="primary" title="用户管理" value="用户管理">
-        <input type="checkbox" name="limits[]" lay-skin="primary" title="财务管理" value="财务管理">
-        <input type="checkbox" name="limits[]" lay-skin="primary" title="记录查询" value="记录查询">
-        <input type="checkbox" name="limits[]" lay-skin="primary" title="返水管理" value="返水管理">
-        <input type="checkbox" name="limits[]" lay-skin="primary" title="支付管理" value="支付管理">
-        <input type="checkbox" name="limits[]" lay-skin="primary" title="系统管理" value="系统管理">
-        <input type="checkbox" name="limits[]" lay-skin="primary" title="平台管理" value="平台管理">
-        <input type="checkbox" name="limits[]" lay-skin="primary" title="活动管理" value="活动管理">
-        <input type="checkbox" name="limits[]" lay-skin="primary" title="内容管理" value="内容管理">
-        <input type="checkbox" name="limits[]" lay-skin="primary" title="消息管理" value="消息管理">
-        <input type="checkbox" name="limits[]" lay-skin="primary" title="反馈管理" value="反馈管理">
+        <input type="checkbox" name="limits[]" lay-skin="primary" title="用户管理" value="user">
+        <input type="checkbox" name="limits[]" lay-skin="primary" title="财务管理" value="finance">
+        <input type="checkbox" name="limits[]" lay-skin="primary" title="记录查询" value="record">
+        <input type="checkbox" name="limits[]" lay-skin="primary" title="返水管理" value="rebate">
+        <input type="checkbox" name="limits[]" lay-skin="primary" title="支付管理" value="pay">
+        <input type="checkbox" name="limits[]" lay-skin="primary" title="系统管理" value="system">
+        <input type="checkbox" name="limits[]" lay-skin="primary" title="平台管理" value="platform">
+        <input type="checkbox" name="limits[]" lay-skin="primary" title="活动管理" value="activity">
+        <input type="checkbox" name="limits[]" lay-skin="primary" title="内容管理" value="content">
+        <input type="checkbox" name="limits[]" lay-skin="primary" title="消息管理" value="news">
+        <input type="checkbox" name="limits[]" lay-skin="primary" title="反馈管理" value="feedback">
       </div>
     </div>
     <div class="layui-form-item">

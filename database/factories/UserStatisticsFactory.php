@@ -18,6 +18,6 @@ $factory->define(UserStatistics::class, function (Faker $faker) {
         'reward_num'=>$faker->randomNumber(2, true),
         'reward_sum'=>$faker->randomNumber(4, true),
         'profit_loss_sum'=>$faker->randomNumber(4, true),
-        'profit_loss_sum'=>$faker->dateTimeThisYear('now', 'PRC'),
+        'time'=>$faker->dateTimeThisYear('now', 'PRC'),
     ];
 });

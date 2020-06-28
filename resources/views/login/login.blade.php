@@ -37,15 +37,22 @@
           <div class="layui-row">
             <div class="layui-col-xs7">
               <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="LAY-user-login-vercode"></label>
-              <input type="text" name="vercode" id="LAY-user-login-vercode" lay-verify="required" placeholder="图形验证码" class="layui-input">
+              <input type="text" name="captcha" id="LAY-user-login-vercode" lay-verify="required" placeholder="图形验证码" class="layui-input">
             </div>
             <div class="layui-col-xs5">
               <div style="margin-left: 10px;">
-                <img src="https://www.oschina.net/action/user/captcha" class="layadmin-user-login-codeimg" id="LAY-user-get-vercode">
+                <img src="{{url('/admin/code?tmp=1')}}" class="layadmin-user-login-codeimg" id="refcode"   onclick="re_captcha()">
               </div>
             </div>
           </div>
         </div>
+        <script>
+    function re_captcha() {
+            $url = "{{ URL('/admin/code')}}";
+            $url = $url + "?tmp=" + Math.random();
+            document.getElementById('refcode').src=$url;
+        }
+    </script>
 
         <div class="layui-form-item" style="margin-bottom: 20px;">
           <input type="checkbox" lay-filter="remember" name="remember_user" id="remember_user" lay-skin="primary" title="记住密码">
@@ -111,10 +118,11 @@
 
       form.render();
 
+
       //提交
       form.on('submit(LAY-user-login-submit)', function(obj) {
         data = obj.field;
-       // console.log(data);return false;
+        console.log(data);
         $.ajax({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -134,22 +142,26 @@
                 location.href = '/';
               })
             } else if (res.status == 403) {
+              console.log(res);
               layer.msg('登录失败请确认用户密码', {
                 offset: '15px',
                 icon: 2,
                 time: 3000
-              }, function() {
-                location.href = '/login';
+              })
+            }else if (res.status == 404) {
+              console.log(res);
+              layer.msg('验证码错误', {
+                offset: '15px',
+                icon: 2,
+                time: 3000
               })
             }
           },
-          error: function(error) { 
+          error: function(error) { console.log(error);
             layer.msg('登录失败请确认信息', {
               offset: '15px',
               icon: 2,
               time: 3000
-            }, function() {
-              location.href = '/login';
             })
           }
         }

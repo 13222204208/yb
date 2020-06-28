@@ -409,7 +409,12 @@
 
       table.on('tool(user)', function (obj) {
             var data = obj.data;
+         
            if (obj.event === 'del') {
+            if (data.id == 1) {
+              layer.msg("超级管理员无法删除", {icon: 2});
+              return false;
+            }
                 layer.confirm('真的删除行么', function (index) {
                     $.ajax({
                         url: "del/account",
@@ -451,6 +456,9 @@
         function setFormValue(obj, data) {
         form.on('submit(editAccount)', function(massage) {
           massage= massage.field; console.log(data.id);
+          if (data.id == 1) {
+            massage.role = "超级管理员"
+          }
           $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

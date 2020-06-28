@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Platform::class, function (Faker $faker) {
     return [
-        'platform_name'=>'taptap',
+        'platform_name'=>$faker->randomElement(['多玩', '大脚', 'taptap']),
         'show_name'=>$faker->company,
         'platform_type'=>$faker->jobTitle,
         'platform_sort'=>$faker->randomDigitNotNull,

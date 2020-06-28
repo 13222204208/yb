@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Login;
 
 use App\Model\BgUser;
 use Illuminate\Http\Request;
+use Gregwar\Captcha\CaptchaBuilder;
 use App\Http\Controllers\Controller;
 
 class loginController extends Controller
@@ -13,8 +14,13 @@ class loginController extends Controller
         if ($request->ajax()) {
             $request->validate([
                 'username' => 'required',
-                'password' => 'required'
+                'password' => 'required',
+                'captcha'  => 'required'
             ]);
+
+            if (strtolower($request->captcha) != strtolower(session('piccode'))) {
+                return response()->json(['status'=>404,'data'=>session('piccode')]);
+            }
 
             $account_num= $request->username;
         
@@ -32,5 +38,16 @@ class loginController extends Controller
         
             return response($response);
         }
+    }
+
+    public function adminLogin()
+    {
+        $builder = new CaptchaBuilder;
+        $builder->build();
+        //$code = $builder->inline();  //获取图形验证码的url
+        session()->put('piccode', $builder->getPhrase());  //将图形验证码的值写入到session中
+        header("Cache-Control: no-cache, must-revalidate");
+        header('Content-Type: image/jpeg');
+        $builder->output();
     }
 }

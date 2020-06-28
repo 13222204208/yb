@@ -119,8 +119,8 @@ class HomePageController extends Controller
     {
         $time=Carbon::now()->toDateString();
         $subtime = Carbon::now()->subYears(1);
-         $data = UserStatistics::whereBetween('created_at',[$subtime,$time])
-         ->selectRaw('DATE_FORMAT(created_at,"%Y-%m") as date,SUM(deposit_sum) as deposit,SUM(draw_money_sum) as draw_money,SUM(reward_sum) as reward')
+         $data = UserStatistics::whereBetween('time',[$subtime,$time])
+         ->selectRaw('DATE_FORMAT(time,"%Y-%m") as date,SUM(deposit_sum) as deposit,SUM(draw_money_sum) as draw_money,SUM(reward_sum) as reward')
          ->groupBy('date')->get();
 
         if (!is_null($data)) {

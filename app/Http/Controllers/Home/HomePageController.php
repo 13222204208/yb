@@ -106,7 +106,7 @@ class HomePageController extends Controller
         $subtime = Carbon::now()->subYears(1);
          $data = UserInfo::whereBetween('register_time',[$subtime,$time])
          ->selectRaw('DATE_FORMAT(register_time,"%Y-%m") as date,COUNT(*) as value')
-         ->groupBy('date')->get();
+         ->groupBy('date')->orderBy('date')->get();
 
         if (!is_null($data)) {
             return response()->json(['status'=>200,'data'=>$data]);
@@ -121,7 +121,7 @@ class HomePageController extends Controller
         $subtime = Carbon::now()->subYears(1);
          $data = UserStatistics::whereBetween('time',[$subtime,$time])
          ->selectRaw('DATE_FORMAT(time,"%Y-%m") as date,SUM(deposit_sum) as deposit,SUM(draw_money_sum) as draw_money,SUM(reward_sum) as reward')
-         ->groupBy('date')->get();
+         ->groupBy('date')->orderBy('date')->get();
 
         if (!is_null($data)) {
             return response()->json(['status'=>200,'data'=>$data]);
@@ -137,7 +137,7 @@ class HomePageController extends Controller
          $datas = Betting::whereBetween('bottom_pour_time',[$subtime,$time])
        //  ->selectRaw('DATE_FORMAT(bottom_pour_time,"%Y-%m") as date,SUM(bottom_pour) as bottom')
          ->select(DB::raw('DATE_FORMAT(bottom_pour_time,"%Y-%m") as date ,SUM(bottom_pour) as bottom ,platform_name') )
-         ->groupBy('platform_name','date')->get();
+         ->groupBy('platform_name','date')->orderBy('date')->get();
 
  
         $result = array();
@@ -157,7 +157,7 @@ class HomePageController extends Controller
 
     public function moneySwitchControl()
     {
-        $data = Recharge::where('recharge_money','>',80000)->where('state',1)->get();
+        $data = Recharge::where('recharge_money','>',5000)->where('state',1)->get();
         if(!is_null($data)){
             return response()->json(['status'=>200,'data'=>$data]);
         }else{
@@ -167,7 +167,7 @@ class HomePageController extends Controller
 
     public function moneyRolloutControl()
     {
-        $data = Withdrawal::where('draw_money','>',80000)->where('state',1)->get();
+        $data = Withdrawal::where('draw_money','>',5000)->where('state',1)->get();
         if(!is_null($data)){
             return response()->json(['status'=>200,'data'=>$data]);
         }else{

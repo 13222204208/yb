@@ -128,7 +128,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           url: "create/rebate",
-          method: 'POST',
+          method: 'post',
           data: data,
           success: function(res) {
             console.log(res);
@@ -162,8 +162,6 @@
         elem: '#demo',
         height: 600,
         url:'query/rebate',
-        page: true //开启分页
-          ,
         cols: [
           [ //表头
             {
@@ -209,15 +207,14 @@
         parseData: function(res) { //res 即为原始返回的数据
           console.log(res);
           return {
-            "code": '0', //解析接口状态
+            "code": 0, //解析接口状态
             "msg": res.message, //解析提示文本
             "count": res.total, //解析数据长度
             "data": res.data //解析数据列表
           }
-        },
-        toolbar: '#toolbarDemo',
-        title: '后台广告管理',
-        totalRow: true
+        }
+        ,id: 'testReload'
+    ,page: true
 
       });
 

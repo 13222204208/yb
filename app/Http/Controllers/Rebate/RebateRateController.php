@@ -32,7 +32,7 @@ class RebateRateController extends Controller
     public function queryRebate(Request $request)
     {
         $limit = $request->get('limit');
-        $data= DB::table('bg_rebate')->paginate($limit);
+        $data = Rebate::paginate($limit);
         return $data;
     }
 }

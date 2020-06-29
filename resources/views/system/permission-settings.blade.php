@@ -111,7 +111,7 @@
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          url: "{{url('system/add/role')}}",
+          url: "add/role",
           method: 'POST',
           data: data.field,
           dataType: 'json',
@@ -145,7 +145,7 @@
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          url: "{{url('system/add/role/scope')}}",
+          url: "add/role/scope",
           method: 'POST',
           data: data.field,
           dataType: 'json',
@@ -178,7 +178,7 @@
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: "{{url('system/query/role')}}",
+        url: "query/role",
         method: 'get',
         dataType: 'json',
         success: function(res) {

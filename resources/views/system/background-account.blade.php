@@ -169,7 +169,7 @@
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          url: "{{url('system/add/account')}}",
+          url: "add/account",
           method: 'POST',
           data: data.field,
           dataType: 'json',
@@ -202,7 +202,7 @@
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: "{{url('system/query/role')}}",
+        url: "query/role",
         method: 'get',
         dataType: 'json',
         success: function(res) {
@@ -233,7 +233,7 @@
 
       table.render({
         height: 600,
-        url: "{{url('system/query/account')}}" //数据接口
+        url: "query/account" //数据接口
           ,
         page: true //开启分页
           ,
@@ -296,7 +296,7 @@
 
         table.render({
           height: 600,
-          url: "{{url('system/query/account/')}}" + '/' + account_num //数据接口
+          url: "query/account" + '/' + account_num //数据接口
             ,
           //page: true,//开启分页
           elem: '#LAY_table_user',

@@ -13,7 +13,7 @@ class BgRebate extends Migration
      */
     public function up()
     {
-        Schema::create('bg_Rebate', function (Blueprint $table) {
+        Schema::create('bg_rebate', function (Blueprint $table) {
             $table->increments('id');
             $table->string('rebate_grade',30)->default('')->comment('返水等级');
             $table->string('game_type',40)->default('')->comment('游戏类型');

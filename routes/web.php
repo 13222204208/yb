@@ -315,8 +315,8 @@ Route::prefix('content')->group(function () {
         return view('content.running-horse-lamp');
     })->middleware('adminLogin'); 
 
-    Route::post('create/running/horse','Content\RunningHorselampController@createRunHorse');//创建跑马灯
-    Route::get('query/running/horse','Content\RunningHorselampController@queryRunHorse');//查看跑马灯列表
+    Route::post('create/running/horse','Content\RunningHorseLampController@createRunHorse');//创建跑马灯
+    Route::get('query/running/horse','Content\RunningHorseLampController@queryRunHorse');//查看跑马灯列表
     
 });
 

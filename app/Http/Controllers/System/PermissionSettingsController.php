@@ -63,4 +63,20 @@ class PermissionSettingsController extends Controller
             
         }
     }
+
+    public function queryRoleScope(Request $request)
+    {
+        if ($request->ajax()) {
+            
+            $data= DB::table('bg_roles')->where('role_name','=',$request->role_name)->value('role_scope');
+        
+            if ($data) {
+                $data = json_decode($data,true);
+                return response()->json(['status'=>200,'data'=>$data]);
+            }else{
+                return response()->json(['status'=>403]);
+            }
+            
+        }
+    }
 }

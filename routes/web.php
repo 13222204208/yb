@@ -249,6 +249,7 @@ Route::prefix('system')->group(function () {
     Route::post('add/role','System\PermissionSettingsController@addRole');//添加角色名称
     Route::get('query/role','System\PermissionSettingsController@queryRole');//查询角色名称
     Route::post('add/role/scope','System\PermissionSettingsController@addRoleScope');//编辑角色权限范围
+    Route::post('query/role/scope','System\PermissionSettingsController@queryRoleScope');//获取角色权限范围
     
 });
 

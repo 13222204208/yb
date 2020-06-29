@@ -42,14 +42,14 @@
     <div class="layui-form-item">
       <label class="layui-form-label">角色</label>
       <div class="layui-input-block">
-        <select name="rolename">
+        <select name="rolename" lay-filter="selectRole">
 
         </select>
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">权限范围</label>
-      <div class="layui-input-block">
+      <div class="layui-input-block" id="roleScope">
         <input type="checkbox" name="limits[]" lay-skin="primary" title="用户管理" value="user">
         <input type="checkbox" name="limits[]" lay-skin="primary" title="财务管理" value="finance">
         <input type="checkbox" name="limits[]" lay-skin="primary" title="记录查询" value="record">
@@ -104,6 +104,60 @@
           }
         }
       });
+
+      form.on('select(selectRole)', function(data) {
+
+        $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: "query/role/scope",
+          method: 'POST',
+          data: {
+            'role_name': data.value
+          },
+          dataType: 'json',
+          success: function(res) {
+            var arr = res.data
+            if (res.status == 200) {
+               var array = new Array('user', 'finance', 'record', 'rebate', 'pay', 'system', 'platform', 'activity', 'content', 'news', 'feedback')
+
+              var zh = new Array('用户管理', '财务管理', '记录查询', '返水管理',
+                '支付管理', '系统管理', '平台管理', '活动管理', '内容管理', '消息管理', '反馈管理');
+              optionData = "";
+            
+              let arraySel = Object.values(arr)
+              console.log(arraySel);
+              for (let index = 0; index < array.length; index++) {
+                const element = array[index];
+                const t = zh[index];
+                istrue = false;
+                for (let i = 0; i < arraySel.length; i++) {
+                  if (arraySel[i]== element) {
+                    istrue = true;
+                  }   
+                }
+                if (istrue) {
+                  optionData += '<input type="checkbox" checked  name="limits[]" lay-skin="primary" title="' + t + '" value="' + element + '">';
+                } else {
+                  optionData += '<input type="checkbox"  name="limits[]" lay-skin="primary" title="' + t + '" value="' + element + '">';
+                }
+              }
+              console.log(optionData);
+              $("#roleScope").html(optionData);
+              form.render(); 
+
+            } else if (res.status == 403) {
+             /*  layer.msg('获取失败', {
+                offset: '15px',
+                icon: 2,
+                time: 3000
+              }) */
+            }
+          }
+        });
+        return false;
+      });
       //监听提交
       form.on('submit(create)', function(data) {
 
@@ -156,8 +210,6 @@
                 offset: '15px',
                 icon: 1,
                 time: 2000
-              }, function() {
-                location.href = 'permission-settings';
               })
             } else if (res.status == 403) {
               layer.msg('填写错误', {
@@ -182,17 +234,17 @@
         method: 'get',
         dataType: 'json',
         success: function(res) {
-          console.log(res.role_name);
+         
           status = res.status;
           role_name = res.role_name;
           if (status == 200) {
-            options = "";
+            options = "<option value=''>选择角色</option>";
             for (var i = 0; i < role_name.length; i++) {
               var t = role_name[i];
-
+            
               options += '<option value="' + t.role_name + '">' + t.role_name + '</option>';
             }
-
+            console.log(options);
             $("select[name='rolename']").html(options);
             form.render('select');
           } else if (res.status == 403) {

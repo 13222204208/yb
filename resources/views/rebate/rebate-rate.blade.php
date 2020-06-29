@@ -97,7 +97,7 @@
 
 
   <script src="/layuiadmin/layui/layui.js"></script>
-  <script src="/layuiadmin/layui/jquery3.2.js"></script>
+ <!--  <script src="/layuiadmin/layui/jquery3.2.js"></script> -->
   <script>
     layui.use(['table', 'form', 'laydate', 'util', 'jquery'], function() {
       var table = layui.table;

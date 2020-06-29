@@ -86,7 +86,8 @@
 
       laydate.render({
         elem: '#startTime',
-        type: 'datetime'
+        type: 'datetime',
+        max: getNowFormatDate()
       });
       //日期时间范围
       laydate.render({

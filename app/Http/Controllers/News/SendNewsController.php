@@ -21,7 +21,9 @@ class SendNewsController extends Controller
 
             $news = new News;
             $news->news_type = intval($request->news_type);
-            $news->username = $request->username;
+            if ($request->username) {
+                $news->username = $request->username;
+            }         
             $news->news_title = $request->news_title;
             $news->news_content = $request->news_content;
             $news->start_time = $request->start_time;

@@ -112,14 +112,19 @@
   laydate.render({
     elem: '#start-time'
     ,type: 'datetime'
+    ,min:minDate()
   });
 
     //日期时间选择器
     laydate.render({
     elem: '#stop-time'
     ,type: 'datetime'
+    ,min:minDate()
   });
-
+  function minDate(){
+    var now = new Date();
+    return now.getFullYear()+"-" + (now.getMonth()+1) + "-" + now.getDate();
+}
 
 
       $(document).on('click', '#task-management', function() {
@@ -135,7 +140,6 @@
       //第一个实例
       table.render({
         elem: '#demo',
-        height: 600,
         url:'query/running/horse',
         page: true //开启分页
           ,
@@ -208,11 +212,11 @@
 							});
               setTimeout(function() {
           
-layer.closeAll(); //关闭所有的弹出层
-location.href="running-horse-lamp";
-}, 2000);
+          layer.closeAll(); //关闭所有的弹出层
+          location.href="running-horse-lamp";
+          }, 2000);
 						} else {
-							console.log(res);
+				
 							layer.msg('保存失败', {
 								offset: '15px',
 								icon: 2,

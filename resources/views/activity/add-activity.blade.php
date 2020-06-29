@@ -158,14 +158,20 @@
       laydate.render({
         elem: '#start-time',
         type: 'datetime'
+        ,min:minDate()
       });
 
       //日期时间选择器
       laydate.render({
         elem: '#stop-time',
         type: 'datetime'
+        ,min:minDate()
       });
 
+      function minDate(){
+    var now = new Date();
+    return now.getFullYear()+"-" + (now.getMonth()+1) + "-" + now.getDate();
+}
       //普通图片上传
       var uploadInst = upload.render({
         headers: {

@@ -223,11 +223,11 @@ Route::prefix('system')->group(function () {
         return view('system.parameter-setting');
     })->middleware('adminLogin');
 
-    Route::post('update/member/recharge','System\parameterSettingController@updateMemberRecharge');//更新会员充值
-    Route::get('query/member/recharge','System\parameterSettingController@queryMemberRecharge');//查看会员充值
+    Route::post('update/member/recharge','System\ParameterSettingController@updateMemberRecharge');//更新会员充值
+    Route::get('query/member/recharge','System\ParameterSettingController@queryMemberRecharge');//查看会员充值
 
-    Route::post('update/member/draw/money','System\parameterSettingController@updateDrawMoney');//更新会员提款
-    Route::get('query/member/draw/money','System\parameterSettingController@queryDrawMoney');//查看会员提款
+    Route::post('update/member/draw/money','System\ParameterSettingController@updateDrawMoney');//更新会员提款
+    Route::get('query/member/draw/money','System\ParameterSettingController@queryDrawMoney');//查看会员提款
 
     //后台帐号
     Route::get('background-account', function () {
@@ -246,9 +246,9 @@ Route::prefix('system')->group(function () {
         return view('system.permission-settings');
     })->middleware('adminLogin');    
     
-    Route::post('add/role','System\permissionSettingsController@addRole');//添加角色名称
-    Route::get('query/role','System\permissionSettingsController@queryRole');//查询角色名称
-    Route::post('add/role/scope','System\permissionSettingsController@addRoleScope');//编辑角色权限范围
+    Route::post('add/role','System\PermissionSettingsController@addRole');//添加角色名称
+    Route::get('query/role','System\PermissionSettingsController@queryRole');//查询角色名称
+    Route::post('add/role/scope','System\PermissionSettingsController@addRoleScope');//编辑角色权限范围
     
 });
 

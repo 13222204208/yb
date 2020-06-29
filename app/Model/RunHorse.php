@@ -4,8 +4,8 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Alipay extends Model
+class RunHorse extends Model
 {
-    protected $table = 'bg_alipay';
+    protected $table = 'bg_run_horse';
     protected $guarded = [];
 }

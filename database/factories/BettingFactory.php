@@ -14,6 +14,6 @@ $factory->define(Betting::class, function (Faker $faker) {
         'room_num'=>$faker->randomElement(['五号房', '六号房间', '八号房间']),
         'bottom_pour'=>$faker->randomNumber(3, true),
         'group_money'=>$faker->randomNumber(3, true),
-        'bottom_pour_time'=>$faker->dateTimeThisYear('now', 'PRC')
+        'bottom_pour_time'=>$faker->dateTimeThisYear('+10 days', 'PRC'),
     ];
 });

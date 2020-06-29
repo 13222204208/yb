@@ -16,10 +16,10 @@ $factory->define(UserInfo::class, function (Faker $faker) {
         'true_name'=>$faker->name('female'),
         'phone'=>$faker->phoneNumber,
         'register_ip'=>$faker->ipv4,
-        'register_time'=>$faker->dateTimeThisYear('now', 'PRC'),
-        'login_time'=>$faker->dateTimeThisYear('now', 'PRC'),
-        'off_time'=>$faker->dateTimeThisYear('now', 'PRC'),
-        'ask_time'=>$faker->dateTimeThisYear('now', 'PRC'),
-        'account_freeze'=>$faker->dateTimeThisYear('now', 'PRC'),
+        'register_time'=>$faker->dateTimeThisYear('+10 days', 'PRC'),
+        'login_time'=>$faker->dateTimeThisYear('+10 days', 'PRC'),
+        'off_time'=>$faker->dateTimeThisYear('+10 days', 'PRC'),
+        'ask_time'=>$faker->dateTimeThisYear('+10 days', 'PRC'),
+        'account_freeze'=>$faker->dateTimeThisYear('+10 days', 'PRC'),
     ];
 });

@@ -14,6 +14,6 @@ $factory->define(Withdrawal::class, function (Faker $faker) {
         'make_card'=>$faker->creditCardNumber,
         'account_holder'=>$faker->name('female'),
         'bank_holder'=> $faker->creditCardType,
-        'ask_time'=>$faker->dateTimeThisYear('now', 'PRC')
+        'ask_time'=>$faker->dateTimeThisYear('+10 days', 'PRC'),
     ];
 });

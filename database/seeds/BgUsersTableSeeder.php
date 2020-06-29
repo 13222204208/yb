@@ -16,7 +16,7 @@ class BgUsersTableSeeder extends Seeder
             'account_num'=>'myadmin',
             'nickname' => '夜店小王子',
             'role' =>  '超级管理员',
-            'password' => encrypt('myyabo123'),
+            'password' => encrypt('12345678'),
             'state'=>'开启',
             'created_at' => '2020-06-18 16:19:51',
             'updated_at' => '2020-06-18 18:19:51'

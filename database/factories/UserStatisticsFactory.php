@@ -14,10 +14,10 @@ $factory->define(UserStatistics::class, function (Faker $faker) {
         'draw_money_num'=>$faker->randomNumber(2, true),
         'draw_money_sum'=>$faker->randomNumber(4, true),
         'backwater_num'=>$faker->randomNumber(2, true),
-        'backwater_sum'=>$faker->randomNumber(6, true),
+        'backwater_sum'=>$faker->randomNumber(4, true),
         'reward_num'=>$faker->randomNumber(2, true),
         'reward_sum'=>$faker->randomNumber(4, true),
         'profit_loss_sum'=>$faker->randomNumber(4, true),
-        'time'=>$faker->dateTimeThisYear('now', 'PRC'),
+        'time'=>$faker->dateTimeThisYear('+10 days', 'PRC'),
     ];
 });

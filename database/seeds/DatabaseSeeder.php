@@ -22,5 +22,12 @@ class DatabaseSeeder extends Seeder
          $this->call(UserInfoTableSeeder::class);
          $this->call(UserStatisticsTableSeeder::class);
          $this->call(WithdrawalTableSeeder::class);
+         $this->call(MemberRechargeTableSeeder::class);
+         $this->call(MemberDrawMoneyTableSeeder::class);
+         $this->call(RotationChartTableSeeder::class);
+         $this->call(RunHorseTableSeeder::class);
+         $this->call(BankCardTableSeeder::class);
+         $this->call(WechatPayTableSeeder::class);
+         $this->call(AlipayTableSeeder::class);     
     }
 }

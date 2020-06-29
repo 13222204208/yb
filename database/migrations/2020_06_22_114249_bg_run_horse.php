@@ -19,6 +19,7 @@ class BgRunHorse extends Migration
             $table->string('type',30)->default('')->comment('通知的类型');
             $table->string('start_time',30)->default('')->comment('开始时间');
             $table->string('stop_time',30)->default('')->comment('结束时间');
+            $table->timestamps();
         });
     }
 

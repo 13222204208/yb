@@ -14,6 +14,6 @@ $factory->define(Recharge::class, function (Faker $faker) {
         'remit_way'=>$faker->creditCardType,
         'remit_card'=>$faker->creditCardNumber,
         'make_card'=>$faker->creditCardNumber,
-        'remit_time'=>$faker->dateTimeThisYear('now', 'PRC')
+        'remit_time'=>$faker->dateTimeThisYear('+10 days', 'PRC'),
     ];
 });

@@ -11,8 +11,8 @@ $factory->define(Transaction::class, function (Faker $faker) {
         'username'=>$faker->phoneNumber,
         'business_type'=>$faker->randomElement(['支付宝', '银行卡', '微信']),
         'business_money'=>$faker->randomNumber(3, true),
-        'balance'=>$faker->randomNumber(5, true),
-        'ask_time'=>$faker->dateTimeThisYear('now', 'PRC'),
-        'auditing_time'=>$faker->dateTimeThisYear('now', 'PRC'),
+        'balance'=>$faker->randomNumber(3, true),
+        'ask_time'=>$faker->dateTimeThisYear('+10 days', 'PRC'),
+        'auditing_time'=>$faker->dateTimeThisYear('+10 days', 'PRC'),
     ];
 });

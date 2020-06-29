@@ -23,7 +23,7 @@
             <span class="layui-badge layui-bg-blue layuiadmin-badge">日</span>
           </div>
           <div class="layui-card-body layuiadmin-card-list">
-            <p class="layuiadmin-big-font" id="register_num">1024</p>
+            <p class="layuiadmin-big-font" id="register_num">0</p>
             <p>
               统计今日新用户注册数量
               <!--        <span class="layuiadmin-span-color">88万 <i class="layui-inline layui-icon layui-icon-flag"></i></span> -->
@@ -39,8 +39,8 @@
           </div>
           <div class="layui-card-body layuiadmin-card-list">
             <p>投注会员数： <span class=" layui-badge layui-bg-green " id="betting_user">0</span> (今日参与投注的会员数量)</p>
-            <p>投注次数：<span class="layui-badge layui-bg-green " id="betting_count">102,4</span> (今日投注总次数)</p>
-            <p>总投注金额：<span class="layui-badge layui-bg-green " id="betting_money">120,100</span> (今日总下注金额)</p>
+            <p>投注次数：<span class="layui-badge layui-bg-green " id="betting_count">0</span> (今日投注总次数)</p>
+            <p>总投注金额：<span class="layui-badge layui-bg-green " id="betting_money">0</span> (今日总下注金额)</p>
           </div>
         </div>
       </div>
@@ -51,9 +51,9 @@
             <span class="layui-badge layui-bg-blue layuiadmin-badge">日</span>
           </div>
           <div class="layui-card-body layuiadmin-card-list">
-            <p>申请笔数： <span class=" layui-badge layui-bg-green " id="apply_num">100</span> (存款申请的次数)</p>
-            <p>存款笔数：<span class="layui-badge layui-bg-green " id="deposit_num">102,4</span> (已处理的存款申请次数)</p>
-            <p>存款金额：<span class="layui-badge layui-bg-green " id="recharge_money">120,100</span> (已处理的存款申请的总金额)</p>
+            <p>申请笔数： <span class=" layui-badge layui-bg-green " id="apply_num">0</span> (存款申请的次数)</p>
+            <p>存款笔数：<span class="layui-badge layui-bg-green " id="deposit_num">0</span> (已处理的存款申请次数)</p>
+            <p>存款金额：<span class="layui-badge layui-bg-green " id="recharge_money">0</span> (已处理的存款申请的总金额)</p>
           </div>
         </div>
       </div>
@@ -64,9 +64,9 @@
             <span class="layui-badge layui-bg-blue layuiadmin-badge">日</span>
           </div>
           <div class="layui-card-body layuiadmin-card-list">
-            <p>申请笔数： <span class=" layui-badge layui-bg-green " id="with_apply_num">100</span> (提款申请的次数)</p>
-            <p>提款笔数：<span class="layui-badge layui-bg-green " id="with_deposit_num">102,4</span> (已处理的提款申请次数)</p>
-            <p>提款金额：<span class="layui-badge layui-bg-green " id="withdrawal_money">120,100</span> (已处理的提款申请的总金额)</p>
+            <p>申请笔数： <span class=" layui-badge layui-bg-green " id="with_apply_num">0</span> (提款申请的次数)</p>
+            <p>提款笔数：<span class="layui-badge layui-bg-green " id="with_deposit_num">0</span> (已处理的提款申请次数)</p>
+            <p>提款金额：<span class="layui-badge layui-bg-green " id="withdrawal_money">0</span> (已处理的提款申请的总金额)</p>
           </div>
         </div>
       </div>
@@ -77,8 +77,8 @@
             <span class="layui-badge layui-bg-blue layuiadmin-badge">日</span>
           </div>
           <div class="layui-card-body layuiadmin-card-list">
-            <p>发放笔数： <span class=" layui-badge layui-bg-green " id="award_num">100</span> (今日发放奖励的次数)</p>
-            <p>发放总额：<span class="layui-badge layui-bg-green " id="award_money">102,401</span> (今日发放奖励的总金额)</p>
+            <p>发放笔数： <span class=" layui-badge layui-bg-green " id="award_num">0</span> (今日发放奖励的次数)</p>
+            <p>发放总额：<span class="layui-badge layui-bg-green " id="award_money">0</span> (今日发放奖励的总金额)</p>
 
           </div>
         </div>

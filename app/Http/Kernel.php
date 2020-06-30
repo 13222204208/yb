@@ -68,5 +68,7 @@ class Kernel extends HttpKernel
         'adminLogin' => \App\Http\Middleware\AdminLogin::class,//判断是否登陆
         //跨域
         'cors' => \Fruitcake\Cors\HandleCors::class,
+        //jwt
+        'auth.jwt' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
     ];
 }

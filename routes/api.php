@@ -18,9 +18,7 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 }); */
 
-Route::middleware('cors')->group(function (){
-    Route::get('test', function(){
-        return response()->json('跨域成功！',200);
-    });
+Route::middleware('cors')->prefix('user')->group(function (){
+    Route::resource('register','Api\UserController');
 });
 

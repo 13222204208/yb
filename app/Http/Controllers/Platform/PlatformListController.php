@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Platform;
 use App\Model\Platform;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UploadController;
 
 class PlatformListController extends Controller
 {
@@ -17,31 +18,13 @@ class PlatformListController extends Controller
 
     public function uploadPlatformImg(Request $request)
     {
-        $file = $request->file('file');
-        $url_path = 'uploads\platformImg'; //广告图片目录
-        $rule = ['jpg', 'png', 'gif', 'jpeg'];
-        if ($file->isValid()) {
-            $clientName = $file->getClientOriginalName();
-            $tmpName = $file->getFileName();
-            $realPath = $file->getRealPath();
-            $entension = $file->getClientOriginalExtension();
-            if (!in_array($entension, $rule)) {
-                return '图片格式为jpg,png,gif,jpeg';
-            }
-            $newName = md5(date("Y-m-d H:i:s") . $clientName) . "." . $entension;
-            $path = $file->move($url_path, $newName);
-            $url_path= "uploads/platformImg";
-            $namePath = $url_path . '/' . $newName;
-           
-            if ($namePath) {
-                return response()->json(['path' =>$namePath, 'status' => 200]);
-            } else {
-                return response()->json(['path' =>$namePath, 'status' => 403]);
-            }    
-         
+        $upload= new UploadController;
+        $namePath= $upload->uploadImg($request->file('file'),'PlatformImg');
+        if ($namePath) {
+            return response()->json(['path' =>$namePath, 'status' => 200]);
         } else {
-            return response()->json(['status' => 403]);
-        }
+            return response()->json(['path' =>$namePath, 'status' => 403]);
+        }    
     }
 
     public function createPlatform(Request $request)

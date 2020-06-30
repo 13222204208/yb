@@ -6,13 +6,22 @@ use App\Model\Alipay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UploadController;
 
 class AlipayController extends Controller
 {
     public function uploadAlipayImg(Request $request)
     {
-        $file = $request->file('file');
-        $url_path = 'uploads/alipayImg';
+        $upload= new UploadController;
+        $namePath= $upload->uploadImg($request->file('file'),'AlipayImg');
+        if ($namePath) {
+            return response()->json(['path' =>$namePath, 'status' => 200]);
+        } else {
+            return response()->json(['path' =>$namePath, 'status' => 403]);
+        }    
+
+    /*     $file = $request->file('file');
+        $url_path = '/uploads/alipayImg';
         $rule = ['jpg', 'png', 'gif', 'jpeg'];
         if ($file->isValid()) {
             $clientName = $file->getClientOriginalName();
@@ -35,7 +44,7 @@ class AlipayController extends Controller
          
         } else {
             return response()->json(['status' => 403]);
-        }
+        } */
 
     }
 

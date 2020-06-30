@@ -6,36 +6,19 @@ use App\Model\RotationChart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UploadController;
 
 class RotationChartController extends Controller
 {
     public function uploadRotationImg(Request $request)
     {
-        $file = $request->file('file');
-        $url_path = 'uploads/rotationImg'; //轮播图片目录
-        $rule = ['jpg', 'png', 'gif', 'jpeg'];
-        if ($file->isValid()) {
-            $clientName = $file->getClientOriginalName();
-            $tmpName = $file->getFileName();
-            $realPath = $file->getRealPath();
-            $entension = $file->getClientOriginalExtension();
-            if (!in_array($entension, $rule)) {
-                return '图片格式为jpg,png,gif,jpeg';
-            }
-            $newName = md5(date("Y-m-d H:i:s") . $clientName) . "." . $entension;
-            $path = $file->move($url_path, $newName);
-            $url_path= "uploads/rotationImg";
-            $namePath = $url_path . '/' . $newName;
-           
-            if ($namePath) {
-                return response()->json(['path' =>$namePath, 'status' => 200]);
-            } else {
-                return response()->json(['path' =>$namePath, 'status' => 403]);
-            }    
-         
+        $upload= new UploadController;
+        $namePath= $upload->uploadImg($request->file('file'),'RotationImg');
+        if ($namePath) {
+            return response()->json(['path' =>$namePath, 'status' => 200]);
         } else {
-            return response()->json(['status' => 403]);
-        }
+            return response()->json(['path' =>$namePath, 'status' => 403]);
+        }    
     }
 
     public function createChart(Request $request)

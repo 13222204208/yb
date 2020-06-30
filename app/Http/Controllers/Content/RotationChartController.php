@@ -12,7 +12,7 @@ class RotationChartController extends Controller
     public function uploadRotationImg(Request $request)
     {
         $file = $request->file('file');
-        $url_path = 'uploads\rotationImg'; //轮播图片目录
+        $url_path = 'uploads/rotationImg'; //轮播图片目录
         $rule = ['jpg', 'png', 'gif', 'jpeg'];
         if ($file->isValid()) {
             $clientName = $file->getClientOriginalName();

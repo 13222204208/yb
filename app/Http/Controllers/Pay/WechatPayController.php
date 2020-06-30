@@ -12,7 +12,7 @@ class WechatPayController extends Controller
     public function uploadWechatImg(Request $request)
     {
         $file = $request->file('file');
-        $url_path = 'uploads\wechatImg'; //轮播图片目录
+        $url_path = 'uploads/wechatImg'; //轮播图片目录
         $rule = ['jpg', 'png', 'gif', 'jpeg'];
         if ($file->isValid()) {
             $clientName = $file->getClientOriginalName();

@@ -12,7 +12,7 @@ class ActivityController extends Controller
     public function uploadActivityImg(Request $request)
     {
         $file = $request->file('file');
-        $url_path = 'uploads\activityImg'; //广告图片目录
+        $url_path = 'uploads/activityImg'; //广告图片目录
         $rule = ['jpg', 'png', 'gif', 'jpeg'];
         if ($file->isValid()) {
             $clientName = $file->getClientOriginalName();

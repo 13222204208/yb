@@ -12,7 +12,7 @@ class AlipayController extends Controller
     public function uploadAlipayImg(Request $request)
     {
         $file = $request->file('file');
-        $url_path = 'uploads\alipayImg';
+        $url_path = 'uploads/alipayImg';
         $rule = ['jpg', 'png', 'gif', 'jpeg'];
         if ($file->isValid()) {
             $clientName = $file->getClientOriginalName();

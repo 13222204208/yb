@@ -260,7 +260,7 @@
               setTimeout(function() {
 
                 layer.closeAll(); //关闭所有的弹出层
-                location.href="wechatPay";
+                location.href="wechat-pay";
 
               }, 2000);
             } else {

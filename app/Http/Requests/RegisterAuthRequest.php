@@ -2,19 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\ApiBaseRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterAuthRequest extends FormRequest
+class RegisterAuthRequest extends ApiBaseRequest
 {
-    /**
-     * 确定是否授权用户发出此请求
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
 
     /**
      * 获取应用于请求的验证规则
@@ -28,4 +20,13 @@ class RegisterAuthRequest extends FormRequest
             'password' => 'required|min:6|max:12|alpha_num',
         ];
     }
+
+    public function messages()
+    {  
+       return [
+            'username.required' => '请先填写用户名',
+            'username.alpha_num'=> '用户名只允许数字和字母',
+        ];
+    }
+
 }

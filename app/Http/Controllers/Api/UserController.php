@@ -37,20 +37,33 @@ class UserController extends Controller
      */
     public function store(RegisterAuthRequest $request)
     {
-        $user = new UserInfo;
-        $user->username = $request->username;
-        $user->password = bcrypt($request->password);
-        $user->save();
+        if ($request->register_ip) {
+            if(!filter_var($request->register_ip, FILTER_VALIDATE_IP)) {
+                $request->register_ip ="错误的ip格式";
+            }
+        }else{
+            $request->register_ip ="无法获取ip";
+        }
 
-/*         if ($this->loginAfterSignUp) {
-            return $this->login($request);
-        } */
+            $user = new UserInfo;
+            $user->username = $request->username;
+            $user->password = bcrypt($request->password);
+            $user->register_ip = $request->register_ip;
+            $user->register_time = date('Y-m-d H:i:s',time());
+            $user->save();
+    
+    /*         if ($this->loginAfterSignUp) {
+                return $this->login($request);
+            } */
+    
+            return response()->json([
+                'code' => 201,
+                'msg' =>"注册成功",
+                'data' => $user
+            ]);
+             }
 
-        return response()->json([
-            'success' => true,
-            'data' => $user
-        ], 200);
-    }
+ 
 
     /**
      * Display the specified resource.

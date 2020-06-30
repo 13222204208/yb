@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/* Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+}); */
+
+Route::middleware('cors')->group(function (){
+    Route::get('test', function(){
+        return response()->json('跨域成功！',200);
+    });
 });
+

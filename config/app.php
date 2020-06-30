@@ -163,6 +163,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        //跨域
+        Fruitcake\Cors\CorsServiceProvider::class,
 
         /*
          * Package Service Providers...

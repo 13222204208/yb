@@ -91,16 +91,16 @@ class UserController extends Controller
                 if ($detail->true_name) {
                     return response()->json([
                         'code' => 0,
-                        'msg' =>"真实姓名不能更改",
+                        'msg' =>"真实姓名不能修改",
                     ],401);
                 }
             }
             
             if ($request->gender) {
-                if ($detail->gender !=2) {
+                if ($detail->date_brith) {
                     return response()->json([
                         'code' => 0,
-                        'msg' =>"姓别不能更改",
+                        'msg' =>"出生日期不能修改",
                     ],401);
                 }
             }
@@ -112,8 +112,8 @@ class UserController extends Controller
             if ($updated) {
                 return response()->json([
                     'code' => 200,
-                    'msg' =>"成功",
-                 
+                    'msg' =>"成功",    
+                    'data'=>$detail            
                 ],200);
             } else {
                 return response()->json([
@@ -123,7 +123,7 @@ class UserController extends Controller
             }      
         }else {
             return response()->json([
-                'code' => 200,
+                'code' => 0,
                 'msg' =>"用户名不匹配",
             ],401);
         }

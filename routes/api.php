@@ -28,12 +28,6 @@ Route::middleware('cors')->prefix('user')->group(function (){
 
         //Route::get('info', 'Api\UserController@getAuthUser');
         Route::put('info/{username}', 'Api\UserController@update');//修改用户信息
-
-        Route::get('products', 'ProductController@index');
-        Route::get('products/{id}', 'ProductController@show');
-        Route::post('products', 'ProductController@store');
-        Route::put('products/{id}', 'ProductController@update');
-        Route::delete('products/{id}', 'ProductController@destroy');
     });
 });
 

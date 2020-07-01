@@ -23,7 +23,8 @@ class PermissionSettingsController extends Controller
             $role_name= $request->role_name;
        
             $id= DB::table('bg_roles')->insertGetId([
-                'role_name'=>$role_name
+                'role_name'=>$role_name,
+                'describe' =>$request->describe,
             ]);
         
             if ($id) {
@@ -44,6 +45,39 @@ class PermissionSettingsController extends Controller
         }else{
             return response()->json(['role_name'=>$role_name,'status'=>403]);
         }
+    }
+
+    public function delRole(Request $request)
+    {
+        $role_name= DB::table('bg_roles')->where('role_id',$request->id)->delete();
+
+        if ($role_name) {
+            return response()->json(['role_name'=>$role_name,'status'=>200]);
+        }else{
+            return response()->json(['role_name'=>$role_name,'status'=>403]);
+        }
+    }
+
+    public function updateRole(Request $request)
+    {
+        $role_name= DB::table('bg_roles')->where('role_id',$request->id)->update([
+            'role_name'=>$request->role_name,
+            'describe' => $request->describe
+        ]);
+
+        if ($role_name) {
+            return response()->json(['role_name'=>$role_name,'status'=>200]);
+        }else{
+            return response()->json(['role_name'=>$role_name,'status'=>403]);
+        }
+    }
+
+    public function queryRoleDescribe(Request $request)
+    {
+        $limit = $request->get('limit');
+        $data= DB::table('bg_roles')->paginate($limit);
+
+        return $data;
     }
 
     public function addRoleScope(Request $request)

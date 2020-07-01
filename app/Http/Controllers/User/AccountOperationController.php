@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Model\UserInfo;
+use App\Model\UserDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,7 +25,7 @@ class AccountOperationController extends Controller
     public function resetUserPhone(Request $request)
     {
         if ($request->ajax()) {
-            $user = UserInfo::where('username', $request->username)->update(['phone' => ""]);
+            $user = UserDetail::where('username', $request->username)->update(['phone' => ""]);
 
             if ($user) {
                 return response()->json(['status' => 200]);

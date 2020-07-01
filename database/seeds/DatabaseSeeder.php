@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
          $this->call(FeedbackTableSeeder::class);
          $this->call(FRechargeTableSeeder::class);
          $this->call(PlatformTableSeeder::class);
-         $this->call(TransactionTableSeeder::class);
-         //$this->call(UserInfoTableSeeder::class);
+         $this->call(TransactionTableSeeder::class); 
+         $this->call(UserInfoTableSeeder::class);
          $this->call(UserStatisticsTableSeeder::class);
          $this->call(WithdrawalTableSeeder::class);
          $this->call(MemberRechargeTableSeeder::class);
@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
          $this->call(BankCardTableSeeder::class);
          $this->call(WechatPayTableSeeder::class);
          $this->call(AlipayTableSeeder::class);     
+         $this->call(UserDetailTableSeeder::class); 
     }
 }

@@ -246,11 +246,19 @@ Route::prefix('system')->group(function () {
         return view('system.permission-settings');
     })->middleware('adminLogin');    
     
-    Route::post('add/role','System\PermissionSettingsController@addRole');//添加角色名称
+    
     Route::get('query/role','System\PermissionSettingsController@queryRole');//查询角色名称
     Route::post('add/role/scope','System\PermissionSettingsController@addRoleScope');//编辑角色权限范围
     Route::post('query/role/scope','System\PermissionSettingsController@queryRoleScope');//获取角色权限范围
-    
+
+    //角色设置
+    Route::get('role-settings', function () {
+        return view('system.role-settings');
+    })->middleware('adminLogin');   
+    Route::post('add/role','System\PermissionSettingsController@addRole');//添加角色名称
+    Route::get('query/role/describe','System\PermissionSettingsController@queryRoleDescribe');//查询角色详情
+    Route::post('del/role','System\PermissionSettingsController@delRole');//删除角色
+    Route::post('update/role','System\PermissionSettingsController@updateRole');//更新角色
 });
 
 //平台管理

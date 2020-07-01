@@ -12,31 +12,23 @@
 </head>
 
 <body>
-
-  <div class="demoTable" style="margin:30px;">
-    <button class="layui-btn" data-type="reload" id="admin-management">添加新角色</button>
-
+ 
+<!-- <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="margin: 50px;">
+  <ul class="layui-tab-title" >
+    <li class="layui-this">网站设置</li>
+    <li>用户管理</li>
+    <li>权限分配</li>
+    <li>商品管理</li>
+    <li>订单管理</li>
+  </ul>
+  <div class="layui-tab-content" style="height: 100px;">
+    <div class="layui-tab-item layui-show">内容不一样是要有，因为你可以监听tab事件（阅读下文档就是了）</div>
+    <div class="layui-tab-item">内容2</div>
+    <div class="layui-tab-item">内容3</div>
+    <div class="layui-tab-item">内容4</div>
+    <div class="layui-tab-item">内容5</div>
   </div>
-
-  <div class="layui-row" id="layuiadmin-form-admin" style="display:none;">
-    <form class="layui-form layui-from-pane" required lay-verify="required" style="margin:20px">
-
-      <div class="layui-form-item">
-        <label class="layui-form-label">角色名称</label>
-        <div class="layui-input-block">
-          <input type="text" name="role_name" required lay-verify="role_name" autocomplete="off" placeholder="请输入角色名称" value="" class="layui-input">
-        </div>
-      </div>
-
-      <div class="layui-form-item ">
-        <div class="layui-input-block">
-          <div class="layui-footer" style="left: 0;">
-            <button class="layui-btn" lay-submit="" lay-filter="create">保存</button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
+</div>  -->
 
   <div class="layui-form" lay-filter="layuiadmin-form-role" id="layuiadmin-form-role" style="padding: 20px 30px 0 0;">
     <div class="layui-form-item">
@@ -63,12 +55,12 @@
         <input type="checkbox" name="limits[]" lay-skin="primary" title="反馈管理" value="feedback">
       </div>
     </div>
-    <div class="layui-form-item">
+<!--     <div class="layui-form-item">
       <label class="layui-form-label">具体描述</label>
       <div class="layui-input-block">
         <textarea type="text" name="describe" lay-verify="" autocomplete="off" class="layui-textarea"></textarea>
       </div>
-    </div>
+    </div> -->
     <div class="layui-form-item ">
       <div class="layui-input-block">
         <div class="layui-footer" style="left: 0;">
@@ -81,12 +73,12 @@
 
   <script src="/layuiadmin/layui/layui.js"></script>
   <script>
-    layui.use(['table', 'laydate', 'jquery', 'form'], function() {
+    layui.use(['table', 'laydate', 'jquery', 'form','element'], function() {
       var table = layui.table;
       var laydate = layui.laydate;
       var $ = layui.jquery;
       var form = layui.form;
-
+      var element = layui.element;
       $(document).on('click', '#admin-management', function() {
         layer.open({
           //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
@@ -212,7 +204,7 @@
                 time: 2000
               })
             } else if (res.status == 403) {
-              layer.msg('填写错误', {
+              layer.msg('请先选择', {
                 offset: '15px',
                 icon: 2,
                 time: 3000

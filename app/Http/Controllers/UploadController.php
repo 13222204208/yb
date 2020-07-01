@@ -23,8 +23,9 @@ class UploadController extends Controller
                 return '图片格式为jpg,png,gif,jpeg';
             }
             $newName = md5(date("Y-m-d H:i:s") . $clientName) . "." . $entension;
-            $path = $file->move($url_path, $newName);
-            return $path; 
+            $file->move($url_path, $newName);
+            $namePath = $url_path . '/' . $newName;
+            return $namePath; 
          
         } else {
             return false;

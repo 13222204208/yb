@@ -230,6 +230,7 @@
                 <dd><a lay-href="system/parameter-setting">参数设置</a></dd>
                 <dd><a lay-href="system/background-account">后台帐号</a></dd>
                 <dd><a lay-href="system/permission-settings">权限设置</a></dd>
+                <dd><a lay-href="system/role-settings">角色设置</a></dd>
               </dl>
             </li>
 

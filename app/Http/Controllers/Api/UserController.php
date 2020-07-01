@@ -9,6 +9,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginAuthRequest;
+use App\Http\Controllers\UploadController;
 use App\Http\Requests\RegisterAuthRequest;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Requests\UserDetailAuthRequest;
@@ -161,6 +162,29 @@ class UserController extends Controller
         $user = JWTAuth::authenticate($request->token);
 
         return response()->json(['user' => $user->username]);
+    }
+
+    public function uploadUserHead(Request $request)
+    {
+        $upload= new UploadController;
+        $namePath= $upload->uploadImg($request->file('file'),'UserHeadImg');
+        $namePath = 'http://'.$_SERVER['HTTP_HOST'].'/'.$namePath;
+        if ($namePath) {
+            $this->validate($request, [
+                'token' => 'required'
+            ]);
+    
+            $user = JWTAuth::authenticate($request->token);
+            if ($user) {
+                return response()->json(['msg' =>'找不到用户', 'code' => 0]);
+            }
+            UserDetail::where('username',$user->username)->update([
+                'user_head'=> $namePath
+            ]);
+            return response()->json(['user_head' =>$namePath, 'code' => 200,'msg'=>'上传成功']);
+        } else {
+            return response()->json(['msg' =>'上传失败', 'code' => 0]);
+        }    
     }
  
 }

@@ -23,7 +23,7 @@ class FUserDetail extends Migration
             $table->string('phone',11)->default('')->comment('手机号码');
             $table->string('email',50)->default('')->comment('电子邮箱');
             $table->integer('vip')->default(0)->comment('vip级别');  
-               
+   
             $table->timestamps();
         });
     }

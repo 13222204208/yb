@@ -21,8 +21,8 @@ class FUserinfo extends Migration
             $table->string('take_password',512)->default('')->comment('取款密码');
             $table->string('recharge_account',50)->default('')->comment('充值帐户');
             $table->string('reward_account',50)->default('')->comment('奖励帐户');
-            $table->string('true_name',20)->default('')->comment('真实姓名');
-            $table->string('phone',11)->default('')->comment('手机号');
+           // $table->string('true_name',20)->default('')->comment('真实姓名');
+           // $table->string('phone',11)->default('')->comment('手机号');
             $table->string('register_ip',20)->default('')->comment('注册IP');
             $table->string('register_time',30)->default('')->comment('注册时间');
             $table->string('login_time',30)->default('')->comment('登录时间');

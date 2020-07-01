@@ -1,9 +1,9 @@
 <?php
 
-use App\Model\UserInfo;
+use App\Model\UserDetail;
 use Illuminate\Database\Seeder;
 
-class UserInfoTableSeeder extends Seeder
+class UserDetailTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class UserInfoTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(UserInfo::class, 20)->create();
+        factory(UserDetail::class, 20)->create();
     }
 }

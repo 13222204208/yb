@@ -12,6 +12,10 @@ class UserInfo extends Authenticatable implements JWTSubject
     protected $table = 'f_userinfo';
     protected $guarded = [];
 
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

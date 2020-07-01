@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\UserInfo;
+use App\Model\UserDetail;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginAuthRequest;
 use App\Http\Requests\RegisterAuthRequest;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Http\Requests\UserDetailAuthRequest;
 
 class UserController extends Controller
 {
@@ -37,6 +39,10 @@ class UserController extends Controller
             $user->register_ip = $request->register_ip;
             $user->register_time = date('Y-m-d H:i:s',time());
             $user->save();
+
+            $detail = new UserDetail;
+            $detail->username = $request->username;
+            $detail->save();
     
             if ($this->loginAfterSignUp) {
                 return $this->login($request);
@@ -60,12 +66,69 @@ class UserController extends Controller
                 'msg' => '用户名或者密码错误',
             ], 401);
         }
-
+        $detail = UserDetail::where('username',$request->username)->first();
         return response()->json([
             'code' => 201,
             'msg' =>"成功",
+            'data'=>$detail,
             'token' => $jwt_token,
         ],200);
+    }
+
+    
+    public function update(UserDetailAuthRequest $request,$username)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+        
+        $user = JWTAuth::authenticate($request->token);
+
+        if ($user->username == $username) {
+            $detail = UserDetail::where('username',$username)->first();
+
+            if ($request->true_name) {
+                if ($detail->true_name) {
+                    return response()->json([
+                        'code' => 0,
+                        'msg' =>"真实姓名不能更改",
+                    ],401);
+                }
+            }
+            
+            if ($request->gender) {
+                if ($detail->gender !=2) {
+                    return response()->json([
+                        'code' => 0,
+                        'msg' =>"姓别不能更改",
+                    ],401);
+                }
+            }
+
+            
+            $res = $request->except(['token']);
+            $updated = $detail->fill($res)->save();
+            
+            if ($updated) {
+                return response()->json([
+                    'code' => 200,
+                    'msg' =>"成功",
+                 
+                ],200);
+            } else {
+                return response()->json([
+                    'code' => 0,
+                    'msg' =>"更改失败",
+                ],403);
+            }      
+        }else {
+            return response()->json([
+                'code' => 200,
+                'msg' =>"用户名不匹配",
+            ],401);
+        }
+
+        
     }
 
     public function logout(Request $request)
@@ -95,9 +158,9 @@ class UserController extends Controller
             'token' => 'required'
         ]);
 
-        $user = JWTAuth::authenticate($request->token)->value('username');
+        $user = JWTAuth::authenticate($request->token);
 
-        return response()->json(['user' => $user]);
+        return response()->json(['user' => $user->username]);
     }
  
 }

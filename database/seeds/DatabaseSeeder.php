@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
          $this->call(FRechargeTableSeeder::class);
          $this->call(PlatformTableSeeder::class);
          $this->call(TransactionTableSeeder::class);
-         $this->call(UserInfoTableSeeder::class);
+         //$this->call(UserInfoTableSeeder::class);
          $this->call(UserStatisticsTableSeeder::class);
          $this->call(WithdrawalTableSeeder::class);
          $this->call(MemberRechargeTableSeeder::class);

@@ -26,7 +26,8 @@ Route::middleware('cors')->prefix('user')->group(function (){
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::get('logout', 'Api\UserController@logout');
 
-        Route::get('info', 'Api\UserController@getAuthUser');
+        //Route::get('info', 'Api\UserController@getAuthUser');
+        Route::put('info/{username}', 'Api\UserController@update');//修改用户信息
 
         Route::get('products', 'ProductController@index');
         Route::get('products/{id}', 'ProductController@show');

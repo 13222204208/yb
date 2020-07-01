@@ -29,6 +29,7 @@ class FUserinfo extends Migration
             $table->string('off_time',30)->default('')->comment('离线时间');
             $table->string('ask_time',50)->default('')->comment('申请时间');
             $table->string('account_freeze',50)->default('')->comment('帐号冻结时间');
+            $table->string('remember_token',512)->default('')->comment('token');
             $table->integer('state')->default(0)->comment('0为离线 1为在线');          
             $table->timestamps();
         });

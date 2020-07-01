@@ -19,6 +19,22 @@ use Illuminate\Support\Facades\Route;
 }); */
 
 Route::middleware('cors')->prefix('user')->group(function (){
-    Route::resource('register','Api\UserController');
+    Route::post('register','Api\UserController@register');
+    Route::post('login','Api\UserController@login');
+
+    
+    Route::group(['middleware' => 'auth.jwt'], function () {
+        Route::get('logout', 'Api\UserController@logout');
+
+        Route::get('info', 'Api\UserController@getAuthUser');
+
+        Route::get('products', 'ProductController@index');
+        Route::get('products/{id}', 'ProductController@show');
+        Route::post('products', 'ProductController@store');
+        Route::put('products/{id}', 'ProductController@update');
+        Route::delete('products/{id}', 'ProductController@destroy');
+    });
 });
+
+
 

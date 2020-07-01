@@ -11,7 +11,7 @@ class RegisterAuthRequest extends ApiBaseRequest
     /**
      * 获取应用于请求的验证规则
      *
-     * @return array
+     * 
      */
     public function rules()
     {

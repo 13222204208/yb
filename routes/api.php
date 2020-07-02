@@ -29,6 +29,9 @@ Route::middleware('cors')->prefix('user')->group(function (){
         Route::post('newpass', 'Api\UserController@newpass');
         Route::post('info', 'Api\UserController@update');//修改用户信息
         Route::post('user_head', 'Api\UserController@uploadUserHead');//上传头像
+
+        Route::post('sendcode', 'Api\MailController@sendcode');//验证邮箱
+        Route::post('bindmail','Api\MailController@bindmail');//绑定邮箱
     });
 });
 

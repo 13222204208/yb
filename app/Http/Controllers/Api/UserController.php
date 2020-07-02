@@ -85,9 +85,7 @@ class UserController extends Controller
         ]);
         
         $user = JWTAuth::authenticate($request->token);
-
-        
-            $detail = UserDetail::where('username',$user->username)->first();
+        $detail = UserDetail::where('username',$user->username)->first();
 
             if ($request->true_name) {
                 if ($detail->true_name) {

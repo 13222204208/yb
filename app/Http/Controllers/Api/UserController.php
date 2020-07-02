@@ -77,7 +77,7 @@ class UserController extends Controller
     }
 
     
-    public function update(UserDetailAuthRequest $request,$username)
+    public function update(UserDetailAuthRequest $request)
     {
         $this->validate($request, [
             'token' => 'required'
@@ -85,8 +85,8 @@ class UserController extends Controller
         
         $user = JWTAuth::authenticate($request->token);
 
-        if ($user->username == $username) {
-            $detail = UserDetail::where('username',$username)->first();
+        
+            $detail = UserDetail::where('username',$request->username)->first();
 
             if ($request->true_name) {
                 if ($detail->true_name) {
@@ -122,11 +122,6 @@ class UserController extends Controller
                     'msg' =>"更改失败",
                 ],200);
             }      
-        }else {
-            return response()->json([
-                'code' => 0,
-                'msg' =>"用户名不匹配",
-            ],200);
         }
 
         

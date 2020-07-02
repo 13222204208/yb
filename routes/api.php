@@ -27,7 +27,7 @@ Route::middleware('cors')->prefix('user')->group(function (){
         Route::get('logout', 'Api\UserController@logout');
 
         //Route::get('info', 'Api\UserController@getAuthUser');
-        Route::post('info/{username}', 'Api\UserController@update');//修改用户信息
+        Route::post('info', 'Api\UserController@update');//修改用户信息
         Route::post('user_head', 'Api\UserController@uploadUserHead');//上传头像
     });
 });

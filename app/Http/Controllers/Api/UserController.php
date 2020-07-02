@@ -9,6 +9,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginAuthRequest;
+use App\Http\Requests\UpdatePassRequest;
 use App\Http\Controllers\UploadController;
 use App\Http\Requests\RegisterAuthRequest;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -86,7 +87,7 @@ class UserController extends Controller
         $user = JWTAuth::authenticate($request->token);
 
         
-            $detail = UserDetail::where('username',$request->username)->first();
+            $detail = UserDetail::where('username',$user->username)->first();
 
             if ($request->true_name) {
                 if ($detail->true_name) {
@@ -122,8 +123,6 @@ class UserController extends Controller
                     'msg' =>"更改失败",
                 ],200);
             }      
-        }
-
         
     }
 
@@ -148,15 +147,30 @@ class UserController extends Controller
         }
     }
 
-    public function getAuthUser(Request $request)
+    public function newpass(UpdatePassRequest $request)
     {
         $this->validate($request, [
             'token' => 'required'
         ]);
 
         $user = JWTAuth::authenticate($request->token);
-
-        return response()->json(['user' => $user->username]);
+        $pass = UserInfo::where('username',$user->username)->first();
+    
+        if (password_verify($request->password ,$pass->password)) {
+            $pass->password = bcrypt($request->newpass);
+            $state= $pass->save();
+            if ($state) {
+                return response()->json([
+                    'msg' =>'修改成功',
+                    'code' => 200
+                ],200);
+            }
+        }else {
+            return response()->json([
+                'msg' =>'原始密码不正确',
+                'code' => 0
+            ],200);
+        }
     }
 
     public function uploadUserHead(Request $request)

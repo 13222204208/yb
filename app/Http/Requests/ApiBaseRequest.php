@@ -20,7 +20,7 @@ class ApiBaseRequest extends FormRequest
       *
      * @var int
       */
-      protected $statusCode = 500;
+     // protected $statusCode = 500;
 
       /**
      * Determine if the user is authorized to make this request. * * @return bool
@@ -39,8 +39,8 @@ class ApiBaseRequest extends FormRequest
       {  
            throw new ApiRequestExcept(
                $validator->errors()->first(),
-               $this->code,
-               $this->statusCode
+               $this->code,200
+             //  $this->statusCode,200
             );
       }
 }

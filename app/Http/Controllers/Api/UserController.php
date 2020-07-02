@@ -53,7 +53,7 @@ class UserController extends Controller
                 'code' => 201,
                 'msg' =>"注册成功",
                 'data' => $user
-            ]);
+            ],200);
     }
 
     public function login(Request $request)
@@ -175,7 +175,7 @@ class UserController extends Controller
             ]);
     
             $user = JWTAuth::authenticate($request->token);
-            if ($user) {
+            if (!$user) {
                 return response()->json(['msg' =>'找不到用户', 'code' => 0]);
             }
             UserDetail::where('username',$user->username)->update([

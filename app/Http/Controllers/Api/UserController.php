@@ -85,8 +85,7 @@ class UserController extends Controller
         
         $user = JWTAuth::authenticate($request->token);
 
-        
-            $detail = UserDetail::where('username',$request->username)->first();
+            $detail = UserDetail::where('username',$user->username)->first();
 
             if ($request->true_name) {
                 if ($detail->true_name) {
@@ -122,8 +121,6 @@ class UserController extends Controller
                     'msg' =>"更改失败",
                 ],200);
             }      
-        }
-
         
     }
 

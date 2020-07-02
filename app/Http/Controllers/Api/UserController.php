@@ -65,7 +65,7 @@ class UserController extends Controller
             return response()->json([
                 'code' => 0,
                 'msg' => '用户名或者密码错误',
-            ], 401);
+            ], 200);
         }
         $detail = UserDetail::where('username',$request->username)->first();
         return response()->json([
@@ -93,7 +93,7 @@ class UserController extends Controller
                     return response()->json([
                         'code' => 0,
                         'msg' =>"真实姓名不能修改",
-                    ],401);
+                    ],200);
                 }
             }
             
@@ -102,7 +102,7 @@ class UserController extends Controller
                     return response()->json([
                         'code' => 0,
                         'msg' =>"出生日期不能修改",
-                    ],401);
+                    ],200);
                 }
             }
 
@@ -120,13 +120,13 @@ class UserController extends Controller
                 return response()->json([
                     'code' => 0,
                     'msg' =>"更改失败",
-                ],403);
+                ],200);
             }      
         }else {
             return response()->json([
                 'code' => 0,
                 'msg' =>"用户名不匹配",
-            ],401);
+            ],200);
         }
 
         

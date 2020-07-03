@@ -52,7 +52,7 @@
               width: 80,
               sort: true
             }, {
-              field: 'account_num',
+              field: 'username',
               title: '提交人帐号',
               width: 150
             }, {

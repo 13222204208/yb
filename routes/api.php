@@ -33,7 +33,7 @@ Route::middleware('cors')->prefix('user')->group(function (){
         Route::post('sendcode', 'Api\MailController@sendcode');//验证邮箱
         Route::post('bindmail','Api\MailController@bindmail');//绑定邮箱
 
-        Route::post('feedback','Api\FeedBackController@bindmail');//意见反馈
+        Route::post('feedback','Api\FeedBackController@feedback');//意见反馈
     });
 });
 

@@ -16,7 +16,7 @@ class FeedBackController extends Controller
         $feedback = new Feedback;
         $feedback->username = $user->username;
         $feedback->feedback_type = $request->feedback_type;
-        $feedback->content = $request->content;
+        $feedback->feedback_content = $request->feedback_content;
         if ($request->img_url) {
             $upload= new UploadController;
             $namePath= $upload->uploadImg($request->file('img_url'),'FeedBackImg');

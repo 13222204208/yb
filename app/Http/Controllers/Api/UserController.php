@@ -95,7 +95,7 @@ class UserController extends Controller
                 }
             }
             
-            if ($request->gender) {
+            if ($request->date_brith) {
                 if ($detail->date_brith) {
                     return response()->json([
                         'code' => 0,

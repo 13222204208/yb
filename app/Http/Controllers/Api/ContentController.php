@@ -9,7 +9,7 @@ class ContentController extends Controller
 {
     public function rotation()
     { 
-        $data = RotationChart::where('state',1)->get(['img_url','jump_url','img_sort']);
+        $data = RotationChart::where('state',1)->get(['img_url','jump_url','title','img_sort']);
         if ($data) {
             return response()->json([
                 'code' => 200,

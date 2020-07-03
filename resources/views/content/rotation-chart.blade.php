@@ -60,6 +60,20 @@
         </div>
       </div>
 
+      <div class="layui-form-item">
+        <label class="layui-form-label">跳转链接</label>
+        <div class="layui-input-block">
+          <input type="text" name="jump_url" required lay-verify="required" autocomplete="off" placeholder="" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">标题</label>
+        <div class="layui-input-block">
+          <input type="text" name="title" required lay-verify="required" autocomplete="off" placeholder="" class="layui-input">
+        </div>
+      </div>
+
 
       <div class="layui-form-item">
         <label class="layui-form-label">状态</label>
@@ -96,6 +110,13 @@
         <label class="layui-form-label">跳转链接</label>
         <div class="layui-input-block">
           <input type="text" name="jump_url" required lay-verify="required" autocomplete="off" placeholder="" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">标题</label>
+        <div class="layui-input-block">
+          <input type="text" name="title" required lay-verify="required" autocomplete="off" placeholder="" class="layui-input">
         </div>
       </div>
 
@@ -167,7 +188,7 @@
         done: function(res) {
           if (res.status == 200) { 
             console.log(window.location.hostname+'/'+res.path);
-            var img_url= window.location.hostname+'/'+res.path;
+            var img_url="http://"+window.location.hostname+'/'+res.path;
             $(" input[ name='img_url' ] ").val(img_url);
             return layer.msg('图片上传成功',{
                 offset: '15px',
@@ -254,6 +275,12 @@ location.href="rotation-chart";
             },{
               field: 'jump_url',
               title: '跳转链接',
+              width: 280,
+              align: 'center',
+              sort: true
+            },{
+              field: 'title',
+              title: '标题',
               width: 280,
               align: 'center',
               sort: true
@@ -373,6 +400,7 @@ location.href="rotation-chart";
               id: data.id,
               img_sort:massage.img_sort,
               jump_url:massage.jump_url,
+              title:massage.title,
               state:massage.state
             },
             success: function(msg) {
@@ -387,6 +415,7 @@ location.href="rotation-chart";
 
                   obj.update({
                     img_sort:massage.img_sort,
+                    title:massage.title,
                     jump_url:massage.jump_url,
               state:massage.state
                   }); //修改成功修改表格数据不进行跳转              

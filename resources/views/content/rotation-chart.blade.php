@@ -92,6 +92,12 @@
                   </div>
           </div>   
      </div> -->
+     <div class="layui-form-item">
+        <label class="layui-form-label">跳转链接</label>
+        <div class="layui-input-block">
+          <input type="text" name="jump_url" required lay-verify="required" autocomplete="off" placeholder="" class="layui-input">
+        </div>
+      </div>
 
       <div class="layui-form-item">
         <label class="layui-form-label">排序</label>
@@ -245,6 +251,12 @@ location.href="rotation-chart";
               width: 280,
               align: 'center',
               sort: true
+            },{
+              field: 'jump_url',
+              title: '跳转链接',
+              width: 280,
+              align: 'center',
+              sort: true
             },
             {
               field: 'img_sort',
@@ -360,6 +372,7 @@ location.href="rotation-chart";
             data: {
               id: data.id,
               img_sort:massage.img_sort,
+              jump_url:massage.jump_url,
               state:massage.state
             },
             success: function(msg) {
@@ -374,6 +387,7 @@ location.href="rotation-chart";
 
                   obj.update({
                     img_sort:massage.img_sort,
+                    jump_url:massage.jump_url,
               state:massage.state
                   }); //修改成功修改表格数据不进行跳转              
                   layer.closeAll(); //关闭所有的弹出层

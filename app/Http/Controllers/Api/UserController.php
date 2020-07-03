@@ -7,7 +7,6 @@ use App\Model\UserDetail;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginAuthRequest;
 use App\Http\Requests\UpdatePassRequest;
 use App\Http\Controllers\UploadController;

@@ -35,5 +35,10 @@ Route::middleware('cors')->prefix('user')->group(function (){
     });
 });
 
+Route::middleware('cors')->prefix('content')->group(function (){
+    Route::get('rotation','Api\ContentController@rotation');
+
+});
+
 
 

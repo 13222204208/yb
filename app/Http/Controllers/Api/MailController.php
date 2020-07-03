@@ -6,7 +6,6 @@ use App\Model\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller

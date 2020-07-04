@@ -27,9 +27,12 @@
                 <label class="layui-form-label">活动类型</label>
                 <div class="layui-input-inline">
                   <select name="activity_type">
-                    <option value="体育">体育</option>
-                    <option value="电竞">电竞</option>
-                    <option value="棋牌">棋牌</option>
+                    <option value="限时活动">限时活动</option>
+                    <option value="新人首存">新人首存</option>
+                    <option value="日常活动">日常活动</option>
+                    <option value="体育优惠">体育优惠</option>
+                    <option value="高额返水">高额返水</option>
+                    <option value="VIP特权">VIP特权</option>
                   </select>
 
                 </div>

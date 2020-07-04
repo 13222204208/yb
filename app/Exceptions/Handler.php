@@ -2,8 +2,11 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -14,6 +17,11 @@ class Handler extends ExceptionHandler
      */
     protected $dontReport = [
         //
+        \Illuminate\Auth\AuthenticationException::class,
+        \Illuminate\Auth\Access\AuthorizationException::class,
+        \Symfony\Component\HttpKernel\Exception\HttpException::class,
+        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
+        \Illuminate\Validation\ValidationException::class,
     ];
 
     /**
@@ -50,6 +58,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception->getPrevious() instanceof TokenExpiredException) {
+            return response()->json(['error' => '过期的token']);
+        } else if ($exception->getPrevious() instanceof TokenInvalidException) {
+            return response()->json(['error' => '无效的token']);
+        } else if ($exception->getPrevious() instanceof TokenBlacklistedException) {
+            return response()->json(['error' => 'TOKEN_BLACKLISTED']);
+        } else {
+            return response()->json(['error' => "UNAUTHORIZED_REQUEST"], 401);
+        }
         return parent::render($request, $exception);
     }
 }

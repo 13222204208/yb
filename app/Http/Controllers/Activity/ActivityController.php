@@ -41,8 +41,8 @@ class ActivityController extends Controller
             $activity->activity_sort = intval($request->activity_sort);
             $activity->activity_img = $request->activity_img;
             $activity->label_img = 'http://'.$_SERVER['HTTP_HOST'].'/'.$request->label_img;
-            $activity->start_time = $request->start_time;
-            $activity->stop_time = $request->stop_time;
+            $activity->start_time = $request->start_time?$request->start_time:"";
+            $activity->stop_time = $request->stop_time?$request->stop_time:"";
             $activity->activity_term = $request->activity_term;
             $activity->term_num = $request->term_num;
             $activity->award_num = intval($request->award_num);

@@ -28,7 +28,7 @@ class ContentController extends Controller
     public function activity()
     {
         $data = Activity::where('activity_state',1)->get(['activity_type','activity_title',
-        'activity_img','activity_url','activity_sort','start_time','stop_time']);
+        'activity_img','activity_url','label_img','activity_sort','start_time','stop_time']);
 
         if ($data) {
             return response()->json($data,200);

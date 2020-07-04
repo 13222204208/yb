@@ -47,6 +47,17 @@
 
                 </div>
               </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">活动标签类型</label>
+                <div class="layui-input-inline">
+                  <select name="label_img">
+                    <option value="ActivityImg/label/xianshi.png">限时</option>
+                    <option value="ActivityImg/label/xinren.png">新人</option>
+                    <option value="ActivityImg/label/richang.png">日常</option>
+                  </select>
+
+                </div>
+              </div>
 
 
 

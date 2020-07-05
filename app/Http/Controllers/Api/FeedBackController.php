@@ -15,7 +15,7 @@ class FeedBackController extends Controller
         $user = JWTAuth::authenticate($request->token);
         $feedback = new Feedback;
         $feedback->username = $user->username;
-        $feedback->feedback_type = $request->feedback_type;
+        $feedback->feedback_type = intval($request->feedback_type);
         $feedback->feedback_content = $request->feedback_content;
         if ($request->img_url) {
             $upload= new UploadController;
@@ -43,7 +43,7 @@ class FeedBackController extends Controller
         ]);
 
         $user = JWTAuth::authenticate($request->token);
-        $data = Feedback::where('username',$user->username)->get(['username','feedback_type','feedback_content','img_url','state','created_at']);
+        $data = Feedback::where('username',$user->username)->orderBy('created_at','desc')->get(['username','feedback_type','feedback_content','img_url','state','created_at']);
         if ($data) {
             return response()->json(['msg'=>'成功','code'=>200, 'data'=>$data]);
         }else {

@@ -16,7 +16,7 @@ class BgFeedback extends Migration
         Schema::create('bg_feedback', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username',50)->comment('意见反馈提交人帐号');
-            $table->string('feedback_type',50)->default('')->comment('反馈问题类型');
+            $table->integer('feedback_type')->default(0)->comment('反馈问题类型');
             $table->string('feedback_content',500)->default('')->comment('反馈问题具体描述');
             $table->string('img_url',200)->default('')->comment('反馈截图');
             $table->string('state',20)->default('')->comment('状态');

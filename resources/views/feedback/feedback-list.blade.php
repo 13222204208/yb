@@ -58,6 +58,36 @@
             }, {
               field: 'feedback_type',
               title: '反馈类型',
+              template:function(d){
+                switch(d.feedback_type) {
+                      case 1:
+                          return "存款问题"
+                          break;
+                      case 2:
+                          return "提款问题"
+                          break;
+                      case 3:
+                          return "游戏问题"
+                          break;
+                      case 4:
+                          return "优惠问题"
+                          break;
+                      case 5:
+                          return "网站/APP登录"
+                          break;
+                      case 6:
+                          return "修改资料"
+                          break;
+                      case 7:
+                          return "流水问题"
+                          break;
+                      case 8:
+                          return "其它"
+                          break;
+                      default:
+                          return "未知"
+                  } 
+              },
               width: 150
             }, {
               field: 'feedback_content',

@@ -35,4 +35,20 @@ class FeedBackController extends Controller
             return response()->json(['msg' =>'失败', 'code' => 0]);
         }   
     }
+
+    public function myFeedback(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user = JWTAuth::authenticate($request->token);
+        $data = Feedback::where('username',$user->username)->get(['username','feedback_type','feedback_content','img_url','state','created_at']);
+        if ($data) {
+            return response()->json($data,200);
+        }else {
+            return response()->json(['msg' =>'无数据', 'code' => 0]);
+        }  
+        
+    }
 }

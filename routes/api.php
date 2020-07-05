@@ -34,6 +34,7 @@ Route::middleware('cors')->prefix('user')->group(function (){
         Route::post('bindmail','Api\MailController@bindmail');//绑定邮箱
 
         Route::post('feedback','Api\FeedBackController@feedback');//意见反馈
+        Route::post('myFeedback','Api\FeedBackController@myFeedback');//获取意见反馈
     });
 });
 

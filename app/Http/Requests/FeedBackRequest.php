@@ -10,7 +10,7 @@ class FeedBackRequest extends ApiBaseRequest
     {
         return [
             'token'=> 'required',
-            'feedback_type' => 'required|min:2|max:20',//只允许数字和字母
+            'feedback_type' => 'required|max:1',
             'feedback_content' => 'required|min:20|max:200',
         ];
     }

@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
          $this->call(ApplyActivityTableSeeder::class);
          $this->call(BettingTableSeeder::class);
          $this->call(BgUsersTableSeeder::class);
-         $this->call(FeedbackTableSeeder::class);
+        // $this->call(FeedbackTableSeeder::class);
          $this->call(FRechargeTableSeeder::class);
          $this->call(PlatformTableSeeder::class);
          $this->call(TransactionTableSeeder::class); 

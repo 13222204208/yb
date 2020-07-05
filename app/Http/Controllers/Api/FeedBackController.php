@@ -45,7 +45,7 @@ class FeedBackController extends Controller
         $user = JWTAuth::authenticate($request->token);
         $data = Feedback::where('username',$user->username)->get(['username','feedback_type','feedback_content','img_url','state','created_at']);
         if ($data) {
-            return response()->json($data,200);
+            return response()->json(['msg'=>'成功','code'=>200, 'data'=>$data]);
         }else {
             return response()->json(['msg' =>'无数据', 'code' => 0]);
         }  

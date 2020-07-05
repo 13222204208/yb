@@ -154,6 +154,9 @@
                 <cite>用户管理</cite>
               </a>
               <dl class="layui-nav-child">
+              <dd>
+                  <a lay-href="user/default-head">默认头像</a>
+                </dd>
                 <dd>
                   <a lay-href="user/user-list">用户列表</a>
                 </dd>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Model\Activity;
 use App\Model\RotationChart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContentController extends Controller
 {
@@ -31,7 +32,20 @@ class ContentController extends Controller
         'activity_img','activity_url','label_img','activity_sort','start_time','stop_time']);
 
         if ($data) {
-            return response()->json($data,200);
+            return response()->json( ['msg'=>'成功','data'=>$data,'code'=>200]);
+        }else {
+            return response()->json([
+                'code' => 0,
+                'msg' =>"无数据",
+            ],200);
+        }
+    }
+
+    public function defaultHead()
+    {
+        $data = DB::table('f_default_head')->select('default_head')->get();
+        if ($data) {
+            return response()->json(['msg'=>'成功','data'=>$data,'code'=>200],200);
         }else {
             return response()->json([
                 'code' => 0,

@@ -52,6 +52,14 @@ Route::get('home/query/same/ip','Home\HomePageController@sameIp');//相同ip下�
 
 //用户管理
 Route::prefix('user')->group(function () {
+    //用户默认头像
+    Route::get('default-head', function () {
+        return view('user.default-head');
+    })->middleware('adminLogin');
+    Route::post('upload/default/head','User\DefaultHeadController@defaultHead');
+    Route::post('create/default/head','User\DefaultHeadController@createDefaultHead');//保存默认头像
+    Route::get('query/default/head','User\DefaultHeadController@queryDefaultHead');//保存默认头像
+    Route::post('del/default/head','User\DefaultHeadController@delDefaultHead');//删除默认头像
     //用户列表
     Route::get('user-list', function () {
         return view('user.user-list');

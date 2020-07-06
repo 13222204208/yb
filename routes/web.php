@@ -334,7 +334,15 @@ Route::prefix('content')->group(function () {
 
     Route::post('create/running/horse','Content\RunningHorseLampController@createRunHorse');//创建跑马灯
     Route::get('query/running/horse','Content\RunningHorseLampController@queryRunHorse');//查看跑马灯列表
-    
+
+    //赞助
+    Route::get('support', function () {
+        return view('content.support');
+    })->middleware('adminLogin'); 
+    Route::post('create/support','Content\SupportController@createSupport');//新建赞助
+    Route::get('query/support','Content\SupportController@querySupport');//查看赞助
+    Route::post('update/support','Content\SupportController@updateSupport');//更新赞助
+    Route::post('del/support','Content\SupportController@delSupport');//更新赞助
 });
 
 //消息管理

@@ -270,6 +270,7 @@
               <dl class="layui-nav-child">
                 <dd><a lay-href="content/rotation-chart">轮播图</a></dd>
                 <dd><a lay-href="content/running-horse-lamp">跑马灯</a></dd>
+                <dd><a lay-href="content/support">赞助</a></dd>
               </dl>
             </li>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\Affiche;
+use App\Model\Support;
 use App\Model\Activity;
 use App\Model\RotationChart;
 use Illuminate\Http\Request;
@@ -63,6 +64,21 @@ class ContentController extends Controller
         $data= Affiche::orderBy('created_at','desc')->get(['affiche_title','affiche_content','great_affiche','created_at']);
         if ($data) {
             return response()->json(['msg'=>'成功','data'=>$data,'code'=>200],200);
+        }else {
+            return response()->json([
+                'code' => 0,
+                'msg' =>"无数据",
+            ],200);
+        }
+    }
+
+    public function support()
+    {
+        $data = Support::where('state',1)->get(['app_img_url','title',
+        'link_url','sort']);
+
+        if ($data) {
+            return response()->json( ['msg'=>'成功','data'=>$data,'code'=>200]);
         }else {
             return response()->json([
                 'code' => 0,

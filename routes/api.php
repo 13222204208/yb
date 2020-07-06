@@ -39,10 +39,10 @@ Route::middleware('cors')->prefix('user')->group(function (){
 });
 
 Route::middleware('cors')->prefix('content')->group(function (){
-    Route::get('rotation','Api\ContentController@rotation');
-    Route::get('activity','Api\ContentController@activity');
-    Route::get('default/head','Api\ContentController@defaultHead');
-    
+    Route::get('rotation','Api\ContentController@rotation');//首页轮播
+    Route::get('activity','Api\ContentController@activity');//活动
+    Route::get('default/head','Api\ContentController@defaultHead');//默认头像
+    Route::get('support','Api\ContentController@support');//赞助
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::get('affiche','Api\ContentController@affiche');
     }); 

@@ -21,19 +21,26 @@ class FeedBackController extends Controller
             $upload= new UploadController;
             $images = $request->file('img_url');
             $pathUrls = [];
-            foreach($images as $key=>$v)
-            {
-                $namePath= $upload->uploadImg($images[$key],'FeedBackImg');
-                $img_url = 'http://'.$_SERVER['HTTP_HOST'].'/'.$namePath;
-                array_push($pathUrls,$img_url);
-
+            if (is_array($images)) {
+                foreach($images as $key=>$v)
+                {
+                    $namePath= $upload->uploadImg($images[$key],'FeedBackImg');
+                    $img_url = 'http://'.$_SERVER['HTTP_HOST'].'/'.$namePath;
+                    array_push($pathUrls,$img_url);
+    
+                }
+            }else {
+                $namePath= $upload->uploadImg($images,'FeedBackImg');
+                    $img_url = 'http://'.$_SERVER['HTTP_HOST'].'/'.$namePath;
+                    array_push($pathUrls,$img_url);
             }
+
             
             if (!$namePath) {
                 return response()->json(['msg' =>'图片上传失败', 'code' => 0]);
             }
-            $pathUrls=response()->json($pathUrls);
-            //$pathUrls = implode(',',$pathUrls);
+            //$pathUrls=response()->json($pathUrls);
+            $pathUrls = implode(',',$pathUrls);
             //$img_url = 'http://'.$_SERVER['HTTP_HOST'].'/'.$namePath;
             $feedback->img_url=  $pathUrls;
         }

@@ -280,6 +280,7 @@
               </a>
               <dl class="layui-nav-child">
                 <dd><a lay-href="news/inside-the-station">站内信</a></dd>
+                <dd><a lay-href="news/affiche">公告</a></dd>
               </dl>
             </li>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\News;
 
 use App\Model\News;
+use App\Model\Affiche;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -31,6 +32,22 @@ class SendNewsController extends Controller
             $news->great_news = intval($request->great_news);
             $news->award_gold = $request->award_gold;
             $state = $news->save();
+            if ($state) {
+                return response()->json(['status'=>200]);
+            }else{
+                return response()->json(['status'=>403]);
+            }
+        }
+    }
+
+    public function sendAffiche(Request $request)
+    {
+        if ($request->ajax()) {
+            $affiche= new Affiche;
+            $affiche->affiche_title = $request->affiche_title;
+            $affiche->affiche_content = $request->affiche_content;
+            $affiche->great_affiche = intval($request->great_affiche);
+            $state = $affiche->save();
             if ($state) {
                 return response()->json(['status'=>200]);
             }else{

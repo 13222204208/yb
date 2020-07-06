@@ -338,11 +338,20 @@ Route::prefix('content')->group(function () {
 });
 
 //消息管理
-Route::get('news/inside-the-station', function () {
-   //站内信
-    return view('news.inside-the-station');
-})->middleware('adminLogin');
-Route::post('news/send/news','News\SendNewsController@sendNews');
+Route::prefix('news')->group(function () {
+    Route::get('inside-the-station', function () {
+        //站内信
+         return view('news.inside-the-station');
+     })->middleware('adminLogin');
+
+     Route::get('affiche', function () {
+        //公告
+         return view('news.affiche');
+     })->middleware('adminLogin');
+
+     Route::post('send/news','News\SendNewsController@sendNews');
+     Route::post('send/affiche','News\SendNewsController@sendAffiche');//发送公告
+});
 
 
 //反馈管理

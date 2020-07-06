@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\Affiche;
 use App\Model\Activity;
 use App\Model\RotationChart;
 use Illuminate\Http\Request;
@@ -44,6 +45,22 @@ class ContentController extends Controller
     public function defaultHead()
     {
         $data = DB::table('f_default_head')->select('default_head')->get();
+        if ($data) {
+            return response()->json(['msg'=>'成功','data'=>$data,'code'=>200],200);
+        }else {
+            return response()->json([
+                'code' => 0,
+                'msg' =>"无数据",
+            ],200);
+        }
+    }
+
+    public function affiche(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+        $data= Affiche::orderBy('created_at','desc')->get(['affiche_title','affiche_content','great_affiche','created_at']);
         if ($data) {
             return response()->json(['msg'=>'成功','data'=>$data,'code'=>200],200);
         }else {

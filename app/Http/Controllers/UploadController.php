@@ -22,7 +22,7 @@ class UploadController extends Controller
             if (!in_array($entension, $rule)) {
                 return '图片格式为jpg,png,gif,jpeg';
             }
-            $newName = md5(date("Y-m-d H:i:s") . $clientName) . "." . $entension;
+            $newName =  date('YmdHis').mt_rand(100,999). "." . $entension;
             $file->move($url_path, $newName);
             $namePath = $url_path . '/' . $newName;
             return $namePath; 

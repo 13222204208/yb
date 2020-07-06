@@ -17,14 +17,25 @@ class FeedBackController extends Controller
         $feedback->username = $user->username;
         $feedback->feedback_type = intval($request->feedback_type);
         $feedback->feedback_content = $request->feedback_content;
-        if ($request->img_url) {
+        if ($request->img_url) { 
             $upload= new UploadController;
-            $namePath= $upload->uploadImg($request->file('img_url'),'FeedBackImg');
+            $images = $request->file('img_url');
+            $pathUrls = [];
+            foreach($images as $key=>$v)
+            {
+                $namePath= $upload->uploadImg($images[$key],'FeedBackImg');
+                $img_url = 'http://'.$_SERVER['HTTP_HOST'].'/'.$namePath;
+                array_push($pathUrls,$img_url);
+
+            }
+            
             if (!$namePath) {
                 return response()->json(['msg' =>'图片上传失败', 'code' => 0]);
             }
-            $img_url = 'http://'.$_SERVER['HTTP_HOST'].'/'.$namePath;
-            $feedback->img_url= $img_url;
+            $pathUrls=response()->json($pathUrls);
+            //$pathUrls = implode(',',$pathUrls);
+            //$img_url = 'http://'.$_SERVER['HTTP_HOST'].'/'.$namePath;
+            $feedback->img_url=  $pathUrls;
         }
 
         $state= $feedback->save();

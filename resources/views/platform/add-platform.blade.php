@@ -42,11 +42,12 @@
                 <label class="layui-form-label">所属类型</label>
                 <div class="layui-input-inline">
                   <select name="platform_type">
-                    <option value="体育">体育</option>
-                    <option value="电竞">电竞</option>
-                    <option value="棋牌">棋牌</option>
-                    <option value="真人">真人</option>
-                    <option value="电子">电子</option>
+                    <option value="1">体育</option>
+                    <option value="2">真人</option>
+                    <option value="3">棋牌</option>
+                    <option value="4">电竞</option>
+                    <option value="5">彩票</option>
+                    <option value="6">电子</option>
                   </select>
 
                 </div>

@@ -55,4 +55,23 @@ class SendNewsController extends Controller
             }
         }
     }
+
+    public function queryAffiche(Request $request)
+    {
+        $limit = $request->get('limit');
+        $data= Affiche::paginate($limit);
+        return $data;
+    }
+
+    public function delAffiche(Request $request)
+    {
+        if ($request->ajax()) {
+            $state = Affiche::find($request->id)->delete();
+            if ($state) {
+                return response()->json(['status'=>200]);
+            }else{
+                return response()->json(['status'=>403]);
+            }
+        }
+    }
 }

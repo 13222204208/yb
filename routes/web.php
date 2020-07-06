@@ -359,6 +359,8 @@ Route::prefix('news')->group(function () {
 
      Route::post('send/news','News\SendNewsController@sendNews');
      Route::post('send/affiche','News\SendNewsController@sendAffiche');//发送公告
+     Route::get('query/affiche','News\SendNewsController@queryAffiche');//获取公告
+     Route::post('del/affiche','News\SendNewsController@delAffiche');//删除公告
 });
 
 

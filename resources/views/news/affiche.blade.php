@@ -56,16 +56,125 @@
 		</form>
 
 	</div>
+	<div class="layui-col-md12" >
+	<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table> 
+               
+  <script type="text/html" id="barDemo">
 
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  </script>  
+	</div>
 	<script src="/layuiadmin/layui/layui.js"></script>
 	<script src="/layuiadmin/layui/jquery3.2.js"></script>
 	<script>
-		layui.use(['form', 'laydate'], function() {
+		layui.use(['form', 'laydate','table'], function() {
 			var form = layui.form;
 			var laydate = layui.laydate;
+			var table = layui.table;
 
+			table.render({
+        elem: '#LAY_table_user',
+        url:'query/affiche',
+        page: true //开启分页
+          ,
+        cols: [
+          [ //表头
+            {
+              field: 'id',
+              title: 'ID',
+              width: 80,
+              align: 'center',
+              sort: true
+            },{
+              field: 'affiche_title',
+              title: '标题',
+              width: 180,
+              align: 'center',
+           
+            },{
+              field: 'affiche_content',
+              title: '内容',
+              width: 280,
+              align: 'center',
+            
+            },
+            {
+              field: 'great_affiche',
+              title: '重要公告',
+			  align: 'center',
+			  templet: function(d){
+				  if (d.great_affiche == 1) {
+					  return "是";
+				  }else{
+					  return "否";
+				  }
+			  },
+              width: 100,
+            }, {
+              field: 'created_at',
+              title: '发送时间',
+              align: 'center',
+              width: 200
+            },{
+              fixed: 'right',
+              title:"操作",
+              width: 180,
+              align: 'center',
+              toolbar: '#barDemo'
+            }
+          ]
+        ],
+        parseData: function(res) { //res 即为原始返回的数据
+          console.log(res);
+          return {
+            "code": '0', //解析接口状态
+            "msg": res.message, //解析提示文本
+            "count": res.total, //解析数据长度
+            "data": res.data //解析数据列表
+          }
+        },
+        toolbar: '#toolbarDemo',
+        title: '后台广告管理',
+        totalRow: true
 
+	  });
+	  
+	  
+      table.on('tool(user)', function(obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+        var data = obj.data; //获得当前行数据
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 
+                 if (layEvent === 'del') { //删除
+                  layer.confirm('真的删除行么', function(index) {
+                    $.ajax({
+                      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                      url: "del/affiche",
+                      type: 'post',                     
+                      datatype: 'json',
+                      data: {
+                        'id': data.id
+                      }, //向服务端发送删除的id
+                      success: function(res) {
+                        console.log(res);
+                        if (res.status == 200) {
+                          obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                          layer.close(index);
+                          console.log(index);
+                          layer.msg("删除成功", {
+                            icon: 1
+                          });
+                        } else {
+                          layer.msg("删除失败", {
+                            icon: 5
+                          });
+                        }
+                      }
+                    });
+                    layer.close(index);
+                    //向服务端发送删除指令
+                  });
+                }});
 
 
 			//监听提交

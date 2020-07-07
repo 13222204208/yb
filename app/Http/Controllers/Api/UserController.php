@@ -28,6 +28,10 @@ class UserController extends Controller
      */
     public function register(RegisterAuthRequest $request)
     {   
+        $state = captcha_api_check($request->regCode, $request->key);
+        return response()->json([
+            'code' => 0, 'msg' => $state
+        ]);
         if (!captcha_api_check($request->regCode, $request->key)){
             return response()->json([
                 'code' => 0, 'msg' => '验证码不匹配'

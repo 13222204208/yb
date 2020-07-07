@@ -8,6 +8,7 @@ use App\Model\UserDetail;
 use Illuminate\Http\Request;
 
 use Tymon\JWTAuth\Facades\JWTAuth;
+
 use App\Http\Requests\LoginAuthRequest;
 use App\Http\Requests\UpdatePassRequest;
 use App\Http\Controllers\UploadController;
@@ -205,14 +206,23 @@ class UserController extends Controller
         'activity_img','activity_describe','activity_sort']);
 
         
-        if ($data) {
+        if ($data->first()) {
             return response()->json( ['msg'=>'成功','data'=>$data,'code'=>200]);
         }else {
             return response()->json([
                 'code' => 0,
-                'msg' =>"无数据",
+                'msg' =>"无符合条件数据",
             ],200);
         }
+    }
+
+    public function regCode()
+    { 
+        return response()->json([
+            'code' => 200,
+            'msg' => '创建成功',
+            'url' => app('captcha')->create('default', true)
+        ]);
     }
  
 }

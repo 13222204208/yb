@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('cors')->prefix('user')->group(function (){
     Route::post('register','Api\UserController@register');
     Route::post('login','Api\UserController@login');
+    Route::get('reg/code','Api\UserController@regCode');
 
     
     Route::group(['middleware' => 'auth.jwt'], function () {

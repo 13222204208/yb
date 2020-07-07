@@ -50,7 +50,7 @@
     function re_captcha() {
             $url = "{{ URL('/admin/code')}}";
             $url = $url + "?tmp=" + Math.random();
-            document.getElementById('refcode').src=$url;
+            document.getElementById('refcode').src=$url; console.log($url);
         }
     </script>
 

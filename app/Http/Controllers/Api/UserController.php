@@ -11,6 +11,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 use App\Http\Requests\LoginAuthRequest;
 use App\Http\Requests\UpdatePassRequest;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\UploadController;
 use App\Http\Requests\RegisterAuthRequest;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -28,15 +29,23 @@ class UserController extends Controller
      */
     public function register(RegisterAuthRequest $request)
     {   
-        $state = captcha_api_check($request->regCode, $request->key);
-        return response()->json([
-            'code' => 0, 'msg' => $state
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'key' => 'required',
+            'regCode' => 'required|captcha_api:' . $request->input('key')
         ]);
-        if (!captcha_api_check($request->regCode, $request->key)){
+        
+        if ($validator->fails()) {
+            return [
+                'code' => 0, 'msg' => '验证码不匹配'
+            ];
+        } 
+
+     /*    if (!captcha_api_check($request->regCode, $request->key)){
             return response()->json([
                 'code' => 0, 'msg' => '验证码不匹配'
             ]);
-         }
+         } */
 
         if ($request->register_ip) {
             if(!filter_var($request->register_ip, FILTER_VALIDATE_IP)) {

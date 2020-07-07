@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\Activity;
 use App\Model\UserInfo;
 use App\Model\UserDetail;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Requests\LoginAuthRequest;
 use App\Http\Requests\UpdatePassRequest;
 use App\Http\Controllers\UploadController;
@@ -133,14 +134,14 @@ class UserController extends Controller
             JWTAuth::invalidate($request->token);
 
             return response()->json([
-                'success' => true,
-                'message' => 'User logged out successfully'
-            ]);
+                'code' => 200,
+                'msg' => '用户退出成功'
+            ],200);
         } catch (JWTException $exception) {
             return response()->json([
-                'success' => false,
-                'message' => 'Sorry, the user cannot be logged out'
-            ], 500);
+                'code' => 0,
+                'msg' => '对不起，用户无法注销'
+            ], 200);
         }
     }
 
@@ -191,6 +192,27 @@ class UserController extends Controller
         } else {
             return response()->json(['msg' =>'上传失败', 'code' => 0]);
         }    
+    }
+
+    public function myActivity(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user = JWTAuth::authenticate($request->token);
+        $data = Activity::whereDate('created_at','>',$user->register_time)->get(['activity_title',
+        'activity_img','activity_describe','activity_sort']);
+
+        
+        if ($data) {
+            return response()->json( ['msg'=>'成功','data'=>$data,'code'=>200]);
+        }else {
+            return response()->json([
+                'code' => 0,
+                'msg' =>"无数据",
+            ],200);
+        }
     }
  
 }

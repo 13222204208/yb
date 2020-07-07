@@ -198,7 +198,9 @@
 								offset: '15px',
 								icon: 1,
 								time: 3000
-							})
+							}, function() {
+                location.href = 'affiche';
+              })
 						} else if (res.status == 404) {
 						
 							layer.msg('用户不存在', {

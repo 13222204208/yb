@@ -19,7 +19,7 @@ class FeedBackController extends Controller
         $feedback->feedback_content = $request->feedback_content;
         if ($request->img_url) { 
             $upload= new UploadController;
-            $images = $request->file('img_url');return response()->json($images);
+            $images = $request->file('img_url');
             $pathUrls = [];
             if (is_array($images)) {
                 foreach($images as $key=>$v)

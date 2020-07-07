@@ -204,7 +204,7 @@
         done: function(res) {
           if (res.status == 200) {
             console.log(window.location.hostname + '/' + res.path);
-            var img_url ="http://".window.location.hostname + '/' + res.path;
+            var img_url = "http://"+window.location.hostname + '/' + res.path;
             $(" input[ name='activity_img' ] ").val(img_url);
             return layer.msg('图片上传成功', {
               offset: '15px',

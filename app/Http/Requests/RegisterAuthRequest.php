@@ -18,6 +18,8 @@ class RegisterAuthRequest extends ApiBaseRequest
         return [
             'username' => 'required|unique:f_userinfo|min:4|max:12|alpha_num',//只允许数字和字母
             'password' => 'required|min:6|max:12|alpha_num',
+            'regCode' => 'required',
+            'key' => 'required'
         ];
     }
 

@@ -28,6 +28,12 @@ class UserController extends Controller
      */
     public function register(RegisterAuthRequest $request)
     {   
+        if (!captcha_api_check($request->regCode, $request->key)){
+            return response()->json([
+                'code' => 0, 'msg' => '验证码不匹配'
+            ]);
+         }
+
         if ($request->register_ip) {
             if(!filter_var($request->register_ip, FILTER_VALIDATE_IP)) {
                 $request->register_ip ="错误的ip格式";

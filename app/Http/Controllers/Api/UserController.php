@@ -224,15 +224,15 @@ class UserController extends Controller
         $data = Activity::whereDate('created_at','>',$user->register_time)->get(['activity_title',
         'activity_img','activity_describe','activity_sort']);
 
-        
-        if ($data->first()) {
+        return response()->json( ['msg'=>'成功','data'=>$data,'code'=>200]);
+  /*       if ($data->first()) {
             return response()->json( ['msg'=>'成功','data'=>$data,'code'=>200]);
         }else {
             return response()->json([
                 'code' => 0,
                 'msg' =>"无符合条件数据",
             ],200);
-        }
+        } */
     }
 
     public function regCode()

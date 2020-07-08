@@ -232,10 +232,12 @@ class UserController extends Controller
             $delActivity->save();
         }
 
-        $delID= DB::table('f_del_activity')->where('username',$user->username)->value('del_id');
-        
+        $delID= DelActivity::where('username',$user->username)->get('del_id')->toArray();
+       
         if ($delID) {
-            $id = explode(',',$delID);
+            $del= array_column($delID,'del_id'); 
+            $str = implode(',',$del);
+            $id = explode(',',$str);
             $data = Activity::whereDate('created_at','>',$user->register_time)->whereNotIn('id',$id)
             ->get(['id','activity_title',
         'activity_img','activity_describe','activity_sort','created_at']);

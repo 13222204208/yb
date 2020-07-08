@@ -10,11 +10,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
-  
+
 
 </head>
 <body class="layui-layout-body">
-  
+
   <div id="LAY_app">
     <div class="layui-layout layui-layout-admin">
       <div class="layui-header">
@@ -36,14 +36,14 @@
             </a>
           </li>
 <!--           <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search" layadmin-event="serach" lay-action="template/search?keywords="> 
+            <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search" layadmin-event="serach" lay-action="template/search?keywords=">
           </li> -->
         </ul>
         <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
-          
+
 <!--           <li class="layui-nav-item" lay-unselect>
             <a lay-href="app/message/index" layadmin-event="message" lay-text="消息中心">
-              <i class="layui-icon layui-icon-notice"></i>  
+              <i class="layui-icon layui-icon-notice"></i>
               <span class="layui-badge-dot"></span>
             </a>
           </li> -->
@@ -78,7 +78,7 @@
                 top.location.href="/logout";
               }
           </script>
-          
+
           <li class="layui-nav-item layui-hide-xs" lay-unselect>
            <!--  <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a> -->
           </li>
@@ -126,14 +126,14 @@
       </div>
     </form>
   </div>
-      
+
       <!-- 侧边菜单 -->
       <div class="layui-side layui-side-menu">
         <div class="layui-side-scroll">
           <div class="layui-logo" lay-href="home/homepage">
             <span>后台管理</span>
           </div>
-          
+
           <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
             <li data-name="home" class="layui-nav-item layui-nav-itemed">
               <a href="javascript:;" lay-tips="主页" lay-direction="2">
@@ -141,7 +141,7 @@
                 <cite>主页</cite>
               </a>
               <dl class="layui-nav-child">
-       
+
                 <dd data-name="console">
                   <a lay-href="home/homepage">主页</a>
                 </dd>
@@ -171,7 +171,7 @@
                 </dd>
               </dl>
             </li>
-    
+
             <li data-name="template" class="layui-nav-item">
               <a href="javascript:;" lay-tips="财务管理" lay-direction="2">
                 <i class="layui-icon layui-icon-template"></i>
@@ -198,8 +198,8 @@
                 <dd><a lay-href="record/transaction-records">交易记录</a></dd>
               </dl>
             </li>
- 
-           
+
+
             <li data-name="template" class="layui-nav-item">
               <a href="javascript:;" lay-tips="返水管理" lay-direction="2">
                 <i class="layui-icon layui-icon-senior"></i>
@@ -223,7 +223,7 @@
                 <dd><a lay-href="pay/alipay-pay">支付宝支付</a></dd>
               </dl>
             </li>
-    
+
             <li data-name="template" class="layui-nav-item">
               <a href="javascript:;" lay-tips="系统管理" lay-direction="2">
                 <i class="layui-icon layui-icon-set"></i>
@@ -248,7 +248,7 @@
               </dl>
             </li>
 
-            
+
             <li data-name="template" class="layui-nav-item">
               <a href="javascript:;" lay-tips="活动管理" lay-direction="2">
                 <i class="layui-icon layui-icon-template"></i>
@@ -261,7 +261,7 @@
               </dl>
             </li>
 
-            
+
             <li data-name="template" class="layui-nav-item">
               <a href="javascript:;" lay-tips="内容管理" lay-direction="2">
                 <i class="layui-icon layui-icon-app"></i>
@@ -282,6 +282,7 @@
               <dl class="layui-nav-child">
                 <dd><a lay-href="news/inside-the-station">站内信</a></dd>
                 <dd><a lay-href="news/affiche">公告</a></dd>
+                <dd><a lay-href="news/notice">通知</a></dd>
               </dl>
             </li>
 
@@ -322,15 +323,15 @@
           </ul>
         </div>
       </div>
-      
-      
+
+
       <!-- 主体内容 -->
       <div class="layui-body" id="LAY_app_body">
         <div class="layadmin-tabsbody-item layui-show">
           <iframe src="home/homepage" frameborder="0" class="layadmin-iframe"></iframe>
         </div>
       </div>
-      
+
       <!-- 辅助元素，一般用于移动设备下遮罩 -->
       <div class="layadmin-body-shade" layadmin-event="shade"></div>
     </div>
@@ -343,9 +344,9 @@
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index']),function(){
-     
 
-    
+
+
   };
   </script>
 </body>

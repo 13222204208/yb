@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\Notice;
 use App\Model\Affiche;
 use App\Model\Support;
 use App\Model\Activity;
 use App\Model\RotationChart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ContentController extends Controller
 {
     public function rotation()
-    { 
+    {
         $data = RotationChart::where('state',1)->get(['img_url','jump_url','title','img_sort']);
         if ($data) {
             return response()->json([
@@ -62,6 +64,30 @@ class ContentController extends Controller
             'token' => 'required'
         ]);
         $data= Affiche::orderBy('created_at','desc')->get(['affiche_title','affiche_content','great_affiche','created_at']);
+        if ($data) {
+            return response()->json(['msg'=>'成功','data'=>$data,'code'=>200],200);
+        }else {
+            return response()->json([
+                'code' => 0,
+                'msg' =>"无数据",
+            ],200);
+        }
+    }
+
+    public function notice(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+        $user = JWTAuth::authenticate($request->token);
+        $username = $user->username;
+        $notice = new Notice;
+        $all = "all";
+        $data= $notice->orderBy('created_at','desc')->whereDate('created_at','>',$user->register_time) ->when($all, function ($query) use ($all) {
+            $query->where('notice_receive','=', $all);
+        })->orWhere('notice_receive','=', $username)->get(['notice_title','notice_content','state','created_at']);
+
+
         if ($data) {
             return response()->json(['msg'=>'成功','data'=>$data,'code'=>200],200);
         }else {

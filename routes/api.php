@@ -23,7 +23,7 @@ Route::middleware('cors')->prefix('user')->group(function (){
     Route::post('login','Api\UserController@login');
     Route::get('reg/code','Api\UserController@regCode');
 
-    
+
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::get('logout', 'Api\UserController@logout');
 
@@ -39,7 +39,7 @@ Route::middleware('cors')->prefix('user')->group(function (){
         Route::post('feedback','Api\FeedBackController@feedback');//意见反馈
         Route::post('myFeedback','Api\FeedBackController@myFeedback');//获取意见反馈
 
-        
+
     });
 });
 
@@ -50,7 +50,8 @@ Route::middleware('cors')->prefix('content')->group(function (){
     Route::get('support','Api\ContentController@support');//赞助
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::get('affiche','Api\ContentController@affiche');
-    }); 
+        Route::post('notice','Api\ContentController@notice');
+    });
 });
 
 

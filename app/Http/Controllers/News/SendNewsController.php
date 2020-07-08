@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\News;
 
 use App\Model\News;
+use App\Model\Notice;
 use App\Model\Affiche;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,13 +19,13 @@ class SendNewsController extends Controller
                if (!$state) {
                  return response()->json(['status'=>404]);
                }
-            } 
+            }
 
             $news = new News;
             $news->news_type = intval($request->news_type);
             if ($request->username) {
                 $news->username = $request->username;
-            }         
+            }
             $news->news_title = $request->news_title;
             $news->news_content = $request->news_content;
             $news->start_time = $request->start_time;
@@ -67,6 +68,40 @@ class SendNewsController extends Controller
     {
         if ($request->ajax()) {
             $state = Affiche::find($request->id)->delete();
+            if ($state) {
+                return response()->json(['status'=>200]);
+            }else{
+                return response()->json(['status'=>403]);
+            }
+        }
+    }
+
+    public function sendNotice(Request $request)
+    {
+        if ($request->ajax()) {
+            $notice= new Notice;
+            $notice->notice_title = $request->notice_title;
+            $notice->notice_content = $request->notice_content;
+            $state = $notice->save();
+            if ($state) {
+                return response()->json(['status'=>200]);
+            }else{
+                return response()->json(['status'=>403]);
+            }
+        }
+    }
+
+    public function queryNotice(Request $request)
+    {
+        $limit = $request->get('limit');
+        $data= Notice::where('notice_receive','all')->paginate($limit);
+        return $data;
+    }
+
+    public function delNotice(Request $request)
+    {
+        if ($request->ajax()) {
+            $state = Notice::find($request->id)->delete();
             if ($state) {
                 return response()->json(['status'=>200]);
             }else{

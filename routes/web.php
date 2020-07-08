@@ -22,20 +22,20 @@ Route::get('logout', function (Illuminate\Http\Request $request) {
 });
 
 //后台用户基本资料
-Route::get('bguser/basic/document', function () { 
+Route::get('bguser/basic/document', function () {
     return view('bguser.basic-document');
 })->middleware('adminLogin');
 Route::get('bguser/basic/query/bguser/basic/document','BgUser\BasicDocumentController@basicDocument');//获取后台用户基本资料
 
 //修改后台用户密码
-Route::get('bguser/password', function () { 
+Route::get('bguser/password', function () {
     return view('bguser.password');
 })->middleware('adminLogin');
 Route::post('bguser/set/mypass','BgUser\BasicDocumentController@setMypass');//修改后台用户密码
 
 //后台主页
 Route::get('home/homepage', function () {
-   
+
     return view('home.homepage');
 })->middleware('adminLogin');
 Route::get('home/query/today/betting/records','Home\HomePageController@todayBettingRecords');//今日投注
@@ -75,21 +75,21 @@ Route::prefix('user')->group(function () {
     Route::post('reset/user/phone','User\AccountOperationController@resetUserPhone');//重置手机号
     Route::post('reset/user/password','User\AccountOperationController@resetUserPassword');//重置密码
     Route::post('reset/user/take/password','User\AccountOperationController@resetUserTakePassword');//重置取款密码
-    Route::post('update/account/status','User\AccountOperationController@updateAccountStatus');//帐号封禁 
-    
+    Route::post('update/account/status','User\AccountOperationController@updateAccountStatus');//帐号封禁
+
     //用户追踪
     Route::get('user-tracking', function () {
         return view('user.user-tracking');
-    })->middleware('adminLogin');   
+    })->middleware('adminLogin');
     Route::get('query/tracking','User\UserTrackingController@queryTracking');//查询用户追踪
     Route::get('search/tracking','User\UserTrackingController@searchTracking');//搜索用户
-    
+
     //流失统计
     Route::get('loss-statistics', function () {
         return view('user.loss-statistics');
-    })->middleware('adminLogin');   
+    })->middleware('adminLogin');
     Route::get('query/user/loss','User\LossStatisticsController@queryUserLoss');//流失统计
-    
+
 });
 
 
@@ -113,15 +113,15 @@ Route::prefix('finance')->group(function () {
     Route::post('agree/withdrawal','Finance\WithdrawalController@agreeWithdrawal');//同意申请
     Route::post('resuse/withdrawal','Finance\WithdrawalController@resuseWithdrawal');//拒绝申请
     Route::get('search/withdrawal','Finance\WithdrawalController@searchWithdrawal');//搜索
-    
+
     //用户统计
     Route::get('user-statistics', function () {
         return view('finance.user-statistics');
-    })->middleware('adminLogin');   
+    })->middleware('adminLogin');
     Route::get('query/user/statistics','Finance\UserStatisticsController@queryUserStatistics');//用户统计
     Route::get('search/user/statistics','Finance\UserStatisticsController@searchUserStatistics');//搜索用户
 
-    
+
     //帐单统计
     Route::get('billing-statistics', function () {
         return view('finance.billing-statistics');
@@ -134,13 +134,13 @@ Route::prefix('finance')->group(function () {
     Route::post('add/manual/bills','Finance\ManualBillsController@addManualBills');//添加人工帐单
     Route::get('query/manual/bills','Finance\BillingStatisticsController@queryManualBills');//查看本期帐单
     Route::get('query/bill/statistics','Finance\BillingStatisticsController@queryBillStatistics');//查看帐单统计
-    
+
     //历史帐单
     Route::get('historical-billing', function () {
         return view('finance.historical-billing');
-    })->middleware('adminLogin');    
+    })->middleware('adminLogin');
     Route::get('del/historical/bill','Finance\BillingStatisticsController@delHistoricalBill');//删除帐单统计
-    
+
 });
 
 //记录查询
@@ -160,15 +160,15 @@ Route::prefix('record')->group(function () {
     });
     Route::get('query/login/record','Record\LoginRecordController@queryLoginRecord');//查询登陆记录
     Route::get('search/login/record','Record\LoginRecordController@searchLoginRecord');//搜索登陆记录
-    
+
     //交易记录
     Route::get('transaction-records', function () {
         return view('record.transaction-records');
-    });   
+    });
     Route::get('query/transaction','Record\TransactionController@queryTransaction');//查询交易记录
     Route::get('query/business/type','Record\TransactionController@queryBusinessType');//查询交易类型
     Route::get('search/transaction','Record\TransactionController@searchTransaction');//搜索交易记录
-    
+
 });
 
 //返水管理
@@ -199,17 +199,17 @@ Route::prefix('pay')->group(function () {
     Route::get('query/bank/card','Pay\BankCardController@queryBankCard');//银行卡列表
     Route::post('del/bank/card','Pay\BankCardController@delBankCard');//银行卡列表
     Route::post('update/bank/card','Pay\BankCardController@updateBankCard');//更新银行卡
-    
+
     //微信支付
     Route::get('wechat-pay', function () {
         return view('pay.wechat-pay');
-    })->middleware('adminLogin'); 
-    Route::post('upload/wechat/img','Pay\WechatPayController@uploadWechatImg');//上传微信二维码  
+    })->middleware('adminLogin');
+    Route::post('upload/wechat/img','Pay\WechatPayController@uploadWechatImg');//上传微信二维码
     Route::post('create/wechat/pay','Pay\WechatPayController@createWechatPay');//保存微信
     Route::get('query/wechat','Pay\WechatPayController@queryWechat');//微信列表
     Route::post('del/wechat','Pay\WechatPayController@delWechat');//删除一个微信
     Route::post('update/wechat','Pay\WechatPayController@updateWechat');//更新一个微信
-    
+
     //支付宝支付
     Route::get('alipay-pay', function () {
         return view('pay.alipay-pay');
@@ -219,7 +219,7 @@ Route::prefix('pay')->group(function () {
     Route::get('query/alipay','Pay\AlipayController@queryAlipay');//支付宝列表
     Route::post('del/alipay','Pay\AlipayController@delAlipay');//删除一个支付宝
     Route::post('update/alipay','Pay\AlipayController@updateAlipay');//更新一个支付宝
-    
+
 });
 
 
@@ -248,13 +248,13 @@ Route::prefix('system')->group(function () {
     Route::get('query/account/role/{role}','System\BackgroundAccountController@queryAccountRole');
     Route::post('del/account','System\BackgroundAccountController@delAccount');//删除一个帐号
     Route::post('update/account','System\BackgroundAccountController@updateAccount');//更新帐号信息
-    
+
     //权限设置
     Route::get('permission-settings', function () {
         return view('system.permission-settings');
-    })->middleware('adminLogin');    
-    
-    
+    })->middleware('adminLogin');
+
+
     Route::get('query/role','System\PermissionSettingsController@queryRole');//查询角色名称
     Route::post('add/role/scope','System\PermissionSettingsController@addRoleScope');//编辑角色权限范围
     Route::post('query/role/scope','System\PermissionSettingsController@queryRoleScope');//获取角色权限范围
@@ -262,7 +262,7 @@ Route::prefix('system')->group(function () {
     //角色设置
     Route::get('role-settings', function () {
         return view('system.role-settings');
-    })->middleware('adminLogin');   
+    })->middleware('adminLogin');
     Route::post('add/role','System\PermissionSettingsController@addRole');//添加角色名称
     Route::get('query/role/describe','System\PermissionSettingsController@queryRoleDescribe');//查询角色详情
     Route::post('del/role','System\PermissionSettingsController@delRole');//删除角色
@@ -271,14 +271,14 @@ Route::prefix('system')->group(function () {
 
 //平台管理
 Route::prefix('platform')->group(function () {
-        Route::get('platform-list', function () { 
+        Route::get('platform-list', function () {
             //平台列表
             return view('platform.platform-list');
         })->middleware('adminLogin');
         ROute::get('query/platform','Platform\PlatformListController@queryPlatform');//查看平台列表
         ROute::post('update/platform','Platform\PlatformListController@updatePlatform');//编辑平台
 
-        Route::get('add-platform', function () { 
+        Route::get('add-platform', function () {
             //添加平台
             return view('platform.add-platform');
         })->middleware('adminLogin');
@@ -303,11 +303,11 @@ Route::prefix('activity')->group(function () {
     })->middleware('adminLogin');
     Route::post('upload/activity/img','Activity\ActivityController@uploadActivityImg');//上传活动图片
     Route::post('create/activity','Activity\ActivityController@createActivity');//上传活动
-    
+
     //申请列表
     Route::get('ask-list', function () {
         return view('activity.ask-list');
-    })->middleware('adminLogin');     
+    })->middleware('adminLogin');
     Route::get('query/apply/list','Activity\ApplyActivityController@queryApplyList');//查看活动申请列表
     Route::post('agree/apply/activity','Activity\ApplyActivityController@agreeApplyActivity');//同意活动申请
     Route::post('resuse/apply/activity','Activity\ApplyActivityController@resuseApplyActivity');//拒绝活动申请
@@ -330,7 +330,7 @@ Route::prefix('content')->group(function () {
     //跑马灯
     Route::get('running-horse-lamp', function () {
         return view('content.running-horse-lamp');
-    })->middleware('adminLogin'); 
+    })->middleware('adminLogin');
 
     Route::post('create/running/horse','Content\RunningHorseLampController@createRunHorse');//创建跑马灯
     Route::get('query/running/horse','Content\RunningHorseLampController@queryRunHorse');//查看跑马灯列表
@@ -338,7 +338,7 @@ Route::prefix('content')->group(function () {
     //赞助
     Route::get('support', function () {
         return view('content.support');
-    })->middleware('adminLogin'); 
+    })->middleware('adminLogin');
     Route::post('create/support','Content\SupportController@createSupport');//新建赞助
     Route::get('query/support','Content\SupportController@querySupport');//查看赞助
     Route::post('update/support','Content\SupportController@updateSupport');//更新赞助
@@ -361,6 +361,14 @@ Route::prefix('news')->group(function () {
      Route::post('send/affiche','News\SendNewsController@sendAffiche');//发送公告
      Route::get('query/affiche','News\SendNewsController@queryAffiche');//获取公告
      Route::post('del/affiche','News\SendNewsController@delAffiche');//删除公告
+
+     Route::get('notice', function () {
+        //公告
+         return view('news.notice');
+     })->middleware('adminLogin');
+     Route::post('send/notice','News\SendNewsController@sendNotice');//发送通知
+     Route::get('query/notice','News\SendNewsController@queryNotice');//获取通知
+     Route::post('del/notice','News\SendNewsController@delNotice');//删除通知
 });
 
 

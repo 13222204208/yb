@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Model\Activity;
 use App\Model\UserInfo;
 use App\Model\UserDetail;
+use App\Model\DelActivity;
+
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
-
 use App\Http\Requests\LoginAuthRequest;
 use App\Http\Requests\UpdatePassRequest;
 use Illuminate\Support\Facades\Validator;
@@ -221,8 +223,27 @@ class UserController extends Controller
         ]);
 
         $user = JWTAuth::authenticate($request->token);
-        $data = Activity::whereDate('created_at','>',$user->register_time)->get(['activity_title',
-        'activity_img','activity_describe','activity_sort']);
+
+        if ($request->id) {
+            $delActivity= new DelActivity;
+            $delActivity->del_id = $request->id;
+            $delActivity->username = $user->username;
+            $delActivity->type = "activity";
+            $delActivity->save();
+        }
+
+        $delID= DB::table('f_del_activity')->where('username',$user->username)->value('del_id');
+        
+        if ($delID) {
+            $id = explode(',',$delID);
+            $data = Activity::whereDate('created_at','>',$user->register_time)->whereNotIn('id',$id)
+            ->get(['id','activity_title',
+        'activity_img','activity_describe','activity_sort','created_at']);
+
+        return response()->json( ['msg'=>'成功','data'=>$data,'code'=>200]);
+        }
+        $data = Activity::whereDate('created_at','>',$user->register_time)->get(['id','activity_title',
+        'activity_img','activity_describe','activity_sort','created_at']);
 
         return response()->json( ['msg'=>'成功','data'=>$data,'code'=>200]);
   /*       if ($data->first()) {
@@ -242,6 +263,36 @@ class UserController extends Controller
             'msg' => '创建成功',
             'url' => app('captcha')->create('default', true)
         ]);
+    }
+
+    public function validatePasswd(Request $request)
+    {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'token' => 'required',
+            'password' => 'required'
+        ]);
+        
+        if ($validator->fails()) {
+            return [
+                'code' => 0, 
+                'msg' => '参数不正确'
+            ];
+        } 
+
+        $user = JWTAuth::authenticate($request->token);
+
+        if (password_verify($request->password ,$user->password)) {
+            return [
+                'code' => 200, 
+                'msg' => '密码验证通过'
+            ];
+        }else{
+            return [
+                'code' => 0, 
+                'msg' => '密码错误'
+            ];
+        }
     }
  
 }

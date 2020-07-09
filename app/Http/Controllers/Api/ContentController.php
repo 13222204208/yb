@@ -85,7 +85,7 @@ class ContentController extends Controller
         $all = "all";
         $data= $notice->orderBy('created_at','desc')->whereDate('created_at','>',$user->register_time) ->when($all, function ($query) use ($all) {
             $query->where('notice_receive','=', $all);
-        })->orWhere('notice_receive','=', $username)->get(['notice_title','notice_content','state','created_at']);
+        })->orWhere('notice_receive','=', $username)->get(['id','notice_title','notice_content','state','created_at']);
 
 
         if ($data) {

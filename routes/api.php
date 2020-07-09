@@ -53,6 +53,7 @@ Route::middleware('cors')->prefix('content')->group(function (){
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::get('affiche','Api\ContentController@affiche');
         Route::post('notice','Api\ContentController@notice');//获取消息中心的通知
+        Route::get('platform/record','Api\PlatformController@platformRecord');//获取投注记录
     });
 });
 

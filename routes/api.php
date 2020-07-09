@@ -52,7 +52,7 @@ Route::middleware('cors')->prefix('content')->group(function (){
     Route::get('platform/list','Api\PlatformController@platformList');//平台名称列表
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::get('affiche','Api\ContentController@affiche');
-        Route::post('notice','Api\ContentController@notice');
+        Route::post('notice','Api\ContentController@notice');//获取消息中心的通知
     });
 });
 

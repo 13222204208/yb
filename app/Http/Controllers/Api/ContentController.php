@@ -6,6 +6,7 @@ use App\Model\Notice;
 use App\Model\Affiche;
 use App\Model\Support;
 use App\Model\Activity;
+use App\Model\DelNotice;
 use App\Model\RotationChart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -81,6 +82,39 @@ class ContentController extends Controller
         ]);
         $user = JWTAuth::authenticate($request->token);
         $username = $user->username;
+        if ($request->id) {
+            $DelNotice= new DelNotice;
+            $DelNotice->del_id = $request->id;
+            $DelNotice->username = $user->username;
+            $DelNotice->type = "notice";
+            $DelNotice->save();
+        }
+
+        $delID= DelNotice::where('username',$user->username)->get('del_id')->toArray();
+
+        if ($delID) {
+            $del= array_column($delID,'del_id');
+            $str = implode(',',$del);
+            $id = explode(',',$str);
+
+            $notice = new Notice;
+            $all = "all";
+            $data= $notice->orderBy('created_at','desc')->whereNotIn('id',$id)->whereDate('created_at','>',$user->register_time) ->when($all, function ($query) use ($all) {
+                $query->where('notice_receive','=', $all);
+            })->orWhere('notice_receive','=', $username)->get(['id','notice_title','notice_content','state','created_at']);
+
+
+            if ($data) {
+                return response()->json(['msg'=>'成功','data'=>$data,'code'=>200],200);
+            }else {
+                return response()->json([
+                    'code' => 0,
+                    'msg' =>"无数据",
+                ],200);
+            }
+        }
+
+
         $notice = new Notice;
         $all = "all";
         $data= $notice->orderBy('created_at','desc')->whereDate('created_at','>',$user->register_time) ->when($all, function ($query) use ($all) {

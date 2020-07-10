@@ -34,7 +34,7 @@ class PlatformController extends Controller
         $user = JWTAuth::authenticate($request->token);
 
         $platform_name = "";
-        if ($request->platform_name) {
+        if ($request->has('platform_name')) {
             $platform_name = $request->platform_name;
         }
 
@@ -79,14 +79,13 @@ class PlatformController extends Controller
             }
         }
 
-        if ($request->day) {
+        $btime =date('Y-m-d H:i:s',time()- 7*24*60*60);
+        $yesterday ="";
+        if ($request->has('day')) {
             $btime =date('Y-m-d H:i:s',time()- $request->day*24*60*60);
-            $yesterday ="";
             if ($request->day ==2) {
                 $yesterday = Carbon::yesterday();
             }
-        }else{
-            $btime =date('Y-m-d H:i:s',time()- 7*24*60*60);
         }
 
         $data = Betting::orderBy('bottom_pour_time','desc')->where('username',$user->username)->whereDate('bottom_pour_time','>',$btime)->when($platform_name, function ($query) use ($platform_name) {
@@ -123,7 +122,5 @@ class PlatformController extends Controller
                 'msg' =>"无数据",
             ],200);
         }
-
-
     }
 }

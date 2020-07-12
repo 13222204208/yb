@@ -30,18 +30,18 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function register(RegisterAuthRequest $request)
-    {   
+    {
         $data = $request->all();
         $validator = Validator::make($data, [
             'key' => 'required',
             'regCode' => 'required|captcha_api:' . $request->input('key')
         ]);
-        
+
         if ($validator->fails()) {
             return [
                 'code' => 0, 'msg' => '验证码不匹配'
             ];
-        } 
+        }
 
      /*    if (!captcha_api_check($request->regCode, $request->key)){
             return response()->json([
@@ -67,11 +67,11 @@ class UserController extends Controller
             $detail = new UserDetail;
             $detail->username = $request->username;
             $detail->save();
-    
+
             if ($this->loginAfterSignUp) {
                 return $this->login($request);
-            } 
-    
+            }
+
             return response()->json([
                 'code' => 201,
                 'msg' =>"注册成功",
@@ -80,7 +80,7 @@ class UserController extends Controller
     }
 
     public function login(Request $request)
-    {         
+    {
         $input = $request->only('username', 'password');
         $jwt_token = null;
 
@@ -99,13 +99,13 @@ class UserController extends Controller
         ],200);
     }
 
-    
+
     public function update(UserDetailAuthRequest $request)
     {
         $this->validate($request, [
             'token' => 'required'
         ]);
-        
+
         $user = JWTAuth::authenticate($request->token);
         $detail = UserDetail::where('username',$user->username)->first();
 
@@ -117,7 +117,7 @@ class UserController extends Controller
                     ],200);
                 }
             }
-            
+
             if ($request->date_brith) {
                 if ($detail->date_brith) {
                     return response()->json([
@@ -127,23 +127,23 @@ class UserController extends Controller
                 }
             }
 
-            
+
             $res = $request->except(['token']);
             $updated = $detail->fill($res)->save();
-            
+
             if ($updated) {
                 return response()->json([
                     'code' => 200,
-                    'msg' =>"成功",    
-                    'data'=>$detail            
+                    'msg' =>"成功",
+                    'data'=>$detail
                 ],200);
             } else {
                 return response()->json([
                     'code' => 0,
                     'msg' =>"更改失败",
                 ],200);
-            }      
-        
+            }
+
     }
 
     public function logout(Request $request)
@@ -175,7 +175,7 @@ class UserController extends Controller
 
         $user = JWTAuth::authenticate($request->token);
         $pass = UserInfo::where('username',$user->username)->first();
-    
+
         if (password_verify($request->password ,$pass->password)) {
             $pass->password = bcrypt($request->newpass);
             $state= $pass->save();
@@ -202,7 +202,7 @@ class UserController extends Controller
             $this->validate($request, [
                 'token' => 'required'
             ]);
-    
+
             $user = JWTAuth::authenticate($request->token);
             if (!$user) {
                 return response()->json(['msg' =>'找不到用户', 'code' => 0]);
@@ -213,7 +213,7 @@ class UserController extends Controller
             return response()->json(['user_head' =>$namePath, 'code' => 200,'msg'=>'上传成功']);
         } else {
             return response()->json(['msg' =>'上传失败', 'code' => 0]);
-        }    
+        }
     }
 
     public function myActivity(Request $request)
@@ -233,9 +233,9 @@ class UserController extends Controller
         }
 
         $delID= DelActivity::where('username',$user->username)->get('del_id')->toArray();
-       
+        $del= array_column($delID,'del_id');
         if ($delID) {
-            $del= array_column($delID,'del_id'); 
+
             $str = implode(',',$del);
             $id = explode(',',$str);
             $data = Activity::whereDate('created_at','>',$user->register_time)->whereNotIn('id',$id)
@@ -259,7 +259,7 @@ class UserController extends Controller
     }
 
     public function regCode()
-    { 
+    {
         return response()->json([
             'code' => 200,
             'msg' => '创建成功',
@@ -274,27 +274,27 @@ class UserController extends Controller
             'token' => 'required',
             'password' => 'required'
         ]);
-        
+
         if ($validator->fails()) {
             return [
-                'code' => 0, 
+                'code' => 0,
                 'msg' => '参数不正确'
             ];
-        } 
+        }
 
         $user = JWTAuth::authenticate($request->token);
 
         if (password_verify($request->password ,$user->password)) {
             return [
-                'code' => 200, 
+                'code' => 200,
                 'msg' => '密码验证通过'
             ];
         }else{
             return [
-                'code' => 0, 
+                'code' => 0,
                 'msg' => '密码错误'
             ];
         }
     }
- 
+
 }

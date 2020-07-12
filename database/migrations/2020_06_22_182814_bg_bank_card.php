@@ -19,11 +19,11 @@ class BgBankCard extends Migration
             $table->string('bank_name',40)->default('')->comment('银行名称');
             $table->string('open_bank',40)->default('')->comment('开户行');
             $table->string('card_num',30)->default('')->comment('银行卡号');
-            $table->integer('min_money')->default(1)->comment('单笔最低充值');
-            $table->integer('max_money')->default(1)->comment('单笔最高充值');
-            $table->integer('day_max_money')->default(1)->comment('单日充值上限');
+            $table->decimal('min_money',9,2)->default(1)->comment('单笔最低充值');
+            $table->decimal('max_money',9,2)->default(1)->comment('单笔最高充值');
+            $table->decimal('day_max_money',9,2)->default(1)->comment('单日充值上限');
             $table->integer('state')->default(1)->comment('1为开启0为关闭');
-            $table->integer('day_money')->comment('今日充值金额');
+            $table->decimal('day_money',9,2)->comment('今日充值金额');
             $table->timestamps();
         });
     }

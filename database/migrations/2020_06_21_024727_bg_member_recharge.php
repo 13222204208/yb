@@ -15,7 +15,7 @@ class BgMemberRecharge extends Migration
     {
         Schema::create('bg_member_recharge', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('min_money')->comment('充值达到此金额才会赠送');
+            $table->decimal('min_money',9,2)->comment('充值达到此金额才会赠送');
             $table->integer('largess_scale')->comment('每笔赠送的比例');
             $table->integer('largess_toplimit')->comment('每日赠送的上限');
             $table->timestamps();

@@ -18,7 +18,7 @@ class BgRebate extends Migration
             $table->string('rebate_grade',30)->default('')->comment('返水等级');
             $table->string('game_type',40)->default('')->comment('游戏类型');
             $table->string('rebate_name')->default('')->comment('返水名称');
-            $table->integer('money')->default(1)->comment('额度');
+            $table->decimal('money',9,2)->default(1)->comment('额度');
             $table->integer('rebate_scale')->default(1)->comment('返水比例');
             $table->timestamps();
         });

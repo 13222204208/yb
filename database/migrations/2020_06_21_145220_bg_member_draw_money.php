@@ -16,10 +16,10 @@ class BgMemberDrawMoney extends Migration
         Schema::create('bg_member_draw_money', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('draw_money_num')->default(1)->comment('每日提款次数上限');
-            $table->integer('min_draw_money')->comment('单笔提款下限');
-            $table->integer('max_draw_money')->comment('单笔提款上限');
+            $table->decimal('min_draw_money',9,2)->comment('单笔提款下限');
+            $table->decimal('max_draw_money',9,2)->comment('单笔提款上限');
             $table->integer('draw_money_scale')->default(0)->comment('单笔提款手续费比例');
-            $table->integer('poundage_full')->comment('单笔手续费上限');
+            $table->decimal('poundage_full',9,2)->comment('单笔手续费上限');
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@ class RegisterAuthRequest extends ApiBaseRequest
     /**
      * 获取应用于请求的验证规则
      *
-     * 
+     *
      */
     public function rules()
     {
@@ -24,7 +24,7 @@ class RegisterAuthRequest extends ApiBaseRequest
     }
 
     public function messages()
-    {  
+    {
        return [
             'username.required' => '请先填写用户名',
             'username.alpha_num'=> '用户名只允许数字和字母',

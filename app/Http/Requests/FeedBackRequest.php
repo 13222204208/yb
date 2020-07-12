@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\ApiBaseRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class FeedBackRequest extends ApiBaseRequest

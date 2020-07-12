@@ -39,6 +39,8 @@ Route::middleware('cors')->prefix('user')->group(function (){
         Route::post('feedback','Api\FeedBackController@feedback');//意见反馈
         Route::post('myFeedback','Api\FeedBackController@myFeedback');//获取意见反馈
 
+        Route::post('add/card','Api\CardController@addCard');//添加银行卡
+
 
     });
 });

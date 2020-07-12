@@ -15,6 +15,7 @@ class BgBankCard extends Migration
     {
         Schema::create('bg_bank_card', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('username',30)->default('')->comment('用户名');
             $table->string('card_name',30)->default('')->comment('持卡人姓名');
             $table->string('bank_name',40)->default('')->comment('银行名称');
             $table->string('open_bank',40)->default('')->comment('开户行');

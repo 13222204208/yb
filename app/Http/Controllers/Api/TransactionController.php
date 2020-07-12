@@ -72,6 +72,10 @@ class TransactionController extends Controller
             }
         }
 
+        if (!$request->has('business_type')) {
+            $business_type = "存款";
+        }
+
         $data = Transaction::orderBy('ask_time', 'desc')->where('username', $user->username)->whereDate('ask_time', '>=', $btime)->when($business_type, function ($query) use ($business_type) {
             $query->where('business_type', '=', $business_type);
         })->when($yesterday, function ($query) use ($yesterday) {

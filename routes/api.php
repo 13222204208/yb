@@ -41,6 +41,7 @@ Route::middleware('cors')->prefix('user')->group(function (){
 
         Route::post('add/card','Api\CardController@addCard');//添加银行卡
         Route::get('look/card','Api\CardController@lookCard');//添加银行卡
+        Route::post('remove/card','Api\CardController@removeCard');//解除银行卡
 
 
     });

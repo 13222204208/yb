@@ -41,10 +41,32 @@ class CardController extends Controller
         ]);
         $user = JWTAuth::authenticate($request->token);
 
-        $data= BankCard::where('username',$user->username)->get(['id','card_num','bank_name']);
+        $data= BankCard::where('username',$user->username)->where('state',1)->get(['id','card_num','bank_name']);
 
         if ($data) {
             return response()->json(['msg' => '成功','data'=>$data,'code' => 200],200);
+        } else {
+            return response()->json([
+                'code' => 0,
+                'msg' => "失败",
+            ], 200);
+        }
+    }
+
+    public function removeCard(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required',
+            'id' => 'required'
+        ]);
+        $user = JWTAuth::authenticate($request->token);
+
+        $card = BankCard::find($request->id);
+        $card->state = 0;
+        $state = $card->save();
+
+        if ($state) {
+            return response()->json(['msg' => '成功','code' => 200],200);
         } else {
             return response()->json([
                 'code' => 0,

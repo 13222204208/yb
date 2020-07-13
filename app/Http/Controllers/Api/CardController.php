@@ -33,4 +33,23 @@ class CardController extends Controller
             ], 200);
         }
     }
+
+    public function lookCard(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+        $user = JWTAuth::authenticate($request->token);
+
+        $data= BankCard::where('username',$user->username)->get(['id','card_num','bank_name']);
+
+        if ($data) {
+            return response()->json(['msg' => '成功','data'=>$data,'code' => 200],200);
+        } else {
+            return response()->json([
+                'code' => 0,
+                'msg' => "失败",
+            ], 200);
+        }
+    }
 }

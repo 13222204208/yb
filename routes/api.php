@@ -40,6 +40,7 @@ Route::middleware('cors')->prefix('user')->group(function (){
         Route::post('myFeedback','Api\FeedBackController@myFeedback');//获取意见反馈
 
         Route::post('add/card','Api\CardController@addCard');//添加银行卡
+        Route::get('look/card','Api\CardController@lookCard');//添加银行卡
 
 
     });

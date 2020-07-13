@@ -62,5 +62,13 @@ Route::middleware('cors')->prefix('content')->group(function (){
     });
 });
 
+Route::middleware('cors')->prefix('game')->group(function (){
+    ROute::get('/player/check/','Api\CheckAccountController@checkAccount');
+
+    Route::group(['middleware' => 'auth.jwt'], function () {
+
+    });
+});
+
 
 

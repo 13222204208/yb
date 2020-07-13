@@ -13,7 +13,7 @@ class CardRequest extends ApiBaseRequest
             'token' => 'required',
             'card_name'=> 'required|regex:/^[\x{4e00}-\x{9fa5}]{2,4}$/u',
             'bank_name' => 'required|regex:/^[\x{4e00}-\x{9fa5}]{2,4}$/u|min:4|max:6',
-            'card_num' => 'required|min:16|max:16',
+            'card_num' => 'required|min:16|max:19',
             'open_bank'=>'required|max:30'
 
         ];

@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class CheckAccountController extends Controller
 {
-    public function checkAccount(Request $request)
+    public function checkAccount(Request $request,$allCount)
     {
         $this->validate($request, [
             'account' => 'required|max:36'
@@ -33,7 +33,7 @@ class CheckAccountController extends Controller
 
         $datetime= date("c", time());
         $status = ['code'=>'0','message'=>'Success','datetime'=>$datetime];
-        if (UserInfo::where('username','=',$request->account)->exists()) {
+        if (UserInfo::where('username','=',$allCount)->exists()) {
             return response()->json([
                 'data' => true,
                 'status' =>$status,

@@ -11,9 +11,9 @@ class CheckAccountController extends Controller
 {
     public function checkAccount(Request $request,$allCount)
     {
-        $this->validate($request, [
+     /*    $this->validate($request, [
             'account' => 'required|max:36'
-        ]);
+        ]); */
 
  /*        function setToken($phone){
             $str = md5(uniqid(md5(microtime(true)),true));

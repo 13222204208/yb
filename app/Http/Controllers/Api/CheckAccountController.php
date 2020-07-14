@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Model\UserInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 class CheckAccountController extends Controller
@@ -21,6 +22,7 @@ class CheckAccountController extends Controller
       }
         $token= setToken('573516293'); */
         $wtoken=$request->header('wtoken');
+        Log::debug('An informational message.'.$wtoken);
         if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
             return response()->json([
                 'data' => false,

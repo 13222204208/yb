@@ -63,7 +63,19 @@ Route::middleware('cors')->prefix('content')->group(function (){
 });
 
 Route::middleware('cors')->prefix('game')->group(function (){
-    ROute::get('/player/check/{account}','Api\CheckAccountController@checkAccount');
+    Route::get('/player/check/{account}','Api\CheckAccountController@checkAccount');//验证帐号
+    Route::post('/transaction/game/bet','Api\CheckAccountController@gameBet');//老虎机下注
+    Route::post('/transaction/game/endround','Api\CheckAccountController@gameEndround');//结束回合并统整该回合赢分
+    Route::post('/transaction/game/rollout','Api\CheckAccountController@gameRollout');//此API是为牌桌及渔机游戏 ，转出一定额度而调用
+    Route::post('/transaction/game/takeall','Api\CheckAccountController@gameTakeall');//玩家所有的钱领出，转入渔机游戏
+    Route::post('/transaction/game/rollin','Api\CheckAccountController@gameRollin');//牌桌/渔机一场游戏结束，将金额转入钱包
+    Route::post('/transaction/game/debit','Api\CheckAccountController@gameDebit');//针对完成的订单做扣款
+    Route::post('/transaction/game/credit','Api\CheckAccountController@gameCredit');//针对完成的订单做补款
+    Route::post('/transaction/game/bonus','Api\CheckAccountController@gameBonus');//游戏红利
+    Route::post('/transaction/user/payoff','Api\CheckAccountController@userPayoff');//活动派彩
+    Route::post('/transaction/game/refund','Api\CheckAccountController@gameRefund');//押注退还
+    Route::get('/transaction/record/{mtcode}','Api\CheckAccountController@gameRecord');//查询交易记录
+    Route::get('/transaction/balance/{account}','Api\CheckAccountController@gameBalance');//取得钱包余额
 
     Route::group(['middleware' => 'auth.jwt'], function () {
 

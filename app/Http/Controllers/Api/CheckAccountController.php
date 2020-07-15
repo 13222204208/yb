@@ -45,4 +45,249 @@ class CheckAccountController extends Controller
             ], 200);
         }
     }
+
+    public function gameBet(Request $request)
+    {
+        $wtoken=$request->header('wtoken');
+
+        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+            return response()->json([
+                'data' => false,
+                'msg' => "token错误",
+            ], 200);
+        }
+
+        $data= ['balance'=>600210,'currency'=>"CNY"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ], 200);
+    }
+
+    public function gameEndround(Request $request)
+    {
+        $wtoken=$request->header('wtoken');
+
+        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+            return response()->json([
+                'data' => false,
+                'msg' => "token错误",
+            ], 200);
+        }
+
+        $data= ['balance'=>600210,'currency'=>"CNY"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ], 200);
+    }
+
+    public function gameRollout(Request $request)
+    {
+        $wtoken=$request->header('wtoken');
+
+        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+            return response()->json([
+                'data' => false,
+                'msg' => "token错误",
+            ], 200);
+        }
+
+        $data= ['balance'=>600210,'currency'=>"CNY"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ], 200);
+    }
+
+    public function gameTakeall(Request $request)
+    {
+        $wtoken=$request->header('wtoken');
+
+        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+            return response()->json([
+                'data' => false,
+                'msg' => "token错误",
+            ], 200);
+        }
+
+        $data= ['balance'=>600210,'currency'=>"CNY"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ], 200);
+    }
+
+    public function gameRollin(Request $request)
+    {
+        $wtoken=$request->header('wtoken');
+
+        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+            return response()->json([
+                'data' => false,
+                'msg' => "token错误",
+            ], 200);
+        }
+
+        $data= ['balance'=>600210,'currency'=>"CNY"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ], 200);
+    }
+
+    public function gameDebit(Request $request)
+    {
+        $wtoken=$request->header('wtoken');
+
+        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+            return response()->json([
+                'data' => false,
+                'msg' => "token错误",
+            ], 200);
+        }
+
+        $data= ['balance'=>600210,'currency'=>"CNY"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ], 200);
+    }
+
+    public function gameCredit(Request $request)
+    {
+        $wtoken=$request->header('wtoken');
+
+        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+            return response()->json([
+                'data' => false,
+                'msg' => "token错误",
+            ], 200);
+        }
+
+        $data= ['balance'=>600210,'currency'=>"CNY"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ], 200);
+    }
+
+    public function gameBonus(Request $request)
+    {
+        $wtoken=$request->header('wtoken');
+
+        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+            return response()->json([
+                'data' => false,
+                'msg' => "token错误",
+            ], 200);
+        }
+
+        $data= ['balance'=>600210,'currency'=>"CNY"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ], 200);
+    }
+
+    public function userPayoff(Request $request)
+    {
+        $wtoken=$request->header('wtoken');
+
+        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+            return response()->json([
+                'data' => false,
+                'msg' => "token错误",
+            ], 200);
+        }
+
+        $data= ['balance'=>600210,'currency'=>"CNY"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ], 200);
+    }
+
+    public function gameRefund(Request $request)
+    {
+        $wtoken=$request->header('wtoken');
+
+        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+            return response()->json([
+                'data' => false,
+                'msg' => "token错误",
+            ], 200);
+        }
+
+        $data= ['balance'=>600210,'currency'=>"CNY"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ], 200);
+    }
+
+    public function gameRecord(Request $request,$mtcode)
+    {
+        $wtoken=$request->header('wtoken');
+
+        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+            return response()->json([
+                'data' => false,
+                'msg' => "token错误",
+            ], 200);
+        }
+
+        $data= array( "_id"=> "59672a547aa48000019260cf",
+        "action"=> "bet",
+        "target"=>array("account"=>"fifi"),
+        "status"=>array(
+            "createtime"=>"2017-07-13T04:07:48.644-04:00",
+            "endtime"=> "2017-07-13T04:07:48.673-04:00",
+            "status"=>"success",
+            "message"=> "success"
+        ),
+        "before"=> 8164082.95,
+        "balance"=>8164072.95,
+        "currency"=>"CNY",
+        "event" =>array(
+            "mtcode"=> "testbet1123456:GC",
+              "amount"=>10,
+              "eventtime"=> "2017-07-05T05:08:41-04:00"
+        ),
+    );
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ], 200);
+    }
+
+    public function gameBalance(Request $request,$account)
+    {
+        $wtoken=$request->header('wtoken');
+
+        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+            return response()->json([
+                'data' => false,
+                'msg' => "token错误",
+            ], 200);
+        }
+
+        $data= ['balance'=>600210,'currency'=>"CNY"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ], 200);
+    }
 }

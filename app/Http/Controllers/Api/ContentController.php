@@ -33,7 +33,7 @@ class ContentController extends Controller
 
     public function activity()
     {
-        $data = Activity::where('activity_state',1)->get(['activity_type','activity_title',
+        $data = Activity::where('activity_state',1)->get(['id','activity_type','activity_title',
         'activity_img','activity_url','label_img','activity_sort','start_time','stop_time']);
 
         if ($data) {
@@ -64,7 +64,7 @@ class ContentController extends Controller
         $this->validate($request, [
             'token' => 'required'
         ]);
-        $data= Affiche::orderBy('created_at','desc')->get(['affiche_title','affiche_content','great_affiche','created_at']);
+        $data= Affiche::orderBy('created_at','desc')->get(['id','affiche_title','affiche_content','great_affiche','created_at']);
         if ($data) {
             return response()->json(['msg'=>'成功','data'=>$data,'code'=>200],200);
         }else {

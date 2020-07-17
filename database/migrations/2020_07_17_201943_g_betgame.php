@@ -24,7 +24,7 @@ class GBetgame extends Migration
             $table->string('mtcode',70)->default('')->comment('混合码 为唯一不重复的值');
             $table->string('session',50)->default('')->comment('选填');
             $table->string('currency',50)->default('CNY')->comment('币别');
-            $table->integer('state')->default(1)->comment('状态');
+            $table->decimal('balance',9,2)->default(0.00)->comment('钱包余额');
             $table->timestamps();
         });
     }

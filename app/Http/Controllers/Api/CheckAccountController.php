@@ -3,12 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\UserInfo;
+use App\Model\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 class CheckAccountController extends Controller
 {
+    public function utime()
+    {
+        date_default_timezone_set('America/New_York');
+
+        $datetime= date("c", time());
+        return $datetime;
+    }
+
     public function checkAccount(Request $request,$allCount)
     {
      /*    $this->validate($request, [
@@ -29,10 +38,8 @@ class CheckAccountController extends Controller
                 'msg' => "token错误",
             ], 200);
         }
-        date_default_timezone_set('America/New_York');
 
-        $datetime= date("c", time());
-        $status = ['code'=>'0','message'=>'Success','datetime'=>$datetime];
+        $status = ['code'=>'0','message'=>'Success','datetime'=>$this->utime()];
         if (UserInfo::where('username','=',$allCount)->exists()) {
             return response()->json([
                 'data' => true,
@@ -283,8 +290,10 @@ class CheckAccountController extends Controller
             ], 200);
         }
 
-        $data= ['balance'=>123456.50,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $data= UserDetail::where('username',$request->account)->get('balance','currency');
+
+        //$data= ['balance'=>123456.50,'currency'=>"CNY"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status

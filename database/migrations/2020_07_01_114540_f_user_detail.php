@@ -18,14 +18,16 @@ class FUserDetail extends Migration
             $table->string('username',20)->comment('用户名');
             $table->string('user_head',200)->default('')->comment('用户头像');
             $table->string('true_name',30)->default('')->comment('真实姓名');
-            $table->integer('gender')->default(2)->comment('0为女 1为男');  
+            $table->integer('gender')->default(2)->comment('0为女 1为男');
             $table->string('date_brith',50)->default('')->comment('出生日期');
+            $table->decimal('balance',9,2)->default(0.00)->comment('钱包余额');
+            $table->string('currency',50)->default('CNY')->comment('币别');
             $table->string('phone',11)->default('')->comment('手机号码');
             $table->integer('phone_code')->default(0)->comment('手机验证码 通常为6位');
             $table->integer('email_code')->default(0)->comment('邮箱验证码 通常为6位');
             $table->string('email',50)->default('')->comment('电子邮箱');
-            $table->integer('vip')->default(0)->comment('vip级别');  
-   
+            $table->integer('vip')->default(0)->comment('vip级别');
+
             $table->timestamps();
         });
     }

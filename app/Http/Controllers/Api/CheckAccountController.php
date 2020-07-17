@@ -283,7 +283,7 @@ class CheckAccountController extends Controller
             ], 200);
         }
 
-        $data= ['balance'=>600210,'currency'=>"CNY"];
+        $data= ['balance'=>123456.50,'currency'=>"CNY"];
         $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
         return response()->json([
             'data' => $data,

@@ -68,7 +68,7 @@ return [
     */
 
     'timezone' => 'Asia/Shanghai',
-    
+
 
     /*
     |--------------------------------------------------------------------------
@@ -166,7 +166,7 @@ return [
         //验证码
         \Mews\Captcha\CaptchaServiceProvider::class,
 
-        
+
         //跨域
         Fruitcake\Cors\CorsServiceProvider::class,
 

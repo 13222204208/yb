@@ -23,7 +23,7 @@ class CheckAccountController extends Controller
         $token= setToken('573516293'); */
         $wtoken=$request->header('wtoken');
         Log::debug('An informational message.'.$wtoken);
-        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+        if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
                 'msg' => "token错误",
@@ -50,7 +50,7 @@ class CheckAccountController extends Controller
     {
         $wtoken=$request->header('wtoken');
 
-        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+        if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
                 'msg' => "token错误",
@@ -69,7 +69,7 @@ class CheckAccountController extends Controller
     {
         $wtoken=$request->header('wtoken');
 
-        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+        if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
                 'msg' => "token错误",
@@ -88,7 +88,7 @@ class CheckAccountController extends Controller
     {
         $wtoken=$request->header('wtoken');
 
-        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+        if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
                 'msg' => "token错误",
@@ -107,7 +107,7 @@ class CheckAccountController extends Controller
     {
         $wtoken=$request->header('wtoken');
 
-        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+        if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
                 'msg' => "token错误",
@@ -126,7 +126,7 @@ class CheckAccountController extends Controller
     {
         $wtoken=$request->header('wtoken');
 
-        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+        if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
                 'msg' => "token错误",
@@ -145,7 +145,7 @@ class CheckAccountController extends Controller
     {
         $wtoken=$request->header('wtoken');
 
-        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+        if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
                 'msg' => "token错误",
@@ -164,7 +164,7 @@ class CheckAccountController extends Controller
     {
         $wtoken=$request->header('wtoken');
 
-        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+        if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
                 'msg' => "token错误",
@@ -183,7 +183,7 @@ class CheckAccountController extends Controller
     {
         $wtoken=$request->header('wtoken');
 
-        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+        if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
                 'msg' => "token错误",
@@ -202,7 +202,7 @@ class CheckAccountController extends Controller
     {
         $wtoken=$request->header('wtoken');
 
-        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+        if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
                 'msg' => "token错误",
@@ -221,7 +221,7 @@ class CheckAccountController extends Controller
     {
         $wtoken=$request->header('wtoken');
 
-        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+        if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
                 'msg' => "token错误",
@@ -240,7 +240,7 @@ class CheckAccountController extends Controller
     {
         $wtoken=$request->header('wtoken');
 
-        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+        if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
                 'msg' => "token错误",
@@ -276,7 +276,7 @@ class CheckAccountController extends Controller
     {
         $wtoken=$request->header('wtoken');
 
-        if ($wtoken !== "704ec5402224343d247289ca83fe4b1fd5507198" ) {
+        if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
                 'msg' => "token错误",

@@ -19,7 +19,7 @@ class CheckAccountController extends Controller
         return $datetime;
     }
 
-    public function checkAccount(Request $request,$allCount)
+    public function checkAccount(Request $request,$account)
     {
      /*    $this->validate($request, [
             'account' => 'required|max:36'
@@ -41,7 +41,7 @@ class CheckAccountController extends Controller
         }
 
         $status = ['code'=>'0','message'=>'Success','datetime'=>$this->utime()];
-        if (UserInfo::where('username','=',$allCount)->exists()) {
+        if (UserInfo::where('username','=',$account)->exists()) {
             return response()->json([
                 'data' => true,
                 'status' =>$status,
@@ -78,7 +78,7 @@ class CheckAccountController extends Controller
         }
         $bet->save(); */
 
-        $data= ['balance'=>5000.50,'currency'=>"CNY"];
+        $data= ['balance'=>5000,'currency'=>"CNY"];
         $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,

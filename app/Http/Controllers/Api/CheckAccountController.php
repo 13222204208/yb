@@ -67,8 +67,8 @@ class CheckAccountController extends Controller
                 'msg' => "token错误",
             ], 200);
         }
-        Log::debug('An informational message.'.$request->eventTime);
-/*         $bet = new BetGame;
+        Log::debug('An informational message.'.$request->amount);
+        $bet = new BetGame;
         $bet->username = $request->account;
         $bet->eventTime = $request->eventTime;
         $bet->gamehall = $request->gamehall;
@@ -79,7 +79,7 @@ class CheckAccountController extends Controller
         if ($request->has('session')) {
             $bet->session = $request->session;
         }
-        $bet->save(); */
+        $bet->save();
 
         $data= ['balance'=>5000,'currency'=>"CNY"];
         $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];

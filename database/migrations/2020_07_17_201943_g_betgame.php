@@ -20,7 +20,7 @@ class GBetgame extends Migration
             $table->string('gamehall',36)->default('')->comment('游戏厂商代号');
             $table->string('gamecode',36)->default('')->comment('游戏代号');
             $table->string('roundid',50)->default('')->comment('游戏局号');
-            $table->decimal('amount',9,2)->default('')->comment('金额不能为负值');
+            $table->decimal('amount',9,2)->default(0.00)->comment('金额不能为负值');
             $table->string('mtcode',70)->default('')->comment('混合码 为唯一不重复的值');
             $table->string('session',50)->default('')->comment('选填');
             $table->string('currency',50)->default('CNY')->comment('币别');

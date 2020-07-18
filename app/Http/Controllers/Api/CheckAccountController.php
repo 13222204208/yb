@@ -79,7 +79,7 @@ class CheckAccountController extends Controller
         $bet->save(); */
 
         $data= ['balance'=>5000,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
         return response()->json([
             'data' => $data,
             'status' => $status

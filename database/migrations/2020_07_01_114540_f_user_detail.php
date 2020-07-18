@@ -20,7 +20,7 @@ class FUserDetail extends Migration
             $table->string('true_name',30)->default('')->comment('真实姓名');
             $table->integer('gender')->default(2)->comment('0为女 1为男');
             $table->string('date_brith',50)->default('')->comment('出生日期');
-            $table->decimal('balance',9,2)->default(0.00)->comment('钱包余额');
+            $table->decimal('balance',16,4)->default(0)->comment('钱包余额');
             $table->string('currency',50)->default('CNY')->comment('币别');
             $table->string('phone',11)->default('')->comment('手机号码');
             $table->integer('phone_code')->default(0)->comment('手机验证码 通常为6位');

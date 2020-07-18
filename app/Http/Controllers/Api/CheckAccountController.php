@@ -14,9 +14,12 @@ class CheckAccountController extends Controller
     public function utime()
     {
         date_default_timezone_set('America/New_York');
+        $microtime = microtime(true);
+        $milliseconds = sprintf("%03d", ($microtime - floor($microtime)) * 10000000);
 
-        $datetime= date("c", time());
-        return $datetime;
+        $datetime= date("c", $microtime);
+        $time= substr_replace($datetime,'.'.$milliseconds,19,0);
+        return $time;
     }
 
     public function checkAccount(Request $request,$account)
@@ -64,8 +67,8 @@ class CheckAccountController extends Controller
                 'msg' => "token错误",
             ], 200);
         }
-      //  Log::debug('An informational message.'.$request->all());
-/*         $bet = new BetGame;
+        Log::debug('An informational message.'.$request->all());
+         $bet = new BetGame;
         $bet->username = $request->account;
         $bet->eventTime = $request->eventTime;
         $bet->gamehall = $request->gamehall;
@@ -76,10 +79,10 @@ class CheckAccountController extends Controller
         if ($request->has('session')) {
             $bet->session = $request->session;
         }
-        $bet->save(); */
+        $bet->save();
 
         $data= ['balance'=>5000,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status
@@ -98,7 +101,7 @@ class CheckAccountController extends Controller
         }
 
         $data= ['balance'=>600210,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status
@@ -117,7 +120,7 @@ class CheckAccountController extends Controller
         }
 
         $data= ['balance'=>600210,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status
@@ -136,7 +139,7 @@ class CheckAccountController extends Controller
         }
 
         $data= ['balance'=>600210,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status
@@ -155,7 +158,7 @@ class CheckAccountController extends Controller
         }
 
         $data= ['balance'=>600210,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status
@@ -174,7 +177,7 @@ class CheckAccountController extends Controller
         }
 
         $data= ['balance'=>600210,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status
@@ -193,7 +196,7 @@ class CheckAccountController extends Controller
         }
 
         $data= ['balance'=>600210,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status
@@ -212,7 +215,7 @@ class CheckAccountController extends Controller
         }
 
         $data= ['balance'=>600210,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status
@@ -231,7 +234,7 @@ class CheckAccountController extends Controller
         }
 
         $data= ['balance'=>600210,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status
@@ -250,7 +253,7 @@ class CheckAccountController extends Controller
         }
 
         $data= ['balance'=>600210,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status
@@ -286,7 +289,7 @@ class CheckAccountController extends Controller
               "eventtime"=> "2017-07-05T05:08:41-04:00"
         ),
     );
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status
@@ -313,7 +316,7 @@ class CheckAccountController extends Controller
         ], 200);
 
 /*         $data= ['balance'=>600210,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status

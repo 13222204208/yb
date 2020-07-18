@@ -12,6 +12,6 @@ class UserDetail extends Model
 
     public function getBalanceAttribute($value)
     {
-        return $value/10;
+        return $value;
     }
 }

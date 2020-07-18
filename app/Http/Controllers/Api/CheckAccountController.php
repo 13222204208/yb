@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\BetGame;
 use App\Model\UserInfo;
 use App\Model\UserDetail;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class CheckAccountController extends Controller
       }
         $token= setToken('573516293'); */
         $wtoken=$request->header('wtoken');
-        Log::debug('An informational message.'.$wtoken);
+        //Log::debug('An informational message.'.$wtoken);
         if ($wtoken !== config('wtoken.token') ) {
             return response()->json([
                 'data' => false,
@@ -63,9 +64,22 @@ class CheckAccountController extends Controller
                 'msg' => "token错误",
             ], 200);
         }
+        Log::debug('An informational message.'.$request->all());
+/*         $bet = new BetGame;
+        $bet->username = $request->account;
+        $bet->eventTime = $request->eventTime;
+        $bet->gamehall = $request->gamehall;
+        $bet->gamecode = $request->gamecode;
+        $bet->roundid = $request->roundid;
+        $bet->amount = $request->amount;
+        $bet->mtcode = $request->mtcode;
+        if ($request->has('session')) {
+            $bet->session = $request->session;
+        }
+        $bet->save(); */
 
-        $data= ['balance'=>600210,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $data= ['balance'=>5000.50,'currency'=>"CNY"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status

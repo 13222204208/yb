@@ -304,7 +304,7 @@ class CheckAccountController extends Controller
             ], 200);
         }
 
-        $data= UserDetail::where('username',$request->account)->get(['gender','username'])->toArray();
+        $data= UserDetail::where('username',$request->account)->get(['balance','currency'])->toArray();
         $data = $data[0];
         //$data= ['balance'=>123456.50,'currency'=>"CNY"];
         $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];

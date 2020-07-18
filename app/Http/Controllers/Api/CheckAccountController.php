@@ -69,7 +69,7 @@ class CheckAccountController extends Controller
         }
         Log::debug('An informational message.'.$request->amount);
         $bet = new BetGame;
-        $bet->username = $request->account;
+        $bet->account = $request->account;
         $bet->eventTime = $request->eventTime;
         $bet->gamehall = $request->gamehall;
         $bet->gamecode = $request->gamecode;

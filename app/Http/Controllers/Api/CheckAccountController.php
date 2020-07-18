@@ -67,7 +67,7 @@ class CheckAccountController extends Controller
                 'msg' => "token错误",
             ], 200);
         }
-        Log::debug('An informational message.'.$request->amount);
+        //Log::debug('An informational message.'.$request->amount);
         $bet = new BetGame;
         $bet->account = $request->account;
         $bet->eventTime = $request->eventTime;
@@ -76,6 +76,7 @@ class CheckAccountController extends Controller
         $bet->roundid = $request->roundid;
         $bet->amount = $request->amount;
         $bet->mtcode = $request->mtcode;
+        $bet->session = "noting";
         if ($request->has('session')) {
             $bet->session = $request->session;
         }

@@ -77,7 +77,7 @@ class CheckAccountController extends Controller
         $bet->amount = $request->amount;
         $bet->mtcode = $request->mtcode;
         $bet->session = "noting";
-        if ($request->has('session')) {
+        if ($request->session) {
             $bet->session = $request->session;
         }
         $bet->save();

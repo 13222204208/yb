@@ -8,4 +8,10 @@ class UserDetail extends Model
 {
     protected $table = 'f_user_detail';
     protected $guarded = [];
+
+
+    public function getBalanceAttribute($value)
+    {
+        return intval($value);
+    }
 }

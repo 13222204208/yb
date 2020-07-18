@@ -306,7 +306,7 @@ class CheckAccountController extends Controller
 
         $data= UserDetail::where('username',$request->account)->get(['balance','currency'])->toArray();
         $data = $data[0];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>"2017-01-19T22:56:30.0151001-05:00"];
+        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
             'status' => $status

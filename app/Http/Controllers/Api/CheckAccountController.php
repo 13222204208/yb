@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\BetGame;
+use App\Model\EndRound;
 use App\Model\UserInfo;
 use App\Model\UserDetail;
 use Illuminate\Http\Request;
@@ -100,6 +101,15 @@ class CheckAccountController extends Controller
                 'msg' => "token错误",
             ], 200);
         }
+
+        $endround= new EndRound;
+        $endround->account = $request->account;
+        $endround->gamehall = $request->gamehall;
+        $endround->gamecode = $request->gamecode;
+        $endround->roundid = $request->roundid;
+        $endround->data = $request->data;
+        $endround->createTime = $request->createTime;
+        $endround->save();
 
         $data= ['balance'=>600210,'currency'=>"CNY"];
         $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];

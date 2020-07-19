@@ -103,7 +103,9 @@ class CheckAccountController extends Controller
             ], 200);
         }
         $data = $request->data;
-        $type = gettype($data);Log::debug('data type.'.$type);
+        $type = gettype($data);
+
+
         $endround= new EndRound;
         $endround->account = $request->account;
         $endround->gamehall = $request->gamehall;
@@ -113,8 +115,9 @@ class CheckAccountController extends Controller
         $endround->createTime = $request->createTime;
         $endround->save();
 
+        $info= explode(",",$data);Log::debug('data type.'.$info);
         $detail= new Userdetail;
-        $detail->balance +=  $data->amount;
+        $detail->balance +=  $info['amount'];
         $detail->save();
 
         $data= ['balance'=>$detail->balance,'currency'=>"CNY"];

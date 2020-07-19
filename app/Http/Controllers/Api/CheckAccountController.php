@@ -115,7 +115,7 @@ class CheckAccountController extends Controller
 
         $data = json_decode($request->data);//Log::debug('An informational message.'.$data[0]->amount);
         $detail= Userdetail::where('username',$request->account)->first();
-        $detail->balance +=  $data[0]->amount;
+        $detail->balance = 400;
         $detail->save();
 
         $data= ['balance'=>$detail->balance,'currency'=>"CNY"];

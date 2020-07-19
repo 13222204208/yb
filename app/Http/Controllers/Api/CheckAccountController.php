@@ -102,7 +102,7 @@ class CheckAccountController extends Controller
                 'msg' => "token错误",
             ], 200);
         }
-        $data = json_decode($request->data);
+        $data = $request->data;
         $endround= new EndRound;
         $endround->account = $request->account;
         $endround->gamehall = $request->gamehall;

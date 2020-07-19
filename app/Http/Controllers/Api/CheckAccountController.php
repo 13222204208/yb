@@ -102,18 +102,18 @@ class CheckAccountController extends Controller
                 'msg' => "token错误",
             ], 200);
         }
-
+        $data = $request->data;
         $endround= new EndRound;
         $endround->account = $request->account;
         $endround->gamehall = $request->gamehall;
         $endround->gamecode = $request->gamecode;
         $endround->roundid = $request->roundid;
-        $endround->data = $request->data;
+        $endround->data = $data;
         $endround->createTime = $request->createTime;
         $endround->save();
 
         $detail= new Userdetail;
-        $detail->balance = $detail->balance + $request->data['amount'];
+        $detail->balance +=  $data->amount;
         $detail->save();
 
         $data= ['balance'=>$detail->balance,'currency'=>"CNY"];

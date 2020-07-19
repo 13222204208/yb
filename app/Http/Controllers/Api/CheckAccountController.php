@@ -112,7 +112,11 @@ class CheckAccountController extends Controller
         $endround->createTime = $request->createTime;
         $endround->save();
 
-        $data= ['balance'=>600210,'currency'=>"CNY"];
+        $detail= new Userdetail;
+        $detail->balance = $detail->balance + $request->account;
+        $detail->save();
+
+        $data= ['balance'=>$detail->balance,'currency'=>"CNY"];
         $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
@@ -188,7 +192,11 @@ class CheckAccountController extends Controller
         $rollin->gametype = $request->gametype;
         $rollin->save();
 
-        $data= ['balance'=>600210,'currency'=>"CNY"];
+        UserDetail::where('username',$request->account)->update([
+            'balance'=>$request->amount
+        ]);
+
+        $data= ['balance'=>$request->amount,'currency'=>"CNY"];
         $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,

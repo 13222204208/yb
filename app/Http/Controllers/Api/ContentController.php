@@ -7,6 +7,7 @@ use App\Model\Affiche;
 use App\Model\Support;
 use App\Model\Activity;
 use App\Model\DelNotice;
+use App\Model\UserDetail;
 use App\Model\RotationChart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -146,4 +147,5 @@ class ContentController extends Controller
             ],200);
         }
     }
+
 }

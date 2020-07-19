@@ -32,6 +32,7 @@ Route::middleware('cors')->prefix('user')->group(function (){
         Route::post('user_head', 'Api\UserController@uploadUserHead');//上传头像
         Route::post('myActivity','Api\UserController@myActivity');//获取消息中心的活动
         Route::post('validatePasswd','Api\UserController@validatePasswd');//手势密码中验证登录密码
+        Route::post('amount','Api\UserController@amount');//钱包余额
 
         Route::post('sendcode', 'Api\MailController@sendcode');//验证邮箱
         Route::post('bindmail','Api\MailController@bindmail');//绑定邮箱
@@ -42,7 +43,6 @@ Route::middleware('cors')->prefix('user')->group(function (){
         Route::post('add/card','Api\CardController@addCard');//添加银行卡
         Route::get('look/card','Api\CardController@lookCard');//添加银行卡
         Route::post('remove/card','Api\CardController@removeCard');//解除银行卡
-
 
     });
 });

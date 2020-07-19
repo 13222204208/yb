@@ -297,4 +297,22 @@ class UserController extends Controller
         }
     }
 
+
+    public function amount(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+        $user = JWTAuth::authenticate($request->token);
+        $username = $user->username;
+
+        $amount = UserDetail::where('username',$username)->value('balance');
+
+        return response()->json([
+            'code' => 200,
+            'msg' => '成功',
+            'amount' => $amount
+        ]);
+    }
+
 }

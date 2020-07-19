@@ -85,7 +85,8 @@ class CheckAccountController extends Controller
         }
         $bet->save();
 
-        $data= ['balance'=>5000,'currency'=>"CNY"];
+        $data= UserDetail::where('username',$request->account)->get(['balance','currency'])->toArray();
+        $data = $data[0];
         $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,

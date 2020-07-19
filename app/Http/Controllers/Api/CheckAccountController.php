@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\Rollin;
 use App\Model\BetGame;
 use App\Model\EndRound;
 use App\Model\UserInfo;
@@ -167,6 +168,25 @@ class CheckAccountController extends Controller
                 'msg' => "token错误",
             ], 200);
         }
+
+        $rollin = new Rollin;
+        $rollin->account = $request->account;
+        $rollin->eventTime = $request->eventTime;
+        $rollin->gamehall = $request->gamehall;
+        $rollin->gamecode = $request->gamecode;
+        $rollin->roundid = $request->roundid;
+        $rollin->validbet = $request->validbet;
+        $rollin->bet = $request->bet;
+        $rollin->win = $request->win;
+        if ($request->roomfee) {
+            $rollin->roomfee = $request->roomfee;
+        }
+        $rollin->amount = $request->amount;
+        $rollin->mtcode = $request->mtcode;
+        $rollin->createTime = $request->createTime;
+        $rollin->rake = $request->rake;
+        $rollin->gametype = $request->gametype;
+        $rollin->save();
 
         $data= ['balance'=>600210,'currency'=>"CNY"];
         $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];

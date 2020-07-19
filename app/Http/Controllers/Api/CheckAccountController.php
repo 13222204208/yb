@@ -113,8 +113,8 @@ class CheckAccountController extends Controller
         $endround->createTime = $request->createTime;
         $endround->save();
 
-        $data = json_decode($request->data);Log::debug('An informational message.'.$data[0]->amount);
-        $detail= new Userdetail;
+        $data = json_decode($request->data);//Log::debug('An informational message.'.$data[0]->amount);
+        $detail= Userdetail::where('username',$request->account)->first();
         $detail->balance +=  $data[0]->amount;
         $detail->save();
 

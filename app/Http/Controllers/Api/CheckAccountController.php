@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\Notice;
 use App\Model\Rollin;
 use App\Model\BetGame;
 use App\Model\EndRound;
@@ -102,25 +103,22 @@ class CheckAccountController extends Controller
                 'msg' => "token错误",
             ], 200);
         }
-        $data =  $request->json()->data;
-        $type = gettype($data);
-
 
         $endround= new EndRound;
         $endround->account = $request->account;
         $endround->gamehall = $request->gamehall;
         $endround->gamecode = $request->gamecode;
         $endround->roundid = $request->roundid;
-        $endround->data = $data;
+        $endround->data = $request->data;
         $endround->createTime = $request->createTime;
         $endround->save();
 
-        Log::debug('data type.'.$data);
-       /*  $detail= new Userdetail;
-        $detail->balance +=  $info['amount'];
-        $detail->save(); */
+        $data = json_decode($request->data);
+        $detail= new Userdetail;
+        $detail->balance +=  $data[0]->amount;
+        $detail->save();
 
-        $data= ['balance'=>11111,'currency'=>"CNY"];
+        $data= ['balance'=>$detail->balance,'currency'=>"CNY"];
         $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,
@@ -358,11 +356,5 @@ class CheckAccountController extends Controller
             'status' => $status
         ], 200);
 
-/*         $data= ['balance'=>600210,'currency'=>"CNY"];
-        $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
-        return response()->json([
-            'data' => $data,
-            'status' => $status
-        ], 200); */
     }
 }

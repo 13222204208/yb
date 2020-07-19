@@ -113,7 +113,7 @@ class CheckAccountController extends Controller
         $endround->save();
 
         $detail= new Userdetail;
-        $detail->balance = $detail->balance + $request->account;
+        $detail->balance = $detail->balance + $request->data['amount'];
         $detail->save();
 
         $data= ['balance'=>$detail->balance,'currency'=>"CNY"];

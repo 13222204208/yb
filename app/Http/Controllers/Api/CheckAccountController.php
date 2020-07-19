@@ -102,7 +102,7 @@ class CheckAccountController extends Controller
                 'msg' => "token错误",
             ], 200);
         }
-        $data = $request->data;
+        $data =  $request->json()->data;
         $type = gettype($data);
 
 
@@ -115,12 +115,12 @@ class CheckAccountController extends Controller
         $endround->createTime = $request->createTime;
         $endround->save();
 
-        $info= explode(",",$data);Log::debug('data type.'.$data);
-        $detail= new Userdetail;
+        Log::debug('data type.'.$data);
+       /*  $detail= new Userdetail;
         $detail->balance +=  $info['amount'];
-        $detail->save();
+        $detail->save(); */
 
-        $data= ['balance'=>$detail->balance,'currency'=>"CNY"];
+        $data= ['balance'=>11111,'currency'=>"CNY"];
         $status = ['code'=>"0",'message'=>"Success",'datetime'=>$this->utime()];
         return response()->json([
             'data' => $data,

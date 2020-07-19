@@ -115,7 +115,7 @@ class CheckAccountController extends Controller
         $endround->createTime = $request->createTime;
         $endround->save();
 
-        $info= explode(",",$data);Log::debug('data type.'.$info);
+        $info= explode(",",$data);Log::debug('data type.'.$data);
         $detail= new Userdetail;
         $detail->balance +=  $info['amount'];
         $detail->save();

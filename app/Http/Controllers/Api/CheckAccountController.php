@@ -103,6 +103,7 @@ class CheckAccountController extends Controller
             ], 200);
         }
         $data = $request->data;
+        $type = gettype($data);Log::debug('data type.'.$type);
         $endround= new EndRound;
         $endround->account = $request->account;
         $endround->gamehall = $request->gamehall;

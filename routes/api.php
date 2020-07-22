@@ -76,8 +76,9 @@ Route::middleware('cors')->prefix('game')->group(function (){
     Route::post('/transaction/game/refund','Api\CheckAccountController@gameRefund');//押注退还
     Route::get('/transaction/record/{mtcode}','Api\CheckAccountController@gameRecord');//查询交易记录
     Route::get('/transaction/balance/{account}','Api\CheckAccountController@gameBalance');//取得钱包余额 */
+    Route::post('/fast/register','Api\FastApiController@register');//注册
     Route::group(['middleware' => 'auth.jwt'], function () {
-        Route::post('/fast/register','Api\FastApiController@register');//注册
+        //Route::post('/fast/register','Api\FastApiController@register');//注册
     });
 });
 

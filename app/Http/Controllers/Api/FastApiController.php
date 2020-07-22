@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class FastApiController extends Controller
 {
 
-    public function curlData($url,$data,$method = 'POST')
+    public function curlData($url,$data)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -17,18 +17,7 @@ class FastApiController extends Controller
         ));
         curl_setopt($ch, CURLOPT_URL, $url);//要访问的地址
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
-        switch ($method) {
-            case "POST":
-              curl_setopt($ch, CURLOPT_POST, true);
-              if (!empty($postfields)) {
-                $tmpdatastr = is_array($postfields) ? http_build_query($postfields) : $postfields;
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $tmpdatastr);
-              }
-              break;
-            default:
-              curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method); /* //设置请求方式 */
-              break;
-          }
+        curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_exec($ch);//执行并获取数据
     }

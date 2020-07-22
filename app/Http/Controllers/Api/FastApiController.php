@@ -36,7 +36,8 @@ class FastApiController extends Controller
         ]);
 
         JWTAuth::authenticate($request->token);
-        $data = json_encode($request->data); return $data;
+        $data = array('a'=>1,'b'=>2);
+        $data = json_encode($data); return $data;
         $this->curl_post_https($request->url,$data);
     }
 }

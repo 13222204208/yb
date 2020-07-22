@@ -22,7 +22,7 @@ class FastApiController extends Controller
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-
+        return response()->json($response);
         return array($httpCode, $response);
     }
 

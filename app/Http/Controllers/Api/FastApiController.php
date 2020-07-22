@@ -49,7 +49,7 @@ class FastApiController extends Controller
         $data['MemberAccount'] = $request->MemberAccount;
         $data['MemberPassword'] = $request->MemberPassword;
         $data['Hash'] = $request->Hash;
-        $data = json_encode($data); return $data;
+        $data = json_encode($data);
         $this->curl_post_https($request->url,$data);
     }
 }

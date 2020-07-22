@@ -30,7 +30,7 @@ class FastApiController extends Controller
     }
 
     public function register(Request $request)
-    { return $request->url;
+    {
         $this->validate($request, [
             'token' => 'required'
         ]);

@@ -64,12 +64,15 @@ class FastApiController extends Controller
         $data['MemberAccount'] = $request->MemberAccount;
         $data['MemberPassword'] = $request->MemberPassword;
         $data['Hash'] = $request->Hash;
-        //$data = json_encode($data);return $_SERVER["REMOTE_ADDR"];
+        $data = json_encode($data);
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json'
+        ));
         curl_setopt($ch, CURLOPT_URL, $request->url);//要访问的地址
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
         curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $output = curl_exec($ch);//执行并获取数据
 
         return response()->json(['data'=>$output]);

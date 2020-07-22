@@ -72,7 +72,7 @@ class FastApiController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
         $output = curl_exec($ch);//执行并获取数据
 
-        echo $output;
+        return response()->json(['data'=>$output]);
 
     }
 }

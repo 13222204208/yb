@@ -136,4 +136,32 @@ class FastApiController extends Controller
         $this->curlData($url,$data);
 
     }
+
+    public function checkTransfer(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+        if ($user->username != $request->MemberAccount) {
+            return response()->json([
+                'code' => 0,
+                'msg' => '用户名错误',
+            ], 200);
+        }
+        $data = array();
+        $data['ApiKey']= $request->ApiKey;
+        $data['Timestamp'] = intval($request->Timestamp);
+        $data['Game'] = $request->Game;
+        $data['MemberAccount'] = $request->MemberAccount;
+        $data['MemberPassword'] = $request->MemberPassword;
+        $data['OrderNo'] = $request->OrderNo;
+        $data['Hash'] = $request->Hash;
+        $data = json_encode($data);
+        $url = $request->url;
+
+        $this->curlData($url,$data);
+
+    }
 }

@@ -82,6 +82,7 @@ Route::middleware('cors')->prefix('game')->group(function (){
         Route::post('/fast/login','Api\FastApiController@login');//登入
         Route::post('/fast/balance','Api\FastApiController@balance');//获取会员钱包余额
         Route::post('/fast/transfer','Api\FastApiController@transfer');//转帐
+        Route::post('/fast/checkTransfer','Api\FastApiController@checkTransfer');//检查转帐
     });
 });
 

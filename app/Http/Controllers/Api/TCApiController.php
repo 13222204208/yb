@@ -22,7 +22,7 @@ class TCApiController extends Controller
 
     public function send_require($sendParams){
         $params =  $this->encryptText(json_encode($sendParams),$this->desKey);//echo $this->signkey; exit;
-        //echo $this->signkey.$params; exit;
+        echo $this->signkey.$params; exit;
         $sign = hash('sha256', $this->signkey.$params);
         $data = array('merchant_code' => $this->merchant_code, 'params' => $params , 'sign' => $sign);
 

@@ -12,18 +12,25 @@ class TCApiController extends Controller
     public $signkey = 'tw3947BNYH3Y1pn9';
     public $url = 'http://www.connect6play.com/doBusiness.do';
 
-    function encryptText($input, $key)
+    function encryptText($str, $key)
     {
-        $ivlen = openssl_cipher_iv_length('DES-ECB');    // 获取密码iv长度
-        $iv = openssl_random_pseudo_bytes($ivlen);        // 生成一个伪随机字节串
-        $data = openssl_encrypt($input, 'DES-ECB', $key, $options=OPENSSL_RAW_DATA, $iv);    // 加密
-        return bin2hex($data);
+        $str = $this->pkcsPadding($str, 8);
+        $data = openssl_encrypt($str, 'DES-ECB', $key);    // 加密
+        return base64_encode($data);
     }
 
+    private function pkcsPadding($str, $blocksize)
+    {
+        $pad = $blocksize - (strlen($str) % $blocksize);
+        return $str . str_repeat(chr($pad), $pad);
+    }
+
+
+
     public function send_require($sendParams){
-        $params =  $this->encryptText(json_encode($sendParams),$this->desKey);//echo $this->signkey; exit;
-        echo $this->signkey.$params; exit;
-        $sign = hash('sha256', $this->signkey.$params);
+        $params =  $this->encryptText($sendParams,$this->desKey);//echo $this->signkey; exit;
+        //echo $params; exit;
+        $sign = hash('sha256',$params. $this->signkey);//echo $sign;exit;
         $data = array('merchant_code' => $this->merchant_code, 'params' => $params , 'sign' => $sign);
 
         $options = array(

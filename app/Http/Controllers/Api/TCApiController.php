@@ -31,6 +31,8 @@ class TCApiController extends Controller
         $params =  $this->encryptText($sendParams,$this->desKey);//echo $this->signkey; exit;
         //echo $params; exit;
         $sign = hash('sha256',$params. $this->signkey);//echo $sign;exit;
+        $params='U2FsdGVkX1+0Jgg2disd3pdKaILT2xzJAbF9HoFg20MW+PSvZCaP1FkOgi8caNxBXVN4SxNrhSO2r+WHeM9XzmZNLRKDqqzrGoAFzPlCrKIH/URmoGmF/X4N6cOrZ4Kq';
+        $sign='3a7fcf1dbcd919e7baeae1e862bdfe74c5c7abf3f147f50fc027d7cf2e055d57';
         $data = array('merchant_code' => $this->merchant_code, 'params' => $params , 'sign' => $sign);
 
         $options = array(

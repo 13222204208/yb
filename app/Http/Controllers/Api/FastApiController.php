@@ -69,7 +69,7 @@ class FastApiController extends Controller
         $data['MemberAccount'] = $request->MemberAccount;
         $data['MemberPassword'] = $request->MemberPassword;
         $data['GameCode'] = $request->GameCode;
-        $data['UserIP'] =  $_SERVER['SERVER_ADDR'];
+        $data['UserIP'] =  $request->UserIP;
         $data['DeviceType']= intval($request->DeviceType);
         $data['IsTrial'] = intval($request->IsTrial);
         $data['Hash'] = $request->Hash;

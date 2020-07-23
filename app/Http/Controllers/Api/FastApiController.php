@@ -132,7 +132,7 @@ class FastApiController extends Controller
         $data['Hash'] = $request->Hash;
         $data = json_encode($data);
         $url = $request->url;
-
+        return $data;
         $this->curlData($url,$data);
 
     }

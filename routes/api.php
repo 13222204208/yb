@@ -80,6 +80,7 @@ Route::middleware('cors')->prefix('game')->group(function (){
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::post('/fast/register','Api\FastApiController@register');//注册
         Route::post('/fast/login','Api\FastApiController@login');//登入
+        Route::post('/fast/balance','Api\FastApiController@balance');//获取会员钱包余额
     });
 });
 

@@ -126,13 +126,13 @@ class FastApiController extends Controller
         $data['Game'] = $request->Game;
         $data['MemberAccount'] = $request->MemberAccount;
         $data['MemberPassword'] = $request->MemberPassword;
-        $data['TransType'] = $request->transType;
+        $data['TransType'] = $request->TransType;
         $data['Amount'] = $request->Amount;
         $data['OrderNo'] = $request->OrderNo;
         $data['Hash'] = $request->Hash;
         $data = json_encode($data);
         $url = $request->url;
-        return $data;
+
         $this->curlData($url,$data);
 
     }

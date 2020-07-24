@@ -70,7 +70,7 @@ class TCApiController extends Controller
         ]);
 
         $user= JWTAuth::authenticate($request->token);
-        if ($user->username != $request->MemberAccount) {
+        if ($user->username != $request->username) {
             return response()->json([
                 'code' => 0,
                 'msg' => '用户名错误',

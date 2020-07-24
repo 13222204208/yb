@@ -131,6 +131,7 @@ class TCApiController extends Controller
             $data['platform'] = $request->platform;
         }
         $data['game_mode'] = $request->game_mode;
+        $data['game_code'] = $request->game_code;
 
         if ($request->view) {
             $data['view']= $request->view;

@@ -90,7 +90,7 @@ class TCApiController extends Controller
     public function gameList(Request $request)
     {
         $data = array();
-        $data['method']= "tg1";
+        $data['method']= "tgl";
         $data['language']= "ZH_CN";
         $data['product_type']= 2;
         $data['platform']= $request->platform;

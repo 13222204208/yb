@@ -55,7 +55,7 @@ class TCApiController extends Controller
         $sd = $params.$this->signKey;//echo $sd;exit;
 
         $sign = hash('sha256', $sd);//echo $sign;exit;
-        $params= urlencode(mb_convert_encoding($params, 'utf-8', 'gb2312'));
+        //$params= urlencode(mb_convert_encoding($params, 'utf-8', 'gb2312'));echo $params;exit;
         //$sign ="d1778d4fe33f67caa4ec6fafad836b4bedfc8b24e4727b538c32b7f53572277c";
         $data = array('merchant_code' => $this->merchant_code, 'params' => $params , 'sign' => $sign);
         //dd($data);

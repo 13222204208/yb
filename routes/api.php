@@ -77,7 +77,7 @@ Route::middleware('cors')->prefix('game')->group(function (){
     Route::get('/transaction/record/{mtcode}','Api\CheckAccountController@gameRecord');//查询交易记录
     Route::get('/transaction/balance/{account}','Api\CheckAccountController@gameBalance');//取得钱包余额 */
 
-
+    Route::post('/tc/gameList','Api\TCApiController@gameList');//天成游戏列表
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::post('/fast/register','Api\FastApiController@register');//注册
         Route::post('/fast/login','Api\FastApiController@login');//登入
@@ -86,6 +86,7 @@ Route::middleware('cors')->prefix('game')->group(function (){
         Route::post('/fast/checkTransfer','Api\FastApiController@checkTransfer');//检查转帐
 
         Route::post('/tc/CRegister','Api\TCApiController@CRegister');//创建/确认玩家接口
+
     });
 });
 

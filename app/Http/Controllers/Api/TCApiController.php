@@ -86,4 +86,25 @@ class TCApiController extends Controller
         $result = $this->send_require($data);
         return $result;
     }
+
+    public function gameList(Request $request)
+    {
+        $data = array();
+        $data['method']= "tg1";
+        $data['language']= "ZH_CN";
+        $data['product_type']= 2;
+        $data['platform']= $request->platform;
+        $data['client_type'] = $request->client_type;
+        $data['game_type'] = $request->game_type;
+        if ($request->page) {
+            $data['page'] = $request->page;
+        }
+        if ($request->page_size) {
+            $data['page_size']= $request->page_size;
+        }
+
+        $result = $this->send_require($data);
+        return $result;
+
+    }
 }

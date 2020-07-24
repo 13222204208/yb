@@ -77,13 +77,15 @@ Route::middleware('cors')->prefix('game')->group(function (){
     Route::get('/transaction/record/{mtcode}','Api\CheckAccountController@gameRecord');//查询交易记录
     Route::get('/transaction/balance/{account}','Api\CheckAccountController@gameBalance');//取得钱包余额 */
 
-    Route::post('/tc/cp','Api\TCApiController@cp');
+
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::post('/fast/register','Api\FastApiController@register');//注册
         Route::post('/fast/login','Api\FastApiController@login');//登入
         Route::post('/fast/balance','Api\FastApiController@balance');//获取会员钱包余额
         Route::post('/fast/transfer','Api\FastApiController@transfer');//转帐
         Route::post('/fast/checkTransfer','Api\FastApiController@checkTransfer');//检查转帐
+
+        Route::post('/tc/CRegister','Api\TCApiController@CRegister');//创建/确认玩家接口
     });
 });
 

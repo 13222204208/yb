@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Http\Controllers\Controller;
 
 class TCApiController extends Controller
 {
@@ -62,12 +63,24 @@ class TCApiController extends Controller
     }
 
 
-    public function cp(Request $request)
+    public function CRegister(Request $request)
     {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+        if ($user->username != $request->MemberAccount) {
+            return response()->json([
+                'code' => 0,
+                'msg' => '用户名错误',
+            ], 200);
+        }
+
         $data = array();
-        $data['method']='cm';
-        $data['username']= 'yangpanda12';
-        $data['password']= 'yangpanda12';
+        $data['method']= "cm";
+        $data['username']= $request->username;
+        $data['password']= $request->password;
         $data['currency']= $this->currency;
 
         $result = $this->send_require($data);

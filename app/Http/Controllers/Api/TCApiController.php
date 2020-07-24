@@ -35,8 +35,7 @@ class TCApiController extends Controller
      * @return string
      */
     public function encryptText($plainText, $key) {;
-       /*  $padded = $this->pkcs5_pad($plainText,8);
-        $encText = openssl_encrypt($padded,'DES-ECB',$key); */
+
         $encText= openssl_encrypt($plainText,'DES-ECB',$key,OPENSSL_RAW_DATA);
         return base64_encode($encText);
     }
@@ -51,26 +50,15 @@ class TCApiController extends Controller
 
     public function send_require($sendParams){
         $params =  $this->encryptText(json_encode($sendParams),$this->desKey);
-//$params ="qJ153L0WjoxYO2G2SQ2tA%2Bn5ZW75%2FFH6llz2WevLLfk4jA2Gpblts8BGnmMeY7Xks0tPaPA0iZFwkvX9EnVmofO0N97LLzadNNZ4ivyPDvA%3D";
+
         $sd = $params.$this->signKey;//echo $sd;exit;
 
         $sign = hash('sha256', $sd);//echo $sign;exit;
-        //$params= urlencode(mb_convert_encoding($params, 'utf-8', 'gb2312'));echo $params;exit;
-        //$sign ="d1778d4fe33f67caa4ec6fafad836b4bedfc8b24e4727b538c32b7f53572277c";
+
         $data = array('merchant_code' => $this->merchant_code, 'params' => $params , 'sign' => $sign);
-        //dd($data);
+
         $this->curlData($this->url,$data);
-/*         $options = array(
-            'http' => array(
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'POST',
-                'content' => http_build_query($data)
-            )
-        );
-        $context  = stream_context_create($options);
-        $result = file_get_contents($this->url, false, $context); */
-       // var_dump($result);
-        //return $result;
+
     }
 
 
@@ -78,10 +66,10 @@ class TCApiController extends Controller
     {
         $data = array();
         $data['method']='cm';
-        $data['username']= 'yangpanda1';
-        $data['password']= 'yangpanda1';
-        $data['currency']= 'CNY';
-        //$data = json_encode($data);
+        $data['username']= 'yangpanda12';
+        $data['password']= 'yangpanda12';
+        $data['currency']= $this->currency;
+
         $result = $this->send_require($data);
         return $result;
     }

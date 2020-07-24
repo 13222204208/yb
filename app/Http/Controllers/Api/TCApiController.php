@@ -150,9 +150,9 @@ class TCApiController extends Controller
         }
 
         if ($request->series) {
-            $data['series']= json_encode($request->series);
+            $data['series']= $request->series;
         }
-        return $request->series;
+        return response()->json($data);
         $result = $this->send_require($data);
         return $result;
     }

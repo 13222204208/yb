@@ -35,7 +35,7 @@ class TCApiController extends Controller
 
 
     public function send_require($sendParams){
-        $params =  $this->encryptText(json_encode($sendParams),$this->desKey);echo $params;exit;
+        $params =  $this->encryptText(json_encode($sendParams),$this->desKey);echo $this->desKey;exit;
         $sign = hash('sha256', $params . $this->signKey);
         $data = array('merchant_code' => $this->merchant_code, 'params' => $params , 'sign' => $sign);
         $options = array(
@@ -53,7 +53,7 @@ class TCApiController extends Controller
 
 
     public function cp(Request $request)
-    {phpinfo();
+    {
         $data = array();
         $data['method']='cm';
         $data['username']= 'yangpanda';

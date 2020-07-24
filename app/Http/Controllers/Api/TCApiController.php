@@ -14,6 +14,20 @@ class TCApiController extends Controller
         $this->signKey = 'tw3947BNYH3Y1pn9';				//加密签名档
         $this->currency = 'CNY'; 						//币别
     }
+
+    public function curlData($url,$data)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-type: application/x-www-form-urlencoded"
+        ));
+        curl_setopt($ch, CURLOPT_URL, $url);//要访问的地址
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
+        curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_exec($ch);//执行并获取数据
+    }
+
     /**
      * 组建en json参数数组
      * @param $plainText
@@ -21,8 +35,9 @@ class TCApiController extends Controller
      * @return string
      */
     public function encryptText($plainText, $key) {;
-        $padded = $this->pkcs5_pad($plainText,mcrypt_get_block_size("des", "ecb"));
-        $encText = mcrypt_encrypt("des",$key, $padded, "ecb");
+       /*  $padded = $this->pkcs5_pad($plainText,8);
+        $encText = openssl_encrypt($padded,'DES-ECB',$key); */
+        $encText= openssl_encrypt($plainText,'DES-ECB',$key,OPENSSL_RAW_DATA);
         return base64_encode($encText);
     }
 
@@ -35,10 +50,15 @@ class TCApiController extends Controller
 
 
     public function send_require($sendParams){
-        $params =  $this->encryptText(json_encode($sendParams),$this->desKey);echo $this->desKey;exit;
-        $sign = hash('sha256', $params . $this->signKey);
+        $params =  $this->encryptText(json_encode($sendParams),$this->desKey);
+$params ="qJ153L0WjoxYO2G2SQ2tA%2Bn5ZW75%2FFH6llz2WevLLfk4jA2Gpblts8BGnmMeY7Xks0tPaPA0iZFwkvX9EnVmofO0N97LLzadNNZ4ivyPDvA%3D";
+/*          $params= urlencode(mb_convert_encoding($params, 'utf-8', 'gb2312'));
+echo $params; */
+        $sign = hash('sha256', $params . $this->signKey);//echo $sign;exit;
+        $sign ="d1778d4fe33f67caa4ec6fafad836b4bedfc8b24e4727b538c32b7f53572277c";
         $data = array('merchant_code' => $this->merchant_code, 'params' => $params , 'sign' => $sign);
-        $options = array(
+        $this->curlData($this->url,$data);
+/*         $options = array(
             'http' => array(
                 'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
                 'method'  => 'POST',
@@ -46,9 +66,9 @@ class TCApiController extends Controller
             )
         );
         $context  = stream_context_create($options);
-        $result = file_get_contents($this->url, false, $context);
-        var_dump($result);
-        return $result;
+        $result = file_get_contents($this->url, false, $context); */
+       // var_dump($result);
+        //return $result;
     }
 
 
@@ -60,6 +80,7 @@ class TCApiController extends Controller
         $data['password']= 'yangpanda';
         $data['currency']= 'CNY';
         //$data = json_encode($data);
-        $this->send_require($data);
+        $result = $this->send_require($data);
+        //return $result;
     }
 }

@@ -7,46 +7,37 @@ use Illuminate\Http\Request;
 
 class TCApiController extends Controller
 {
-    public $desKey = 'ZADKwrWZ';
-    public $merchant_code = 'byylcny';
-    public $signkey = 'tw3947BNYH3Y1pn9';
-    public $url = 'http://www.connect6play.com/doBusiness.do';
-
-    public function curlData($url,$data)
-    {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json'
-        ));
-        curl_setopt($ch, CURLOPT_URL, $url);//要访问的地址
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
-        curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_exec($ch);//执行并获取数据
+    public function __construct(){
+        $this->url = 'http://www.connect6play.com/doBusiness.do';					//API 连接
+        $this->merchant_code = 'byylcny';		//代理商号
+        $this->desKey = 'ZADKwrWZ';				//加密金钥
+        $this->signKey = 'tw3947BNYH3Y1pn9';				//加密签名档
+        $this->currency = 'CNY'; 						//币别
+    }
+    /**
+     * 组建en json参数数组
+     * @param $plainText
+     * @param $key
+     * @return string
+     */
+    public function encryptText($plainText, $key) {;
+        $padded = $this->pkcs5_pad($plainText,mcrypt_get_block_size("des", "ecb"));
+        $encText = mcrypt_encrypt("des",$key, $padded, "ecb");
+        return base64_encode($encText);
     }
 
-    function encryptText($str, $key)
-    {
-        //$str = $this->pkcsPadding($str, 8);
-        $data = openssl_encrypt($str, 'DES-ECB', $key);    // 加密
-        return $data;
-    }
 
-    private function pkcsPadding($str, $blocksize)
+    public function pkcs5_pad ($text, $blocksize)
     {
-        $pad = $blocksize - (strlen($str) % $blocksize);
-        return $str . str_repeat(chr($pad), $pad);
+        $pad = $blocksize - (strlen($text) % $blocksize);
+        return $text . str_repeat(chr($pad), $pad);
     }
-
 
 
     public function send_require($sendParams){
-        $params =  $this->encryptText($sendParams,$this->desKey);//echo $this->signkey; exit;
-        //echo $params; exit;
-        $sign = hash('sha256',$params. $this->signkey);//echo $sign;exit;
-        //echo $params.'//'.$sign;exit;
+        $params =  $this->encryptText(json_encode($sendParams),$this->desKey);echo $params;exit;
+        $sign = hash('sha256', $params . $this->signKey);
         $data = array('merchant_code' => $this->merchant_code, 'params' => $params , 'sign' => $sign);
-
         $options = array(
             'http' => array(
                 'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -56,20 +47,19 @@ class TCApiController extends Controller
         );
         $context  = stream_context_create($options);
         $result = file_get_contents($this->url, false, $context);
-        $this->curlData($this->url,$context);
-        //dd($result);
-       // return $result;
+        var_dump($result);
+        return $result;
     }
 
 
     public function cp(Request $request)
-    {
+    {phpinfo();
         $data = array();
         $data['method']='cm';
-        $data['username']= 'phoenix12';
-        $data['password']= '1q2w3e4r';
+        $data['username']= 'yangpanda';
+        $data['password']= 'yangpanda';
         $data['currency']= 'CNY';
-        $data = json_encode($data);
+        //$data = json_encode($data);
         $this->send_require($data);
     }
 }

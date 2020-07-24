@@ -50,11 +50,11 @@ class TCApiController extends Controller
 
 
     public function send_require($sendParams){
-        $params =  $this->encryptText(json_encode($sendParams),$this->desKey);
+       // $params =  $this->encryptText(json_encode($sendParams),$this->desKey);
 $params ="qJ153L0WjoxYO2G2SQ2tA%2Bn5ZW75%2FFH6llz2WevLLfk4jA2Gpblts8BGnmMeY7Xks0tPaPA0iZFwkvX9EnVmofO0N97LLzadNNZ4ivyPDvA%3D";
 /*          $params= urlencode(mb_convert_encoding($params, 'utf-8', 'gb2312'));
 echo $params; */
-        $sign = hash('sha256', $params . $this->signKey);//echo $sign;exit;
+       // $sign = hash('sha256', $params . $this->signKey);//echo $sign;exit;
         $sign ="d1778d4fe33f67caa4ec6fafad836b4bedfc8b24e4727b538c32b7f53572277c";
         $data = array('merchant_code' => $this->merchant_code, 'params' => $params , 'sign' => $sign);
         $this->curlData($this->url,$data);
@@ -81,6 +81,6 @@ echo $params; */
         $data['currency']= 'CNY';
         //$data = json_encode($data);
         $result = $this->send_require($data);
-        //return $result;
+        return $result;
     }
 }

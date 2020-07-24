@@ -19,7 +19,7 @@ class TCApiController extends Controller
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            "Content-type: application/x-www-form-urlencoded"
+            "Content-type: application/x-www-form-urlencoded;charset=UTF-8"
         ));
         curl_setopt($ch, CURLOPT_URL, $url);//要访问的地址
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
@@ -57,6 +57,7 @@ echo $params; */
        // $sign = hash('sha256', $params . $this->signKey);//echo $sign;exit;
         $sign ="d1778d4fe33f67caa4ec6fafad836b4bedfc8b24e4727b538c32b7f53572277c";
         $data = array('merchant_code' => $this->merchant_code, 'params' => $params , 'sign' => $sign);
+        //dd($data);
         $this->curlData($this->url,$data);
 /*         $options = array(
             'http' => array(

@@ -14,6 +14,7 @@ class TCApiController extends Controller
         $this->desKey = 'ZADKwrWZ';				//加密金钥
         $this->signKey = 'tw3947BNYH3Y1pn9';				//加密签名档
         $this->currency = 'CNY'; 						//币别
+        $this->product_type = 2;//游戏产品代码 代表彩票
     }
 
     public function curlData($url,$data)
@@ -92,7 +93,7 @@ class TCApiController extends Controller
         $data = array();
         $data['method']= "tgl";
         $data['language']= "ZH_CN";
-        $data['product_type']= 2;
+        $data['product_type']= $this->product_type;
         $data['platform']= $request->platform;
         $data['client_type'] = $request->client_type;
         $data['game_type'] = $request->game_type;
@@ -106,5 +107,52 @@ class TCApiController extends Controller
         $result = $this->send_require($data);
         return $result;
 
+    }
+
+    public function launchGame(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+        if ($user->username != $request->username) {
+            return response()->json([
+                'code' => 0,
+                'msg' => '用户名错误',
+            ], 200);
+        }
+
+        $data = array();
+        $data['method']= "lg";
+        $data['username']= $request->username;
+        $data['product_type']= $this->product_type;
+        if ($request->platform) {
+            $data['platform'] = $request->platform;
+        }
+        $data['game_mode'] = $request->game_mode;
+
+        if ($request->view) {
+            $data['view']= $request->view;
+        }
+
+        if ($request->back_url) {
+            $data['back_url']= $request->back_url;
+        }
+
+        if ($request->lottery_bet_mode) {
+            $data['lottery_bet_mode']=$request->lottery_bet_mode;
+        }
+
+        if ($request->language) {
+            $data['language'] = $request->language;
+        }
+
+        if ($request->series) {
+            $data['series']= $request->series;
+        }
+
+        $result = $this->send_require($data);
+        return $result;
     }
 }

@@ -86,6 +86,7 @@ Route::middleware('cors')->prefix('game')->group(function (){
         Route::post('/fast/checkTransfer','Api\FastApiController@checkTransfer');//检查转帐
 
         Route::post('/tc/CRegister','Api\TCApiController@CRegister');//创建/确认玩家接口
+        Route::post('/tc/launchGame','Api\TCApiController@launchGame');//启动游戏
 
     });
 });

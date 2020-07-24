@@ -149,7 +149,7 @@ class TCApiController extends Controller
         }
 
         if ($request->series) {
-            $data['series']= $request->series;
+            $data['series']= json_encode($request->series);
         }
 
         $result = $this->send_require($data);

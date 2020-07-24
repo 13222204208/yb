@@ -156,4 +156,27 @@ class TCApiController extends Controller
         $result = $this->send_require($data);
         return $result;
     }
+
+    public function balance(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+        if ($user->username != $request->username) {
+            return response()->json([
+                'code' => 0,
+                'msg' => '用户名错误',
+            ], 200);
+        }
+
+        $data = array();
+        $data['method']= "gb";
+        $data['username']= $request->username;
+        $data['product_type']= $this->product_type;
+
+        $result = $this->send_require($data);
+        return $result;
+    }
 }

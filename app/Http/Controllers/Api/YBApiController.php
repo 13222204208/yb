@@ -62,7 +62,7 @@ class YBApiController extends Controller
         ]);
 
         $user= JWTAuth::authenticate($request->token);
-        if ($user->username != $request->username) {
+        if ($user->username != $request->memberId) {
             return response()->json([
                 'code' => 0,
                 'msg' => '用户名错误',
@@ -75,6 +75,110 @@ class YBApiController extends Controller
         $data['memberPwd'] = $request->memberPwd;
         $data['deviceType'] = intval($request->deviceType);
         $data['memberIp'] = $request->memberIp;
+        $data = json_encode($data);
+        $url= $request->url;
+        $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
+        $data= $this->encryptText($data);
+        $this->curlData($url,$data);
+
+    }
+
+    public function transferIn(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+        if ($user->username != $request->memberId) {
+            return response()->json([
+                'code' => 0,
+                'msg' => '用户名错误',
+            ], 200);
+        }
+
+        $data = array();
+        $data['memberId']= $request->memberId;
+        $data['money']= intval($request->money);
+        $data['orderId'] = $request->orderId;
+        $data['memberName']= $request->memberName;
+        $data['memberPwd'] = $request->memberPwd;
+        $data['deviceType'] = intval($request->deviceType);
+        $data['memberIp'] = $request->memberIp;
+        $data = json_encode($data);
+        $url= $request->url;
+        $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
+        $data= $this->encryptText($data);
+        $this->curlData($url,$data);
+    }
+
+    public function transferOut(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+        if ($user->username != $request->memberId) {
+            return response()->json([
+                'code' => 0,
+                'msg' => '用户名错误',
+            ], 200);
+        }
+
+        $data = array();
+        $data['orderId'] = $request->orderId;
+
+        $data = json_encode($data);
+        $url= $request->url;
+        $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
+        $data= $this->encryptText($data);
+        $this->curlData($url,$data);
+    }
+
+    public function queryBalance(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+        if ($user->username != $request->memberId) {
+            return response()->json([
+                'code' => 0,
+                'msg' => '用户名错误',
+            ], 200);
+        }
+
+        $data = array();
+        $data['memberId']= $request->memberId;
+        $data['memberPwd'] = $request->memberPwd;
+        $data['memberIp'] = $request->memberIp;
+        $data = json_encode($data);
+        $url= $request->url;
+        $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
+        $data= $this->encryptText($data);
+        $this->curlData($url,$data);
+    }
+
+    public function updateMemberPwd(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+        if ($user->username != $request->memberId) {
+            return response()->json([
+                'code' => 0,
+                'msg' => '用户名错误',
+            ], 200);
+        }
+
+        $data = array();
+        $data['memberId']= $request->memberId;
+        $data['newMemberPwd'] = $request->newMemberPwd;
+        $data['oldMemberPwd'] = $request->oldMemberPwd;
         $data = json_encode($data);
         $url= $request->url;
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;

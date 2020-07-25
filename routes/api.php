@@ -93,6 +93,11 @@ Route::middleware('cors')->prefix('game')->group(function (){
         Route::post('/tc/checkTransaction','Api\TCApiController@checkTransaction');//检查交易状态
 
         Route::post('/yb/launchGame','Api\YBApiController@launchGame');//亚博登陆注册
+        Route::post('/yb/transferIn','Api\YBApiController@transferIn');//亚博上分
+        Route::post('/yb/transferOut','Api\YBApiController@transferOut');//亚博下分
+        Route::post('/yb/queryOrderStatus','Api\YBApiController@queryOrderStatus');//亚博查询订单状态
+        Route::post('/yb/queryBalance','Api\YBApiController@queryBalance');//亚博查询玩家额度
+        Route::post('/yb/updateMemberPwd','Api\YBApiController@updateMemberPwd');//亚博修改玩家密码
 
     });
 });

@@ -42,7 +42,7 @@ class YBApiController extends Controller
     public function params()
     {
         $params = array();
-        $params['agent'] = $this->agent;
+        $params['agent'] = "by20072101";
         $params['timestamp'] = $this->timestamp;
         $params['randno'] = $this->randno;
         $params['sign'] = $this->sign;

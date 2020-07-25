@@ -42,7 +42,7 @@ class YBApiController extends Controller
     public function params()
     {
         $params = array();
-        $params['agent'] = "by20072101";
+        $params['agent'] = $this->agent;
         $params['timestamp'] = $this->timestamp;
         $params['randno'] = $this->randno;
         $params['sign'] = $this->sign;
@@ -54,15 +54,14 @@ class YBApiController extends Controller
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            "Content-type: text/plain",
-            "Content-type: application/x-www-form-urlencoded"
+            "Content-type: text/plain"
         ));
         curl_setopt($ch, CURLOPT_URL, $url);//要访问的地址
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
         curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
 
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->params());
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         curl_exec($ch);//执行并获取数据
         curl_close($ch);
     }

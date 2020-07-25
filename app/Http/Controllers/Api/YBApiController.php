@@ -48,7 +48,7 @@ class YBApiController extends Controller
         $params['randno'] = $this->randno;
         $params['sign'] = $this->sign;
 
-        $ch = curl_init();
+/*         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             "Content-type: text/plain",
             "Content-type: application/x-www-form-urlencoded"
@@ -57,10 +57,21 @@ class YBApiController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
         curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
 
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));echo http_build_query($params);exit;
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_exec($ch);//执行并获取数据
-        curl_close($ch);
+        curl_close($ch); */
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: text/plain\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($params),
+                'body' => $data
+            )
+        );
+        $context  = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        return $result;
     }
 
     public function launchGame(Request $request)

@@ -199,6 +199,5 @@ class YBApiController extends Controller
         curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
         curl_exec($ch);//执行并获取数据
         curl_close($ch);
-
     }
 }

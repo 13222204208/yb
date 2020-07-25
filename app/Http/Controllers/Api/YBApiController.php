@@ -64,15 +64,16 @@ class YBApiController extends Controller
     public function launchGame(Request $request)
     {
         $data = array();
-        $data['memberId']= "12345";
-        $data['memberName']= "yb-test";
-        $data['memberPwd'] = '018792564a5a3630fd4c48642ac6998b';
-        $data['deviceType'] = 1;
-        $data['memberIp'] = '192.168.154.12';
+        $data['memberId']= $request->memberId;
+        $data['memberName']= $request->memberName;
+        $data['memberPwd'] = $request->memberPwd;
+        $data['deviceType'] = intval($request->deviceType);
+        $data['memberIp'] = $request->memberIp;
         $data = json_encode($data);
+        $url= $request->url;
 
         $data= $this->encryptText($data);
-        $this->curlData("https://uatopenapi.fun100.site/launchGame",$data);
+        $this->curlData($url,$data);
 
     }
 }

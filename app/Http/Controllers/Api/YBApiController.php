@@ -77,7 +77,7 @@ echo $this->params();
         $data = json_encode($data);
         $url= $request->url;
 
-        $data= $this->encryptText($data);
+        $data= $this->encryptText($data);echo $data;exit;
         $this->curlData($url,$data);
 
     }

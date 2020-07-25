@@ -45,7 +45,7 @@ class YBApiController extends Controller
         $param = array();
         $param['agent'] = $this->agent;
         $param['timestamp'] = $this->timestamp;
-        $param['randno'] = $this->timestamp;
+        $param['randno'] = $this->randno;
         $param['sign'] = $this->sign;
 
         $ch = curl_init();
@@ -58,6 +58,7 @@ class YBApiController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($param));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_exec($ch);//执行并获取数据
+        curl_close($ch);
     }
 
     public function launchGame(Request $request)

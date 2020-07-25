@@ -79,6 +79,8 @@ Route::middleware('cors')->prefix('game')->group(function (){
 
     Route::post('/tc/gameList','Api\TCApiController@gameList');//天成游戏列表
 
+    Route::post('/yb/gameList','Api\YBApiController@gameList');//亚博查询游戏列表
+
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::post('/fast/register','Api\FastApiController@register');//注册
         Route::post('/fast/login','Api\FastApiController@login');//登入

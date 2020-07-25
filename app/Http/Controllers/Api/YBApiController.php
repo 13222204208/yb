@@ -46,7 +46,7 @@ class YBApiController extends Controller
         $params['timestamp'] = $this->timestamp;
         $params['randno'] = $this->randno;
         $params['sign'] = $this->sign;
-        return http_build_query($params);
+        return json_encode($params);
     }
 
 

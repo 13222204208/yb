@@ -47,7 +47,7 @@ class YBApiController extends Controller
         $params['timestamp'] = $this->timestamp;
         $params['randno'] = $this->randno;
         $params['sign'] = $this->sign;
-dd($params);exit;
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             "Content-type: text/plain;charset=UTF-8"

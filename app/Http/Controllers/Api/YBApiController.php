@@ -59,9 +59,9 @@ class YBApiController extends Controller
         curl_setopt($ch, CURLOPT_URL, $url);//要访问的地址
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
         curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
-        echo $this->params();
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->params());
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+       /*  echo $this->params();
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->params()); */
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_exec($ch);//执行并获取数据
         curl_close($ch);
     }
@@ -76,7 +76,7 @@ class YBApiController extends Controller
         $data['memberIp'] = $request->memberIp;
         $data = json_encode($data);
         $url= $request->url;
-
+        $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
         $data= $this->encryptText($data);
         $this->curlData($url,$data);
 

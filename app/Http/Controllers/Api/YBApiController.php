@@ -107,7 +107,7 @@ class YBApiController extends Controller
         $data['memberIp'] = $request->memberIp;
         $data = json_encode($data);
         $url= $request->url;
-        echo $request->orderId."时间".$this->timestamp;exit;
+        return response()->json($request->orderId."时间".$this->timestamp);
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
         $data= $this->encryptText($data);
         $this->curlData($url,$data);

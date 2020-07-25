@@ -42,13 +42,6 @@ class TCApiController extends Controller
     }
 
 
-    public function pkcs5_pad ($text, $blocksize)
-    {
-        $pad = $blocksize - (strlen($text) % $blocksize);
-        return $text . str_repeat(chr($pad), $pad);
-    }
-
-
     public function send_require($sendParams){
         $params =  $this->encryptText(json_encode($sendParams),$this->desKey);
 

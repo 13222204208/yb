@@ -72,7 +72,7 @@ class YBApiController extends Controller
         $data = json_encode($data);
 
         $data= $this->encryptText($data);
-        $this->curlData("https://uatopenapi.fun100.site/launchGame",$data);
+        $this->curlData("https://uatopenapi.fun100.site/launchGame?",$data);
 
     }
 }

@@ -14,7 +14,6 @@ class TCApiController extends Controller
         $this->desKey = 'ZADKwrWZ';				//加密金钥
         $this->signKey = 'tw3947BNYH3Y1pn9';				//加密签名档
         $this->currency = 'CNY'; 						//币别
-        $this->product_type = 2;//游戏产品代码 代表彩票
     }
 
     public function curlData($url,$data)
@@ -93,7 +92,7 @@ class TCApiController extends Controller
         $data = array();
         $data['method']= "tgl";
         $data['language']= "ZH_CN";
-        $data['product_type']= $this->product_type;
+        $data['product_type']= $request->product_type;
         $data['platform']= $request->platform;
         $data['client_type'] = $request->client_type;
         $data['game_type'] = $request->game_type;
@@ -126,7 +125,7 @@ class TCApiController extends Controller
         $data = array();
         $data['method']= "lg";
         $data['username']= $request->username;
-        $data['product_type']= $this->product_type;
+        $data['product_type']= $request->product_type;
         if ($request->platform) {
             $data['platform'] = $request->platform;
         }
@@ -174,7 +173,7 @@ class TCApiController extends Controller
         $data = array();
         $data['method']= "gb";
         $data['username']= $request->username;
-        $data['product_type']= $this->product_type;
+        $data['product_type']= $request->product_type;
 
         $result = $this->send_require($data);
         return $result;
@@ -197,7 +196,7 @@ class TCApiController extends Controller
         $data = array();
         $data['method']= "ft";
         $data['username']= $request->username;
-        $data['product_type']= $this->product_type;
+        $data['product_type']= $request->product_type;
         $data['fund_type'] = $request->fund_type;
         $data['amount'] = $request->amount;
         $data['reference_no'] = $request->reference_no;
@@ -222,7 +221,7 @@ class TCApiController extends Controller
 
         $data = array();
         $data['method']= "cs";
-        $data['product_type']= $this->product_type;
+        $data['product_type']= $request->product_type;
         $data['ref_no'] = $request->ref_no;
 
         $result = $this->send_require($data);

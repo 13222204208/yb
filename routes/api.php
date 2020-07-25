@@ -78,7 +78,7 @@ Route::middleware('cors')->prefix('game')->group(function (){
     Route::get('/transaction/balance/{account}','Api\CheckAccountController@gameBalance');//取得钱包余额 */
 
     Route::post('/tc/gameList','Api\TCApiController@gameList');//天成游戏列表
-    Route::post('/yb/launchGame','Api\YBApiController@launchGame');//亚博登陆注册
+
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::post('/fast/register','Api\FastApiController@register');//注册
         Route::post('/fast/login','Api\FastApiController@login');//登入
@@ -91,6 +91,8 @@ Route::middleware('cors')->prefix('game')->group(function (){
         Route::post('/tc/balance','Api\TCApiController@balance');//获取余额
         Route::post('/tc/transfer','Api\TCApiController@transfer');//奖金转帐
         Route::post('/tc/checkTransaction','Api\TCApiController@checkTransaction');//检查交易状态
+
+        Route::post('/yb/launchGame','Api\YBApiController@launchGame');//亚博登陆注册
 
     });
 });

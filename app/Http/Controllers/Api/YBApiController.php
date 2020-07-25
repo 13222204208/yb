@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 
 class YBApiController extends Controller
@@ -39,17 +40,6 @@ class YBApiController extends Controller
         return base64_encode(openssl_encrypt($data, 'AES-128-CBC',$this->secret_key, OPENSSL_RAW_DATA, $this->iv));
     }
 
-    public function params()
-    {
-        $params = array();
-        $params['agent'] = $this->agent;
-        $params['timestamp'] = $this->timestamp;
-        $params['randno'] = $this->randno;
-        $params['sign'] = $this->sign;
-        return json_encode($params);
-    }
-
-
     public function curlData($url,$data)
     {
         $ch = curl_init();
@@ -59,8 +49,7 @@ class YBApiController extends Controller
         curl_setopt($ch, CURLOPT_URL, $url);//要访问的地址
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
         curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
-       /*  echo $this->params();
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->params()); */
+
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_exec($ch);//执行并获取数据
         curl_close($ch);
@@ -68,6 +57,18 @@ class YBApiController extends Controller
 
     public function launchGame(Request $request)
     {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+        if ($user->username != $request->username) {
+            return response()->json([
+                'code' => 0,
+                'msg' => '用户名错误',
+            ], 200);
+        }
+
         $data = array();
         $data['memberId']= $request->memberId;
         $data['memberName']= $request->memberName;
@@ -79,6 +80,5 @@ class YBApiController extends Controller
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
         $data= $this->encryptText($data);
         $this->curlData($url,$data);
-
     }
 }

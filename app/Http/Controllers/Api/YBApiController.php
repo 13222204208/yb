@@ -100,15 +100,14 @@ class YBApiController extends Controller
         $data = array();
         $data['memberId']= $request->memberId;
         $data['money']= intval($request->money);
-        $data['orderId'] = $request->orderId;
+        $data['orderId'] = $request->memberId.':'.$this->timestamp*1000;
         $data['memberName']= $request->memberName;
         $data['memberPwd'] = $request->memberPwd;
         $data['deviceType'] = intval($request->deviceType);
         $data['memberIp'] = $request->memberIp;
         $data = json_encode($data);
         $url= $request->url;
-        $t= $request->orderId."时间".$this->timestamp;
-        return response()->json(['a'=>$t]);
+
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
         $data= $this->encryptText($data);
         $this->curlData($url,$data);
@@ -192,7 +191,7 @@ class YBApiController extends Controller
     {
         $url= $request->url;
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
-        return $url;
+        //return $url;
         $data = array();
         $data['agent'] =$this->agent;
         $data['timestamp']= $this->timestamp;

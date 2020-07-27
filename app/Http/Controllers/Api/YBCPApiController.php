@@ -39,7 +39,7 @@ class YBCPApiController extends Controller
                           'merchant'.$data['merchant'].'doubleList'.$data['doubleList'].'normalList'.$data['normalList'].
                         'timestamp'.$data['timestamp'].$this->signKey);
         $url="http://api.shayexiang.com/boracay/api/member/create";
-        echo $data['sign'];
-        $this->curlData($url,$data);
+
+        $this->curlData($url,json_encode($data));
     }
 }

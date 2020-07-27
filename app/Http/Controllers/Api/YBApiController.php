@@ -191,7 +191,8 @@ class YBApiController extends Controller
     public function gameList(Request $request)
     {
         $url= $request->url;
-        $url=$url;//."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
+        $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
+        return $url;
         $data = array();
         $data['agent'] =$this->agent;
         $data['timestamp']= $this->timestamp;

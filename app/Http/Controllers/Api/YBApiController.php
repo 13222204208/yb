@@ -196,6 +196,6 @@ class YBApiController extends Controller
 
         $data = false;
         $res= $this->curlData($url,$data);
-        return response()->json($data);
+        return response()->json($res);
     }
 }

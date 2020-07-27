@@ -109,7 +109,9 @@ class YBApiController extends Controller
         $data = json_encode($data);
         $url= $request->url;
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
+
         $data= $this->encryptText($data);
+        return response()->json(['url'=>$url,'data'=>$data]);
         $this->curlData($url,$data);
     }
 

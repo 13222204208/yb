@@ -195,7 +195,7 @@ class YBApiController extends Controller
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
 
         $data = false;
-        $this->curlData($url,$data);
-
+        $res= $this->curlData($url,$data);
+        return response()->json($data);
     }
 }

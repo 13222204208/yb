@@ -109,8 +109,8 @@ class YBApiController extends Controller
         $data = json_encode($data);
         $url= $request->url;
         $time = substr($request->orderId,-13);
-        $time = substr($time,0,-3);
-return response()->json(['orderId'=>$request->orderId,'time'=>$time]);
+        $time = intval(substr($time,0,-3));
+
         $url=$url."?agent=".$this->agent."&timestamp=".$time."&randno=".$this->randno."&sign=".$this->sign;
 
         $data= $this->encryptText($data);

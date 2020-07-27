@@ -35,10 +35,10 @@ class YBCPApiController extends Controller
         $data['doubleList'] = "";
         $data['normalList'] = "";
         $data['timestamp'] = (int)(microtime(true)*1000);
-/*         $data['sign']=md5('member'.$data['member'].'memberType'.$data['memberType'].'password'.$data['password'].
-                          'merchant'.$data['merchant'].'doubleList'.$data['doubleList'].'normalList'.$data['normalList'].
-                        'timestamp'.$data['timestamp'].$this->signKey); */
-                        $data['sign']="9ef3bbb1b1288eb7d2d636fa3197324a";
+        $data['sign']=md5('member'.$data['member'].'memberType'.$data['memberType'].'password'.$data['password'].
+                          'merchant'.$data['merchant'].'doubleList'.'normalList'.
+                        'timestamp'.$data['timestamp'].$this->signKey);
+                      //  $data['sign']="9ef3bbb1b1288eb7d2d636fa3197324a";
         $url="http://api.shayexiang.com/boracay/api/member/create";//return json_encode($data);
         //return http_build_query($data);
         $this->curlData($url,json_encode($data));

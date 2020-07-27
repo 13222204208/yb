@@ -107,10 +107,10 @@ class YBApiController extends Controller
         $data['memberIp'] = $request->memberIp;
         $data = json_encode($data);
         $url= $request->url;
-        $time= substr($request->orderId,-13);
-        $time= substr($time,-3);
+/*         $time= substr($request->orderId,-13);
+        $time= substr($time,-3); */
 
-        $url=$url."?agent=".$this->agent."&timestamp=".$time."&randno=".$this->randno."&sign=".$this->sign;
+        $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
         $data= $this->encryptText($data);
         $this->curlData($url,$data);
     }
@@ -193,24 +193,9 @@ class YBApiController extends Controller
     {
         $url= $request->url;
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
-        //return $url;
-        $data = array();
-        $data['agent'] =$this->agent;
-        $data['timestamp']= $this->timestamp;
-        $data['randno']= $this->randno;
-        $data['sign']= $this->sign;
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            "Content-type: text/plain"
-        ));
-        curl_setopt($ch, CURLOPT_URL, $url);//要访问的地址
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
-        curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
-
-        curl_setopt($ch, CURLOPT_POSTFIELDS, FALSE);
-        curl_exec($ch);//执行并获取数据
-        curl_close($ch);
+        $data = false;
+        $this->curlData($url,$data);
 
     }
 }

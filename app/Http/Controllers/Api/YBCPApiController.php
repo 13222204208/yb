@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class YBCPApiController extends Controller
 {
     public $merchant= "byyl";
+    public $signKey= "94D5BD8FCF4940CD";
     public function curlData($url,$data)
     {
         $ch = curl_init();
@@ -36,7 +37,7 @@ class YBCPApiController extends Controller
         $data['timestamp'] = time();
         $data['sign']=md5('member'.$data['member'].'memberType'.$data['memberType'].'password'.$data['password'].
                           'merchant'.$data['merchant'].'doubleList'.$data['doubleList'].'normalList'.$data['normalList'].
-                        'timestamp'.$data['timestamp'].$this->merchant);
+                        'timestamp'.$data['timestamp'].$this->signKey);
         $url="http://api.shayexiang.com/boracay/api/member/create";
         $this->curlData($url,http_build_query($data));
     }

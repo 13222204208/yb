@@ -191,26 +191,32 @@ class YBApiController extends Controller
     public function gameList(Request $request)
     {
         $url= $request->url;
-        $url=$url;//."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
-        /* return $url;
-        $this->curlData($url,null); */
-        $data = array();
-        $data['agent']= $this->agent;
-        $data['timestamp']= $this->timestamp;
-        $data['randno'] = $this->randno;
-        $data['sign'] = $this->sign;
+        $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
 
-
+        //$this->curlData($url,null);
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            "Content-type: text/plain"
-        ));
-        curl_setopt($ch, CURLOPT_URL, $url);//要访问的地址
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
-        curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
 
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-        curl_exec($ch);//执行并获取数据
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+        // POST数据
+
+        curl_setopt($ch, CURLOPT_POST, 1);
+
+        // 把post的变量加上
+
+        //curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+        $output = curl_exec($ch);
+
         curl_close($ch);
+
+        return $output;
+
     }
 }

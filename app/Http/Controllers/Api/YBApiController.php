@@ -193,30 +193,19 @@ class YBApiController extends Controller
         $url= $request->url;
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
 
-        //$this->curlData($url,null);
+
         $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-
-        // POST数据
-
-        curl_setopt($ch, CURLOPT_POST, 1);
-
-        // 把post的变量加上
-
-        //curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-        $output = curl_exec($ch);
-
-        curl_close($ch);
-
-        return $output;
+        $params[CURLOPT_URL] = $url;    //请求url地址
+        $params[CURLOPT_HEADER] = FALSE; //是否返回响应头信息
+        $params[CURLOPT_SSL_VERIFYPEER] = false;
+        $params[CURLOPT_SSL_VERIFYHOST] = false;
+        $params[CURLOPT_RETURNTRANSFER] = true; //是否将结果返回
+        $params[CURLOPT_POST] = true;
+        //$params[CURLOPT_POSTFIELDS] = $data;
+        curl_setopt_array($ch, $params); //传入curl参数
+        $content = curl_exec($ch); //执行
+        curl_close($ch); //关闭连接
+        return $content;
 
     }
 }

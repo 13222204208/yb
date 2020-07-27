@@ -100,7 +100,7 @@ class YBApiController extends Controller
         $data = array();
         $data['memberId']= $request->memberId;
         $data['money']= intval($request->money);
-        $data['orderId'] = $request->memberId.':'.$this->timestamp*1000;
+        $data['orderId'] = $request->memberId.':'.strval($this->timestamp*1000);
         $data['memberName']= $request->memberName;
         $data['memberPwd'] = $request->memberPwd;
         $data['deviceType'] = intval($request->deviceType);
@@ -206,7 +206,7 @@ class YBApiController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
         curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
 
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, FALSE);
         curl_exec($ch);//执行并获取数据
         curl_close($ch);
 

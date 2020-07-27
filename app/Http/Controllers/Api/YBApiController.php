@@ -132,7 +132,13 @@ class YBApiController extends Controller
         }
 
         $data = array();
-        $data['orderId'] = $request->orderId;
+        $data['memberId']= $request->memberId;
+        $data['money']= intval($request->money);
+        $data['orderId'] = $request->memberId.':'.$this->timestamp*1000;
+        $data['memberName']= $request->memberName;
+        $data['memberPwd'] = $request->memberPwd;
+        $data['deviceType'] = intval($request->deviceType);
+        $data['memberIp'] = $request->memberIp;
 
         $data = json_encode($data);
         $url= $request->url;

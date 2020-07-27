@@ -101,7 +101,9 @@ Route::middleware('cors')->prefix('game')->group(function (){
         Route::post('/yb/queryBalance','Api\YBApiController@queryBalance');//亚博查询玩家额度
         Route::post('/yb/updateMemberPwd','Api\YBApiController@updateMemberPwd');//亚博修改玩家密码
 
-        Route::post('ybcp/memberCreate','Api\YBCPApiController@memberCreate');//亚博彩票玩家注册
+        Route::post('/ybcp/memberCreate','Api\YBCPApiController@memberCreate');//亚博彩票玩家注册
+        Route::post('/ybcp/memberLogin','Api\YBCPApiController@memberLogin');//亚博彩票玩家登陆
+        Route::post('/ybcp/transferBalance','Api\YBCPApiController@transferBalance');//亚博彩票商户非免转会员钱包转帐接口
 
     });
 });

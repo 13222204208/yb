@@ -200,17 +200,16 @@ class YBApiController extends Controller
         $data['sign']= $this->sign;
 
         $ch = curl_init();
-        $params[CURLOPT_URL] = $url;    //请求url地址
-        $params[CURLOPT_HEADER] = FALSE; //是否返回响应头信息
-        $params[CURLOPT_SSL_VERIFYPEER] = false;
-        $params[CURLOPT_SSL_VERIFYHOST] = false;
-        $params[CURLOPT_RETURNTRANSFER] = true; //是否将结果返回
-        $params[CURLOPT_POST] = true;
-        $params[CURLOPT_POSTFIELDS] = $data;
-        curl_setopt_array($ch, $params); //传入curl参数
-        $content = curl_exec($ch); //执行
-        curl_close($ch); //关闭连接
-        return $content;
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-type: text/plain"
+        ));
+        curl_setopt($ch, CURLOPT_URL, $url);//要访问的地址
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
+        curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_exec($ch);//执行并获取数据
+        curl_close($ch);
 
     }
 }

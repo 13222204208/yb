@@ -40,6 +40,6 @@ class YBCPApiController extends Controller
                         'timestamp'.$data['timestamp'].$this->signKey);
         $url="http://api.shayexiang.com/boracay/api/member/create";
         //return http_build_query($data);
-        $this->curlData($url,http_build_query($data));
+        $this->curlData($url,json_encode($data));
     }
 }

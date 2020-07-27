@@ -80,7 +80,7 @@ Route::middleware('cors')->prefix('game')->group(function (){
     Route::post('/tc/gameList','Api\TCApiController@gameList');//天成游戏列表
 
     Route::post('/yb/gameList','Api\YBApiController@gameList');//亚博查询游戏列表
-    Route::post('ybcp/memberCreate','Api\YBCPApiController@memberCreate');
+
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::post('/fast/register','Api\FastApiController@register');//注册
         Route::post('/fast/login','Api\FastApiController@login');//登入
@@ -100,6 +100,8 @@ Route::middleware('cors')->prefix('game')->group(function (){
         Route::post('/yb/queryOrderStatus','Api\YBApiController@queryOrderStatus');//亚博查询订单状态
         Route::post('/yb/queryBalance','Api\YBApiController@queryBalance');//亚博查询玩家额度
         Route::post('/yb/updateMemberPwd','Api\YBApiController@updateMemberPwd');//亚博修改玩家密码
+
+        Route::post('ybcp/memberCreate','Api\YBCPApiController@memberCreate');//亚博彩票玩家注册
 
     });
 });

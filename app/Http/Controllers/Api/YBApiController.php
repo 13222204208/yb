@@ -191,8 +191,12 @@ class YBApiController extends Controller
     public function gameList(Request $request)
     {
         $url= $request->url;
-        $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
-
+        $url=$url;//."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
+        $data = array();
+        $data['agent'] =$this->agent;
+        $data['timestamp']= $this->timestamp;
+        $data['randno']= $this->randno;
+        $data['sign']= $this->sign;
 
         $ch = curl_init();
         $params[CURLOPT_URL] = $url;    //请求url地址
@@ -201,7 +205,7 @@ class YBApiController extends Controller
         $params[CURLOPT_SSL_VERIFYHOST] = false;
         $params[CURLOPT_RETURNTRANSFER] = true; //是否将结果返回
         $params[CURLOPT_POST] = true;
-        //$params[CURLOPT_POSTFIELDS] = $data;
+        $params[CURLOPT_POSTFIELDS] = $data;
         curl_setopt_array($ch, $params); //传入curl参数
         $content = curl_exec($ch); //执行
         curl_close($ch); //关闭连接

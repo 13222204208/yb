@@ -105,12 +105,9 @@ class YBApiController extends Controller
         $data['memberPwd'] = $request->memberPwd;
         $data['deviceType'] = intval($request->deviceType);
         $data['memberIp'] = $request->memberIp;
-        return response()->json(['a'=>$data]);
+
         $data = json_encode($data);
         $url= $request->url;
-/*         $time= substr($request->orderId,-13);
-        $time= substr($time,-3); */
-
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
         $data= $this->encryptText($data);
         $this->curlData($url,$data);

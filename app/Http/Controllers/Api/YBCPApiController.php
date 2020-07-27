@@ -34,7 +34,7 @@ class YBCPApiController extends Controller
         $data['merchant'] = $this->merchant;
         $data['doubleList'] = "";
         $data['normalList'] = "";
-        $data['timestamp'] = time();
+        $data['timestamp'] = time()*1000;
         $data['sign']=md5('member'.$data['member'].'memberType'.$data['memberType'].'password'.$data['password'].
                           'merchant'.$data['merchant'].'doubleList'.$data['doubleList'].'normalList'.$data['normalList'].
                         'timestamp'.$data['timestamp'].$this->signKey);

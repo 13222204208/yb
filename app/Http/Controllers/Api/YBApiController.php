@@ -96,7 +96,7 @@ class YBApiController extends Controller
                 'msg' => '用户名错误',
             ], 200);
         }
-
+return response()->json(['a'=>'成功']);
         $data = array();
         $data['memberId']= $request->memberId;
         $data['money']= intval($request->money);

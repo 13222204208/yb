@@ -170,7 +170,7 @@ class YBCPApiController extends Controller
         $data['startTime']= $request->startTime;//?$request->startTime:'';
         $data['timestamp'] =(int)(microtime(true)*1000);
         $data['tradeType'] = $request->tradeType;//?intval($request->tradeType):'';
-        $data['sign']=md5('endTime'.$data['endTime'].'member'.$data['member'].'merchant'.$data['merchant'].'notifyId'.$data['notifyId'].'pageSize'.$data['pageSize'].'pageNum'.$data['pageNum'].'startTime'.$data['startTime'].'timestamp'.$data['timestamp'].'tradeType'.$data['tradeType'].$this->signKey);
+        $data['sign']=md5('endTime'.$data['endTime'].'member'.$data['member'].'merchant'.$data['merchant'].'notifyId'.$data['notifyId'].'pageNum'.$data['pageNum'].'pageSize'.$data['pageSize'].'startTime'.$data['startTime'].'timestamp'.$data['timestamp'].'tradeType'.$data['tradeType'].$this->signKey);
 
         $type= array("Content-Type:application/json","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 

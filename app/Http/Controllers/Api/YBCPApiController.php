@@ -144,4 +144,37 @@ class YBCPApiController extends Controller
         $url=$request->url;
         $this->curlData($url,json_encode($data),$type);
     }
+
+    public function balanceRecords(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+        if ($user->username != $request->member) {
+            return response()->json([
+                'code' => 0,
+                'msg' => '用户名错误',
+            ], 200);
+        }
+
+        $data= array();
+
+        $data['endTime']= $request->endTime?$request->endTime:'';
+        $data['member']= $request->member;
+        $data['merchant'] = $this->merchant;
+        $data['notifyId']= $request->notifyId?$request->notifyId:'';
+        $data['pageSize']= $request->pageSize?$request->pageSize:'';
+        $data['pageNum']= $request->pageNum?$request->pageNum:'';
+        $data['startTime']= $request->startTime?$request->startTime:'';
+        $data['timestamp'] = (int)(microtime(true)*1000);
+        $data['tradeType'] = intval($request->tradeType)?intval($request->tradeType):'';
+        $data['sign']=md5('endTime'.$data['endTime'].'member'.$data['member'].'merchant'.$data['merchant'].'notifyId'.$data['notifyId'].'pageSize'.$data['pageSize'].'pageNum'.$data['pageNum'].'startTime'.$data['startTime'].'timestamp'.$data['timestamp'].'tradeType'.$data['tradeType'].$this->signKey);
+
+        $type= array("Content-Type:application/json","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+
+        $url=$request->url;
+        $this->curlData($url,json_encode($data),$type);
+    }
 }

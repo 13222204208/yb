@@ -100,9 +100,9 @@ class YBCPApiController extends Controller
         }
 
         $data= array();
-        $data['amount']= $request->amount;
+        $data['amount']= intval($request->amount);
         $data['member']= $request->member;
-        $data['transferType'] = $request->transferType;
+        $data['transferType'] = intval($request->transferType);
         $data['merchantAccount'] = $this->merchant;
         $data['notifyId']= $request->notifyId;
         $data['timestamp'] = (int)(microtime(true)*1000);

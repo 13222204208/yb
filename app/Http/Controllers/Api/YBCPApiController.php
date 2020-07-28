@@ -110,10 +110,10 @@ class YBCPApiController extends Controller
         'merchantAccount'.$data['merchantAccount'].'notifyId'.$data['notifyId'].'transferType'.$data['transferType'].
                         'timestamp'.$data['timestamp'].$this->signKey);
 
-        $type= array("Content-Type:application/json","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+        $type= array("Content-Type:application/json","User-Agent:Mozilla/5.0(Windows NT 10.0; Win64; x64)");
 //return json_encode($data);
         $url=$request->url;
-        $this->curlData($url,json_encode($data),$type);
+        $this->curlData($url,http_build_query($data),$type);
     }
 
     public function balanceQuery(Request $request)

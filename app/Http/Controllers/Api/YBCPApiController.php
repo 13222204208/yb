@@ -100,7 +100,7 @@ class YBCPApiController extends Controller
         }
 
         $data= array();
-        $data['amount']= intval($request->amount);
+        $data['amount']= $request->amount;
         $data['member']= $request->member;
         $data['transferType'] = intval($request->transferType);
         $data['merchantAccount'] = $this->merchant;
@@ -109,7 +109,7 @@ class YBCPApiController extends Controller
         $data['sign']=md5('amount'.$data['amount'].'member'.$data['member'].
         'merchantAccount'.$data['merchantAccount'].'notifyId'.$data['notifyId'].'transferType'.$data['transferType'].
                         'timestamp'.$data['timestamp'].$this->signKey);
-
+return json_encode($data);
         $type= array("Content-Type:application/ json","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 
         $url=$request->url;

@@ -168,7 +168,7 @@ class YBCPApiController extends Controller
         $data['pageSize']= $request->pageSize;//?$request->pageSize:'';
         $data['pageNum']= $request->pageNum;//?$request->pageNum:'';
         $data['startTime']= $request->startTime;//?$request->startTime:'';
-        $data['timestamp'] =microtime(true)*1000;
+        $data['timestamp'] =(int)(microtime(true)*1000);
         $data['tradeType'] = $request->tradeType;//?intval($request->tradeType):'';
         $data['sign']=md5('endTime'.$data['endTime'].'member'.$data['member'].'merchant'.$data['merchant'].'notifyId'.$data['notifyId'].'pageSize'.$data['pageSize'].'pageNum'.$data['pageNum'].'startTime'.$data['startTime'].'timestamp'.$data['timestamp'].'tradeType'.$data['tradeType'].$this->signKey);
 

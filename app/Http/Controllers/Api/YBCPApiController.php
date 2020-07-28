@@ -100,18 +100,20 @@ class YBCPApiController extends Controller
         }
 
         $data= array();
-        $data['amount']= 1.20;
+        $data['amount']= 13.20;
         $data['member']= '123qwe';
         $data['transferType'] = 1;
         $data['merchantAccount'] = "byyl";
-        $data['notifyId']= 'sdfwe12212';
+        $data['notifyId']= 'sdfwe122122';
         $data['timestamp'] = (int)(microtime(true)*1000);
-        $data['sign']=md5('amount'.$data['amount'].'member'.$data['member'].'merchantAccount'.$data['merchantAccount'].'notifyId'.'timestamp'.$data['timestamp'].$data['notifyId'].'transferType'.$data['transferType'].$this->signKey);
+        $data['sign']=md5('amount'.$data['amount'].'member'.$data['member'].'merchantAccount'.$data['merchantAccount'].'notifyId'.$data['notifyId'].'timestamp'.$data['timestamp'].'transferType'.$data['transferType'].$this->signKey);
 
 
-        $type= array("Content-Type:application/json","User-Agent:Mozilla/5.0(Windows NT 10.0; Win64; x64)");
-//return json_encode($data);
+
+        $type= array("Content-Type:application/json","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+
         $url=$request->url;
+        //return http_build_query($data);
         $this->curlData($url,json_encode($data),$type);
     }
 

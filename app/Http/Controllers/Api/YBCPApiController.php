@@ -111,7 +111,7 @@ class YBCPApiController extends Controller
                         'timestamp'.$data['timestamp'].$this->signKey);
 
         $type= array("Content-Type:application/json","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
-return json_encode($data);
+//return json_encode($data);
         $url=$request->url;
         $this->curlData($url,json_encode($data),$type);
     }

@@ -82,7 +82,7 @@ class YBCPApiController extends Controller
         $type= array("Content-Type:application/x-www-form-urlencoded","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 
         $url=$request->url;
-        $this->curlData($url,json_encode($data),$type);
+        $this->curlData($url,http_build_query($data),$type);
     }
 
     public function transferBalance(Request $request)

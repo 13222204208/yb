@@ -103,15 +103,15 @@ class YBCPApiController extends Controller
         $data['amount']= $request->amount;
         $data['member']= $request->member;
         $data['transferType'] = intval($request->transferType);
-        $data['merchant'] = $this->merchant;
+        $data['merchantAccount'] = $this->merchant;
         $data['notifyId']= $request->notifyId;
         $data['timestamp'] = (int)(microtime(true)*1000);
         $data['sign']=md5('amount'.$data['amount'].'member'.$data['member'].
-        'merchant'.$data['merchant'].'notifyId'.$data['notifyId'].'transferType'.$data['transferType'].
+        'merchantAccount'.$data['merchantAccount'].'notifyId'.$data['notifyId'].'transferType'.$data['transferType'].
                         'timestamp'.$data['timestamp'].$this->signKey);
 
         $type= array("Content-Type:application/json","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
-
+return json_encode($data);
         $url=$request->url;
         $this->curlData($url,json_encode($data),$type);
     }

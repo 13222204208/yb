@@ -107,7 +107,7 @@ class YBCPApiController extends Controller
         $data['notifyId']= $request->notifyId;
         $data['timestamp'] = (int)(microtime(true)*1000);
         $data['sign']=md5('amount'.$data['amount'].'member'.$data['member'].
-        'merchant'.$data['merchantAccount'].'notifyId'.$data['notifyId'].'transferType'.$data['transferType'].
+        'merchantAccount'.$data['merchantAccount'].'notifyId'.$data['notifyId'].'transferType'.$data['transferType'].
                         'timestamp'.$data['timestamp'].$this->signKey);
 
         $type= array("Content-Type:application/json","User-Agent:Mozilla/5.0(Windows NT 10.0; Win64; x64)");

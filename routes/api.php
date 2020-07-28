@@ -104,6 +104,7 @@ Route::middleware('cors')->prefix('game')->group(function (){
         Route::post('/ybcp/memberCreate','Api\YBCPApiController@memberCreate');//亚博彩票玩家注册
         Route::post('/ybcp/memberLogin','Api\YBCPApiController@memberLogin');//亚博彩票玩家登陆
         Route::post('/ybcp/transferBalance','Api\YBCPApiController@transferBalance');//亚博彩票商户非免转会员钱包转帐接口
+        Route::post('/ybcp/balanceQuery','Api\YBCPApiController@balanceQuery');//亚博彩票查询该商户的用户在本系统的账户余额
 
     });
 });

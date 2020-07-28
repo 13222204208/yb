@@ -103,11 +103,41 @@ class YBCPApiController extends Controller
         $data['amount']= $request->amount;
         $data['member']= $request->member;
         $data['transferType'] = intval($request->transferType);
-        $data['merchantAccount'] = $this->merchant;
+        $data['merchant'] = $this->merchant;
         $data['notifyId']= $request->notifyId;
         $data['timestamp'] = (int)(microtime(true)*1000);
         $data['sign']=md5('amount'.$data['amount'].'member'.$data['member'].
-        'merchant'.$data['merchantAccount'].'notifyId'.$data['notifyId'].'transferType'.$data['transferType'].
+        'merchant'.$data['merchant'].'notifyId'.$data['notifyId'].'transferType'.$data['transferType'].
+                        'timestamp'.$data['timestamp'].$this->signKey);
+
+        $type= array("Content-Type:application/json","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+
+        $url=$request->url;
+        $this->curlData($url,json_encode($data),$type);
+    }
+
+    public function balanceQuery(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+        if ($user->username != $request->member) {
+            return response()->json([
+                'code' => 0,
+                'msg' => '用户名错误',
+            ], 200);
+        }
+
+        $data= array();
+
+        $data['member']= $request->member;
+
+        $data['merchant'] = $this->merchant;
+
+        $data['timestamp'] = (int)(microtime(true)*1000);
+        $data['sign']=md5('member'.$data['member'].'merchant'.$data['merchant'].
                         'timestamp'.$data['timestamp'].$this->signKey);
 
         $type= array("Content-Type:application/json","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");

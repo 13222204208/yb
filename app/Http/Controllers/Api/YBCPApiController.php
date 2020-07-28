@@ -100,15 +100,13 @@ class YBCPApiController extends Controller
         }
 
         $data= array();
-        $data['amount']= 13.20;
-        $data['member']= '123qwe';
-        $data['transferType'] = 1;
-        $data['merchantAccount'] = "byyl";
-        $data['notifyId']= 'sdfwe122122';
+        $data['amount']= $request->amount;
+        $data['member']= $request->member;
+        $data['transferType'] = intval($request->transferType);
+        $data['merchantAccount'] = $this->merchant;
+        $data['notifyId']= $request->notifyId;
         $data['timestamp'] = (int)(microtime(true)*1000);
         $data['sign']=md5('amount'.$data['amount'].'member'.$data['member'].'merchantAccount'.$data['merchantAccount'].'notifyId'.$data['notifyId'].'timestamp'.$data['timestamp'].'transferType'.$data['transferType'].$this->signKey);
-
-
 
         $type= array("Content-Type:application/json","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 

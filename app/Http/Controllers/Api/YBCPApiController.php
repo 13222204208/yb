@@ -163,17 +163,17 @@ class YBCPApiController extends Controller
 
         $data['endTime']= $request->endTime;//?$request->endTime:'';
         $data['member']= $request->member;
-        $data['merchantAccount'] = $this->merchant;
+        $data['merchant'] = $this->merchant;
         $data['notifyId']= $request->notifyId;//?$request->notifyId:'';
         $data['pageSize']= $request->pageSize;//?$request->pageSize:'';
         $data['pageNum']= $request->pageNum;//?$request->pageNum:'';
         $data['startTime']= $request->startTime;//?$request->startTime:'';
         $data['timestamp'] =microtime(true)*1000;
         $data['tradeType'] = $request->tradeType;//?intval($request->tradeType):'';
-        $data['sign']=md5('endTime'.$data['endTime'].'member'.$data['member'].'merchantAccount'.$data['merchantAccount'].'notifyId'.$data['notifyId'].'pageSize'.$data['pageSize'].'pageNum'.$data['pageNum'].'startTime'.$data['startTime'].'timestamp'.$data['timestamp'].'tradeType'.$data['tradeType'].$this->signKey);
+        $data['sign']=md5('endTime'.$data['endTime'].'member'.$data['member'].'merchant'.$data['merchant'].'notifyId'.$data['notifyId'].'pageSize'.$data['pageSize'].'pageNum'.$data['pageNum'].'startTime'.$data['startTime'].'timestamp'.$data['timestamp'].'tradeType'.$data['tradeType'].$this->signKey);
 
         $type= array("Content-Type:application/json","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
-
+return json_encode($data);
         $url=$request->url;
         $this->curlData($url,json_encode($data),$type);
     }

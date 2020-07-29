@@ -29,9 +29,10 @@ class PayApiController extends Controller
         $data['partner']=$this->partner;
         $data['service']='10101';
         $data['tradeNo']='dsafsad1324';
-        $data['amount']='500';
+        $data['amount']='800';
         $data['notifyUrl']='https://www.zhihu.com/';
-        $data['sign']= MD5('amount='.$data['amount'].'&notifyUrl='.$data['notifyUrl'].'&partner='.$data['partner'].'&service='.$data['service'].'&tradeNo='.$data['tradeNo'].'&'.$this->key);
+        $data['resultType']='json';
+        $data['sign']= MD5('amount='.$data['amount'].'&notifyUrl='.$data['notifyUrl'].'&partner='.$data['partner'].'&resultType='.$data['resultType'].'&service='.$data['service'].'&tradeNo='.$data['tradeNo'].'&'.$this->key);
 
         $type= array("Content-Type:application/x-www-form-urlencoded","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 

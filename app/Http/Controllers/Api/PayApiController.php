@@ -70,7 +70,7 @@ class PayApiController extends Controller
         $data['amount']= $request->amount;
         $data['notifyUrl']= $request->notifyUrl;
         $data['extra']= $request->extra?$request->extra:'noting';
-        $data['sign']= MD5('amount='.$data['amount'].'&bankCardholder='.'&bankCode='.$data['bankCode'].$data['bankCardholder'].'&bankCardNo='.$data['bankCardNo'].'&city='.$data['city'].'&extra='.$data['extra'].'&notifyUrl='.$data['notifyUrl'].'&partner='.$data['partner'].'&province='.$data['province'].'&subbranch='.$data['subbranch'].'&service='.$data['service'].'&subsidiaryBank='.$data['subsidiaryBank'].'&tradeNo='.$data['tradeNo'].'&'.$this->key);
+        $data['sign']= MD5('amount='.$data['amount'].'&bankCode='.$data['bankCode'].'&bankCardholder='.$data['bankCardholder'].'&bankCardNo='.$data['bankCardNo'].'&city='.$data['city'].'&extra='.$data['extra'].'&notifyUrl='.$data['notifyUrl'].'&partner='.$data['partner'].'&province='.$data['province'].'&subbranch='.$data['subbranch'].'&service='.$data['service'].'&subsidiaryBank='.$data['subsidiaryBank'].'&tradeNo='.$data['tradeNo'].'&'.$this->key);
 
         $type= array("Content-Type:application/x-www-form-urlencoded","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 

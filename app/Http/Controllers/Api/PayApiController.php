@@ -28,7 +28,7 @@ class PayApiController extends Controller
         $data= array();
         $data['partner']=$this->partner;
         $data['service']='10101';
-        $data['tradeNo']='dsafsad1324';
+        $data['tradeNo']='dsafsad1322344';
         $data['amount']='800';
         $data['notifyUrl']='https://www.zhihu.com/';
         $data['resultType']='json';

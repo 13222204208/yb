@@ -116,6 +116,7 @@ Route::middleware('cors')->prefix('9pay')->group(function (){
         Route::group(['middleware' => 'auth.jwt'], function () {
             Route::post('/recharge','Api\PayApiController@recharge');//9pay充值
             Route::post('/agentPay','Api\PayApiController@agentPay');//9pay代付
+            Route::post('/balanceQuery','Api\PayApiController@balanceQuery');//9pay余额查询接口
         });
 });
 

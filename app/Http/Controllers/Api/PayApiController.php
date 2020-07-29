@@ -92,7 +92,7 @@ class PayApiController extends Controller
         $data= array();
         $data['partner']= $this->partner;
         $data['service']= $request->service;
-        $data['sign']= MD5('partner='.$data['partner'].'service='.$data['service'].'&'.$this->key);
+        $data['sign']= MD5('partner='.$data['partner'].'&service='.$data['service'].'&'.$this->key);
 
         $type= array("Content-Type:application/x-www-form-urlencoded","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 

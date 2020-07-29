@@ -47,4 +47,34 @@ class PayApiController extends Controller
         $this->curlData($url,http_build_query($data),$type);
 
     }
+
+    public function agentPay(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        JWTAuth::authenticate($request->token);
+
+        $data= array();
+        $data['partner']= $this->partner;
+        $data['service']= $request->service;
+        $data['tradeNo']= $request->tradeNo;
+        $data['bankCode']= $request->bankCode;
+        $data['bankCardNo']= $request->bankCardNo;
+        $data['bankCardholder']= $request->bankCardholder;
+        $data['subsidiaryBank']= $request->subsidiaryBank;
+        $data['subbranch']= $request->subbranch;
+        $data['province']= $request->province;
+        $data['city']= $request->city;
+        $data['amount']= $request->amount;
+        $data['notifyUrl']= $request->notifyUrl;
+        $data['sign']= MD5('amount='.$data['amount'].'&bankCardholder='.$data['bankCardholder'].'&bankCode='.$data['bankCode'].'&bankCodeNo='.$data['bankCodeNo'].'&city='.$data['city'].'&notifyUrl='.$data['notifyUrl'].'&partner='.$data['partner'].'&province='.$data['province'].'&subbranch='.$data['subbranch'].'&service='.$data['service'].'&subsidiaryBank='.$data['subsidiaryBank'].'&tradeNo='.$data['tradeNo'].'&'.$this->key);
+
+        $type= array("Content-Type:application/x-www-form-urlencoded","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+
+        $url= $request->url;
+        $this->curlData($url,http_build_query($data),$type);
+
+    }
 }

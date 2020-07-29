@@ -70,10 +70,10 @@ class PayApiController extends Controller
         $data['amount']= $request->amount;
         $data['notifyUrl']= $request->notifyUrl;
         $data['extra']= $request->extra?$request->extra:'noting';
-        $data['sign']= 'amount='.$data['amount'].'&bankCardholder='.$data['bankCardholder'].'&bankCardNo='.$data['bankCardNo'].
+        $data['sign']= MD5('amount='.$data['amount'].'&bankCardholder='.$data['bankCardholder'].'&bankCardNo='.$data['bankCardNo'].
         '&bankCode='.$data['bankCode'].'&city='.$data['city'].'&extra='.$data['extra'].'&notifyUrl='.$data['notifyUrl'].'&partner='.$data['partner'].'&province='.$data['province'].'&service='.$data['service'].'&subbranch='.$data['subbranch'].
-        '&subsidiaryBank='.$data['subsidiaryBank'].'&tradeNo='.$data['tradeNo'].'&'.$this->key;
-            return response()->json(['data'=>$data['sign']]);
+        '&subsidiaryBank='.$data['subsidiaryBank'].'&tradeNo='.$data['tradeNo'].'&'.$this->key);
+
         $type= array("Content-Type:application/x-www-form-urlencoded","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 
         $url= $request->url;

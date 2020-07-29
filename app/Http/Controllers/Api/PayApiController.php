@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Http\Controllers\Controller;
 
 class PayApiController extends Controller
 {
@@ -25,18 +26,24 @@ class PayApiController extends Controller
 
     public function recharge(Request $request)
     {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        JWTAuth::authenticate($request->token);
+
         $data= array();
-        $data['partner']=$this->partner;
-        $data['service']='10101';
-        $data['tradeNo']='dsafsad1322344';
-        $data['amount']='800';
-        $data['notifyUrl']='https://www.zhihu.com/';
-        $data['resultType']='json';
+        $data['partner']= $this->partner;
+        $data['service']= $request->service;
+        $data['tradeNo']= $request->tradeNo;
+        $data['amount']= $request->amount;
+        $data['notifyUrl']= $request->notifyUrl;
+        $data['resultType']= $request->resultType;
         $data['sign']= MD5('amount='.$data['amount'].'&notifyUrl='.$data['notifyUrl'].'&partner='.$data['partner'].'&resultType='.$data['resultType'].'&service='.$data['service'].'&tradeNo='.$data['tradeNo'].'&'.$this->key);
 
         $type= array("Content-Type:application/x-www-form-urlencoded","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 
-        $url="https://newapi.9pay.vip/unionOrder";
+        $url= $request->url;
         $this->curlData($url,http_build_query($data),$type);
 
     }

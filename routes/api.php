@@ -108,6 +108,18 @@ Route::middleware('cors')->prefix('game')->group(function (){
         Route::post('/ybcp/balanceRecords','Api\YBCPApiController@balanceRecords');//亚博彩票查询该商户的用户在平台与本系统的转账记录
 
     });
+
+});
+
+Route::middleware('cors')->prefix('9pay')->group(function (){
+        Route::post('/recharge','Api\PayApiController@recharge');//9pay充值
+
+
+        Route::group(['middleware' => 'auth.jwt'], function () {
+            Route::post('/fast/register','Api\FastApiController@register');//注册
+
+
+        });
 });
 
 

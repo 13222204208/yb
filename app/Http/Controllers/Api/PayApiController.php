@@ -125,7 +125,7 @@ class PayApiController extends Controller
 
     public function notifyUrl(Request $request)
     {
-        Log::info('statusStr.', $request->statusStr);
+        Log::info('statusStr.', ['str'=>$request->statusStr]);
         return 'success';
     }
 }

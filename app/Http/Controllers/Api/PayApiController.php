@@ -81,6 +81,27 @@ class PayApiController extends Controller
 
     }
 
+    public function orderQuery(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        JWTAuth::authenticate($request->token);
+
+        $data= array();
+        $data['partner']= $this->partner;
+        $data['service']= $request->service;
+        $data['outTradeNo'] = $request->outTradeNo;
+        $data['sign']= MD5('outTradeNo'.$data['outTradeNo'].'partner='.$data['partner'].'&service='.$data['service'].'&'.$this->key);
+
+        $type= array("Content-Type:application/x-www-form-urlencoded","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+
+        $url= $request->url;
+        $this->curlData($url,http_build_query($data),$type);
+
+    }
+
     public function balanceQuery(Request $request)
     {
         $this->validate($request, [

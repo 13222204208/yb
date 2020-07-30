@@ -125,7 +125,13 @@ class PayApiController extends Controller
 
     public function notifyUrl(Request $request)
     {
-        Log::info('statusStr.', ['str'=>$request->statusStr]);
+        $num =+ 1;
+        if ($request->statusStr) {
+            $request->statusStr="存在";
+        }else {
+            $request->statusStr="不存在";
+        }
+        Log::info('statusStr.', ['str'=>$request->statusStr,'num'=>$num]);
         return 'success';
     }
 }

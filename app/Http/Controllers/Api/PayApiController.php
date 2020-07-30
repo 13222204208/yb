@@ -70,7 +70,7 @@ class PayApiController extends Controller
         $data['amount']= $request->amount;
         $data['notifyUrl']= $request->notifyUrl;
         $data['extra']= $request->extra?$request->extra:'noting';
-        $data['sign']= MD5('amount='.$data['amount'].'&bankCardholder='.$data['bankCardholder'].'&bankCardNo='.$data['bankCardNo'].
+        $data['sign']= MD5('amount='.$data['amount'].'&bankCardNo='.$data['bankCardNo'].'&bankCardholder='.$data['bankCardholder'].
         '&bankCode='.$data['bankCode'].'&city='.$data['city'].'&extra='.$data['extra'].'&notifyUrl='.$data['notifyUrl'].'&partner='.$data['partner'].'&province='.$data['province'].'&service='.$data['service'].'&subbranch='.$data['subbranch'].
         '&subsidiaryBank='.$data['subsidiaryBank'].'&tradeNo='.$data['tradeNo'].'&'.$this->key);
 

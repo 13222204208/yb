@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 class PayApiController extends Controller
@@ -120,5 +121,11 @@ class PayApiController extends Controller
         $url= $request->url;
         $this->curlData($url,http_build_query($data),$type);
 
+    }
+
+    public function notifyUrl(Request $request)
+    {
+        Log::info('statusStr.', $request->statusStr);
+        return 'success';
     }
 }

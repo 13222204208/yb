@@ -94,7 +94,7 @@ class PayApiController extends Controller
         $data['partner']= $this->partner;
         $data['service']= $request->service;
         $data['outTradeNo'] = $request->outTradeNo;
-        $data['sign']= MD5('outTradeNo'.$data['outTradeNo'].'partner='.$data['partner'].'&service='.$data['service'].'&'.$this->key);
+        $data['sign']= MD5('outTradeNo='.$data['outTradeNo'].'&partner='.$data['partner'].'&service='.$data['service'].'&'.$this->key);
 
         $type= array("Content-Type:application/x-www-form-urlencoded","User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 
@@ -125,7 +125,7 @@ class PayApiController extends Controller
 
     public function notifyUrl(Request $request)
     {
-        $num =+ 1;
+        $num = 1;
         if ($request->statusStr) {
             $request->statusStr="存在";
         }else {

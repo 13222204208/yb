@@ -112,7 +112,7 @@ Route::middleware('cors')->prefix('game')->group(function (){
 });
 
 Route::middleware('cors')->prefix('9pay')->group(function (){
-        Route::post('/notifyUrl','Api\PayApiController@notifyUrl');
+        Route::post('/notifyUrl','Api\PayApiController@notifyUrl');//9pay 回调地址
         Route::group(['middleware' => 'auth.jwt'], function () {
             Route::post('/recharge','Api\PayApiController@recharge');//9pay充值
             Route::post('/agentPay','Api\PayApiController@agentPay');//9pay代付

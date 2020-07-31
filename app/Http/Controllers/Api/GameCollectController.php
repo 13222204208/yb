@@ -19,10 +19,7 @@ class GameCollectController extends Controller
         ]);
 
         $user = JWTAuth::authenticate($request->token);
-        return response()->json([
-            'code' => 201,
-            'msg' =>"sfd"
-        ],200);
+
         $data= GameCollect::where(['username'=>$user->username,'tcgGameCode'=>$request->tcgGameCode])->get();
 
         if ($data->first()) {

@@ -34,7 +34,7 @@ class GameCollectController extends Controller
         $collect->username = $user->username;
         $collect->productType = $request->productType;
         $collect->tcgGameCode = $request->tcgGameCode;
-        $collect->productType = $request->productType;
+        $collect->productCode = $request->productCode;
         $collect->gameName = $request->gameName;
         $state= $collect->save();
         if ($state) {
@@ -59,19 +59,20 @@ class GameCollectController extends Controller
 
         $user = JWTAuth::authenticate($request->token);
         $data= GameCollect::where(['username'=>$user->username,'tcgGameCode'=>$request->tcgGameCode])->get();
+
         if ($data->first()) {
             $data->state = 2;
             $data->save();
-             return response()->json([
-                 'code' => 201,
-                 'msg' =>"取消收藏成功"
-             ],200);
-        }else{
             return response()->json([
-                'code' => 0,
-                'msg' =>"你没有收藏"
+                'code' => 201,
+                'msg' =>"取消收藏成功"
             ],200);
         }
+
+        return response()->json([
+            'code' => 0,
+            'msg' =>"你没有收藏此游戏"
+        ],200);
 
 
     }

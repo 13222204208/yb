@@ -23,8 +23,9 @@ class GameCollectController extends Controller
         $data= GameCollect::where(['username'=>$user->username,'tcgGameCode'=>$request->tcgGameCode])->get();
 
         if ($data->first()) {
-            $data->state = 1;
-            $data->save();
+            GameCollect::where('username',$user->username)->where('tcgGameCode',$request->tcgGameCode)->update([
+                'state'=>1
+            ]);
             return response()->json([
                 'code' => 201,
                 'msg' =>"收藏成功"
@@ -62,8 +63,9 @@ class GameCollectController extends Controller
         $data= GameCollect::where(['username'=>$user->username,'tcgGameCode'=>$request->tcgGameCode])->get();
 
         if ($data->first()) {
-            $data->state= 2;
-            $data->save();
+            GameCollect::where('username',$user->username)->where('tcgGameCode',$request->tcgGameCode)->update([
+                'state'=>2
+            ]);
             return response()->json([
                 'code' => 201,
                 'msg' =>"取消收藏成功"

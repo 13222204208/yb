@@ -12,7 +12,7 @@ class GameCollectController extends Controller
     public function collect(GameCollectRequest $request)
     {
         $user = JWTAuth::authenticate($request->token);
-return 23;
+
         $data= GameCollect::where(['username'=>$user->username,'tcgGameCode'=>$request->tcgGameCode])->first();
         if ($data->first()) {
             $data->state = 1;
@@ -85,8 +85,4 @@ return 23;
         }
     }
 
-    public function test(Request $request)
-    {JWTAuth::authenticate($request->token);
-        return 3;
-    }
 }

@@ -219,4 +219,9 @@ class TCApiController extends Controller
         $result = $this->send_require($data);
         return $result;
     }
+
+    public function test()
+    {
+        return 'tc';
+    }
 }

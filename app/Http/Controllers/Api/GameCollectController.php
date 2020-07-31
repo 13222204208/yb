@@ -29,7 +29,7 @@ class GameCollectController extends Controller
             ]);
             return response()->json([
                 'code' => 201,
-                'msg' =>"收藏成功"
+                'msg' =>"已收藏"
             ],200);
         }
         $collect = new GameCollect;
@@ -77,7 +77,6 @@ class GameCollectController extends Controller
             'code' => 0,
             'msg' =>"你没有收藏此游戏"
         ],200);
-
 
     }
 

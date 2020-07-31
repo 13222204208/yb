@@ -11,13 +11,13 @@ class GameCollectController extends Controller
     public function collect(Request $request)
     {
         $this->validate($request, [
+            'token' => 'required',
             'productType' => 'required|max:20',
             'tcgGameCode' => 'required|max:20',
             'productCode' => 'required|max:20',
             'gameName' => 'required|max:30',
-            'token' => 'required',
         ]);
-
+        return 121;
         $user = JWTAuth::authenticate($request->token);
 
         $data= GameCollect::where(['username'=>$user->username,'tcgGameCode'=>$request->tcgGameCode])->first();

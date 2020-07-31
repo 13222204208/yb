@@ -61,14 +61,8 @@ class GameCollectController extends Controller
 
         $data= GameCollect::where(['username'=>$user->username,'tcgGameCode'=>$request->tcgGameCode])->get();
 
-        return response()->json([
-            'code' => 201,
-            'msg' =>"取消收藏成功",
-            'data' =>$data
-        ],200);
-
         if ($data->first()) {
-            $data->state = 2;
+            $data->state= 2;
             $data->save();
             return response()->json([
                 'code' => 201,

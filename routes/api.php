@@ -75,9 +75,11 @@ Route::middleware('cors')->prefix('game')->group(function (){
         Route::post('/fast/transfer','Api\FastApiController@transfer');//转帐
         Route::post('/fast/checkTransfer','Api\FastApiController@checkTransfer');//检查转帐
 
-        Route::post('/collect','Api/GameCollectController@collect');//游戏收藏
-        Route::post('/cancelCollect','Api/GameCollectController@cancelCollect');//取消收藏的游戏
-        Route::post('/collectGame','Api/GameCollectController@collectGame');//用户收藏的游戏
+
+        Route::post('/cancelCollect','Api\GameCollectController@cancelCollect');//取消收藏的游戏
+        Route::post('/collectGame','Api\GameCollectController@collectGame');//用户收藏的游戏
+        Route::post('/collect','Api\GameCollectController@collect');//游戏收藏
+        Route::post('/test','Api\GameCollectController@test');//游戏收藏
 
         Route::post('/tc/CRegister','Api\TCApiController@CRegister');//创建/确认玩家接口
         Route::post('/tc/launchGame','Api\TCApiController@launchGame');//启动游戏

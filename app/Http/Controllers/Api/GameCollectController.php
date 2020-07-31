@@ -12,7 +12,7 @@ class GameCollectController extends Controller
     public function collect(GameCollectRequest $request)
     {
         $user = JWTAuth::authenticate($request->token);
-return 1;
+return 23;
         $data= GameCollect::where(['username'=>$user->username,'tcgGameCode'=>$request->tcgGameCode])->first();
         if ($data->first()) {
             $data->state = 1;
@@ -30,7 +30,10 @@ return 1;
         $collect->gameName = $request->gameName;
         $state= $collect->save();
         if ($state) {
-
+            return response()->json([
+                'code' => 201,
+                'msg' =>"收藏成功"
+            ],200);
         }else{
             return response()->json([
                 'code' => 0,
@@ -80,5 +83,10 @@ return 1;
                 'msg' =>"无收藏的游戏",
             ],200);
         }
+    }
+
+    public function test(Request $request)
+    {JWTAuth::authenticate($request->token);
+        return 3;
     }
 }

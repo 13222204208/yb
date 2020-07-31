@@ -5,14 +5,21 @@ namespace App\Http\Controllers\Api;
 use App\Model\GameCollect;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Http\Requests\GameCollectRequest;
 
 class GameCollectController extends Controller
 {
-    public function collect(GameCollectRequest $request)
+    public function collect(Request $request)
     {
+        $this->validate($request, [
+            'productType' => 'required|max:20',
+            'tcgGameCode' => 'required|max:20',
+            'productCode' => 'required|max:20',
+            'gameName' => 'required|max:30',
+            'token' => 'required',
+        ]);
+
         $user = JWTAuth::authenticate($request->token);
-return 123;
+
         $data= GameCollect::where(['username'=>$user->username,'tcgGameCode'=>$request->tcgGameCode])->first();
         if ($data->first()) {
             $data->state = 1;

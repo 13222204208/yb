@@ -67,7 +67,7 @@ Route::middleware('cors')->prefix('game')->group(function (){
     Route::post('/tc/gameList','Api\TCApiController@gameList');//天成游戏列表
 
     Route::post('/yb/gameList','Api\YBApiController@gameList');//亚博查询游戏列表
-    Route::post('/collect','Api\GameCollectController@collect');//游戏收藏
+
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::post('/fast/register','Api\FastApiController@register');//注册
         Route::post('/fast/login','Api\FastApiController@login');//登入
@@ -78,7 +78,7 @@ Route::middleware('cors')->prefix('game')->group(function (){
 
         Route::post('/cancelCollect','Api\GameCollectController@cancelCollect');//取消收藏的游戏
         Route::post('/collectGame','Api\GameCollectController@collectGame');//用户收藏的游戏
-
+        Route::post('/collect','Api\GameCollectController@collect');//游戏收藏
 
         Route::post('/tc/CRegister','Api\TCApiController@CRegister');//创建/确认玩家接口
         Route::post('/tc/launchGame','Api\TCApiController@launchGame');//启动游戏

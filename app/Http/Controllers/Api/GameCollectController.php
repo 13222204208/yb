@@ -17,7 +17,7 @@ class GameCollectController extends Controller
             'productCode' => 'required|max:20',
             'gameName' => 'required|max:30',
         ]);
-        return 121;
+
         $user = JWTAuth::authenticate($request->token);
 
         $data= GameCollect::where(['username'=>$user->username,'tcgGameCode'=>$request->tcgGameCode])->first();

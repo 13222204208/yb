@@ -13,7 +13,7 @@ class GameCollectController extends Controller
     {
         $user = JWTAuth::authenticate($request->token);
 
-    /*     $data= GameCollect::where(['username'=>$user->username,'tcgGameCode'=>$request->tcgGameCode])->first();
+        $data= GameCollect::where(['username'=>$user->username,'tcgGameCode'=>$request->tcgGameCode])->first();
         if ($data->first()) {
             $data->state = 1;
             $data->save();
@@ -21,15 +21,15 @@ class GameCollectController extends Controller
                 'code' => 201,
                 'msg' =>"收藏成功"
             ],200);
-        } */
+        }
         $collect = new GameCollect;
         $collect->username = $user->username;
         $collect->productType = $request->productType;
         $collect->tcgGameCode = $request->tcgGameCode;
         $collect->productType = $request->productType;
         $collect->gameName = $request->gameName;
-
-        if ($collect->save()) {
+        $state= $collect->save();
+        if ($state) {
 
         }else{
             return response()->json([

@@ -28,7 +28,7 @@ class GameCollectController extends Controller
                 'state'=>1
             ]);
             return response()->json([
-                'code' => 201,
+                'code' => 1002,
                 'msg' =>"已收藏"
             ],200);
         }

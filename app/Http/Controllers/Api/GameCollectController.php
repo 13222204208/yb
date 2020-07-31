@@ -23,6 +23,10 @@ class GameCollectController extends Controller
         $data= GameCollect::where(['username'=>$user->username,'tcgGameCode'=>$request->tcgGameCode])->get();
 
         if ($data->first()) {
+            return response()->json([
+            'code' => 201,
+            'msg' =>"d"
+        ],200);
             GameCollect::where('username',$user->username)->where('tcgGameCode',$request->tcgGameCode)->update([
                 'state'=>1
             ]);

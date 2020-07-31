@@ -6,7 +6,6 @@ use App\Model\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Http\Controllers\Controller;
 
 class TransactionController extends Controller
 {

@@ -63,19 +63,6 @@ Route::middleware('cors')->prefix('content')->group(function (){
 });
 
 Route::middleware('cors')->prefix('game')->group(function (){
-/*     Route::get('/player/check/{account}','Api\CheckAccountController@checkAccount');//验证帐号
-    Route::post('/transaction/game/bet','Api\CheckAccountController@gameBet');//老虎机下注
-    Route::post('/transaction/game/endround','Api\CheckAccountController@gameEndround');//结束回合并统整该回合赢分
-    Route::post('/transaction/game/rollout','Api\CheckAccountController@gameRollout');//此API是为牌桌及渔机游戏 ，转出一定额度而调用
-    Route::post('/transaction/game/takeall','Api\CheckAccountController@gameTakeall');//玩家所有的钱领出，转入渔机游戏
-    Route::post('/transaction/game/rollin','Api\CheckAccountController@gameRollin');//牌桌/渔机一场游戏结束，将金额转入钱包
-    Route::post('/transaction/game/debit','Api\CheckAccountController@gameDebit');//针对完成的订单做扣款
-    Route::post('/transaction/game/credit','Api\CheckAccountController@gameCredit');//针对完成的订单做补款
-    Route::post('/transaction/game/bonus','Api\CheckAccountController@gameBonus');//游戏红利
-    Route::post('/transaction/user/payoff','Api\CheckAccountController@userPayoff');//活动派彩
-    Route::post('/transaction/game/refund','Api\CheckAccountController@gameRefund');//押注退还
-    Route::get('/transaction/record/{mtcode}','Api\CheckAccountController@gameRecord');//查询交易记录
-    Route::get('/transaction/balance/{account}','Api\CheckAccountController@gameBalance');//取得钱包余额 */
 
     Route::post('/tc/gameList','Api\TCApiController@gameList');//天成游戏列表
 
@@ -87,6 +74,10 @@ Route::middleware('cors')->prefix('game')->group(function (){
         Route::post('/fast/balance','Api\FastApiController@balance');//获取会员钱包余额
         Route::post('/fast/transfer','Api\FastApiController@transfer');//转帐
         Route::post('/fast/checkTransfer','Api\FastApiController@checkTransfer');//检查转帐
+
+        Route::post('/collect','Api/GameCollectController@collect');//游戏收藏
+        Route::post('/cancelCollect','Api/GameCollectController@cancelCollect');//取消收藏的游戏
+        Route::post('/collectGame','Api/GameCollectController@collectGame');//用户收藏的游戏
 
         Route::post('/tc/CRegister','Api\TCApiController@CRegister');//创建/确认玩家接口
         Route::post('/tc/launchGame','Api\TCApiController@launchGame');//启动游戏

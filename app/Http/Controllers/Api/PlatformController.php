@@ -8,7 +8,6 @@ use App\Model\Platform;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Http\Controllers\Controller;
 
 class PlatformController extends Controller
 {

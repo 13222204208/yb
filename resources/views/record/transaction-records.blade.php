@@ -211,7 +211,21 @@
               } }
       ,{field:'business_money', title: '交易金额', width:120}
      // ,{field:'balance', title: '钱包余额', width:120}
-      ,{field:'business_state', title: '交易状态',  width:160}
+      ,{field:'business_state', title: '交易状态',  width:160,
+        templet: function(d) {
+                switch(d.business_state) {
+                      case 0:
+                          return "处理中"
+
+                      case 1:
+                          return "成功"
+
+                      case 2:
+                          return "失败"
+                      default:
+                          return "未知"
+                  }
+              }}
       ,{field:'ask_time', title: '申请时间',  width:260}
      // ,{field:'auditing_time', title: '审核时间',sort: true, width:260}
     ]],
@@ -240,7 +254,7 @@
       ,{field:'business_mode', title: '交易方式', width:180,
         templet: function(d) {
                 switch(d.business_mode) {
-                    case '10101':
+                      case '10101':
                           return "网关支付"
 
                       case '10102':
@@ -294,7 +308,21 @@
               }   }
       ,{field:'business_money', title: '交易金额', width:120}
      // ,{field:'balance', title: '钱包余额', width:120}
-      ,{field:'business_state', title: '交易状态',  width:160}
+      ,{field:'business_state', title: '交易状态',  width:160,
+        templet: function(d) {
+                switch(d.business_state) {
+                      case 0:
+                          return "处理中"
+
+                      case 1:
+                          return "成功"
+
+                      case 2:
+                          return "失败"
+                      default:
+                          return "未知"
+                  }
+              }}
       ,{field:'ask_time', title: '申请时间',  width:260}
      // ,{field:'auditing_time', title: '审核时间',sort: true, width:260}
 

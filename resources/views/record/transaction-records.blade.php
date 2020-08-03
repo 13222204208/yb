@@ -154,7 +154,19 @@
       {field:'id', title: 'ID', width:80, sort: true}
       ,{field:'username', title: '用户名', width:150}
       ,{field:'order_num', title: '订单号', width:360}
-      ,{field:'business_mode', title: '交易方式', width:180}
+      ,{field:'business_mode', title: '交易方式', width:180,
+            templet: function(d) {
+                switch (d.business_mode) {
+                    case 10101:
+                        return '网关支付';
+                    case 10108:
+                        return '支付宝宝转卡(扫码)';
+                    case 10109:
+                        return '支付宝宝转卡(H5)';
+                    default:
+                        break;
+                }
+              }}
       ,{field:'business_money', title: '交易金额', width:120}
      // ,{field:'balance', title: '钱包余额', width:120}
       ,{field:'business_state', title: '交易状态',  width:160}

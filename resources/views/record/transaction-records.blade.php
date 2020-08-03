@@ -9,11 +9,11 @@
   <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
   <style>
-      
+
   </style>
 </head>
-<body> 
- 
+<body>
+
 <div class="mainTop layui-clear" style="margin:20px">
 
 <div class="fr">
@@ -32,7 +32,7 @@
         <div class="layui-input-inline">
           <select name="business_type"  class="select_wd120">
             <option value="">全部</option>
-    
+
           </select>
         </div>
       </div>
@@ -62,10 +62,10 @@
   </form>
 </div>
 </div>
- 
-<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table> 
-               
-     
+
+<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+
+
 <script src="/layuiadmin/layui/layui.js"></script>
 
 <script>
@@ -153,12 +153,13 @@
         cols: [[
       {field:'id', title: 'ID', width:80, sort: true}
       ,{field:'username', title: '用户名', width:150}
-      ,{field:'order_num', title: '订单号', width:220}
-      ,{field:'business_type', title: '交易类型', width:180}
+      ,{field:'order_num', title: '订单号', width:360}
+      ,{field:'business_mode', title: '交易方式', width:180}
       ,{field:'business_money', title: '交易金额', width:120}
-      ,{field:'balance', title: '钱包余额', width:120}
+     // ,{field:'balance', title: '钱包余额', width:120}
+      ,{field:'business_state', title: '交易状态',  width:160}
       ,{field:'ask_time', title: '申请时间',  width:260}
-      ,{field:'auditing_time', title: '审核时间',sort: true, width:260}
+     // ,{field:'auditing_time', title: '审核时间',sort: true, width:260}
     ]],
         parseData: function(res) { //res 即为原始返回的数据
           return {
@@ -173,7 +174,7 @@
       });
         return false;
       });
-  
+
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
@@ -199,13 +200,13 @@
             }
     ,id: 'testReload'
     ,page: true
-   
+
   });
-  
+
   var $ = layui.$, active = {
     reload: function(){
       var demoReload = $('#demoReload');
-      
+
       //执行重载
       table.reload('testReload', {
         page: {
@@ -219,7 +220,7 @@
       }, 'data');
     }
   };
-  
+
   $('.demoTable .layui-btn').on('click', function(){
     var type = $(this).data('type');
     active[type] ? active[type].call(this) : '';

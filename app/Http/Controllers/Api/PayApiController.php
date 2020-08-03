@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\Transaction;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Log;
@@ -30,7 +31,14 @@ class PayApiController extends Controller
             'token' => 'required'
         ]);
 
-        JWTAuth::authenticate($request->token);
+        $user= JWTAuth::authenticate($request->token);
+        $transaction= new Transaction;
+        $transaction->order_num= $request->tradeNo;
+        $transaction->username= $user->username;
+        $transaction->business_mode= $request->service;
+        $transaction->business_money= $request->amount;
+        $transaction->ask_time= date('Y-m-d H:i:s');
+        $transaction->save();
 
         $data= array();
         $data['partner']= $this->partner;

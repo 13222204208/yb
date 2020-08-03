@@ -214,13 +214,13 @@
       ,{field:'business_state', title: '交易状态',  width:160,
         templet: function(d) {
                 switch(d.business_state) {
-                      case '0':
+                      case 0:
                           return "处理中"
 
-                      case '1':
+                      case 1:
                           return "成功"
 
-                      case '2':
+                      case 2:
                           return "失败"
 
                       default:
@@ -312,13 +312,13 @@
       ,{field:'business_state', title: '交易状态',  width:160,
         templet: function(d) {
                 switch(d.business_state) {
-                      case '0':
+                      case 0:
                           return "处理中"
 
-                      case '1':
+                      case 1:
                           return "成功"
 
-                      case '2':
+                      case 2:
                           return "失败"
 
                       default:

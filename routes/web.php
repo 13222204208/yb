@@ -231,11 +231,18 @@ Route::prefix('system')->group(function () {
         return view('system.parameter-setting');
     })->middleware('adminLogin');
 
+    Route::get('app-version', function () {
+        return view('system.app-version');
+    })->middleware('adminLogin');
+
     Route::post('update/member/recharge','System\ParameterSettingController@updateMemberRecharge');//更新会员充值
     Route::get('query/member/recharge','System\ParameterSettingController@queryMemberRecharge');//查看会员充值
 
     Route::post('update/member/draw/money','System\ParameterSettingController@updateDrawMoney');//更新会员提款
     Route::get('query/member/draw/money','System\ParameterSettingController@queryDrawMoney');//查看会员提款
+
+    Route::post('app/version','System\ParameterSettingController@appVersion');//应用版本设置
+    Route::post('query/app/version','System\ParameterSettingController@queryAppVersion');//查看应用版本
 
     //后台帐号
     Route::get('background-account', function () {

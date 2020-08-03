@@ -180,14 +180,15 @@
     elem: '#LAY_table_user'
   ,url: 'query/transaction'
     ,cols: [[
-      {field:'id', title: 'ID', width:80, sort: true}
+        {field:'id', title: 'ID', width:80, sort: true}
       ,{field:'username', title: '用户名', width:150}
-      ,{field:'order_num', title: '订单号', width:220}
-      ,{field:'business_type', title: '交易类型', width:180}
+      ,{field:'order_num', title: '订单号', width:360}
+      ,{field:'business_mode', title: '交易方式', width:180}
       ,{field:'business_money', title: '交易金额', width:120}
-      ,{field:'balance', title: '钱包余额', width:120}
+     // ,{field:'balance', title: '钱包余额', width:120}
+      ,{field:'business_state', title: '交易状态',  width:160}
       ,{field:'ask_time', title: '申请时间',  width:260}
-      ,{field:'auditing_time', title: '审核时间',sort: true, width:260}
+     // ,{field:'auditing_time', title: '审核时间',sort: true, width:260}
 
     ]]
     ,parseData: function(res) { //res 即为原始返回的数据

@@ -7,6 +7,7 @@ use App\Model\Affiche;
 use App\Model\Support;
 use App\Model\Activity;
 use App\Model\DelNotice;
+use App\Model\AppVersion;
 use App\Model\UserDetail;
 use App\Model\RotationChart;
 use Illuminate\Http\Request;
@@ -137,6 +138,21 @@ class ContentController extends Controller
     {
         $data = Support::where('state',1)->get(['app_img_url','title',
         'link_url','sort']);
+
+        if ($data) {
+            return response()->json( ['msg'=>'成功','data'=>$data,'code'=>200]);
+        }else {
+            return response()->json([
+                'code' => 0,
+                'msg' =>"无数据",
+            ],200);
+        }
+    }
+
+    public function version()
+    {
+        $data = AppVersion::where('id',1)->get(['new_version','update_content',
+        'is_update','compel_update','ios_href','android_href']);
 
         if ($data) {
             return response()->json( ['msg'=>'成功','data'=>$data,'code'=>200]);

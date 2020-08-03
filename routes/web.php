@@ -242,7 +242,7 @@ Route::prefix('system')->group(function () {
     Route::get('query/member/draw/money','System\ParameterSettingController@queryDrawMoney');//查看会员提款
 
     Route::post('app/version','System\ParameterSettingController@appVersion');//应用版本设置
-    Route::post('query/app/version','System\ParameterSettingController@queryAppVersion');//查看应用版本
+    Route::get('query/app/version','System\ParameterSettingController@queryAppVersion');//查看应用版本
 
     //后台帐号
     Route::get('background-account', function () {

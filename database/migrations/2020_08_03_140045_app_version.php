@@ -13,7 +13,7 @@ class AppVersion extends Migration
      */
     public function up()
     {
-        Schema::create('game_version', function (Blueprint $table) {
+        Schema::create('app_version', function (Blueprint $table) {
             $table->increments('id');
             $table->string('new_version',20)->default('')->comment('最新版本号');
             $table->integer('compel_update')->default(0)->comment('是否强制更新');

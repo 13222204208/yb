@@ -52,6 +52,7 @@ Route::middleware('cors')->prefix('content')->group(function (){
     Route::get('activity','Api\ContentController@activity');//活动
     Route::get('default/head','Api\ContentController@defaultHead');//默认头像
     Route::get('support','Api\ContentController@support');//赞助
+    Route::get('version','Api\ContentController@version');//app版本
 
     Route::get('platform/list','Api\PlatformController@platformList');//平台名称列表
     Route::group(['middleware' => 'auth.jwt'], function () {

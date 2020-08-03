@@ -27,30 +27,30 @@
               <div class="layui-form-item">
                 <label class="layui-form-label" >最新版本号</label>
                 <div class="layui-input-inline">
-                  <input type="text" name="new_version" placeholder="" value="" lay-verify="draw_money_num" class="layui-input">
+                  <input type="text" name="new_version" placeholder="" value=""  class="layui-input">
                 </div>
               </div>
 
               <div class="layui-form-item">
                     <label class="layui-form-label">是否强制更新</label>
                     <div class="layui-input-block">
-                    <input type="radio" name="compel_update" value="0" title="否" checked>
-                    <input type="radio" name="compel_update" value="1" title="是" >
+                    <input type="radio" name="compel_update" value="0" title="否" >
+                    <input type="radio" name="compel_update" value="1" title="是" checked>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
 				<label class="layui-form-label">更新的内容</label>
 				<div class="layui-input-block">
-					<textarea class="layui-input" name="update_content" style="width: 350px;height:100px;display: inline-block;"></textarea>
+					<textarea class="layui-input" name="update_content" value='' style="width: 350px;height:100px;display: inline-block;"></textarea>
 				</div>
 			</div>
 
               <div class="layui-form-item">
                     <label class="layui-form-label">是否更新</label>
                     <div class="layui-input-block">
-                    <input type="radio" name="is_update" value="0" title="否" checked>
-                    <input type="radio" name="is_update" value="1" title="是" >
+                    <input type="radio" name="is_update" value="0" title="否" >
+                    <input type="radio" name="is_update" value="1" title="是" checked>
                     </div>
                 </div>
 
@@ -128,20 +128,30 @@
 			});
 
       $.ajax({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					},
+
 					url: "query/app/version",
 					method: 'get',
 					success: function(res) {
+                        data= res.data;
+                       // console.log(data);return false;
 						if (res.status == 200) {
-              $(" input[ name='new_version' ] ").val(res.data.new_version);
-              $(" input[ name='compel_update' ] ").val(res.data.compel_update);
-              $(" input[ name='is_update' ] ").val(res.data.is_update);
-              $(" input[ name='update_content' ] ").val(res.data.update_content);
-              $(" input[ name='ios_href' ] ").val(res.data.ios_href);
-              $(" input[ name='android_href' ] ").val(res.data.android_href);
+              $(" input[ name='new_version' ] ").val(data.new_version);
 
+              if(data.compel_update == 0){
+                $("input[name=compel_update][value=1]").prop("checked","false");
+                $("input[name=compel_update][value=0]").prop("checked","true");
+                }
+
+                if(data.is_update == 0){
+                $("input[name=is_update][value=1]").prop("checked","false");
+                $("input[name=is_update][value=0]").prop("checked","true");
+                }
+              //$(" input[ name='compel_update' ] ").val(res.data.compel_update);
+              //$(" input[ name='is_update' ] ").val(data.is_update);
+              $(" textarea[ name='update_content' ] ").val(data.update_content);
+              $(" input[ name='ios_href' ] ").val(data.ios_href);
+              $(" input[ name='android_href' ] ").val(data.android_href);
+              form.render();
 						} else {
 							console.log(res);
 							layer.msg('获取失败', {
@@ -152,6 +162,8 @@
 						}
 					}
 				});
+
+
 
 
     });

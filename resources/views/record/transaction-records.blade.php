@@ -155,18 +155,60 @@
       ,{field:'username', title: '用户名', width:150}
       ,{field:'order_num', title: '订单号', width:360}
       ,{field:'business_mode', title: '交易方式', width:180,
-            templet: function(d) {
-                switch (d.business_mode) {
-                    case 10101:
-                        return '网关支付';
-                    case 10108:
-                        return '支付宝宝转卡(扫码)';
-                    case 10109:
-                        return '支付宝宝转卡(H5)';
-                    default:
-                        break;
-                }
-              }}
+        templet: function(d) {
+                switch(d.business_mode) {
+                      case 10101:
+                          return "网关支付"
+
+                      case 10102:
+                          return "快捷支付"
+
+                      case 10103:
+                          return "云闪付"
+
+                      case 10104:
+                          return "微信个码(扫码)"
+
+                      case 10105:
+                          return "微信个码(H5)"
+
+                      case 10106:
+                          return "支付宝个码(扫码)"
+
+                      case 10107:
+                          return "支付宝个码(H5)"
+
+                      case 10108:
+                          return "支付宝宝转卡(扫码)"
+
+                      case 10109:
+                          return "支付宝宝转卡(H5)"
+
+                      case 10110:
+                          return "支付宝话费(扫码)"
+
+                      case 10111:
+                          return "支付宝话费(H5)"
+
+                      case 10114:
+                          return "微信转卡"
+
+                      case 10201:
+                          return "代付"
+
+                      case 10301:
+                          return "代付查询"
+
+                      case 10302:
+                          return "交易查询"
+
+                      case 10401:
+                          return "余额查询"
+
+                      default:
+                          return "未知"
+                  }
+              } }
       ,{field:'business_money', title: '交易金额', width:120}
      // ,{field:'balance', title: '钱包余额', width:120}
       ,{field:'business_state', title: '交易状态',  width:160}
@@ -197,17 +239,59 @@
       ,{field:'order_num', title: '订单号', width:360}
       ,{field:'business_mode', title: '交易方式', width:180,
         templet: function(d) {
-                switch (d.business_mode) {
-                    case 10101:
-                        return '网关支付';
-                    case 10108:
-                        return '支付宝宝转卡(扫码)';
-                    case 10109:
-                        return '支付宝宝转卡(H5)';
-                    default:
-                        break;
-                }
-              }}
+                switch(d.business_mode) {
+                      case 10101:
+                          return "网关支付"
+
+                      case 10102:
+                          return "快捷支付"
+
+                      case 10103:
+                          return "云闪付"
+
+                      case 10104:
+                          return "微信个码(扫码)"
+
+                      case 10105:
+                          return "微信个码(H5)"
+
+                      case 10106:
+                          return "支付宝个码(扫码)"
+
+                      case 10107:
+                          return "支付宝个码(H5)"
+
+                      case 10108:
+                          return "支付宝宝转卡(扫码)"
+
+                      case 10109:
+                          return "支付宝宝转卡(H5)"
+
+                      case 10110:
+                          return "支付宝话费(扫码)"
+
+                      case 10111:
+                          return "支付宝话费(H5)"
+
+                      case 10114:
+                          return "微信转卡"
+
+                      case 10201:
+                          return "代付"
+
+                      case 10301:
+                          return "代付查询"
+
+                      case 10302:
+                          return "交易查询"
+
+                      case 10401:
+                          return "余额查询"
+
+                      default:
+                          return "未知"
+                  }
+              }   }
       ,{field:'business_money', title: '交易金额', width:120}
      // ,{field:'balance', title: '钱包余额', width:120}
       ,{field:'business_state', title: '交易状态',  width:160}

@@ -139,7 +139,7 @@ class PayApiController extends Controller
             $request->statusStr="不存在";
         }
         Log::info('statusStr.', ['outTradeNo'=>$request->outTradeNo,'statusStr'=>$request->statusStr,'amount'=>$request->amount,
-            'status'=>$request->status,'extra'=>$request->extra
+            'status'=>$request->status
         ]);
         return 'success';
     }

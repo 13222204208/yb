@@ -16,7 +16,7 @@ class UpdatePassRequest extends ApiBaseRequest
     {
         return [
             'newpass' => 'required|min:6|max:12|alpha_num',
-            'password' => 'required|min:6|max:12|alpha_num|regex:/^(?!([A-Za-z]+|d\d+)$)[A-Za-z\d]$/',
+            'password' => 'required|min:6|max:12|alpha_num',
         ];
     }
 

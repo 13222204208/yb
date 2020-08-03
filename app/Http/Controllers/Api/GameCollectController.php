@@ -88,7 +88,7 @@ class GameCollectController extends Controller
 
         $user = JWTAuth::authenticate($request->token);
 
-        $data= GameCollect::where(['username'=>$user->username,'state'=>1])->get(['productType','tcgGameCode','productCode','gameName']);
+        $data= GameCollect::where(['username'=>$user->username,'state'=>1])->orderBy('id','desc')->get(['productType','tcgGameCode','productCode','gameName']);
 
         if ($data->first()) {
             return response()->json([

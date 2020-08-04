@@ -6,6 +6,7 @@ use App\Model\UserDetail;
 use App\Model\Transaction;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Log;
 
 class FastApiController extends Controller
 {
@@ -153,6 +154,7 @@ class FastApiController extends Controller
 
         $result= $this->curlData($url,$data);
         $state = json_decode($result,true);
+        Log::info('statusStr.', $state);
         if ($state['IsSuccess'] === true) {
             $money->save();
 

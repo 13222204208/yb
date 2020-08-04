@@ -153,8 +153,8 @@ class FastApiController extends Controller
         }
 
         $result= $this->curlData($url,$data);
-        $state = json_decode($result,true);
-        Log::info('statusStr.', $state);
+        $state = gettype($result);
+        Log::info('statusStr.', ['s'=>$state]);
         if ($state['IsSuccess'] === true) {
             $money->save();
 

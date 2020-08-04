@@ -152,10 +152,7 @@ class FastApiController extends Controller
             $money->balance = $money->balance + $request->Amount;
         }
 
-        $result= $this->curlData($url,$data);
-
-        Log::info('statusStr.', ['s'=>$result]);
-        if ($result === true) {
+        $this->curlData($url,$data);
             $money->save();
 
             $transaction= new Transaction;
@@ -166,7 +163,7 @@ class FastApiController extends Controller
             $transaction->business_money= $request->Amount;
             $transaction->ask_time= date('Y-m-d H:i:s');
             $transaction->save();
-        }
+
 
     }
 

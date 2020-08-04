@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\UserDetail;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -193,7 +194,31 @@ class TCApiController extends Controller
         $data['amount'] = $request->amount;
         $data['reference_no'] = $request->reference_no;
 
+                //转帐
+                $money= UserDetail::where('username',$user->username)->first();
+                if ($request->fund_type == 1) {
+                    if ($money->balance < $request->amount) {
+                        return response()->json([
+                            'code' => 1001,
+                            'msg' => '金额不足',
+                        ], 200);
+                    }else {
+                        $money->balance = $money->balance - $request->amount;
+                    }
+                }
+
+                if ($request->TransType == 2) {
+                    $money->balance = $money->balance + $request->amount;
+                }
+
+
         $result = $this->send_require($data);
+        
+        $state = json_decode($result);
+        if ($state['status'] === 0 ) {
+            $money->save();
+        }
+
         return $result;
     }
 

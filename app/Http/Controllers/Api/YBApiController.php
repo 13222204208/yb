@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\UserDetail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -110,7 +111,22 @@ class YBApiController extends Controller
      /*    $time = substr($request->orderId,-13);
         $time = intval(substr($time,0,-3)); */
 
+
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
+
+                //转帐
+                $money= UserDetail::where('username',$user->username)->first();
+
+                    if ($money->balance < $request->money/100) {
+                        return response()->json([
+                            'code' => 1001,
+                            'msg' => '金额不足',
+                        ], 200);
+                    }else {
+                        $money->balance = $money->balance - $request->money/100;
+                    }
+
+                $money->save();
 
         $data= $this->encryptText($data);
         $this->curlData($url,$data);
@@ -142,6 +158,13 @@ class YBApiController extends Controller
         $data = json_encode($data);
         $url= $request->url;
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
+
+                      //转帐
+                      $money= UserDetail::where('username',$user->username)->first();
+                          $money->balance = $money->balance + $request->money/100;
+                  $money->save();
+
+
         $data= $this->encryptText($data);
         $this->curlData($url,$data);
     }

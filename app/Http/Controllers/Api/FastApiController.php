@@ -152,18 +152,21 @@ class FastApiController extends Controller
             $money->balance = $money->balance + $request->Amount;
         }
 
-        $money->save();
+        $result= $this->curlData($url,$data);
 
-        $transaction= new Transaction;
-        $transaction->order_num= $request->OrderNo;
-        $transaction->username= $user->username;
-        $transaction->business_type= '转帐';
-        $transaction->business_mode= $request->TransType;
-        $transaction->business_money= $request->Amount;
-        $transaction->ask_time= date('Y-m-d H:i:s');
-        $transaction->save();
+        Log::info('statusStr.', ['s'=>$result]);
+        if ($result === true) {
+            $money->save();
 
-        $this->curlData($url,$data);
+            $transaction= new Transaction;
+            $transaction->order_num= $request->OrderNo;
+            $transaction->username= $user->username;
+            $transaction->business_type= '转帐';
+            $transaction->business_mode= $request->TransType;
+            $transaction->business_money= $request->Amount;
+            $transaction->ask_time= date('Y-m-d H:i:s');
+            $transaction->save();
+        }
 
     }
 

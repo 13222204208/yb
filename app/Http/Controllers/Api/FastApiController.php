@@ -197,6 +197,9 @@ class FastApiController extends Controller
         $url = $request->url;
 
         $res= $this->curlData($url,$data);
+        $resa= json_decode($res,true);
+        Log::info('statusStr.', ['outTradeNo'=>$resa
+    ]);
         return $res;
     }
 }

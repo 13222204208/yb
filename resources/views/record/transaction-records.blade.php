@@ -210,7 +210,7 @@
                   }
               } }
       ,{field:'business_money', title: '交易金额', width:120}
-     // ,{field:'balance', title: '钱包余额', width:120}
+      ,{field:'business_type', title: '交易类型', width:220}
       ,{field:'business_state', title: '交易状态',  width:160,
         templet: function(d) {
                 switch(d.business_state) {
@@ -308,7 +308,7 @@
                   }
               }   }
       ,{field:'business_money', title: '交易金额', width:120}
-     // ,{field:'balance', title: '钱包余额', width:120}
+      ,{field:'business_type', title: '交易类型', width:220}
       ,{field:'business_state', title: '交易状态',  width:160,
         templet: function(d) {
                 switch(d.business_state) {

@@ -35,6 +35,7 @@ class PayApiController extends Controller
         $transaction= new Transaction;
         $transaction->order_num= $request->tradeNo;
         $transaction->username= $user->username;
+        $transaction->business_type= '存款';
         $transaction->business_mode= $request->service;
         $transaction->business_money= $request->amount;
         $transaction->ask_time= date('Y-m-d H:i:s');
@@ -136,6 +137,7 @@ class PayApiController extends Controller
         Transaction::where('order_num',$request->outTradeNo)->update([
             'business_state'=>intval($request->status)
         ]);
+
         Log::info('statusStr.', ['outTradeNo'=>$request->outTradeNo,'statusStr'=>$request->statusStr,'amount'=>$request->amount,
             'status'=>$request->status
         ]);

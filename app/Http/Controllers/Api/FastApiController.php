@@ -21,8 +21,7 @@ class FastApiController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
         curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        $result= curl_exec($ch);//执行并获取数据
-        return $result;
+        curl_exec($ch);//执行并获取数据
     }
 
     public function register(Request $request)
@@ -154,9 +153,9 @@ class FastApiController extends Controller
         }
 
         $result= $this->curlData($url,$data);
-        $state = gettype($result);
-        Log::info('statusStr.', ['s'=>$state]);
-        if ($state['IsSuccess'] === true) {
+
+        Log::info('statusStr.', ['s'=>$result]);
+        if ($result === true) {
             $money->save();
 
             $transaction= new Transaction;
@@ -168,8 +167,6 @@ class FastApiController extends Controller
             $transaction->ask_time= date('Y-m-d H:i:s');
             $transaction->save();
         }
-
-        return $result;
 
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\UserDetail;
+use App\Model\Transaction;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -216,6 +217,15 @@ class TCApiController extends Controller
         $state = json_decode($result,true);
         if ($state['status'] === 0 ) {
             $money->save();
+
+            $transaction= new Transaction;
+            $transaction->order_num= $request->reference_no;
+            $transaction->username= $user->username;
+            $transaction->business_type= '转帐';
+            $transaction->business_mode= $request->fund_type;
+            $transaction->business_money= $request->amount;
+            $transaction->ask_time= date('Y-m-d H:i:s');
+            $transaction->save();
         }
 
         return $result;

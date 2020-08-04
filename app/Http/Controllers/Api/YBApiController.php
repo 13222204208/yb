@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\UserDetail;
+use App\Model\Transaction;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -134,6 +135,15 @@ class YBApiController extends Controller
         $state = json_decode($result,true);
         if ($state['code'] === 1000)  {
             $money->save();
+
+            $transaction= new Transaction;
+            $transaction->order_num= $data['orderId'];
+            $transaction->username= $user->username;
+            $transaction->business_type= '转帐';
+            $transaction->business_mode= '转出';
+            $transaction->business_money= intval($request->money);
+            $transaction->ask_time= date('Y-m-d H:i:s');
+            $transaction->save();
         }
 
         return $result;
@@ -178,6 +188,15 @@ class YBApiController extends Controller
         $state = json_decode($result,true);
         if ($state['code'] === 1000) {
             $money->save();
+
+            $transaction= new Transaction;
+            $transaction->order_num= $data['orderId'];
+            $transaction->username= $user->username;
+            $transaction->business_type= '转帐';
+            $transaction->business_mode= '转出';
+            $transaction->business_money= intval($request->money);
+            $transaction->ask_time= date('Y-m-d H:i:s');
+            $transaction->save();
         }
 
         return $result;

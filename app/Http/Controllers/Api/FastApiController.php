@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\UserDetail;
+use App\Model\Transaction;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -154,6 +155,15 @@ class FastApiController extends Controller
         $state = json_decode($result,true);
         if ($state['IsSuccess'] === true) {
             $money->save();
+
+            $transaction= new Transaction;
+            $transaction->order_num= $request->OrderNo;
+            $transaction->username= $user->username;
+            $transaction->business_type= '转帐';
+            $transaction->business_mode= $request->TransType;
+            $transaction->business_money= $request->Amount;
+            $transaction->ask_time= date('Y-m-d H:i:s');
+            $transaction->save();
         }
 
         return $result;

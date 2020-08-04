@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\UserDetail;
 use App\Model\Transaction;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -40,6 +41,10 @@ class PayApiController extends Controller
         $transaction->business_money= $request->amount;
         $transaction->ask_time= date('Y-m-d H:i:s');
         $transaction->save();
+
+        $money= UserDetail::where('username',$user->username)->first();
+        $money->balance = $money->balance + $request->amount;
+        $money->save();
 
         $data= array();
         $data['partner']= $this->partner;

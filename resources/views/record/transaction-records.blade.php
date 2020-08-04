@@ -215,7 +215,7 @@
         templet: function(d) {
                 switch(d.business_state) {
                       case 0:
-                          return "处理中"
+                          return "待确认"
 
                       case 1:
                           return "成功"
@@ -313,7 +313,7 @@
         templet: function(d) {
                 switch(d.business_state) {
                       case 0:
-                          return "处理中"
+                          return "待确认"
 
                       case 1:
                           return "成功"

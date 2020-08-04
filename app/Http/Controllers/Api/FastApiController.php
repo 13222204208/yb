@@ -163,7 +163,7 @@ class FastApiController extends Controller
             $transaction= new Transaction;
             $transaction->order_num= $request->OrderNo;
             $transaction->username= $user->username;
-            $transaction->business_type= '转帐';
+            $transaction->business_type= '转账';
             $transaction->business_mode= $request->TransType;
             $transaction->business_money= $request->Amount;
             $transaction->ask_time= date('Y-m-d H:i:s');
@@ -196,10 +196,10 @@ class FastApiController extends Controller
         $data = json_encode($data);
         $url = $request->url;
 
-        $res= $this->curlData($url,$data);
-        $resa= json_decode($res,true);
+        $this->curlData($url,$data);
+/*         $resa= json_decode($res,true);
         Log::info('statusStr.', ['outTradeNo'=>$resa
     ]);
-        return $res;
+        return $res; */
     }
 }

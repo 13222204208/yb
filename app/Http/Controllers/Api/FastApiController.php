@@ -198,7 +198,8 @@ class FastApiController extends Controller
         $data = json_encode($data);
         $url = $request->url;
 
-        $this->curlData($url,$data);
-
+        $res= $this->curlData($url,$data);
+        Log::info('statusStr.', ['res'=>$res]);
+        return response()->json(['res'=>$res]);
     }
 }

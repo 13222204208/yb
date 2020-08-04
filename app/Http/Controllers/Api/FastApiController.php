@@ -149,9 +149,14 @@ class FastApiController extends Controller
         if ($request->TransType == 'Withdraw') {
             $money->balance = $money->balance + $request->Amount;
         }
-        $money->save();
 
-        $this->curlData($url,$data);
+        $result= $this->curlData($url,$data);
+        $state = json_decode($result,true);
+        if ($state['IsSuccess'] === true) {
+            $money->save();
+        }
+
+        return $result;
 
     }
 

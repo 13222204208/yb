@@ -126,10 +126,17 @@ class YBApiController extends Controller
                         $money->balance = $money->balance - $request->money/100;
                     }
 
-                $money->save();
+
 
         $data= $this->encryptText($data);
-        $this->curlData($url,$data);
+        $result= $this->curlData($url,$data);
+
+        $state = json_decode($result,true);
+        if ($state['code'] === 1000)  {
+            $money->save();
+        }
+
+        return $result;
     }
 
     public function transferOut(Request $request)
@@ -166,7 +173,14 @@ class YBApiController extends Controller
 
 
         $data= $this->encryptText($data);
-        $this->curlData($url,$data);
+        $result= $this->curlData($url,$data);
+
+        $state = json_decode($result,true);
+        if ($state['code'] === 1000) {
+            $money->save();
+        }
+
+        return $result;
     }
 
     public function queryBalance(Request $request)

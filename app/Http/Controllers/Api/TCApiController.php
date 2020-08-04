@@ -213,8 +213,7 @@ class TCApiController extends Controller
 
 
         $result = $this->send_require($data);
-        
-        $state = json_decode($result);
+        $state = json_decode($result,true);
         if ($state['status'] === 0 ) {
             $money->save();
         }

@@ -19,6 +19,7 @@ class BgTransaction extends Migration
             $table->string('username',20)->default('')->comment('用户名');
             $table->string('business_type',50)->default('')->comment('交易类型');
             $table->string('business_mode',50)->default('')->comment('交易方式');
+            $table->string('business_game',30)->default('')->comment('平台游戏名称');
             $table->decimal('business_money',9,2)->default(0)->comment('交易金额');
             $table->integer('business_state')->default(0)->comment('交易状态 0待确认');
             $table->decimal('balance', 9, 2)->default(0)->comment('钱包余额');

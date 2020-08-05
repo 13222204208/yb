@@ -169,8 +169,8 @@ class FastApiController extends Controller
             $transaction->business_type= '转账';
             $transaction->business_mode= $request->TransType;
             $transaction->business_money= $request->Amount;
-            if ($request->business_mode) {
-                $transaction->business_mode = $request->business_mode;
+            if ($request->business_game) {
+                $transaction->business_game = $request->business_game;
             }
 
             $transaction->ask_time= date('Y-m-d H:i:s');

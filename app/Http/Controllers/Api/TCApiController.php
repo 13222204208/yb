@@ -229,8 +229,8 @@ class TCApiController extends Controller
             $transaction->business_type= '转账';
             $transaction->business_mode= $request->fund_type;
             $transaction->business_money= $request->amount;
-            if ($request->business_mode) {
-                $transaction->business_mode = $request->business_mode;
+            if ($request->business_game) {
+                $transaction->business_game = $request->business_game;
             }
             $transaction->ask_time= date('Y-m-d H:i:s');
             $transaction->business_state = 1;
@@ -258,6 +258,33 @@ class TCApiController extends Controller
         $data['method']= "cs";
         $data['product_type']= $request->product_type;
         $data['ref_no'] = $request->ref_no;
+
+        $result = $this->send_require($data);
+        return $result;
+    }
+
+    public function recharge(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+        if ($user->username != $request->username) {
+            return response()->json([
+                'code' => 0,
+                'msg' => '用户名错误',
+            ], 200);
+        }
+
+        $data = array();
+        $data['method']= "glmoh";
+        $data['username']= $request->username;
+        $data['start_date']= $request->start_date;
+        $data['end_date'] = $request->end_date;
+        if ($request->page) {
+            $data['page']= $request->page;
+        }
 
         $result = $this->send_require($data);
         return $result;

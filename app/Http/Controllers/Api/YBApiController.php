@@ -147,8 +147,8 @@ class YBApiController extends Controller
             $transaction->business_type= '转账';
             $transaction->business_mode= '转入';
             $transaction->business_money= intval($request->money);
-            if ($request->business_mode) {
-                $transaction->business_mode = $request->business_mode;
+            if ($request->business_game) {
+                $transaction->business_game = $request->business_game;
             }
             $transaction->ask_time= date('Y-m-d H:i:s');
             $transaction->business_state = 1;
@@ -204,8 +204,8 @@ class YBApiController extends Controller
             $transaction->business_type= '转账';
             $transaction->business_mode= '转出';
             $transaction->business_money= intval($request->money);
-            if ($request->business_mode) {
-                $transaction->business_mode = $request->business_mode;
+            if ($request->business_game) {
+                $transaction->business_game = $request->business_game;
             }
             $transaction->ask_time= date('Y-m-d H:i:s');
             $transaction->business_state = 1;

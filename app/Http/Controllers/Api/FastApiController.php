@@ -137,27 +137,28 @@ class FastApiController extends Controller
         $data = json_encode($data);
         $url = $request->url;
 
-        //转帐
-        $money= UserDetail::where('username',$user->username)->first();
-        if ($request->TransType == 'Deposit') {
-            if ($money->balance < $request->Amount) {
-                return response()->json([
-                    'code' => 1001,
-                    'msg' => '金额不足',
-                ], 200);
-            }else {
-                $money->balance = $money->balance - $request->Amount;
-            }
-        }
 
-        if ($request->TransType == 'Withdraw') {
-            $money->balance = $money->balance + $request->Amount;
-        }
 
         $result= $this->curlData($url,$data);
-        $resa= json_decode($result,true);
-        Log::info('arr.', ['s'=>$resa['IsSuccess']]);
-        if ($result === true) {
+        $res= json_decode($result,true);
+       // Log::info('arr.', ['s'=>$resa['IsSuccess']]);
+        if ($res['IsSuccess'] === true) {
+            //转帐
+            $money= UserDetail::where('username',$user->username)->first();
+            if ($request->TransType == 'Deposit') {
+                if ($money->balance < $request->Amount) {
+                    return response()->json([
+                        'code' => 1001,
+                        'msg' => '金额不足',
+                    ], 200);
+                }else {
+                    $money->balance = $money->balance - $request->Amount;
+                }
+            }
+
+            if ($request->TransType == 'Withdraw') {
+                $money->balance = $money->balance + $request->Amount;
+            }
             $money->save();
 
             $transaction= new Transaction;
@@ -167,8 +168,10 @@ class FastApiController extends Controller
             $transaction->business_mode= $request->TransType;
             $transaction->business_money= $request->Amount;
             $transaction->ask_time= date('Y-m-d H:i:s');
+            $transaction->business_state = 1;
             $transaction->save();
         }
+        return $result;
 
     }
 
@@ -196,10 +199,7 @@ class FastApiController extends Controller
         $data = json_encode($data);
         $url = $request->url;
 
-        $res= $this->curlData($url,$data);
-       $resa= json_decode($res,true);
-        Log::info('statusStr.', ['TradeNo'=>$resa
-    ]);
-        return $res;
+        $this->curlData($url,$data);
+
     }
 }

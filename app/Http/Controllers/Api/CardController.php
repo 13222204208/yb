@@ -6,7 +6,6 @@ use App\Model\BankCard;
 use Illuminate\Http\Request;
 use App\Http\Requests\CardRequest;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Http\Controllers\Controller;
 
 class CardController extends Controller
 {

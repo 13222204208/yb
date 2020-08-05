@@ -39,6 +39,7 @@ class PayApiController extends Controller
         $transaction->business_type= '存款';
         $transaction->business_mode= $request->service;
         $transaction->business_money= $request->amount;
+        $transaction->state = 1;
         $transaction->ask_time= date('Y-m-d H:i:s');
         $transaction->save();
 

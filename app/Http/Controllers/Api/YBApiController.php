@@ -7,6 +7,7 @@ use App\Model\Transaction;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Log;
 
 class YBApiController extends Controller
 {
@@ -48,12 +49,13 @@ class YBApiController extends Controller
             "Content-type: text/plain"
         ));
         curl_setopt($ch, CURLOPT_URL, $url);//要访问的地址
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//执行结果是否被返回，0是返回，1是不返回
         curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
 
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_exec($ch);//执行并获取数据
+        $res= curl_exec($ch);//执行并获取数据
         curl_close($ch);
+        return $res;
     }
 
     public function launchGame(Request $request)
@@ -80,7 +82,8 @@ class YBApiController extends Controller
         $url= $request->url;
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
         $data= $this->encryptText($data);
-        $this->curlData($url,$data);
+        $result= $this->curlData($url,$data);
+        return $result;
 
     }
 
@@ -133,6 +136,7 @@ class YBApiController extends Controller
         $result= $this->curlData($url,$data);
 
         $state = json_decode($result,true);
+        Log::info('arr.', ['tc'=>$state]);
         if ($state['code'] === 1000)  {
             $money->save();
 
@@ -140,7 +144,7 @@ class YBApiController extends Controller
             $transaction->order_num= $data['orderId'];
             $transaction->username= $user->username;
             $transaction->business_type= '转帐';
-            $transaction->business_mode= '转出';
+            $transaction->business_mode= '转入';
             $transaction->business_money= intval($request->money);
             $transaction->ask_time= date('Y-m-d H:i:s');
             $transaction->save();
@@ -223,7 +227,8 @@ class YBApiController extends Controller
         $url= $request->url;
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
         $data= $this->encryptText($data);
-        $this->curlData($url,$data);
+        $result= $this->curlData($url,$data);
+        return $result;
     }
 
     public function updateMemberPwd(Request $request)
@@ -248,7 +253,8 @@ class YBApiController extends Controller
         $url= $request->url;
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
         $data= $this->encryptText($data);
-        $this->curlData($url,$data);
+        $result= $this->curlData($url,$data);
+        return $result;
     }
 
     public function gameList(Request $request)
@@ -257,7 +263,8 @@ class YBApiController extends Controller
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
 
         $data = false;
-        $this->curlData($url,$data);
+        $result= $this->curlData($url,$data);
+        return $result;
 
     }
 }

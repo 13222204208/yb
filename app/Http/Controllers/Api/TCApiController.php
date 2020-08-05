@@ -219,7 +219,7 @@ class TCApiController extends Controller
 
         $result = $this->send_require($data);
         $state = json_decode($result,true);
-        Log::info('arr.', ['tc'=>$state]);
+        //Log::info('arr.', ['tc'=>$state]);
         if ($state['status'] === 0 ) {
             $money->save();
 
@@ -230,6 +230,7 @@ class TCApiController extends Controller
             $transaction->business_mode= $request->fund_type;
             $transaction->business_money= $request->amount;
             $transaction->ask_time= date('Y-m-d H:i:s');
+            $transaction->business_state = 1;
             $transaction->save();
         }
 

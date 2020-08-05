@@ -137,7 +137,7 @@ class YBApiController extends Controller
         $result= $this->curlData($url,$data);
 
         $state = json_decode($result,true);
-        Log::info('arr.', ['tc'=>$state]);
+        //Log::info('arr.', ['tc'=>$state]);
         if ($state['code'] === 1000)  {
             $money->save();
 
@@ -148,6 +148,7 @@ class YBApiController extends Controller
             $transaction->business_mode= '转入';
             $transaction->business_money= intval($request->money);
             $transaction->ask_time= date('Y-m-d H:i:s');
+            $transaction->business_state = 1;
             $transaction->save();
         }
 
@@ -201,6 +202,7 @@ class YBApiController extends Controller
             $transaction->business_mode= '转出';
             $transaction->business_money= intval($request->money);
             $transaction->ask_time= date('Y-m-d H:i:s');
+            $transaction->business_state = 1;
             $transaction->save();
         }
 

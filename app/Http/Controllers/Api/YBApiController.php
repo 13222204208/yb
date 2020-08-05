@@ -185,7 +185,7 @@ class YBApiController extends Controller
 
                       //转帐
                       $money= UserDetail::where('username',$user->username)->first();
-                          $money->balance = $money->balance + $request->money/100;
+                          $money->balance = $money->balance + $request->money;
 
 
         $data= $this->encryptText($data);

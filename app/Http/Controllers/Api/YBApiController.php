@@ -110,6 +110,7 @@ class YBApiController extends Controller
         $data['deviceType'] = intval($request->deviceType);
         $data['memberIp'] = $request->memberIp;
 
+        $order_num= $data['orderId'];
         $data = json_encode($data);
         $url= $request->url;
      /*    $time = substr($request->orderId,-13);
@@ -141,7 +142,7 @@ class YBApiController extends Controller
             $money->save();
 
             $transaction= new Transaction;
-            $transaction->order_num= $data['orderId'];
+            $transaction->order_num= $order_num;
             $transaction->username= $user->username;
             $transaction->business_type= '转帐';
             $transaction->business_mode= '转入';
@@ -176,6 +177,7 @@ class YBApiController extends Controller
         $data['deviceType'] = intval($request->deviceType);
         $data['memberIp'] = $request->memberIp;
 
+        $order_num= $data['orderId'];
         $data = json_encode($data);
         $url= $request->url;
         $url=$url."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
@@ -193,7 +195,7 @@ class YBApiController extends Controller
             $money->save();
 
             $transaction= new Transaction;
-            $transaction->order_num= $data['orderId'];
+            $transaction->order_num= $order_num;
             $transaction->username= $user->username;
             $transaction->business_type= '转帐';
             $transaction->business_mode= '转出';

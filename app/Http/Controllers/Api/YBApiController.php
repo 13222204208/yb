@@ -122,13 +122,13 @@ class YBApiController extends Controller
                 //转帐
                 $money= UserDetail::where('username',$user->username)->first();
 
-                    if ($money->balance < $request->money) {
+                    if ($money->balance < $request->money/100) {
                         return response()->json([
                             'code' => 1001,
                             'msg' => '金额不足',
                         ], 200);
                     }else {
-                        $money->balance = $money->balance - $request->money;
+                        $money->balance = $money->balance - $request->money/100;
                     }
 
 

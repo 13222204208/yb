@@ -263,7 +263,7 @@ class TCApiController extends Controller
         return $result;
     }
 
-    public function recharge(Request $request)
+    public function record(Request $request)
     {
         $this->validate($request, [
             'token' => 'required'

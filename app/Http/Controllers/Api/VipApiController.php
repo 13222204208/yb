@@ -17,9 +17,12 @@ class VipApiController extends Controller
         $user= JWTAuth::authenticate($request->token);
 
         $amount= Transaction::where('username',$user->username)->where('business_state',1)->where('business_type','存款')->sum('business_money');
+
+        $running= Transaction::where('username',$user->username)->where('business_state',1)->where('business_type','转账')->sum('business_money');
         return response()->json([
             'msg' => '成功',
             'amount' => $amount,
+            'running'=> $running,
             'code' => 200
         ]);
     }

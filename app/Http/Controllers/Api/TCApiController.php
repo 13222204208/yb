@@ -226,7 +226,7 @@ class TCApiController extends Controller
             $transaction= new Transaction;
             $transaction->order_num= $request->reference_no;
             $transaction->username= $user->username;
-            $transaction->business_type= '转帐';
+            $transaction->business_type= '转账';
             $transaction->business_mode= $request->fund_type;
             $transaction->business_money= $request->amount;
             $transaction->ask_time= date('Y-m-d H:i:s');

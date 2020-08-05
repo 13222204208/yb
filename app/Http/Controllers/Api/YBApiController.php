@@ -144,7 +144,7 @@ class YBApiController extends Controller
             $transaction= new Transaction;
             $transaction->order_num= $order_num;
             $transaction->username= $user->username;
-            $transaction->business_type= '转帐';
+            $transaction->business_type= '转账';
             $transaction->business_mode= '转入';
             $transaction->business_money= intval($request->money);
             $transaction->ask_time= date('Y-m-d H:i:s');
@@ -198,7 +198,7 @@ class YBApiController extends Controller
             $transaction= new Transaction;
             $transaction->order_num= $order_num;
             $transaction->username= $user->username;
-            $transaction->business_type= '转帐';
+            $transaction->business_type= '转账';
             $transaction->business_mode= '转出';
             $transaction->business_money= intval($request->money);
             $transaction->ask_time= date('Y-m-d H:i:s');

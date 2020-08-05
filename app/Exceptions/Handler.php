@@ -64,9 +64,8 @@ class Handler extends ExceptionHandler
             return response()->json(['msg' => '无效的token','code'=>204]);
         } else if ($exception->getPrevious() instanceof TokenBlacklistedException) {
             return response()->json(['error' => '列入黑名单']);
-        } else {
-            return response()->json(['msg' => "错误的请求",'code'=>401], 401);
         }
+
         return parent::render($request, $exception);
     }
 }

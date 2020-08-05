@@ -21,10 +21,8 @@ class FastApiController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);//执行结果是否被返回，0是返回，1是不返回
         curl_setopt($ch, CURLOPT_POST, 1);// 发送一个常规的POST请求
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        $res= curl_exec($ch);//执行并获取数据
-
+        curl_exec($ch);//执行并获取数据
         curl_close($ch);
-        return $res;
     }
 
     public function register(Request $request)
@@ -197,10 +195,10 @@ class FastApiController extends Controller
         $data = json_encode($data);
         $url = $request->url;
 
-        $res= $this->curlData($url,$data);
-       $resa= json_decode($res,true);
+        $this->curlData($url,$data);
+/*        $resa= json_decode($res,true);
         Log::info('statusStr.', ['TradeNo'=>$resa
     ]);
-        return $res;
+        return $res; */
     }
 }

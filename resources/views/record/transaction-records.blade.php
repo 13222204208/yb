@@ -206,7 +206,7 @@
                           return "余额查询"
 
                       default:
-                          return "未知"
+                          return d.business_mode
                   }
               } }
       ,{field:'business_money', title: '交易金额', width:120}
@@ -304,7 +304,7 @@
                           return "余额查询"
 
                       default:
-                          return "未知"
+                          return d.business_mode
                   }
               }   }
       ,{field:'business_money', title: '交易金额', width:120}

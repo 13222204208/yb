@@ -6,6 +6,7 @@ use App\Model\UserDetail;
 use App\Model\Transaction;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Log;
 
 class TCApiController extends Controller
 {
@@ -217,6 +218,7 @@ class TCApiController extends Controller
 
         $result = $this->send_require($data);
         $state = json_decode($result,true);
+        Log::info('arr.', ['tc'=>$state]);
         if ($state['status'] === 0 ) {
             $money->save();
 

@@ -27,7 +27,7 @@ class RegisterAuthRequest extends ApiBaseRequest
     {
        return [
             'username.required' => '请先填写用户名',
-            'username.unique:f_userinfo' => '用户名重复',
+            'username.unique' => '用户名重复',
             'username.alpha_num'=> '用户名只允许数字和字母',
         ];
     }

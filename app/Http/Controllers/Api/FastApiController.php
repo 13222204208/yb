@@ -213,7 +213,7 @@ class FastApiController extends Controller
 
     public function betRecord()
     {
-        $start= time()-600;
+        $start= time()-6000;
         $StartDate= date("Y/m/d H:i:s",$start);
         $EndDate = date("Y/m/d H:i:s");
         $data = array();
@@ -227,6 +227,7 @@ class FastApiController extends Controller
         $url = 'http://api.test.fastapi2020.com:6080/Api/Game/BetRecord';
 
         $result= $this->curlData($url,$data);
-        return $result;
+        $record= json_decode($result,true);
+        return $record['Data'];
     }
 }

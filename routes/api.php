@@ -71,13 +71,15 @@ Route::middleware('cors')->prefix('game')->group(function (){
 
     Route::post('/yb/gameList','Api\YBApiController@gameList');//亚博查询游戏列表
 
+    Route::post('/fast/betRecord','Api\FastApiController@betRecord');//获取平台投注记录
+
     Route::group(['middleware' => 'auth.jwt'], function () {
         Route::post('/fast/register','Api\FastApiController@register');//注册
         Route::post('/fast/login','Api\FastApiController@login');//登入
         Route::post('/fast/balance','Api\FastApiController@balance');//获取会员钱包余额
         Route::post('/fast/transfer','Api\FastApiController@transfer');//转帐
         Route::post('/fast/checkTransfer','Api\FastApiController@checkTransfer');//检查转帐
-        Route::post('/fast/betRecord','Api\FastApiController@betRecord');//获取平台投注记录
+
 
 
         Route::post('/cancelCollect','Api\GameCollectController@cancelCollect');//取消收藏的游戏

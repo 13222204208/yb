@@ -77,7 +77,7 @@ Route::middleware('cors')->prefix('game')->group(function (){
         Route::post('/fast/balance','Api\FastApiController@balance');//获取会员钱包余额
         Route::post('/fast/transfer','Api\FastApiController@transfer');//转帐
         Route::post('/fast/checkTransfer','Api\FastApiController@checkTransfer');//检查转帐
-        Route::post('/betRecord','Api\FastApiController@betRecord');//获取平台投注记录
+        Route::post('/fast/betRecord','Api\FastApiController@betRecord');//获取平台投注记录
 
 
         Route::post('/cancelCollect','Api\GameCollectController@cancelCollect');//取消收藏的游戏

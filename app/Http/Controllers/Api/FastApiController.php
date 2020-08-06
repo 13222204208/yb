@@ -227,7 +227,7 @@ class FastApiController extends Controller
 
         $url = 'http://api.test.fastapi2020.com:6080/Api/Game/BetRecord';
 
-        $game= array('AG','BBIN','OGPlus','AllBet','EG','WM','AVIA','IMSB');
+        $game= array('AG','BBIN','OGPlus','AllBet','EG','WM','AVIA','IMSB','LC','VR','ThreeSing','SABA');
 
         for ($i=0; $i < count($game); $i++) {
             $data['Game'] = $game[$i];

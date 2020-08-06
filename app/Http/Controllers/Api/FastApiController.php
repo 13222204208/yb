@@ -214,7 +214,7 @@ class FastApiController extends Controller
 
     public function betRecord()
     {
-        $start= time()-6000;
+        $start= time()-600;
         $StartDate= date("Y/m/d H:i:s",$start);
         $EndDate = date("Y/m/d H:i:s");
         $data = array();

@@ -71,6 +71,8 @@ Route::middleware('cors')->prefix('game')->group(function (){
 
     Route::post('/yb/gameList','Api\YBApiController@gameList');//亚博查询游戏列表
 
+    Route::post('/yb/chessRecord','Api\YBApiController@chessRecord');//亚博棋牌投注记录请求链接在方法内更改
+
     Route::post('/fast/betRecord','Api\FastApiController@betRecord');//获取平台投注记录
 
     Route::group(['middleware' => 'auth.jwt'], function () {

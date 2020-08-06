@@ -223,7 +223,7 @@ class FastApiController extends Controller
 
         $data['StartDate'] = $StartDate;
         $data['EndDate'] = $EndDate;
-        $data['Hash'] = MD5($this->apiKey.$data['Game'].$data['StartDate'].$data['EndDate'].$this->apiSecret.$data['Timestamp']);
+
 
         $url = 'http://api.test.fastapi2020.com:6080/Api/Game/BetRecord';
 
@@ -231,6 +231,7 @@ class FastApiController extends Controller
 
         for ($i=0; $i < count($game); $i++) {
             $data['Game'] = $game[$i];
+            $data['Hash'] = MD5($this->apiKey.$data['Game'].$data['StartDate'].$data['EndDate'].$this->apiSecret.$data['Timestamp']);
             $data = json_encode($data);
 
             $result= $this->curlData($url,$data);

@@ -20,6 +20,10 @@ class BgBankCard extends Migration
             $table->string('bank_name',40)->default('')->comment('银行名称');
             $table->string('open_bank',40)->default('')->comment('开户行');
             $table->string('card_num',30)->default('')->comment('银行卡号');
+            $table->string('subsidiaryBank',30)->default('')->comment('分行');
+            $table->string('subbranch',30)->default('')->comment('支行');
+            $table->string('province',30)->default('')->comment('省份');
+            $table->string('city',30)->default('')->comment('城市');
             $table->decimal('min_money',9,2)->default(1)->comment('单笔最低充值');
             $table->decimal('max_money',9,2)->default(1)->comment('单笔最高充值');
             $table->decimal('day_max_money',9,2)->default(1)->comment('单日充值上限');

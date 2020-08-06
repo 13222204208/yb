@@ -19,6 +19,10 @@ class CardController extends Controller
         $card->bank_name = $request->bank_name;
         $card->open_bank = $request->open_bank;
         $card->card_num = $request->card_num;
+        $card->subsidiaryBank = $request->subsidiaryBank;
+        $card->subbranch = $request->subbranch;
+        $card->province = $request->province;
+        $card->city = $request->city;
 
         $state = $card->save();
 
@@ -40,7 +44,9 @@ class CardController extends Controller
         ]);
         $user = JWTAuth::authenticate($request->token);
 
-        $data= BankCard::where('username',$user->username)->where('state',1)->get(['id','card_num','bank_name']);
+        $data= BankCard::where('username',$user->username)->where('state',1)->get(['id','card_num','bank_name','username','open_bank',
+            'subsidiaryBank','subbranch','province','city'
+        ]);
 
         if ($data) {
             return response()->json(['msg' => '成功','data'=>$data,'code' => 200],200);

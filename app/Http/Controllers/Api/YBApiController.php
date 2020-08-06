@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Model\UserDetail;
 use App\Model\Transaction;
 use Illuminate\Support\Str;
+use App\Model\YbChessRecord;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Log;
@@ -294,7 +295,10 @@ class YBApiController extends Controller
         $data= $this->encryptText($data);
         $result= $this->curlData($url,$data);
         $record= json_decode($result,true);
-        return $record['data']['list'];
+
+        if ( $record['data']['list'] != null && $record['code']===1000) {
+            YbChessRecord::insert($record['data']['list']);
+        }
 
     }
 }

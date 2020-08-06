@@ -227,7 +227,7 @@ class FastApiController extends Controller
         $url = 'http://api.test.fastapi2020.com:6080/Api/Game/BetRecord';
 
         $data = stripslashes(json_encode($data,JSON_UNESCAPED_UNICODE));
-return $data;
+
         $result= $this->curlData($url,$data);
         return $result;
     }

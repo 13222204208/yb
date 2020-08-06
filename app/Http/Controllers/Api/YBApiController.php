@@ -283,7 +283,7 @@ class YBApiController extends Controller
         $beginTime = time()-600;
         $endTime  = time();
 
-        $url='https://uatopenapi.fun100.site/queryGameOrders'."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
+        $url='https://uatbetinfo.fun100.site/queryGameOrders'."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
 
         $data = array();
         $data['beginTime']= $beginTime;

@@ -223,7 +223,7 @@ class FastApiController extends Controller
         $data['Game'] = 'AG';
         $data['StartDate'] = $StartDate;
         $data['EndDate'] = $EndDate;
-        $data['Hash'] = md5($data['ApiKey']+$data['Game']+$data['StartDate']+$data['EndDate'] +$this->apiSecret +$data['Timestamp']);
+        //$data['Hash'] = md5($data['ApiKey']+$data['Game']+$data['StartDate']+$data['EndDate'] + $this->apiSecret +$data['Timestamp']);
         $data = json_encode($data);
         $url = 'http://api.test.fastapi2020.com:6080/Api/Game/BetRecord';
 

@@ -8,8 +8,8 @@ class FastRecord extends Model
 {
     protected $table = 'fast_record';
     protected $guarded = [];
-    protected $casts = [
+/*     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s'
-    ];
+    ]; */
 }

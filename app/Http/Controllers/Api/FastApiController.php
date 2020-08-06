@@ -220,19 +220,25 @@ class FastApiController extends Controller
         $data = array();
         $data['ApiKey']= $this->apiKey;
         $data['Timestamp'] = time();
-        $data['Game'] = 'AllBet';
+
         $data['StartDate'] = $StartDate;
         $data['EndDate'] = $EndDate;
         $data['Hash'] = MD5($this->apiKey.$data['Game'].$data['StartDate'].$data['EndDate'].$this->apiSecret.$data['Timestamp']);
-        $data = json_encode($data);
+
         $url = 'http://api.test.fastapi2020.com:6080/Api/Game/BetRecord';
 
-        $result= $this->curlData($url,$data);
-        $record= json_decode($result,true);
-        if ($record['Code']===0 && $record['Data'] != null) {
-            FastRecord::insert($record['Data']);
-            return true;
-        }
+        $game= array('AG','BBIN','OGPlus','AllBet','EG','WM','AVIA','IMSB');
 
+        for ($i=0; $i < count($game); $i++) {
+            $data['Game'] = $game[$i];
+            $data = json_encode($data);
+
+            $result= $this->curlData($url,$data);
+            $record= json_decode($result,true);
+
+            if ($record['Code']===0 && $record['Data'] != null) {
+                FastRecord::insert($record['Data']);
+            }
+        }
     }
 }

@@ -263,19 +263,8 @@ class TCApiController extends Controller
         return $result;
     }
 
-    public function record(Request $request)
+    public function gameRecord(Request $request)
     {
-        $this->validate($request, [
-            'token' => 'required'
-        ]);
-
-        $user= JWTAuth::authenticate($request->token);
-        if ($user->username != $request->username) {
-            return response()->json([
-                'code' => 0,
-                'msg' => '用户名错误',
-            ], 200);
-        }
 
         $data = array();
         $data['method']= "bd";

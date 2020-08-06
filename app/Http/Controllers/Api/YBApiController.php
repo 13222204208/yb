@@ -281,7 +281,7 @@ class YBApiController extends Controller
 
     public function chessRecord()
     {
-        $beginTime = time()-600;
+        $beginTime = time()-300;
         $endTime  = time();
 
         $url='https://uatbetinfo.fun100.site/queryGameOrders'."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;

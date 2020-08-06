@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Log;
 
 class FastApiController extends Controller
 {
+    public $apiKey= 'testbyyl2020720';
+    public $apiSecret = 'zocGNgmOkQTkseY5c3TnqdzGi1fYGoqp3rkbak1MGYiBa97am3';
 
     public function curlData($url,$data)
     {
@@ -208,5 +210,25 @@ class FastApiController extends Controller
         $result= $this->curlData($url,$data);
         return $result;
 
+    }
+
+    public function betRecord()
+    {
+        $start= time()-600;
+        $StartDate= date("Y/m/d H:i:s",$start);
+        $EndDate = date("Y/m/d H:i:s");
+        $data = array();
+        $data['ApiKey']= $this->apiKey;
+        $data['Timestamp'] = time();
+        $data['Game'] = 'AG';
+        $data['StartDate'] = $StartDate;
+        $data['EndDate'] = $EndDate;
+        $data['Hash'] = md5($data['ApiKey']+$data['Game']+$data['StartDate']+$data['EndDate'] +$this->apiSecret +$data['Timestamp']);
+        $data = json_encode($data);
+        $url = 'http://api.test.fastapi2020.com:6080/Api/Game/BetRecord';
+
+        $data = json_encode($data);
+        $result= $this->curlData($url,$data);
+        return $result;
     }
 }

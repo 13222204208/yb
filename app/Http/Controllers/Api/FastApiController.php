@@ -237,7 +237,7 @@ class FastApiController extends Controller
             $result= $this->curlData($url,$jsonData);
             $record= json_decode($result,true);
 
-            if ($record['Code']===0 && $record['Data'] != null) {
+            if ( $record['Data'] != null && $record['Code']===0) {
                 FastRecord::insert($record['Data']);
             }
         }

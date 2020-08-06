@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api;
 
+use App\Model\FastRecord;
 use App\Model\UserDetail;
 use App\Model\Transaction;
 use Illuminate\Http\Request;
@@ -228,6 +229,10 @@ class FastApiController extends Controller
 
         $result= $this->curlData($url,$data);
         $record= json_decode($result,true);
-        return $record['Data'];
+        if ($record['Code']===0 && $record['Data'] != null) {
+            FastRecord::insert($record['Data']);
+            return true;
+        }
+
     }
 }

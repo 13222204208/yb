@@ -278,10 +278,8 @@ class TCApiController extends Controller
         }
 
         $data = array();
-        $data['method']= "glmoh";
-        $data['username']= $request->username;
-        $data['start_date']= $request->start_date;
-        $data['end_date'] = $request->end_date;
+        $data['method']= "bd";
+        $data['batch_name']= $request->batch_name;
         if ($request->page) {
             $data['page']= $request->page;
         }

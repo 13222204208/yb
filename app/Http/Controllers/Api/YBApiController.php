@@ -293,7 +293,8 @@ class YBApiController extends Controller
         $data = json_encode($data);
         $data= $this->encryptText($data);
         $result= $this->curlData($url,$data);
-        return $result;
+        $record= json_decode($result,true);
+        return $record['data']['list'];
 
     }
 }

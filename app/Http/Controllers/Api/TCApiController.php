@@ -268,7 +268,7 @@ class TCApiController extends Controller
     public function gameRecord(Request $request)
     {
         $game= array('pvpbd','bd');
-        $data = array();
+
 
         $time= date('YmdHi',time()-15*60);
 
@@ -277,7 +277,7 @@ class TCApiController extends Controller
         if ($num >= 15 && $num < 30) $batch_name = substr($time,0,-2).'15';
         if ($num >= 30 && $num < 45) $batch_name = substr($time,0,-2).'30';
         if ($num >= 45 && $num < 60) $batch_name = substr($time,0,-2).'45';
-return gettype($batch_name);
+        $data = array();
         for ($i = 0; $i < count($game); $i++) {
 
             $data['method'] = $game[$i];
@@ -286,7 +286,7 @@ return gettype($batch_name);
             $record = json_decode($result, true);
 
             if ($record['details'] != null && $record['status'] === 0) {
-                $tableName = 'tc_'.strtolower($data['method']).'_record';//拼接数据表名,插入数据
+                $tableName = 'tc_'.$game[$i].'_record';//拼接数据表名,插入数据
                 DB::table($tableName)->insert($record['details']);
             }
         }

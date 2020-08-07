@@ -270,7 +270,7 @@ class TCApiController extends Controller
         $game= array('pvpbd','bd');
 
 
-        $time= date('YmdHi',time()-55*60);
+        $time= date('YmdHi',time()-45*60);
 
         $num= intval(substr($time,10));
         if ($num >= 0 && $num < 15) $batch_name = substr($time,0,-2).'00';

@@ -267,7 +267,7 @@ class TCApiController extends Controller
     {
 
         $data = array();
-        $data['method']= "phpbd";
+        $data['method']= "pvpbd";
         $data['batch_name']= $request->batch_name;
 
  /*        $time= date('YmdHi',time()-15*60);

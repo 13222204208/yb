@@ -239,7 +239,7 @@ class FastApiController extends Controller
             $record= json_decode($result,true);
 
             if ( $record['Data'] != null && $record['Code']===0) {
-                $tableName = 'aq_'.strtolower($data['Game']).'_record';
+                $tableName = 'aq_'.strtolower($data['Game']).'_record';//拼接数据表名,插入数据
                 DB::table($tableName)->insert($record['Data']);
             }
         }

@@ -38,6 +38,10 @@ class PlatformController extends Controller
         }
 
         if ($request->start_time && $request->stop_time) {
+            $game= array('AG','BBIN','OGPlus','AllBet','EG','WM','AVIA','IMSB','LC','VR','ThreeSing','SABA');
+            if (in_array($platform_name,$game)) {
+                
+            }
 
             $data = Betting::orderBy('bottom_pour_time', 'desc')->where('username', $user->username)->whereDate('bottom_pour_time', '>=',$request->start_time)->whereDate('bottom_pour_time', '<=',$request->stop_time)->when($platform_name, function ($query) use ($platform_name) {
                 $query->where('platform_name', '=', $platform_name);

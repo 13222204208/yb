@@ -17,7 +17,7 @@ class CardController extends Controller
         $card->username = $user->username;
         $card->card_name = $request->card_name;
         $card->bank_name = $request->bank_name;
-        $card->open_bank = $request->open_bank;
+
         $card->card_num = $request->card_num;
         $card->subsidiaryBank = $request->subsidiaryBank;
         $card->subbranch = $request->subbranch;

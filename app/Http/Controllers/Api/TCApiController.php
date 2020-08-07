@@ -283,7 +283,8 @@ class TCApiController extends Controller
             $data['method'] = $game[$i];
             $data['batch_name'] = $batch_name;
             $result = $this->send_require($data);
-            $record = json_decode($result); return gettype( $record->details);
+            return gettype($result);
+            $record = json_decode($result,true); return $record['details'];
             DB::table('tc_pvpbd_record')->insert($record['details']);
 
             if ($record['details'] != null && $record['status'] === 0) {

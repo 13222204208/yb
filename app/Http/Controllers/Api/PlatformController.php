@@ -44,7 +44,7 @@ class PlatformController extends Controller
             if (in_array($platform_name,$game)) {
                 $tableName = 'aq_'.strtolower($platform_name).'_record';
                 $data = DB::table($tableName)->orderBy('BetDate', 'desc')->where('MemberAccount', $user->username)->whereDate('BetDate', '>=',$request->start_time)->whereDate('BetDate', '<=',$request->stop_time)->get(
-                    ['id', 'BetStatus', 'TotalWinlose', 'Bet', 'TotalPayout', 'BetDate']
+                    ['id', 'BetStatus', 'TotalWinlose', 'Bet', 'TotalPayout', 'BetDate','GameType']
                 );
 
                 $todayCount = DB::table($tableName)->orderBy('BetDate', 'desc')->where('MemberAccount', $user->username)->whereBetween('BetDate', [$request->start_time, $request->stop_time])->selectRaw('DATE_FORMAT(BetDate,"%m-%d") as date,COUNT(id) as num ,SUM(Bet) as Bet,SUM(TotalPayout) as TotalPayout')
@@ -123,7 +123,7 @@ class PlatformController extends Controller
         $data = DB::table($tableName)->orderBy('BetDate', 'desc')->where('MemberAccount', $user->username)->whereDate('BetDate', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
             $query->whereDate('BetDate', '=', $yesterday);
         })->get(
-            ['id', 'BetStatus', 'TotalWinlose', 'Bet', 'TotalPayout', 'BetDate']
+            ['id', 'BetStatus', 'TotalWinlose', 'Bet', 'TotalPayout', 'BetDate','GameType']
         );
 
         $todayCount =DB::table($tableName)->orderBy('BetDate', 'desc')->where('MemberAccount', $user->username)->whereDate('BetDate', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {

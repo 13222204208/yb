@@ -54,7 +54,7 @@ class TCApiController extends Controller
         $sign = hash('sha256', $sd);//echo $sign;exit;
 
         $data = array('merchant_code' => $this->merchant_code, 'params' => $params , 'sign' => $sign);
-
+return $data;
         $res= $this->curlData($this->url,$data);
         return $res;
 

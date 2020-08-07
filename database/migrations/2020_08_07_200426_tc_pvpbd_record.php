@@ -15,7 +15,7 @@ class TcPvpbdRecord extends Migration
     {
         Schema::create('tc_pvpbd_record', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('gameCode',50)->default('')->comment('游戏代码   ');
+            $table->string('gameCode',50)->default('')->comment('游戏代码  ');
             $table->string('betTime',50)->default('')->comment('投注时间');
             $table->string('endTime',50)->default('')->comment('结束时间');
             $table->string('productType',30)->default('')->comment('产品类别');

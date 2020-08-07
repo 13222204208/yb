@@ -18,9 +18,9 @@ class TcPvpbdRecord extends Migration
             $table->string('gameCode',50)->default('')->comment('游戏代码   ');
             $table->string('betTime',50)->default('')->comment('投注时间');
             $table->string('endTime',50)->default('')->comment('结束时间');
-            $table->integer('productType')->default(0)->comment('产品类别');
+            $table->string('productType',30)->default('')->comment('产品类别');
             $table->string('sessionId',50)->default('')->comment('局号');
-            $table->string('additionalInfo',150)->default('')->comment('详细注单内容');
+            $table->string('additionalInfo')->default('')->comment('详细注单内容');
             $table->string('username',30)->comment('游戏账号的登录名 ');
             $table->decimal('betAmount',16,1)->default(0)->comment('投注金额');
             $table->decimal('netPnl',16,1)->default(0)->comment('净输赢');

@@ -230,7 +230,19 @@ class FastApiController extends Controller
 
         $game= array('AG','BBIN','OGPlus','AllBet','EG','WM','AVIA','IMSB','LC','VR','ThreeSing','SABA');
 
-        for ($i=0; $i < count($game); $i++) {
+        $data['Game'] = 'OGPlus';
+        $data['Hash'] = MD5($this->apiKey.$data['Game'].$data['StartDate'].$data['EndDate'].$this->apiSecret.$data['Timestamp']);
+        $jsonData = json_encode($data);
+
+        $result= $this->curlData($url,$jsonData);
+        $record= json_decode($result,true);
+
+        if ( $record['Data'] != null && $record['Code']===0) {
+            $tableName = 'aq_ogplus_record';
+            DB::table($tableName)->insert($record['Data']);
+        }
+        $table = 'aq_'.strtolower('OGPlus').'_record';
+/*         for ($i=0; $i < count($game); $i++) {
             $data['Game'] = $game[$i];
             $data['Hash'] = MD5($this->apiKey.$data['Game'].$data['StartDate'].$data['EndDate'].$this->apiSecret.$data['Timestamp']);
             $jsonData = json_encode($data);
@@ -242,8 +254,8 @@ class FastApiController extends Controller
                 $tableName = 'aq_'.strtolower($data['Game']).'_record';
                 DB::table($tableName)->insert($record['Data']);
             }
-        }
+        } */
+return $table;
 
-        return 'ok';
     }
 }

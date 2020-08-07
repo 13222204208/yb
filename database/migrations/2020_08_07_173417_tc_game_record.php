@@ -18,18 +18,16 @@ class TcGameRecord extends Migration
             $table->string('username',30)->comment('游戏账号的登录名 ');
             $table->decimal('betAmount',16,1)->default(0)->comment('投注金额');
             $table->decimal('validBetAmount',16,1)->default(0)->comment('有效投注金额 只有 AG, BBIN, MG ,EA 有有效投注');
-            $table->integer('OddsType')->default(0)->comment('赔率类型');
-            $table->string('GameCode',20)->default('')->comment('子游戏代码，多为电子游戏使用');
-            $table->string('MemberAccount',30)->default('')->comment('会员帐号');
-            $table->string('ModifyDate',50)->default('')->comment('最后更新时间');
-            $table->string('BetDate',50)->default('')->comment('投注时间');
-            $table->decimal('Bet',16,1)->default(0)->comment('投注金额');
-            $table->decimal('ValidBet',16,1)->default(0)->comment('有效投注额 (视游戏平台是否提供，未提供该值为0)');
-            $table->decimal('TotalPayout',16,1)->default(0)->comment('彩金(含投注额)');
-            $table->decimal('TotalWinlose',16,1)->default(0)->comment('淨输赢金额');
-            $table->string('BetContent',150)->default('')->comment('投注内容');
-            $table->integer('BetStatus')->default(0)->comment('结算状态 (0:未结算 1:取消/退回 2: 拒绝 3:已结算)');
-            $table->integer('GameType')->default(0)->comment('游戏类型');
+            $table->decimal('winAmount',16,1)->default(0)->comment('赢金额');
+            $table->decimal('netPnl',16,1)->default(0)->comment('净输赢');
+            $table->string('currency',20)->default('')->comment('币别');
+            $table->string('transactionTime',30)->default('')->comment('交易时间');
+            $table->string('gameCode',50)->default('')->comment('游戏代码   ');
+            $table->string('betOrderNo',50)->default('')->comment('投注订单编号');
+            $table->string('betTime',50)->default('')->comment('投注时间');
+            $table->integer('productType')->default(0)->comment('产品类别');
+            $table->string('gameCategory',50)->default('')->comment('游戏类别');
+            $table->string('sessionId',50)->default('')->comment('会话标识');
 
             $table->timestamps();
         });

@@ -268,11 +268,12 @@ class TCApiController extends Controller
 
         $data = array();
         $data['method']= "bd";
-        $data['batch_name']= $request->batch_name;
-        if ($request->page) {
-            $data['page']= $request->page;
-        }
+        //$data['batch_name']= $request->batch_name;
 
+        $time= date('Y-m-d H:i:s',time());
+        preg_match_all('/\d+/',$time,$arr);
+        $time = join('',$arr[0]);
+        return $time;
         $result = $this->send_require($data);
         return $result;
     }

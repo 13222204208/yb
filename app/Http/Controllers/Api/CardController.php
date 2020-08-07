@@ -44,7 +44,7 @@ class CardController extends Controller
         ]);
         $user = JWTAuth::authenticate($request->token);
 
-        $data= BankCard::where('username',$user->username)->where('state',1)->get(['id','card_num','bank_name','username','open_bank',
+        $data= BankCard::where('username',$user->username)->where('state',1)->get(['id','card_num','bank_name','username',
             'subsidiaryBank','subbranch','province','city'
         ]);
 

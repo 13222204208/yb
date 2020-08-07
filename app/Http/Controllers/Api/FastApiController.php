@@ -5,6 +5,7 @@ use App\Model\FastRecord;
 use App\Model\UserDetail;
 use App\Model\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Log;
 
@@ -238,7 +239,8 @@ class FastApiController extends Controller
             $record= json_decode($result,true);
 
             if ( $record['Data'] != null && $record['Code']===0) {
-                FastRecord::insert($record['Data']);
+                $tableName = 'aq_'.strtolower($data['Game']).'_record';
+                DB::table($tableName)->insert($record['Data']);
             }
         }
     }

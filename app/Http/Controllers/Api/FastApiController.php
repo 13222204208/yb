@@ -236,7 +236,7 @@ class FastApiController extends Controller
 
         $result= $this->curlData($url,$jsonData);
         $record= json_decode($result,true);
-
+return $record;
         if ( $record['Data'] != null && $record['Code']===0) {
             $tableName = 'aq_ogplus_record';
             DB::table($tableName)->insert($record['Data']);

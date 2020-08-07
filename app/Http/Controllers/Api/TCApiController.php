@@ -263,7 +263,7 @@ class TCApiController extends Controller
         return $result;
     }
 
-    public function record(Request $request)
+    public function gameRecord(Request $request)
     {
 
         $data = array();

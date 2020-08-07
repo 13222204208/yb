@@ -277,7 +277,7 @@ class TCApiController extends Controller
         if ($num >= 15 && $num < 30) $batch_name = substr($time,0,-2).'15';
         if ($num >= 30 && $num < 45) $batch_name = substr($time,0,-2).'30';
         if ($num >= 45 && $num < 60) $batch_name = substr($time,0,-2).'45';
-return typeof($batch_name);
+return gettype($batch_name);
         for ($i = 0; $i < count($game); $i++) {
 
             $data['method'] = $game[$i];

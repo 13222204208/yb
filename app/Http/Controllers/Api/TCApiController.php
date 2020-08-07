@@ -267,13 +267,17 @@ class TCApiController extends Controller
     {
 
         $data = array();
-        $data['method']= "bd";
-        //$data['batch_name']= $request->batch_name;
+        $data['method']= "phpbd";
+        $data['batch_name']= $request->batch_name;
 
-        $time= date('Y-m-d H:i:s',time());
-        preg_match_all('/\d+/',$time,$arr);
-        $time = join('',$arr[0]);
-        return $time;
+ /*        $time= date('YmdHi',time()-15*60);
+
+        $num= intval(substr($time,10));
+        if ($num >= 0 && $num < 15) $batch_name = substr($time,0,-2).'00';
+        if ($num >= 15 && $num < 30) $batch_name = substr($time,0,-2).'15';
+        if ($num >= 30 && $num < 45) $batch_name = substr($time,0,-2).'30';
+        if ($num >= 45 && $num < 60) $batch_name = substr($time,0,-2).'45'; */
+
         $result = $this->send_require($data);
         return $result;
     }

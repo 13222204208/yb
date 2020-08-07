@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TcGameRecord extends Migration
+class TcBdRecord extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class TcGameRecord extends Migration
      */
     public function up()
     {
-        Schema::create('tc_game_record', function (Blueprint $table) {
+        Schema::create('tc_bd_record', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username',30)->comment('游戏账号的登录名 ');
             $table->decimal('betAmount',16,1)->default(0)->comment('投注金额');
@@ -28,6 +28,7 @@ class TcGameRecord extends Migration
             $table->integer('productType')->default(0)->comment('产品类别');
             $table->string('gameCategory',50)->default('')->comment('游戏类别');
             $table->string('sessionId',50)->default('')->comment('会话标识');
+            $table->string('additionalDetails',150)->default('')->comment('产品追加投注详细信息列表');
 
             $table->timestamps();
         });

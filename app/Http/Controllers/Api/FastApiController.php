@@ -243,5 +243,7 @@ class FastApiController extends Controller
                 DB::table($tableName)->insert($record['Data']);
             }
         }
+
+        return 'ok';
     }
 }

@@ -284,8 +284,8 @@ class TCApiController extends Controller
             $data['batch_name'] = '202008072015';
             $result = $this->send_require($data);
 
-            $record = json_decode($result,true,512, JSON_BIGINT_AS_STRING);
-
+            $record = json_decode($result,true);
+return $record;
             $record['details'][0]['additionalInfo']= '1234545';
             //return $record['details'][0];
             //return gettype($record['details'][0]['additionalInfo']);

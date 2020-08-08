@@ -165,7 +165,7 @@ class PlatformController extends Controller
             ->groupBy('date')->get();
 
         $allCount = YbChessRecord::where('mmi', $user->username)->whereDate('st', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
-            $query->whereDate('bottom_pour_time', '=', $yesterday);
+            $query->whereDate('st', '=', $yesterday);
         })->selectRaw('COUNT(id) as num ,SUM(tb) as tb,SUM(mp) as mp')
             ->get();
 

@@ -284,30 +284,18 @@ class TCApiController extends Controller
             $data['batch_name'] = '202008072015';
             $result = $this->send_require($data);
             $record = explode(',',$result);
-            echo gettype($record);
-return $record;
-  /*           $record = json_decode($result,true);
 
-            $record['details'][0]= array(    "gameCode"=> "xxxxxx",
-            "betTime"=> "YYYY-MM-DD HH24:MI:SS",
-            "endTime"=>  "YYYY-MM-DD HH24:MI:SS",
-            "productType"=> "xxx",
-            "sessionId"=>  "xxxxxx",
-            "additionalInfo"=> "3423423",
-            "betAmount"=> "xxx",
-            "username"=> "xxx",
-            "netPnl"=>  "xxx",
-            "transactionTime"=>  "YYYY-MM-DD HH24:MI:SS",
-            "betOrderNo"=>  "xxxxxxxxxxxx",
-            "rake"=> "xxx"); */
+           $record = json_decode($result,true);
+
+
             //return $record['details'][0];
             //return gettype($record['details'][0]['additionalInfo']);
-    /*         DB::table('tc_pvpbd_record')->insert($record['details'][0]);
-
+            DB::table('tc_pvpbd_record')->insert($record['details']);
+return false;
             if ($record['details'] != null && $record['status'] === 0) {
                 $tableName = 'tc_'.$game[$i].'_record';//拼接数据表名,插入数据
                 DB::table($tableName)->insert($record['details']);
-            } */
+            }
         }
     }
 }

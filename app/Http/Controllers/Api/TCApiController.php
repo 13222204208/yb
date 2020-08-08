@@ -287,6 +287,7 @@ class TCApiController extends Controller
             $record = json_decode($result,true,512, JSON_BIGINT_AS_STRING);
 
             $record['details'][0]['additionalInfo']= '1234545';
+            return $record['details'][0];
             //return gettype($record['details'][0]['additionalInfo']);
             DB::table('tc_pvpbd_record')->insert($record['details'][0]);
 

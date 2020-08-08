@@ -24,8 +24,7 @@ class TCApiController extends Controller
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-          //  "Content-type: application/x-www-form-urlencoded;charset=UTF-8",
-            'Content-Type: application/json'
+            "Content-type: application/x-www-form-urlencoded;charset=UTF-8"
         ));
         curl_setopt($ch, CURLOPT_URL, $url); //要访问的地址
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //执行结果是否被返回，0是返回，1是不返回
@@ -284,15 +283,16 @@ class TCApiController extends Controller
             $data['method'] = $game[$i];
             $data['batch_name'] = '202008072015';
             $result = $this->send_require($data);
-            $record = explode(',',$result);
+            header('content-type:application/json;charset=utf8');
+
 
            $record = json_decode($result,true);
 
-return $record;
+
             //return $record['details'][0];
             //return gettype($record['details'][0]['additionalInfo']);
-            DB::table('tc_pvpbd_record')->insert($record['details']);
-return false;
+            DB::table('tc_pvpbd_record')->insert($record['details'][0]);
+
             if ($record['details'] != null && $record['status'] === 0) {
                 $tableName = 'tc_'.$game[$i].'_record';//拼接数据表名,插入数据
                 DB::table($tableName)->insert($record['details']);

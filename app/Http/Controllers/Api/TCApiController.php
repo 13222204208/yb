@@ -285,13 +285,14 @@ class TCApiController extends Controller
             $result = $this->send_require($data);
 
             $record = json_decode($result, true);
-
-            for ($i=0; $i < count($record['details']); $i++) {
-                $record['details'][$i]['additionalInfo']= json_encode($record['details'][$i]['additionalInfo']);
+            if ($data['method'] == 'pvpbd') {
+                for ($i=0; $i < count($record['details']); $i++) {
+                    $record['details'][$i]['additionalInfo']= json_encode($record['details'][$i]['additionalInfo']);
+                }
             }
-            DB::table('tc_pvpbd_record')->insert($record['details']); return false;
+
             if ($record['details'] != null && $record['status'] === 0) {
-                $tableName = 'tc_'.$game[$i].'_record';//拼接数据表名,插入数据
+                $tableName = 'tc_'.$data['method'].'_record';//拼接数据表名,插入数据
                 DB::table($tableName)->insert($record['details']);
                 return false;
             }

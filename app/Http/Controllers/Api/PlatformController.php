@@ -153,6 +153,14 @@ class PlatformController extends Controller
     }
 
     if ($platform_name == 'ybqp') {
+        $btime = time() - 7 * 24 * 60 * 60;
+        $yesterday = "";
+        if ($request->has('day')) {
+            $btime = date('Y-m-d H:i:s', time() - $request->day * 24 * 60 * 60);
+            if ($request->day == 2) {
+                $yesterday = Carbon::yesterday();
+            }
+        }
         $data = YbChessRecord::orderBy('st', 'desc')->where('mmi', $user->username)->whereDate('st', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
             $query->whereDate('st', '=', $yesterday);
         })->get(

@@ -270,7 +270,7 @@ class TCApiController extends Controller
         $game= array('pvpbd','bd');
 
 
-        $time= date('YmdHi',time()-45*60);
+        $time= date('YmdHi',time()-15*60);
 
         $num= intval(substr($time,10));
         if ($num >= 0 && $num < 15) $batch_name = substr($time,0,-2).'00';
@@ -281,10 +281,11 @@ class TCApiController extends Controller
         for ($i = 0; $i < count($game); $i++) {
 
             $data['method'] = $game[$i];
-            $data['batch_name'] = $batch_name;
+            $data['batch_name'] = '202008072015';
             $result = $this->send_require($data);
 
-            $record = json_decode($result,true);
+            $record = json_decode($result,true,512, JSON_BIGINT_AS_STRING);
+            return $record;
             DB::table('tc_pvpbd_record')->insert($record['details']);
 
             if ($record['details'] != null && $record['status'] === 0) {

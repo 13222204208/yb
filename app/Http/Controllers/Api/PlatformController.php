@@ -159,12 +159,12 @@ class PlatformController extends Controller
             ['id', 'gn', 'mw', 'bc', 'tb', 'st']
         );
 
-        $todayCount = YbChessRecord::orderByorderBy('st', 'desc')->where('mmi', $user->username)->whereDate('st', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
+        $todayCount = YbChessRecord::where('mmi', $user->username)->whereDate('st', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
             $query->whereDate('st', '=', $yesterday);
         })->selectRaw('DATE_FORMAT(st,"%m-%d") as date,COUNT(id) as num ,SUM(tb) as tb,SUM(mp) as mp')
             ->groupBy('date')->get();
 
-        $allCount = YbChessRecord::orderByorderBy('st', 'desc')->where('mmi', $user->username)->whereDate('st', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
+        $allCount = YbChessRecord::where('mmi', $user->username)->whereDate('st', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
             $query->whereDate('bottom_pour_time', '=', $yesterday);
         })->selectRaw('COUNT(id) as num ,SUM(tb) as tb,SUM(mp) as mp')
             ->get();

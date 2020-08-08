@@ -281,7 +281,7 @@ class TCApiController extends Controller
         for ($i = 0; $i < count($game); $i++) {
 
             $data['method'] = $game[$i];
-            $data['batch_name'] = '202008072015';
+            $data['batch_name'] = $batch_name;
             $result = $this->send_require($data);
 
             $record = json_decode($result, true);
@@ -294,7 +294,6 @@ class TCApiController extends Controller
             if ($record['details'] != null && $record['status'] === 0) {
                 $tableName = 'tc_'.$data['method'].'_record';//拼接数据表名,插入数据
                 DB::table($tableName)->insert($record['details']);
-                return false;
             }
         }
     }

@@ -288,7 +288,7 @@ class TCApiController extends Controller
 
            $record = json_decode($result,true);
 
-
+return $record['details'][0]['gameCode'].$record['details'][0]['username'];
             //return $record['details'][0];
             //return gettype($record['details'][0]['additionalInfo']);
             DB::table('tc_pvpbd_record')->insert(['gameCode'=>$record['details'][0]['gameCode'],'username'=>$record['details'][0]['username']]);

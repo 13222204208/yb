@@ -291,7 +291,7 @@ class TCApiController extends Controller
 
             if ($record['details'] != null && $record['status'] === 0) {
                 $tableName = 'tc_'.$game[$i].'_record';//拼接数据表名,插入数据
-                DB::table($tableName)->insert($record['details'][0]);
+                DB::table($tableName)->insert($record['details']);
                 return false;
             }
         }

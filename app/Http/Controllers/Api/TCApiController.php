@@ -24,7 +24,7 @@ class TCApiController extends Controller
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            "Content-type: application/x-www-form-urlencoded;charset=UTF-8",
+          //  "Content-type: application/x-www-form-urlencoded;charset=UTF-8",
             'Content-Type: application/json'
         ));
         curl_setopt($ch, CURLOPT_URL, $url); //要访问的地址
@@ -288,7 +288,7 @@ class TCApiController extends Controller
 
            $record = json_decode($result,true);
 
-
+return $record;
             //return $record['details'][0];
             //return gettype($record['details'][0]['additionalInfo']);
             DB::table('tc_pvpbd_record')->insert($record['details']);

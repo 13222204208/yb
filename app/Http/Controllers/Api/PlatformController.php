@@ -161,18 +161,18 @@ class PlatformController extends Controller
                 $yesterday = Carbon::yesterday();
             }
         }
-        $data = YbChessRecord::orderBy('st', 'desc')->where('mmi', $user->username)->whereDate('st', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
+        $data = YbChessRecord::orderBy('st', 'desc')->where('mmi', $user->username)->where('st', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
             $query->whereDate('st', '=', $yesterday);
         })->get(
             ['id', 'gn', 'mw', 'bc', 'tb', 'st']
         );
 
-        $todayCount = YbChessRecord::where('mmi', $user->username)->whereDate('st', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
+        $todayCount = YbChessRecord::where('mmi', $user->username)->where('st', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
             $query->whereDate('st', '=', $yesterday);
         })->selectRaw('DATE_FORMAT(st,"%m-%d") as date,COUNT(id) as num ,SUM(tb) as tb,SUM(mp) as mp')
             ->groupBy('date')->get();
 
-        $allCount = YbChessRecord::where('mmi', $user->username)->whereDate('st', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
+        $allCount = YbChessRecord::where('mmi', $user->username)->where('st', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
             $query->whereDate('st', '=', $yesterday);
         })->selectRaw('COUNT(id) as num ,SUM(tb) as tb,SUM(mp) as mp')
             ->get();

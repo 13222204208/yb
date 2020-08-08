@@ -285,13 +285,16 @@ class TCApiController extends Controller
             $result = $this->send_require($data);
             $record = explode(',',$result);
             return $record;
-         /*    $record = json_decode($result, true);
-            $record['details'][0]['additionalInfo']= json_encode($record['details'][0]['additionalInfo']); */
-          /*   if ($record['details'] != null && $record['status'] === 0) {
+            $record = json_decode($result, true);
+            for ($i=0; $i < count($record['details']); $i++) {
+                $record['details'][$i]['additionalInfo']= json_encode($record['details'][$i]['additionalInfo']);
+            }
+
+            if ($record['details'] != null && $record['status'] === 0) {
                 $tableName = 'tc_'.$game[$i].'_record';//拼接数据表名,插入数据
                 DB::table($tableName)->insert($record['details'][0]);
                 return false;
-            } */
+            }
         }
     }
 }

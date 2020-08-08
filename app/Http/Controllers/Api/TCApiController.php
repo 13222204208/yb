@@ -285,7 +285,7 @@ class TCApiController extends Controller
             $result = $this->send_require($data);
 
             $record = json_decode($result,true);
-return $record;
+
             $record['details'][0]['additionalInfo']= '1234545';
             //return $record['details'][0];
             //return gettype($record['details'][0]['additionalInfo']);

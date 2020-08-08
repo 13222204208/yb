@@ -283,7 +283,9 @@ class TCApiController extends Controller
             $data['method'] = $game[$i];
             $data['batch_name'] = '202008072015';
             $result = $this->send_require($data);
-echo $result;
+            $record = explode(',',$result);
+            echo gettype($record);
+return $record;
   /*           $record = json_decode($result,true);
 
             $record['details'][0]= array(    "gameCode"=> "xxxxxx",

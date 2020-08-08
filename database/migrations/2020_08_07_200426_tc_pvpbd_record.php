@@ -22,21 +22,12 @@ class TcPvpbdRecord extends Migration
             $table->string('sessionId',50)->default('')->comment('局号');
             $table->string('additionalInfo')->default('')->comment('详细注单内容');
             $table->string('username',30)->comment('游戏账号的登录名 ');
-            $table->decimal('betAmount',16,1)->default(0)->comment('投注金额');
+            $table->integer('betAmount')->default(0)->comment('投注金额');
             $table->decimal('netPnl',16,1)->default(0)->comment('净输赢');
             $table->string('transactionTime',30)->default('')->comment('交易时间');
             $table->string('betOrderNo',50)->default('')->comment('投注订单编号');
 
             $table->decimal('rake',16,1)->default(0)->comment('房费（抽水）');
-
-
-
-
-
-
-
-
-
 
 
             $table->timestamps();

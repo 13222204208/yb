@@ -283,13 +283,15 @@ class TCApiController extends Controller
             $data['method'] = $game[$i];
             $data['batch_name'] = '202008072015';
             $result = $this->send_require($data);
-            $record = json_decode($result, true);
-            $record['details'][0]['additionalInfo']= json_encode($record['details'][0]['additionalInfo']);
-            if ($record['details'] != null && $record['status'] === 0) {
+            $record = explode(',',$result);
+            return $record;
+         /*    $record = json_decode($result, true);
+            $record['details'][0]['additionalInfo']= json_encode($record['details'][0]['additionalInfo']); */
+          /*   if ($record['details'] != null && $record['status'] === 0) {
                 $tableName = 'tc_'.$game[$i].'_record';//拼接数据表名,插入数据
                 DB::table($tableName)->insert($record['details'][0]);
                 return false;
-            }
+            } */
         }
     }
 }

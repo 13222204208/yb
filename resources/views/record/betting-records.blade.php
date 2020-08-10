@@ -9,11 +9,11 @@
   <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
   <style>
-      
+
   </style>
 </head>
-<body> 
- 
+<body>
+
 <div class="mainTop layui-clear" style="margin:20px">
 
 <div class="fr">
@@ -29,7 +29,7 @@
         <div class="layui-input-inline">
           <select name="platform_name"  class="select_wd120">
             <option value="">全部</option>
-    
+
           </select>
         </div>
       </div>
@@ -59,10 +59,10 @@
   </form>
 </div>
 </div>
- 
-<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table> 
-               
-      
+
+<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+
+
 <script src="/layuiadmin/layui/layui.js"></script>
 
 <script>
@@ -111,9 +111,9 @@
         dataType: 'json',
         success: function(res) {
           status = res.status;
-          platform_name = res.data;console.log(platform_name);
+          platform_name = res.data;console.log(platform_name);return false;
           if (status == 200) {
-            options = "<option value=''>全部</option>";
+            options = "";
             for (var i = 0; i < platform_name.length; i++) {
               var t = platform_name[i];
 
@@ -134,7 +134,7 @@
 
       form.on('submit(search)', function(data) {
         var data = data.field;
-        console.log(data); 
+        console.log(data);
         table.render({
         elem: '#LAY_table_user'
         ,url: 'search/betting'
@@ -167,7 +167,7 @@
         return false;
       });
 
-  
+
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
@@ -192,7 +192,7 @@
     ,id: 'testReload'
     ,page: true
   });
-  
+
 
 });
 </script>

@@ -30,6 +30,7 @@ class PlatformController extends Controller
     {
         $this->validate($request, [
             'token' => 'required',
+            'platform_name'=> 'required'
 
         ]);
         $user = JWTAuth::authenticate($request->token);

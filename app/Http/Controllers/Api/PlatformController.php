@@ -37,6 +37,15 @@ class PlatformController extends Controller
 
         $platform_name = $request->platform_name;
 
+        if ($platform_name == 'bd') {
+            if (!$request->has('productType')) {
+                return response()->json([
+                    'code' => 0,
+                    'msg' => "天成电子需要productType参数",
+                ], 200);
+            }
+        }
+
         if ($request->has('day')) {
             $day = $request->day;
             $request->start_time = date('Y-m-d Y-m-d H:i:s', time() - $day * 24 * 60 * 60);

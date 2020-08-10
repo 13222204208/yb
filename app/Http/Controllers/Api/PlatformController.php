@@ -72,13 +72,31 @@ class PlatformController extends Controller
                     ['id', 'betAmount', 'winAmount', 'netPnl', 'betTime']
                 );
 
-                $todayCount = DB::table('tc_bd_record')->orderBy('betTime', 'desc')->where('username', $user->username)->whereBetween('betTime', [$request->start_time, $request->stop_time])->selectRaw('DATE_FORMAT(betTime
+                $todayCount = DB::table('tc_bd_record')->orderBy('betTime', 'desc')->where('username', $user->username)->where('productType',$productType)->whereBetween('betTime', [$request->start_time, $request->stop_time])->selectRaw('DATE_FORMAT(betTime
                 ,"%m-%d") as date,COUNT(id) as num ,SUM(betAmount
                 ) as betAmount
                 ,SUM(netPnl) as netPnl')
                     ->groupBy('date')->get();
 
-                $allCount = DB::table('tc_bd_record')->orderBy('betTime', 'desc')->where('username', $user->username)->whereBetween('betTime', [$request->start_time, $request->stop_time])->selectRaw('COUNT(id) as num ,SUM(betAmount
+                $allCount = DB::table('tc_bd_record')->orderBy('betTime', 'desc')->where('username', $user->username)->where('productType',$productType)->whereBetween('betTime', [$request->start_time, $request->stop_time])->selectRaw('COUNT(id) as num ,SUM(betAmount
+                    ) as betAmount
+                    ,SUM(netPnl) as netPnl')
+                    ->get();
+            }
+
+            if ($platform_name == 'pvpbd' ) { //天成棋牌投注记录
+
+                $data = DB::table('tc_pvpbd_record')->orderBy('betTime', 'desc')->where('username', $user->username)->whereDate('betTime', '>=', $request->start_time)->whereDate('betTime', '<=', $request->stop_time)->get(
+                    ['id', 'betAmount', 'rake', 'netPnl', 'betTime']
+                );
+
+                $todayCount = DB::table('tc_pvpbd_record')->orderBy('betTime', 'desc')->where('username', $user->username)->whereBetween('betTime', [$request->start_time, $request->stop_time])->selectRaw('DATE_FORMAT(betTime
+                ,"%m-%d") as date,COUNT(id) as num ,SUM(betAmount
+                ) as betAmount
+                ,SUM(netPnl) as netPnl')
+                    ->groupBy('date')->get();
+
+                $allCount = DB::table('tc_pvpbd_record')->orderBy('betTime', 'desc')->where('username', $user->username)->whereBetween('betTime', [$request->start_time, $request->stop_time])->selectRaw('COUNT(id) as num ,SUM(betAmount
                     ) as betAmount
                     ,SUM(netPnl) as netPnl')
                     ->get();

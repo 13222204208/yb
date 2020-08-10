@@ -47,10 +47,10 @@ class PlatformController extends Controller
                     ['id', 'BetStatus', 'TotalWinlose', 'Bet', 'TotalPayout', 'BetDate']
                 );
 
-                $todayCount = DB::table($tableName)->orderBy('BetDate', 'desc')->where('MemberAccount', $user->username)->whereBetween('BetDate', [$request->start_time, $request->stop_time])->selectRaw('DATE_FORMAT(BetDate,"%m-%d") as date,COUNT(id) as num ,SUM(Bet) as Bet,SUM(TotalPayout) as TotalPayout')
+                $todayCount = DB::table($tableName)->orderBy('BetDate', 'desc')->where('MemberAccount', $user->username)->whereBetween('BetDate', [$request->start_time, $request->stop_time])->selectRaw('DATE_FORMAT(BetDate,"%m-%d") as date,COUNT(id) as num ,SUM(Bet) as Bet,SUM(TotalWinlose) as TotalWinlose')
                     ->groupBy('date')->get();
 
-                $allCount = DB::table($tableName)->orderBy('BetDate', 'desc')->where('MemberAccount', $user->username)->whereBetween('BetDate', [$request->start_time, $request->stop_time])->selectRaw('COUNT(id) as num ,SUM(Bet) as Bet,SUM(TotalPayout) as TotalPayout')
+                $allCount = DB::table($tableName)->orderBy('BetDate', 'desc')->where('MemberAccount', $user->username)->whereBetween('BetDate', [$request->start_time, $request->stop_time])->selectRaw('COUNT(id) as num ,SUM(Bet) as Bet,SUM(TotalWinlose) as TotalWinlose')
                     ->get();
             }
 
@@ -122,12 +122,12 @@ class PlatformController extends Controller
 
             $todayCount = DB::table($tableName)->orderBy('BetDate', 'desc')->where('MemberAccount', $user->username)->whereDate('BetDate', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
                 $query->whereDate('BetDate', '=', $yesterday);
-            })->selectRaw('DATE_FORMAT(BetDate,"%m-%d") as date,COUNT(id) as num ,SUM(Bet) as Bet,SUM(TotalPayout) as TotalPayout')
+            })->selectRaw('DATE_FORMAT(BetDate,"%m-%d") as date,COUNT(id) as num ,SUM(Bet) as Bet,SUM(TotalWinlose) as TotalWinlose')
                 ->groupBy('date')->get();
 
             $allCount = DB::table($tableName)->orderBy('BetDate', 'desc')->where('MemberAccount', $user->username)->whereDate('BetDate', '>', $btime)->when($yesterday, function ($query) use ($yesterday) {
                 $query->whereDate('bottom_pour_time', '=', $yesterday);
-            })->selectRaw('COUNT(id) as num ,SUM(Bet) as Bet,SUM(TotalPayout) as TotalPayout')
+            })->selectRaw('COUNT(id) as num ,SUM(Bet) as Bet,SUM(TotalWinlose) as TotalWinlose')
                 ->get();
         }
 

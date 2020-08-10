@@ -40,23 +40,32 @@ class BettingController extends Controller
 
         if (in_array($platform_name, $game)) {
             $tableName = 'aq_' . strtolower($platform_name) . '_record';
-            $data = DB::table($tableName)->orderBy('BetDate', 'desc')->where('MemberAccount', $username)->whereDate('BetDate', '>=', $startTime)->whereDate('BetDate', '<=', $stopTime)->paginate($limit);
+            $data = DB::table($tableName)->orderBy('BetDate', 'desc')->when($username, function ($query) use ($username) {
+                $query->where('MemberAccount', '=',$username);
+            })->when($startTime, function ($query) use ($startTime,$stopTime) {
+            $query->whereBetween('BetDate',[$startTime, $stopTime] ) ;
+        })->paginate($limit);
 
         }
 
         if ($platform_name == 'ybqp') { //亚博棋牌投注记录
-            $data = YbChessRecord::orderBy('st', 'desc')->where('mmi', $username)->whereDate('st', '>=', $startTime)->whereDate('st', '<=', $stopTime)->paginate($limit);
+            $data = YbChessRecord::orderBy('st', 'desc')->when($username, function ($query) use ($username) {
+                $query->where('mmi', '=',$username);
+            })->whereDate('st', '>=', $startTime)->whereDate('st', '<=', $stopTime)->paginate($limit);
         }
 
         if ($platform_name == 'bd' ) { //天成电子游戏投注记录
-            $productType = $request->productType;
-            $data = DB::table('tc_bd_record')->orderBy('betTime', 'desc')->where('username', $username)->whereDate('betTime', '>=', $startTime)->whereDate('betTime', '<=', $stopTime)->paginate($limit);
+            $data = DB::table('tc_bd_record')->orderBy('betTime', 'desc')->when($username, function ($query) use ($username) {
+                $query->where('username', '=',$username);
+            })->whereDate('betTime', '>=', $startTime)->whereDate('betTime', '<=', $stopTime)->paginate($limit);
 
         }
 
         if ($platform_name == 'pvpbd') { //天成棋牌投注记录
 
-            $data = DB::table('tc_pvpbd_record')->orderBy('betTime', 'desc')->where('username', $username)->whereDate('betTime', '>=', $startTime)->whereDate('betTime', '<=', $stopTime)->paginate($limit);
+            $data = DB::table('tc_pvpbd_record')->orderBy('betTime', 'desc')->when($username, function ($query) use ($username) {
+                $query->where('username', '=',$username);
+            })->whereDate('betTime', '>=', $startTime)->whereDate('betTime', '<=', $stopTime)->paginate($limit);
 
         }
 

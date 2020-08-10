@@ -134,7 +134,7 @@
 
       form.on('submit(search)', function(data) {
         var data = data.field;
-        console.log(data);
+        console.log(data);return false;
         table.render({
         elem: '#LAY_table_user'
         ,url: 'search/betting'

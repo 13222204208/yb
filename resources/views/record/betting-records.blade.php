@@ -146,15 +146,15 @@
         }
         ,cols: [[
           {field:'id', title: 'ID', width:80, sort: true}
-          ,{field:'username', title: '用户名', width:120}
-          ,{field:'platform_name', title: '游戏平台', width:160}
+          ,{field:'MemberAccount', title: '用户名', width:120}
+          ,{field:'TotalWinlose', title: '净输赢金额', width:160}
           ,{field:'game_name', title: '游戏名', width:160}
-          ,{field:'bottom_pour', title: '下注金额', width:160}
-          ,{field:'group_money', title: '派彩金额',  width:160}
-          ,{field:'bottom_pour_time', title: '下注时间',sort: true, width:200}
+          ,{field:'Bet', title: '下注金额', width:160}
+          ,{field:'TotalPayout', title: '彩金',  width:160}
+          ,{field:'BetDate', title: '下注时间',sort: true, width:200}
         ]]
         ,parseData: function(res) { //res 即为原始返回的数据
-            console.log(res);return false;
+            //console.log(res);return false;
               return {
                 "code": '0', //解析接口状态
                 "msg": res.message, //解析提示文本

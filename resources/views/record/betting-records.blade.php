@@ -111,7 +111,7 @@
         dataType: 'json',
         success: function(res) {
           status = res.status;
-          platform_name = res.data;console.log(platform_name);return false;
+          platform_name = res.data;console.log(platform_name);
           if (status == 200) {
             options = "";
             for (var i = 0; i < platform_name.length; i++) {

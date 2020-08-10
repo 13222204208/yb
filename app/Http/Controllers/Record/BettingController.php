@@ -20,7 +20,7 @@ class BettingController extends Controller
 
     public function queryPlatformName()
     {
-        $data= Platform::get('platform_name','show_name');
+        $data= Platform::groupBy('platform_name')->get();
         if ($data) {
             return response()->json(['status'=>200,'data'=>$data]);
         }else{

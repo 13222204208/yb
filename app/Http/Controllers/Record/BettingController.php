@@ -42,9 +42,7 @@ class BettingController extends Controller
             $tableName = 'aq_' . strtolower($platform_name) . '_record';
             $data = DB::table($tableName)->orderBy('BetDate', 'desc')->when($username, function ($query) use ($username) {
                 $query->where('MemberAccount', '=',$username);
-            })->when($startTime, function ($query) use ($startTime,$stopTime) {
-            $query->whereBetween('BetDate',[$startTime, $stopTime] ) ;
-        })->paginate($limit);
+            })->whereDate('BetDate', '>=', $startTime)->whereDate('BetDate', '<=', $stopTime)->paginate($limit);
 
         }
 

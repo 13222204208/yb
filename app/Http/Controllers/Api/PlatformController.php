@@ -29,14 +29,14 @@ class PlatformController extends Controller
     public function platformRecord(Request $request)
     {
         $this->validate($request, [
-            'token' => 'required'
+            'token' => 'required',
+            'platform_name' => 'required'
         ]);
         $user = JWTAuth::authenticate($request->token);
 
-        $platform_name = "";
-        if ($request->has('platform_name')) {
-            $platform_name = $request->platform_name;
-        }
+
+        $platform_name = $request->platform_name;
+
 
         if ($request->start_time && $request->stop_time) {
             $game= array('AG','BBIN','OGPlus','AllBet','EG','WM','AVIA','IMSB','LC','VR','ThreeSing','SABA');

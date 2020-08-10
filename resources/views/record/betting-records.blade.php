@@ -111,7 +111,7 @@
         dataType: 'json',
         success: function(res) {
           status = res.status;
-          platform_name = res.data;console.log(platform_name);
+          platform_name = res.data;
           if (status == 200) {
             options = "";
             for (var i = 0; i < platform_name.length; i++) {
@@ -134,7 +134,7 @@
 
       form.on('submit(search)', function(data) {
         var data = data.field;
-        console.log(data);return false;
+
         table.render({
         elem: '#LAY_table_user'
         ,url: 'search/betting'
@@ -154,6 +154,7 @@
           ,{field:'bottom_pour_time', title: '下注时间',sort: true, width:200}
         ]]
         ,parseData: function(res) { //res 即为原始返回的数据
+            console.log(res);return false;
               return {
                 "code": '0', //解析接口状态
                 "msg": res.message, //解析提示文本

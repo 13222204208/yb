@@ -80,7 +80,9 @@ class PlatformController extends Controller
         }
 
         if ($platform_name == 'ybqp') { //亚博棋牌投注记录
-            $data = YbChessRecord::orderBy('st', 'desc')->where('mmi', $user->username)->whereDate('st', '>=', $request->start_time)->whereDate('st', '<=', $request->stop_time)->get(
+            $request->stop_time = strtotime($request->stop_time);
+            $request->start_time = strtotime($request->start_time);
+            $data = YbChessRecord::orderBy('st', 'desc')->where('mmi', $user->username)->where('st', '>=', $request->start_time)->where('st', '<=', $request->stop_time)->get(
                 ['id', 'gn', 'mw', 'bc', 'tb', 'st']
             );
 

@@ -52,9 +52,11 @@ class BettingController extends Controller
         }
 
         if ($platform_name == 'ybqp') { //亚博棋牌投注记录
+            $startTime = time() - 7 * 24 * 60 * 60;
+            $stopTime = time();
             $data = YbChessRecord::orderBy('st', 'desc')->when($username, function ($query) use ($username) {
                 $query->where('mmi', '=',$username);
-            })->whereDate('st', '>=', $startTime)->whereDate('st', '<=', $stopTime)->paginate($limit);
+            })->where('st', '>=', $startTime)->where('st', '<=', $stopTime)->paginate($limit);
         }
 
         if ($platform_name == 'bd' ) { //天成电子游戏投注记录

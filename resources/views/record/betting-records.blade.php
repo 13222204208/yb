@@ -155,9 +155,9 @@
                 ,{field:'bc', title: '有效投注',  width:160}
                 ,{field:'tb', title: '总投注金额',  width:160}
                 ,{field:'st', title: '下注时间',sort: true, width:200,
-                    templet : "<div>{{layui.util.toDateString(d.st, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"}
+                    templet : "<div>{{table.util.toDateString(d.st, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"}
                 ,{field:'et', title: '结算时间',sort: true, width:200,
-                    templet : "<div>{{layui.util.toDateString(d.et, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"}
+                    templet : "<div>{{table.util.toDateString(d.et, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"}
                 ]]
                 ,parseData: function(res) { //res 即为原始返回的数据
                     //console.log(res);return false;

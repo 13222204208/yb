@@ -66,11 +66,12 @@
 <script src="/layuiadmin/layui/layui.js"></script>
 
 <script>
-   layui.use(['table', 'laydate', 'jquery', 'form'], function() {
+   layui.use(['table', 'laydate', 'jquery', 'form','util'], function() {
       var table = layui.table;
       var laydate = layui.laydate;
       var $ = layui.jquery;
       var form = layui.form;
+      var util = layui.util;
       laydate.render({
         elem: '#startTime',
         type: 'datetime',
@@ -155,9 +156,9 @@
                 ,{field:'bc', title: '有效投注',  width:160}
                 ,{field:'tb', title: '总投注金额',  width:160}
                 ,{field:'st', title: '下注时间',sort: true, width:200,
-                    templet : "<div>{{table.util.toDateString(d.st, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"}
+                    templet:function(d){return util.toDateString(d.st*1000, "yyyy-MM-dd HH:mm:ss");}}
                 ,{field:'et', title: '结算时间',sort: true, width:200,
-                    templet : "<div>{{table.util.toDateString(d.et, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"}
+                    templet:function(d){return util.toDateString(d.et*1000, "yyyy-MM-dd HH:mm:ss");}}
                 ]]
                 ,parseData: function(res) { //res 即为原始返回的数据
                     //console.log(res);return false;

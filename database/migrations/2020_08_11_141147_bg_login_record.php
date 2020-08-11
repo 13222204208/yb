@@ -13,7 +13,7 @@ class BgLoginRecord extends Migration
      */
     public function up()
     {
-        Schema::create('tc_pvpbd_record', function (Blueprint $table) {
+        Schema::create('bg_login_record', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username',50)->comment('用户名  ');
             $table->string('login_ip',50)->default('')->comment('登陆ip');

@@ -160,23 +160,8 @@
                       case '10101':
                           return "网关支付"
 
-                      case '10102':
-                          return "快捷支付"
-
                       case '10103':
                           return "云闪付"
-
-                      case '10104':
-                          return "微信个码(扫码)"
-
-                      case '10105':
-                          return "微信个码(H5)"
-
-                      case '10106':
-                          return "支付宝个码(扫码)"
-
-                      case '10107':
-                          return "支付宝个码(H5)"
 
                       case '10108':
                           return "支付宝宝转卡(扫码)"
@@ -184,26 +169,17 @@
                       case '10109':
                           return "支付宝宝转卡(H5)"
 
-                      case '10110':
-                          return "支付宝话费(扫码)"
+                      case 'Deposit':
+                          return "转入"
 
-                      case '10111':
-                          return "支付宝话费(H5)"
+                      case 'Withdraw':
+                          return "转出"
 
-                      case '10114':
-                          return "微信转卡"
+                      case 1:
+                          return "存款"
 
-                      case '10201':
-                          return "代付"
-
-                      case '10301':
-                          return "代付查询"
-
-                      case '10302':
-                          return "交易查询"
-
-                      case '10401':
-                          return "余额查询"
+                      case 2:
+                          return "提款"
 
                       default:
                           return d.business_mode
@@ -255,26 +231,11 @@
       ,{field:'business_mode', title: '交易方式', width:180,
         templet: function(d) {
                 switch(d.business_mode) {
-                      case '10101':
+                    case '10101':
                           return "网关支付"
-
-                      case '10102':
-                          return "快捷支付"
 
                       case '10103':
                           return "云闪付"
-
-                      case '10104':
-                          return "微信个码(扫码)"
-
-                      case '10105':
-                          return "微信个码(H5)"
-
-                      case '10106':
-                          return "支付宝个码(扫码)"
-
-                      case '10107':
-                          return "支付宝个码(H5)"
 
                       case '10108':
                           return "支付宝宝转卡(扫码)"
@@ -282,26 +243,17 @@
                       case '10109':
                           return "支付宝宝转卡(H5)"
 
-                      case '10110':
-                          return "支付宝话费(扫码)"
+                      case 'Deposit':
+                          return "转入"
 
-                      case '10111':
-                          return "支付宝话费(H5)"
+                      case 'Withdraw':
+                          return "转出"
 
-                      case '10114':
-                          return "微信转卡"
+                      case 1:
+                          return "存款"
 
-                      case '10201':
-                          return "代付"
-
-                      case '10301':
-                          return "代付查询"
-
-                      case '10302':
-                          return "交易查询"
-
-                      case '10401':
-                          return "余额查询"
+                      case 2:
+                          return "提款"
 
                       default:
                           return d.business_mode

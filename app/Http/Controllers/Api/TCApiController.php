@@ -307,7 +307,7 @@ class TCApiController extends Controller
         $source = "/source.txt";
         $target = "/ELOTTO/SETTLED/20200811/202008111450_0001.json";
 
-$url= '123.51.167.66/ELOTTO/SETTLED/20200811/202008111450_0001.json';
+$url= 'ftp://123.51.167.66/TLOTTO/CANCELLED/20200811/202008111450_0001.json';
 
         $host = '123.51.167.66';
         $user = 'byylcny';

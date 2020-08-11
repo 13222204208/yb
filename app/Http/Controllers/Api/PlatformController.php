@@ -114,7 +114,7 @@ class PlatformController extends Controller
         if ($platform_name == 'pvpbd') { //天成棋牌投注记录
 
             $data = DB::table('tc_pvpbd_record')->orderBy('betTime', 'desc')->where('username', $user->username)->whereDate('betTime', '>=', $request->start_time)->whereDate('betTime', '<=', $request->stop_time)->get(
-                ['id', 'betAmount', 'rake', 'netPnl', 'betTime']
+                ['id', 'betAmount', 'rake', 'netPnl', 'betTime','gameCode']
             );
 
             $todayCount = DB::table('tc_pvpbd_record')->orderBy('betTime', 'desc')->where('username', $user->username)->whereBetween('betTime', [$request->start_time, $request->stop_time])->selectRaw('DATE_FORMAT(betTime

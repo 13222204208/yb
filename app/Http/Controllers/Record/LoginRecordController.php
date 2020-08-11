@@ -29,7 +29,7 @@ class LoginRecordController extends Controller
         })->when($username, function ($query) use ($username) {
             $query->where('username', '=',$username);
         })->when($startTime, function ($query) use ($startTime,$stopTime) {
-            $query->whereBetween('updated_at',[$startTime, $stopTime] ) ;
+            $query->whereBetween('login_time',[$startTime, $stopTime] ) ;
         })->paginate($limit);
         return $data;
 

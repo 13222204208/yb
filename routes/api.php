@@ -69,6 +69,7 @@ Route::middleware('cors')->prefix('game')->group(function (){
 
     Route::post('/tc/gameList','Api\TCApiController@gameList');//天成游戏列表
     Route::post('/tc/gameRecord','Api\TCApiController@gameRecord');//玩家电子游戏及真人投注详情
+    Route::post('/tc/lotteryRecord','Api\TCApiController@lotteryRecord');//玩家天成彩票投注详情
 
     Route::post('/yb/gameList','Api\YBApiController@gameList');//亚博查询游戏列表
 

@@ -301,4 +301,69 @@ class TCApiController extends Controller
 
         }
     }
+
+    public function lotteryRecord()
+    {
+
+        $host = '123.51.167.66';
+        $user = 'byylcny';
+        $pwd = 'a123456';
+
+        $f_conn = ftp_connect($host);
+
+        if(!$f_conn){
+            echo "connect fail\n";
+            exit(1);
+        }
+        echo "connect success\n";
+
+        // 进行ftp登录，使用给定的ftp登录用户名和密码进行login
+        $f_login = ftp_login($f_conn,$user,$pwd);
+        if(!$f_login){
+            echo "login fail\n";
+            exit(1);
+        }
+        echo "login success\n";
+
+        // 获取当前所在的ftp目录
+        $in_dir = ftp_pwd($f_conn);
+        if(!$in_dir){
+            echo "get dir info fail\n";
+            exit(1);
+        }
+        echo "$in_dir\n";
+
+/*         // 获取当前所在ftp目录下包含的目录与文件
+        $exist_dir = ftp_nlist($f_conn, ftp_pwd($f_conn));
+        print_r($exist_dir);
+
+        // 要求是按照日期在ftp目录下创建文件夹作为文件上传存放目录
+        echo date("Ymd")."\n";
+        $dir_name = date("Ymd");
+        // 检查ftp目录下是否已存在当前日期的文件夹，如不存在则进行创建
+        if(!in_array("$in_dir/$dir_name", $exist_dir)){
+            if(!ftp_mkdir($f_conn, $dir_name)){
+                echo "mkdir fail\n";
+                exit(1);
+            }else{
+                echo "mkdir $dir_name success\n";
+            }
+        }
+        // 切换目录
+        if(!ftp_chdir($f_conn, $dir_name)){
+            echo "chdir fail\n";
+            exit(1);
+        }else{
+            echo "chdir $dir_name success\n";
+        }
+        // 进行文件上传
+        $result = ftp_put($f_conn, 'bbb.mp3', '/root/liang/ftp/bbb.mp3', FTP_BINARY);
+        if(!$result){
+            echo "upload file fail\n";
+            exit(1);
+        }else{
+            echo "upload file success\n";
+            exit(0);
+        } */
+    }
 }

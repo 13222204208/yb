@@ -91,6 +91,11 @@ class UserController extends Controller
             ], 200);
         }
         $detail = UserDetail::where('username',$request->username)->first();
+        $user = new UserInfo;
+        $user->login_ip = $request->login_ip;
+        $user->login_time = $request->login_time;
+        $user->save();
+
         return response()->json([
             'code' => 201,
             'msg' =>"成功",

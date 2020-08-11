@@ -24,13 +24,14 @@ class FUserinfo extends Migration
            // $table->string('true_name',20)->default('')->comment('真实姓名');
            // $table->string('phone',11)->default('')->comment('手机号');
             $table->string('register_ip',20)->default('')->comment('注册IP');
+            $table->string('login_ip',20)->default('')->comment('登录IP');
             $table->string('register_time',30)->default('')->comment('注册时间');
             $table->string('login_time',30)->default('')->comment('登录时间');
             $table->string('off_time',30)->default('')->comment('离线时间');
             $table->string('ask_time',50)->default('')->comment('申请时间');
             $table->string('account_freeze',50)->default('')->comment('帐号冻结时间');
             $table->string('remember_token',512)->default('')->comment('token');
-            $table->integer('state')->default(0)->comment('0为离线 1为在线');          
+            $table->integer('state')->default(0)->comment('0为离线 1为在线');
             $table->timestamps();
         });
     }

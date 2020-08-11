@@ -183,9 +183,32 @@ class YBCPApiController extends Controller
         $date = date('Ym/d',time()-8*60*60);
         $url ='http://pull.shayexiang.com/'.$date.'/real/order/17.json';
         $json_string = file_get_contents($url);
-        $data = json_decode($json_string,true);
+        //$data = json_decode($json_string,true);
+        $data=json_encode($this->encodeConvert($json_string,'gb2312','utf-8'));
         var_dump($data);
 
 
     }
+
+    public function encodeConvert($str,$fromCode,$toCode){
+		if(strtoupper($toCode) == strtoupper($fromCode)) return $str;
+
+		if(is_string($str)){
+			if(function_exists('mb_convert_encoding')){
+				return mb_convert_encoding($str,$toCode,$fromCode);
+			}
+			else{
+				return iconv($fromCode,$toCode,$str);
+			}
+		}
+		elseif(is_array($str)){
+			foreach($str as $k=>$v){
+				$str[$k] = $this->encodeConvert($v,$fromCode,$toCode);
+			}
+			return $str;
+		}
+		return $str;
+
+	}
+
 }

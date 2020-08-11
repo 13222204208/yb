@@ -175,10 +175,10 @@
                       case 'Withdraw':
                           return "转出"
 
-                      case 1:
+                      case '1':
                           return "存款"
 
-                      case 2:
+                      case '2':
                           return "提款"
 
                       default:
@@ -249,10 +249,10 @@
                       case 'Withdraw':
                           return "转出"
 
-                      case 1:
+                      case '1':
                           return "存款"
 
-                      case 2:
+                      case '2':
                           return "提款"
 
                       default:

@@ -326,7 +326,7 @@ class TCApiController extends Controller
             exit(1);
         }
         echo "login success\n";
-        ftp_get($f_conn,$source,$target,FTP_ASCII);
+        ftp_nb_get($f_conn,$source,$target,FTP_ASCII);
         // 获取当前所在的ftp目录
         $in_dir = ftp_pwd($f_conn);
         if(!$in_dir){

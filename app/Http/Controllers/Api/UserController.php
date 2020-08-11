@@ -7,11 +7,10 @@ use App\Model\UserInfo;
 use App\Model\UserDetail;
 use App\Model\DelActivity;
 
-use Illuminate\Http\Request;
+use App\Model\LoginRecord;
 
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Http\Requests\LoginAuthRequest;
 use App\Http\Requests\UpdatePassRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\UploadController;
@@ -91,7 +90,8 @@ class UserController extends Controller
             ], 200);
         }
         $detail = UserDetail::where('username',$request->username)->first();
-        UserInfo::where('username',$detail->username)->update([
+        LoginRecord::insert([
+            'username' => $detail->username,
             'login_ip'=>$request->login_ip,
             'login_time'=> $request->login_time
         ]);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Record;
 
 use App\Model\UserInfo;
+use App\Model\LoginRecord;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,7 +12,7 @@ class LoginRecordController extends Controller
     public function queryLoginRecord(Request $request)
     {
         $limit = $request->get('limit');
-        $data = userInfo::paginate($limit);
+        $data = LoginRecord::paginate($limit);
         return $data;
     }
 
@@ -23,7 +24,7 @@ class LoginRecordController extends Controller
         $startTime = $request->get('startTime');
         $stopTime = $request->get('stopTime');
 
-        $betting = new UserInfo;
+        $betting = new LoginRecord;
         $data= $betting->when($login_ip, function ($query) use ($login_ip) {
             $query->where('login_ip','=', $login_ip);
         })->when($username, function ($query) use ($username) {

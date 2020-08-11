@@ -184,6 +184,7 @@ class YBCPApiController extends Controller
         $url ='http://pull.shayexiang.com/'.$date.'/real/order/17.json';
         $json_string = file_get_contents($url);
         $data = json_decode($json_string,true);
+        return $json_string;
 return $data.gettype($data);
 
     }

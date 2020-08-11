@@ -148,7 +148,6 @@
           {field:'id', title: 'ID', width:80, sort: true}
           ,{field:'MemberAccount', title: '用户名', width:120}
           ,{field:'TotalWinlose', title: '净输赢金额', width:160}
-          ,{field:'game_name', title: '游戏名', width:160}
           ,{field:'Bet', title: '下注金额', width:160}
           ,{field:'TotalPayout', title: '彩金',  width:160}
           ,{field:'BetDate', title: '下注时间',sort: true, width:200}

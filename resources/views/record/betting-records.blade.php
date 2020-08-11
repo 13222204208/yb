@@ -175,6 +175,77 @@
                 return false;
         }
 
+        if (data.platform_name == 'bd') {
+            table.render({
+                elem: '#LAY_table_user'
+                ,url: 'search/betting'
+                ,where:{
+                platform_name :data.platform_name,
+                username :data.username,
+                startTime:data.startTime,
+                stopTime:data.stopTime
+                }
+                ,cols: [[
+                {field:'id', title: 'ID', width:80, sort: true}
+                ,{field:'betOrderNo', title: '投注订单编号', width:120}
+                ,{field:'username', title: '用户名', width:120}
+                ,{field:'winAmount', title: '赢金额', width:160}
+                ,{field:'netPnl', title: '净输赢',  width:160}
+                ,{field:'betAmount', title: '投注金额',  width:160}
+                ,{field:'gameCategory', title: '游戏类别',sort: true, width:200}
+                ,{field:'betTime', title: '投注时间',sort: true, width:200}
+                ]]
+                ,parseData: function(res) { //res 即为原始返回的数据
+                    //console.log(res);return false;
+                    return {
+                        "code": '0', //解析接口状态
+                        "msg": res.message, //解析提示文本
+                        "count": res.total, //解析数据长度
+                        "data": res.data //解析数据列表
+                    }
+                    }
+                ,id: 'testReload'
+                ,page: true
+            });
+                return false;
+        }
+
+        if (data.platform_name == 'pvpbd') {
+            table.render({
+                elem: '#LAY_table_user'
+                ,url: 'search/betting'
+                ,where:{
+                platform_name :data.platform_name,
+                username :data.username,
+                startTime:data.startTime,
+                stopTime:data.stopTime
+                }
+                ,cols: [[
+                {field:'id', title: 'ID', width:80, sort: true}
+                ,{field:'betOrderNo', title: '投注订单编号', width:120}
+                ,{field:'username', title: '用户名', width:120}
+                ,{field:'additionalInfo', title: '详细注单内容', width:160}
+                ,{field:'netPnl', title: '净利',  width:160}
+                ,{field:'betAmount', title: '投注金额',  width:160}
+                ,{field:'rake', title: '抽水',sort: true, width:200}
+                ,{field:'betTime', title: '投注时间',sort: true, width:200}
+                ,{field:'transactionTime', title: '交易时间',sort: true, width:200}
+                ]]
+                ,parseData: function(res) { //res 即为原始返回的数据
+                    //console.log(res);return false;
+                    return {
+                        "code": '0', //解析接口状态
+                        "msg": res.message, //解析提示文本
+                        "count": res.total, //解析数据长度
+                        "data": res.data //解析数据列表
+                    }
+                    }
+                ,id: 'testReload'
+                ,page: true
+            });
+                return false;
+        }
+
         table.render({
         elem: '#LAY_table_user'
         ,url: 'search/betting'
@@ -207,38 +278,6 @@
         return false;
       });
 
-
-  //方法级渲染
-
-  table.render({
-        elem: '#LAY_table_user'
-        ,url: 'search/betting'
-        ,where:{
-          platform_name :data.platform_name,
-          username :data.username,
-          startTime:data.startTime,
-          stopTime:data.stopTime
-        }
-        ,cols: [[
-          {field:'id', title: 'ID', width:80, sort: true}
-          ,{field:'MemberAccount', title: '用户名', width:120}
-          ,{field:'TotalWinlose', title: '净输赢金额', width:160}
-          ,{field:'Bet', title: '下注金额', width:160}
-          ,{field:'TotalPayout', title: '彩金',  width:160}
-          ,{field:'BetDate', title: '下注时间',sort: true, width:200}
-        ]]
-        ,parseData: function(res) { //res 即为原始返回的数据
-            //console.log(res);return false;
-              return {
-                "code": '0', //解析接口状态
-                "msg": res.message, //解析提示文本
-                "count": res.total, //解析数据长度
-                "data": res.data //解析数据列表
-              }
-            }
-        ,id: 'testReload'
-        ,page: true
-      });
 
 
 });

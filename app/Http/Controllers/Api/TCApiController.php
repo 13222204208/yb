@@ -328,8 +328,7 @@ $url= 'ftp://123.51.167.66/TLOTTO/CANCELLED/20200811/202008111450_0001.json';
             exit(1);
         }
         echo "login success\n";
-        $contents = file_get_contents($url);
-        echo $contents;
+
         $content = ftp_nlist($f_conn, "/ELOTTO/SETTLED/20200811/");
         dd($content);
         ftp_nb_get($f_conn,$target,$source,FTP_ASCII);

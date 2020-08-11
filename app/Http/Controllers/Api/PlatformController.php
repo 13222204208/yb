@@ -49,8 +49,8 @@ class PlatformController extends Controller
 
         if ($request->has('day')) {
             $day = $request->day;
-            $request->start_time = date('Y-m-d Y-m-d H:i:s', time() - $day * 24 * 60 * 60);
-            $request->stop_time =  date('Y-m-d Y-m-d H:i:s', time());
+            $request->start_time = date('Y-m-d H:i:s', time() - $day * 24 * 60 * 60);
+            $request->stop_time =  date('Y-m-d H:i:s', time());
 
             if ($day == 1) {
                 $request->start_time = date('Y-m-d', time());

@@ -37,8 +37,8 @@ class BettingController extends Controller
         $stopTime = $request->get('stopTime');
 
         if ($startTime == null && $stopTime == null) {
-            $startTime = date('Y-m-d H:i:s',time() - 7*24*24);
-            $stopTime = date('Y-m-d H:i:s',time());
+            $startTime = date('Y-m-d H:i:s', time() - 7 * 24 * 60 * 60);
+            $stopTime = date('Y-m-d H:i:s', time());
         }
 
         $game = array('AG', 'BBIN', 'OGPlus', 'AllBet', 'EG', 'WM', 'AVIA', 'IMSB', 'LC', 'VR', 'ThreeSing', 'SABA');

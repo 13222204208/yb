@@ -179,12 +179,12 @@ class YBCPApiController extends Controller
 
     public function ybcpRecord()
     {
-
+        header("Content-type: text/html; charset=utf-8");
         $date = date('Ym/d',time()-8*60*60);
         $url ='http://pull.shayexiang.com/'.$date.'/real/order/17.json';
         $json_string = file_get_contents($url);
         $data = json_decode($json_string,true);
-        return gettype($json_string);
+        return $data .'|'.$json_string;
 
 
     }

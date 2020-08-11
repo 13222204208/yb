@@ -86,7 +86,7 @@ class PlatformController extends Controller
                 ['id', 'gn', 'mw', 'bc', 'tb', 'st']
             );
 
-            $todayCount = YbChessRecord::orderBy('st', 'desc')->where('mmi', $user->username)->whereBetween('st', [$request->start_time, $request->stop_time])->selectRaw('DATE_FORMAT(st,"%m-%d") as date,COUNT(id) as num ,SUM(tb) as tb,SUM(mw) as mw')
+            $todayCount = YbChessRecord::orderBy('st', 'desc')->where('mmi', $user->username)->whereBetween('st', [$request->start_time, $request->stop_time])->selectRaw('FROM_UNIXTIME(st,"%m-%d") as date,COUNT(id) as num ,SUM(tb) as tb,SUM(mw) as mw')
                 ->groupBy('date')->get();
 
             $allCount = YbChessRecord::orderBy('st', 'desc')->where('mmi', $user->username)->whereBetween('st', [$request->start_time, $request->stop_time])->selectRaw('COUNT(id) as num ,SUM(tb) as tb,SUM(mw) as mw')

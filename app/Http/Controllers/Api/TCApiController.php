@@ -304,8 +304,10 @@ class TCApiController extends Controller
 
     public function lotteryRecord()
     {
-        $source = "source.txt";
+        $source = "/source.txt";
         $target = "/ELOTTO/SETTLED/20200811/202008111450_0001.json";
+
+
 
         $host = '123.51.167.66';
         $user = 'byylcny';
@@ -326,7 +328,7 @@ class TCApiController extends Controller
             exit(1);
         }
         echo "login success\n";
-        ftp_nb_get($f_conn,$source,$target,FTP_ASCII);
+        ftp_nb_get($f_conn,$target,$source,FTP_ASCII);
         // 获取当前所在的ftp目录
         $in_dir = ftp_pwd($f_conn);
         if(!$in_dir){

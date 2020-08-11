@@ -180,9 +180,10 @@ class YBCPApiController extends Controller
     public function ybcpRecord()
     {
 
-        $date = date('Ym/d H:i:s',time()-8*60*60);
-        $url ='http://pull.shayexiang.com/'.$date.'/real/order/17.json';
+        $date = date('Ym/d',time()-8*60*60);
+        $url ='http://pull.shayexiang.com/202008/11/real/order/17.json';
         $json_string = file_get_contents($url);
+
 return $json_string;
 /*         $header = array(
             'Accept: application/json',

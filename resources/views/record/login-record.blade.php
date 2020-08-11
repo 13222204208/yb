@@ -9,11 +9,11 @@
   <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
   <style>
-      
+
   </style>
 </head>
-<body> 
- 
+<body>
+
 <div class="mainTop layui-clear" style="margin:20px">
 
 <div class="fr">
@@ -29,7 +29,7 @@
         <input class="layui-input" name="login_ip" autocomplete="off">
       </div>
 
-  
+
       <div class="layui-inline">
         <label class="layui-form-label">开始时间：</label>
         <div class="layui-input-inline">
@@ -56,10 +56,10 @@
   </form>
 </div>
 </div>
- 
-<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table> 
-               
-      
+
+<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+
+
 <script src="/layuiadmin/layui/layui.js"></script>
 
 <script>
@@ -99,7 +99,7 @@
         return currentdate;
       }
 
-  
+
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
@@ -108,7 +108,7 @@
       {field:'id', title: 'ID', width:80}
       ,{field:'username', title: '用户名', width:200}
       ,{field:'login_ip', title: '登陆IP', width:220}
-      ,{field:'updated_at', title: '登陆时间',sort: true, width:260}
+      ,{field:'login_time', title: '登陆时间',sort: true, width:260}
     ]]
     ,parseData: function(res) { //res 即为原始返回的数据
               return {
@@ -123,7 +123,7 @@
   });
   form.on('submit(search)', function(data) {
         var data = data.field;
-        console.log(data); 
+        console.log(data);
         table.render({
         elem: '#LAY_table_user'
         ,url: 'search/login/record'
@@ -137,7 +137,7 @@
       {field:'id', title: 'ID', width:80}
       ,{field:'username', title: '用户名', width:200}
       ,{field:'login_ip', title: '登陆IP', width:220}
-      ,{field:'updated_at', title: '登陆时间',sort: true, width:260}
+      ,{field:'login_time', title: '登陆时间',sort: true, width:260}
     ]]
         ,parseData: function(res) { //res 即为原始返回的数据
               return {

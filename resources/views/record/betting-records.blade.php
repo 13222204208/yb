@@ -154,8 +154,10 @@
                 ,{field:'mp', title: '抽水金额', width:160}
                 ,{field:'bc', title: '有效投注',  width:160}
                 ,{field:'tb', title: '总投注金额',  width:160}
-                ,{field:'st', title: '下注时间',sort: true, width:200}
-                ,{field:'et', title: '结算时间',sort: true, width:200}
+                ,{field:'st', title: '下注时间',sort: true, width:200,
+                    templet : "<div>{{layui.util.toDateString(d.st, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"}
+                ,{field:'et', title: '结算时间',sort: true, width:200,
+                    templet : "<div>{{layui.util.toDateString(d.et, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"}
                 ]]
                 ,parseData: function(res) { //res 即为原始返回的数据
                     //console.log(res);return false;
@@ -206,29 +208,36 @@
 
 
   //方法级渲染
+
   table.render({
-    elem: '#LAY_table_user'
-    ,url: 'query/betting'
-    ,cols: [[
-      {field:'id', title: 'ID', width:80, sort: true}
-      ,{field:'username', title: '用户名', width:120}
-      ,{field:'platform_name', title: '游戏平台', width:160}
-      ,{field:'game_name', title: '游戏名', width:160}
-      ,{field:'bottom_pour', title: '下注金额', width:160}
-      ,{field:'group_money', title: '派彩金额',  width:160}
-      ,{field:'bottom_pour_time', title: '下注时间',sort: true, width:200}
-    ]]
-    ,parseData: function(res) { //res 即为原始返回的数据
-          return {
-            "code": '0', //解析接口状态
-            "msg": res.message, //解析提示文本
-            "count": res.total, //解析数据长度
-            "data": res.data //解析数据列表
-          }
+        elem: '#LAY_table_user'
+        ,url: 'search/betting'
+        ,where:{
+          platform_name :data.platform_name,
+          username :data.username,
+          startTime:data.startTime,
+          stopTime:data.stopTime
         }
-    ,id: 'testReload'
-    ,page: true
-  });
+        ,cols: [[
+          {field:'id', title: 'ID', width:80, sort: true}
+          ,{field:'MemberAccount', title: '用户名', width:120}
+          ,{field:'TotalWinlose', title: '净输赢金额', width:160}
+          ,{field:'Bet', title: '下注金额', width:160}
+          ,{field:'TotalPayout', title: '彩金',  width:160}
+          ,{field:'BetDate', title: '下注时间',sort: true, width:200}
+        ]]
+        ,parseData: function(res) { //res 即为原始返回的数据
+            //console.log(res);return false;
+              return {
+                "code": '0', //解析接口状态
+                "msg": res.message, //解析提示文本
+                "count": res.total, //解析数据长度
+                "data": res.data //解析数据列表
+              }
+            }
+        ,id: 'testReload'
+        ,page: true
+      });
 
 
 });

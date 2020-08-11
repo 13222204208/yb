@@ -134,6 +134,43 @@
 
       form.on('submit(search)', function(data) {
         var data = data.field;
+        if (data.platform_name == 'ybqp') {
+            table.render({
+                elem: '#LAY_table_user'
+                ,url: 'search/betting'
+                ,where:{
+                platform_name :data.platform_name,
+                username :data.username,
+                startTime:data.startTime,
+                stopTime:data.stopTime
+                }
+                ,cols: [[
+                {field:'id', title: 'ID', width:80, sort: true}
+                ,{field:'bi', title: '注单id', width:120}
+                ,{field:'mmi', title: '用户名', width:120}
+                ,{field:'gn', title: '游戏名称', width:120}
+                ,{field:'gr', title: '游戏房间', width:120}
+                ,{field:'mw', title: '输赢金额', width:160}
+                ,{field:'mp', title: '抽水金额', width:160}
+                ,{field:'bc', title: '有效投注',  width:160}
+                ,{field:'tb', title: '总投注金额',  width:160}
+                ,{field:'st', title: '下注时间',sort: true, width:200}
+                ,{field:'et', title: '结算时间',sort: true, width:200}
+                ]]
+                ,parseData: function(res) { //res 即为原始返回的数据
+                    //console.log(res);return false;
+                    return {
+                        "code": '0', //解析接口状态
+                        "msg": res.message, //解析提示文本
+                        "count": res.total, //解析数据长度
+                        "data": res.data //解析数据列表
+                    }
+                    }
+                ,id: 'testReload'
+                ,page: true
+            });
+                return false;
+        }
 
         table.render({
         elem: '#LAY_table_user'

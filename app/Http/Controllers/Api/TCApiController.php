@@ -307,7 +307,7 @@ class TCApiController extends Controller
         $source = "/source.txt";
         $target = "/ELOTTO/SETTLED/20200811/202008111450_0001.json";
 
-
+$url= '123.51.167.66/ELOTTO/SETTLED/20200811/202008111450_0001.json';
 
         $host = '123.51.167.66';
         $user = 'byylcny';
@@ -328,6 +328,10 @@ class TCApiController extends Controller
             exit(1);
         }
         echo "login success\n";
+        $contents = file_get_contents($url);
+        echo $contents;
+        $content = ftp_nlist($f_conn, "/ELOTTO/SETTLED/20200811/");
+        dd($content);
         ftp_nb_get($f_conn,$target,$source,FTP_ASCII);
         // 获取当前所在的ftp目录
         $in_dir = ftp_pwd($f_conn);

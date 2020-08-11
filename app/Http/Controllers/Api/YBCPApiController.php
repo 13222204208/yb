@@ -182,10 +182,10 @@ class YBCPApiController extends Controller
 
         $date = date('Ym/d',time()-8*60*60);
         $url ='http://pull.shayexiang.com/'.$date.'/real/order/17.json';
-        $json_string = file_get_contents($url);
+        $json_string = file($url);
         $data = json_decode($json_string,true);
         return $json_string;
-return $data.gettype($data);
+
 
     }
 }

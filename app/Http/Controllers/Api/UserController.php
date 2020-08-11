@@ -91,10 +91,11 @@ class UserController extends Controller
             ], 200);
         }
         $detail = UserDetail::where('username',$request->username)->first();
-        $user = new UserInfo;
-        $user->login_ip = $request->login_ip;
-        $user->login_time = $request->login_time;
-        $user->save();
+        UserInfo::where('username',$detail->username)->update([
+            'login_ip'=>$request->login_ip,
+            'login_time'=> $request->login_time
+        ]);
+
 
         return response()->json([
             'code' => 201,

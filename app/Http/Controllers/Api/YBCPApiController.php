@@ -182,13 +182,18 @@ class YBCPApiController extends Controller
     {
 
         $date = date('Ym/d',time()-8*60*60);
-        $url ='http://pull.shayexiang.com/202008/11/real/order/17.json';
+        $fileName = intval(date('H',time()-8*60*60)) + 7;
+        $fileName = $fileName.'.json';
+        $url ='http://pull.shayexiang.com/'.$date.'/real/order/'.$fileName;
+        return $url;
         $json_string = file_get_contents($url);
-        $json_string = '['.str_replace('}','},',$json_string);
-        $json = substr($json_string, 0, -2).']';
+        if ($json_string != null) {
+            $json_string = '['.str_replace('}','},',$json_string);
+            $json = substr($json_string, 0, -2).']';
 
-        $data = json_decode($json,true);
-        DB::table('yb_lottery_record')->insert($data);
-        return '成功';
+            $data = json_decode($json,true);
+            DB::table('yb_lottery_record')->insert($data);
+        }
+
     }
 }

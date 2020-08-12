@@ -314,7 +314,9 @@ class TCApiController extends Controller
         ftp_pasv($conn,TRUE);
         ftp_chdir($conn,"/ELOTTO/SETTLED/20200812/");
         echo "Dir: ".ftp_pwd($conn);
-         dd(ftp_nlist($conn,"."));
+         $fileName= ftp_nlist($conn,".");
+         $fileName = array_pop($fileName);
+         return $fileName;
 
         $data= file($url);
         $array = json_decode($data[0],true);

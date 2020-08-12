@@ -307,12 +307,12 @@ class TCApiController extends Controller
         $source = "tccp.json";
         $target = "202008111450_0001.json";
 
-$url= 'ftp://123.51.167.66/TLOTTO/CANCELLED/20200811/202008111450_0001.json';
+
 
         $host = '123.51.167.66';
         $user = 'byylcny';
         $pwd = 'a123456';
-
+        $url= "ftp://$user:$pwd@123.51.167.66/TLOTTO/CANCELLED/20200811/202008111450_0001.json";
         $f_conn = ftp_connect($host);
 
         if(!$f_conn){

@@ -64,8 +64,7 @@ class YbLotteryRecord extends Migration
             $table->string('tester',50)->default('')->comment('是否测试账户，false:否 true:是 ');
             $table->string('betNum',50)->default('')->comment('投注号码');
             $table->string('betContent',350)->default('')->comment('前台投注内容');
-            $table->string('profitAmount',50)->default('')->comment('注单撤销人account');
-            $table->string('cancelBy',13)->default('')->comment('盈利金额      ');
+            $table->string('profitAmount',50)->default('')->comment('盈利金额');
             $table->string('merchantId',50)->default('')->comment('商户id      ');
             $table->string('merchantAccount',50)->default('')->comment('商户账号');
 

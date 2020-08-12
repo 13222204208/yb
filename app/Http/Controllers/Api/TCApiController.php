@@ -330,8 +330,8 @@ $url= 'ftp://123.51.167.66/TLOTTO/CANCELLED/20200811/202008111450_0001.json';
         echo "login success\n";
 
         ftp_chdir($f_conn,"/ELOTTO/SETTLED/20200811/");
-
-       ftp_nb_get($f_conn,$source,$target,FTP_ASCII);
+        $data= file($url);
+return $data;
         // 获取当前所在的ftp目录
         $in_dir = ftp_pwd($f_conn);
         if(!$in_dir){

@@ -109,6 +109,22 @@ class PlatformController extends Controller
                 ->get();
         }
 
+
+        if ($platform_name == 'tccp') { //天成彩票投注记录
+            $data = DB::table('tc_lottery_record')->orderBy('betTime', 'desc')->where('username', $user->username)->whereDate('betTime', '>=', $request->start_time)->whereDate('betTime', '<=', $request->stop_time)->get();
+
+            $todayCount = DB::table('tc_lottery_record')->orderBy('betTime', 'desc')->where('username', $user->username)->whereBetween('betTime', [$request->start_time, $request->stop_time])->selectRaw('DATE_FORMAT(betTime
+                ,"%m-%d") as date,COUNT(id) as num ,SUM(betAmount
+                ) as betAmount
+                ,SUM(netPNL) as netPNL')
+                ->groupBy('date')->get();
+
+            $allCount = DB::table('tc_lottery_record')->orderBy('betTime', 'desc')->where('username', $user->username)->whereBetween('betTime', [$request->start_time, $request->stop_time])->selectRaw('COUNT(id) as num ,SUM(betAmount
+                    ) as betAmount
+                    ,SUM(netPNL) as netPNL')
+                ->get();
+        }
+
         if ($platform_name == 'bd' && $request->has('productType')) { //天成电子游戏投注记录
             $productType = $request->productType;
             $data = DB::table('tc_bd_record')->orderBy('betTime', 'desc')->where('username', $user->username)->where('productType', $productType)->whereDate('betTime', '>=', $request->start_time)->whereDate('betTime', '<=', $request->stop_time)->get(

@@ -331,8 +331,7 @@ class TCApiController extends Controller
 
         ftp_chdir($f_conn,"/ELOTTO/SETTLED/20200811/");
         $data= file($url);
-        return gettype($data[0]);
-        $array = json_decode($data,true);
+        $array = json_decode($data[0],true);
         return $array;
         // 获取当前所在的ftp目录
         $in_dir = ftp_pwd($f_conn);

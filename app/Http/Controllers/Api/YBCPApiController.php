@@ -185,7 +185,7 @@ class YBCPApiController extends Controller
         $fileName = intval(date('H',time()-8*60*60)) + 7;
         $fileName = $fileName.'.json';
         $url ='http://pull.shayexiang.com/'.$date.'/real/order/'.$fileName;
-        return $url;
+
         $json_string = file_get_contents($url);
         if ($json_string != null) {
             $json_string = '['.str_replace('}','},',$json_string);

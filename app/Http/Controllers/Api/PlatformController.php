@@ -93,6 +93,21 @@ class PlatformController extends Controller
                 ->get();
         }
 
+        if ($platform_name == 'ybcp') { //亚博彩票投注记录
+            $data = DB::table('yb_lottery_record')->orderBy('betTime', 'desc')->where('memberAccount', $user->username)->whereDate('betTime', '>=', $request->start_time)->whereDate('betTime', '<=', $request->stop_time)->get();
+
+            $todayCount = DB::table('yb_lottery_record')->orderBy('betTime', 'desc')->where('memberAccount', $user->username)->whereBetween('betTime', [$request->start_time, $request->stop_time])->selectRaw('DATE_FORMAT(betTime
+                ,"%m-%d") as date,COUNT(id) as num ,SUM(betMoney
+                ) as betMoney
+                ,SUM(profitAmount) as profitAmount')
+                ->groupBy('date')->get();
+
+            $allCount = DB::table('yb_lottery_record')->orderBy('betTime', 'desc')->where('memberAccount', $user->username)->whereBetween('betTime', [$request->start_time, $request->stop_time])->selectRaw('COUNT(id) as num ,SUM(betMoney
+                    ) as betMoney
+                    ,SUM(profitAmount) as profitAmount')
+                ->get();
+        }
+
         if ($platform_name == 'bd' && $request->has('productType')) { //天成电子游戏投注记录
             $productType = $request->productType;
             $data = DB::table('tc_bd_record')->orderBy('betTime', 'desc')->where('username', $user->username)->where('productType', $productType)->whereDate('betTime', '>=', $request->start_time)->whereDate('betTime', '<=', $request->stop_time)->get(

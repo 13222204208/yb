@@ -307,23 +307,22 @@ class TCApiController extends Controller
         $user = 'byylcny';
         $pwd = 'a123456';
         $time= date('Ymd',time());
-        $url= "ftp://$user:$pwd@123.51.167.66/ELOTTO/SETTLED/20200812/202008121625_0001.json";
 
         $conn = ftp_connect("123.51.167.66") or die("Could not connect");
         ftp_login($conn,$user,$pwd);
         ftp_pasv($conn,TRUE);
         ftp_chdir($conn,"/ELOTTO/SETTLED/20200812/");
-        echo "Dir: ".ftp_pwd($conn);
          $fileName= ftp_nlist($conn,".");
          $fileName = array_pop($fileName);
-         return $fileName;
-
+         $url= "ftp://$user:$pwd@123.51.167.66/ELOTTO/SETTLED/".$time.'/'.$fileName;
+        echo $url;
         $data= file($url);
         $array = json_decode($data[0],true);
         if ($array['list'] != null) {
             DB::table('tc_lottery_record')->insert($array['list']);
+            return 'ok';
         }
-        return ;
+
 
     }
 }

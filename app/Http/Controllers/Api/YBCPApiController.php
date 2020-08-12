@@ -185,7 +185,7 @@ class YBCPApiController extends Controller
         $json_string = file_get_contents($url);
         $json_string = '['.str_replace('}','},',$json_string).']';
         $json_string = str_replace(',]',']',$json_string);
-
+return $json_string;
         $data = json_decode($json_string,true);
         return $data;
     }

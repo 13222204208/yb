@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class YBCPApiController extends Controller
@@ -187,6 +188,7 @@ class YBCPApiController extends Controller
         $json = substr($json_string, 0, -2).']';
 
         $data = json_decode($json,true);
-        return $data;
+        DB::table('yb_lottery_record')->insert($data);
+        return '成功';
     }
 }

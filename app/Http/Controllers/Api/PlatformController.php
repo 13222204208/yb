@@ -94,6 +94,7 @@ class PlatformController extends Controller
         }
 
         if ($platform_name == 'ybcp') { //亚博彩票投注记录
+            $user->username = 'byyl'.$user->username;
             $data = DB::table('yb_lottery_record')->orderBy('betTime', 'desc')->where('memberAccount', $user->username)->whereDate('betTime', '>=', $request->start_time)->whereDate('betTime', '<=', $request->stop_time)->get();
 
             $todayCount = DB::table('yb_lottery_record')->orderBy('betTime', 'desc')->where('memberAccount', $user->username)->whereBetween('betTime', [$request->start_time, $request->stop_time])->selectRaw('DATE_FORMAT(betTime

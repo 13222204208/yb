@@ -69,7 +69,6 @@ class YbLotteryRecord extends Migration
             $table->string('merchantId',50)->default('')->comment('商户id      ');
             $table->string('merchantAccount',50)->default('')->comment('商户账号');
 
-            $table->timestamps();
         });
     }
 

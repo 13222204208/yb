@@ -311,8 +311,9 @@ class TCApiController extends Controller
 
         $conn = ftp_connect("123.51.167.66") or die("Could not connect");
         ftp_login($conn,$user,$pwd);
-
-         dd(ftp_rawlist($conn,"."));
+        ftp_chdir($conn,"/ELOTTO/SETTLED/20200812/");
+        echo "Dir: ".ftp_pwd($conn);
+         dd(ftp_nlist($conn,"."));
 
         $data= file($url);
         $array = json_decode($data[0],true);

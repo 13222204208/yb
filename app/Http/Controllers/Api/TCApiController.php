@@ -306,7 +306,13 @@ class TCApiController extends Controller
     {
         $user = 'byylcny';
         $pwd = 'a123456';
+        $time= date('Ymd',time());
         $url= "ftp://$user:$pwd@123.51.167.66/ELOTTO/SETTLED/20200812/202008121625_0001.json";
+
+        $conn = ftp_connect("123.51.167.66") or die("Could not connect");
+        ftp_login($conn,$user,$pwd);
+
+        return ftp_rawlist($conn,".");
 
         $data= file($url);
         $array = json_decode($data[0],true);

@@ -96,6 +96,8 @@ class UserController extends Controller
             'login_time'=> $request->login_time
         ]);
 
+        UserInfo::where('username',$detail->username)->update(['login_time'=>$request->login_time]);
+
 
         return response()->json([
             'code' => 201,

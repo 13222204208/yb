@@ -171,13 +171,25 @@ Route::prefix('record')->group(function () {
 
 });
 
+
+Route::prefix('rebate')->group(function () {
 //返水管理
-Route::get('rebate/rebate-rate', function () {
-   //返水等级
-    return view('rebate.rebate-rate');
-})->middleware('adminLogin');
-Route::post('rebate/create/rebate','Rebate\RebateRateController@createRebate');//新建返水
-Route::get('rebate/query/rebate','Rebate\RebateRateController@queryRebate');//返水列表
+    Route::get('rebate-rate', function () {
+        //返水等级
+        return view('rebate.rebate-rate');
+    })->middleware('adminLogin');
+
+    Route::get('vip-rebate', function () {
+        //vip返水等级
+        return view('rebate.vip-rebate');
+    })->middleware('adminLogin');
+
+    Route::post('create/rebate','Rebate\RebateRateController@createRebate');//新建返水
+    Route::get('query/rebate','Rebate\RebateRateController@queryRebate');//返水列表
+    Route::post('create/vip/rebate','Rebate\RebateRateController@createVipRebate');//新建vip返水
+    Route::get('query/vip/rebate','Rebate\RebateRateController@queryVipRebate');//vip返水列表
+
+});
 
 //支付管理
 Route::prefix('pay')->group(function () {

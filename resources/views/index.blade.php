@@ -207,6 +207,7 @@
               </a>
               <dl class="layui-nav-child">
                 <dd><a lay-href="rebate/rebate-rate">返水等级</a></dd>
+                <dd><a lay-href="rebate/vip-rebate">vip返利</a></dd>
 
               </dl>
             </li>

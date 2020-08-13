@@ -201,8 +201,20 @@ class PayApiController extends Controller
         $time = $user->username.date('Ymd');
         $balance =$time.'money';
 
-        $v= Redis::get($time);//今日提款次数
-        $money= Redis::get($balance);//今日提款的总额
+        if (Redis::exists($time)) {
+            $v= Redis::get($time);//今日提款次数
+            $day_num = 5 - $v;
+        }else {
+            $day_num = 5 ;
+        }
+
+        if (Redis::exists($balance)) {
+            $money= Redis::get($balance);//今日提款的总额
+            $balance = 200000 - intval($money);
+        }else{
+            $balance = 200000;
+        }
+
         if ($vip >0) {
             $data= VipRebate::where('vip',$vip)->get(['day_num','balance','min_transfer'])->toArray();
             if ($v == null) {
@@ -224,17 +236,7 @@ class PayApiController extends Controller
             ],200);
         }
 
-        if (!Redis::exists($time)) {
-            $day_num = 5;
-        }else {
-            $day_num = 5 - $v;
-        }
 
-        if (!Redis::exists($balance)) {
-            $balance = 200000;
-        }else{
-            $balance = 200000 - $balance;
-        }
 
         return response()->json([
             'code' => 200,

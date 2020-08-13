@@ -90,15 +90,19 @@ class PayApiController extends Controller
         if ($vip >0) {
             $data= VipRebate::where('vip',$vip)->get(['day_num','balance','min_transfer'])->toArray();
             if ($v > $data[0]['day_num'] || $money > $data[0]['balance'] || $request->amount < $data[0]['min_transfer']) {
+                Redis::decr($time);
+                Redis::decrby($balance,$request->amount);
                 return response()->json([
                     'code' => 1003,
-                    'msg' =>"超出今日提款次数或提款额度 和最低转帐",
+                    'msg' =>"超出今日提款次数或提款额度 ，最低转帐",
                 ],200);
             }
         }
 
 
         if ($v > 5 || $money > 200000 ) {
+            Redis::decr($time);
+            Redis::decrby($balance,$request->amount);
             return response()->json([
                 'code' => 1003,
                 'msg' =>"超出今日提款次数或提款额度",

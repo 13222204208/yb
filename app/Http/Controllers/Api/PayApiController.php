@@ -188,4 +188,59 @@ class PayApiController extends Controller
         ]);
         return 'success';
     }
+
+    public function numBalance(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+
+        $vip= UserDetail::where('username',$user->username)->value('vip');
+        $time = $user->username.date('Ymd');
+        $balance =$time.'money';
+
+        $v= Redis::get($time);//今日提款次数
+        $money= Redis::get($balance);//今日提款的总额
+        if ($vip >0) {
+            $data= VipRebate::where('vip',$vip)->get(['day_num','balance','min_transfer'])->toArray();
+            if ($v == null) {
+                $day_num = $data[0]['day_num'];
+            }else {
+                $day_num = $data[0]['day_num'] - $v;
+            }
+
+            if ($money == null) {
+                $balance = $data[0]['balance'];
+            }else{
+                $balance = $data[0]['balance'] - $balance;
+            }
+
+            return response()->json([
+                'code' => 200,
+                'day_num' => $day_num,//每日提款次数
+                'balance' => $balance//每日提款额度
+            ],200);
+        }
+
+        if ($v == null) {
+            $day_num = 5;
+        }else {
+            $day_num = 5 - $v;
+        }
+
+        if ($money == null) {
+            $balance = 200000;
+        }else{
+            $balance = 200000 - $balance;
+        }
+
+        return response()->json([
+            'code' => 200,
+            'day_num' => $day_num,//每日提款次数
+            'balance' => $balance//每日提款额度
+        ],200);
+
+    }
 }

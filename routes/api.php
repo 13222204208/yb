@@ -121,6 +121,7 @@ Route::middleware('cors')->prefix('9pay')->group(function (){
             Route::post('/agentPay','Api\PayApiController@agentPay');//9pay代付
             Route::post('/orderQuery','Api\PayApiController@orderQuery');//9pay订单查询接口
             Route::post('/balanceQuery','Api\PayApiController@balanceQuery');//9pay余额查询接口
+            Route::post('/numBalance','Api\PayApiController@numBalance');//用户的提款次数，额度
 
         });
 });

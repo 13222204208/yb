@@ -71,16 +71,40 @@ class PayApiController extends Controller
             'token' => 'required'
         ]);
 
+        if ($request->amount < 50) {
+            return response()->json([
+                'code' => 1005,
+                'msg' =>"最低转帐50",
+            ],200);
+        }
         $user= JWTAuth::authenticate($request->token);
 
         $vip= UserDetail::where('username',$user->username)->value('vip');
+        $time = $user->username.date('Ymd');
+        $balance =$time.'money';
+        Redis::incr($time);
+        Redis::incrby($balance,$request->amount);
+        $v= Redis::get($time);//今日提款次数
+        $money= Redis::get($balance);//今日提款的总额
+
         if ($vip >0) {
             $data= VipRebate::where('vip',$vip)->get(['day_num','balance','min_transfer'])->toArray();
-            $time = $user->username.date('Ymd');
-            Redis::incr($time);
-            $v= Redis::get($time);
-            return $v;
+            if ($v > $data[0]['day_num'] || $money > $data[0]['balance'] || $request->amount < $data[0]['min_transfer']) {
+                return response()->json([
+                    'code' => 1003,
+                    'msg' =>"超出今日提款次数或提款额度 和最低转帐",
+                ],200);
+            }
         }
+
+
+        if ($v > 5 || $money > 200000 ) {
+            return response()->json([
+                'code' => 1003,
+                'msg' =>"超出今日提款次数或提款额度",
+            ],200);
+        }
+
 
         $data= array();
         $data['partner']= $this->partner;

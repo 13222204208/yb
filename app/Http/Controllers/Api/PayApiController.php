@@ -214,7 +214,7 @@ class PayApiController extends Controller
             if ($money == null) {
                 $balance = $data[0]['balance'];
             }else{
-                $balance = $data[0]['balance'] - $balance;
+                $balance = intval($data[0]['balance']) - intval($balance);
             }
 
             return response()->json([

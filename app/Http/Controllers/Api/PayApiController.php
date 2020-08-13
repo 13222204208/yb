@@ -76,7 +76,7 @@ class PayApiController extends Controller
         $vip= UserDetail::where('username',$user->username)->value('vip');
         if ($vip >0) {
             $data= VipRebate::where('vip',$vip)->get(['day_num','balance','min_transfer'])->toArray();
-            $time = date('Ymd');
+            $time = $user->username.date('Ymd');
             Redis::incr($time);
             $v= Redis::get($time);
             return $v;

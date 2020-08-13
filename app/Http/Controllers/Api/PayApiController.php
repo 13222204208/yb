@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\VipRebate;
 use App\Model\UserDetail;
 use App\Model\Transaction;
 use Illuminate\Http\Request;
@@ -69,7 +70,13 @@ class PayApiController extends Controller
             'token' => 'required'
         ]);
 
-        JWTAuth::authenticate($request->token);
+        $user= JWTAuth::authenticate($request->token);
+
+        $vip= UserDetail::where('username',$user->username)->value('vip');
+        if ($vip >0) {
+            $data= VipRebate::where('vip',$vip)->get(['day_num','balance','min_transfer']);
+            return response()->json(['data'=>$data]);
+        }
 
         $data= array();
         $data['partner']= $this->partner;

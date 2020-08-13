@@ -224,13 +224,13 @@ class PayApiController extends Controller
             ],200);
         }
 
-        if ($v == null) {
+        if (!Redis::exists($time)) {
             $day_num = 5;
         }else {
             $day_num = 5 - $v;
         }
 
-        if ($money == null) {
+        if (!Redis::exists($balance)) {
             $balance = 200000;
         }else{
             $balance = 200000 - $balance;

@@ -77,8 +77,7 @@ class PayApiController extends Controller
         if ($vip >0) {
             $data= VipRebate::where('vip',$vip)->get(['day_num','balance','min_transfer'])->toArray();
             $time = date('Ymd');
-            Redis::set($time,'myredis');
-            $v = Redis::get($time);
+            $v= Redis::incr($time);
             return $v;
         }
 

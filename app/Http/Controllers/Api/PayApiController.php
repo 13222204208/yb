@@ -74,8 +74,8 @@ class PayApiController extends Controller
 
         $vip= UserDetail::where('username',$user->username)->value('vip');
         if ($vip >0) {
-            $data= VipRebate::where('vip',$vip)->get(['day_num','balance','min_transfer'])->map(function ($value) {return (array)$value;})->toArray();;
-            return $data;
+            $data= VipRebate::where('vip',$vip)->get(['day_num','balance','min_transfer'])->toArray();
+            return $data['day_num'];
         }
 
         $data= array();

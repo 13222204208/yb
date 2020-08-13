@@ -27,6 +27,7 @@ class FUserDetail extends Migration
             $table->integer('email_code')->default(0)->comment('邮箱验证码 通常为6位');
             $table->string('email',50)->default('')->comment('电子邮箱');
             $table->integer('vip')->default(0)->comment('vip级别');
+            $table->integer('vip')->default(0)->comment('vip级别');
 
             $table->timestamps();
         });

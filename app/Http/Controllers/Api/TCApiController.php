@@ -311,11 +311,11 @@ class TCApiController extends Controller
         $conn = ftp_connect("123.51.167.66") or die("Could not connect");
         ftp_login($conn,$user,$pwd);
         ftp_pasv($conn,TRUE);
-        ftp_chdir($conn,"/ELOTTO/SETTLED/20200812/");
+        ftp_chdir($conn,"/ELOTTO/SETTLED/$time/");
          $fileName= ftp_nlist($conn,".");
          $fileName = array_pop($fileName);
          $url= "ftp://$user:$pwd@123.51.167.66/ELOTTO/SETTLED/".$time.'/'.$fileName;
-        echo $url;
+
         $data= file($url);
         $array = json_decode($data[0],true);
         if ($array['list'] != null) {

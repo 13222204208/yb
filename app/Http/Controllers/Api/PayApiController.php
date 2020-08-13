@@ -8,6 +8,7 @@ use App\Model\Transaction;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 
 class PayApiController extends Controller
 {
@@ -75,7 +76,10 @@ class PayApiController extends Controller
         $vip= UserDetail::where('username',$user->username)->value('vip');
         if ($vip >0) {
             $data= VipRebate::where('vip',$vip)->get(['day_num','balance','min_transfer'])->toArray();
-            return $data[0]['day_num'];
+            $time = date('Ymd');
+            Redis::set($time,'myredis');
+            $v = Redis::get($time);
+            return $v;
         }
 
         $data= array();

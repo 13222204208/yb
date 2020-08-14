@@ -38,8 +38,8 @@ class VipApiController extends Controller
 
         if ($vip > 0) {
             $state= Transaction::where('username',$user->username)->where('business_mode',$vip)->where('business_type','VIP升级礼金')->first();
-            return $state;
-            if ($state) {
+
+            if ($state == null) {
                 $cash_gift= VipRebate::where('vip',$vip)->value('cash_gift');
                 $transaction = new Transaction;
                 $transaction->order_num = 'cash_gift'.$user->username.time();

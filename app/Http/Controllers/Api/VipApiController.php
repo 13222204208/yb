@@ -79,7 +79,7 @@ class VipApiController extends Controller
         $m = date('m',time());
         $d = date('d',time());
         $time = $y.$m.$d;
-        if ($time == $y.$m.'01') {//每月红包的发放日期,
+        if ($time == $y.$m.'14') {//每月红包的发放日期,
             $money= UserDetail::where('username',$user->username)->first();//查询用户vip等级
             $vip = $money->vip;
             if ($vip > 0) {

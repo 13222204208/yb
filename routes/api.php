@@ -62,6 +62,8 @@ Route::middleware('cors')->prefix('content')->group(function (){
         Route::get('transaction/record','Api\TransactionController@transactionRecord');//获取交易记录
 
         Route::post('vip/grade','Api\VipApiController@vipGrade');//获取vip等级
+
+        Route::post('vip/red_packet','Api\VipApiController@redPacket');//领取每月红包，每个月的1号
     });
 });
 

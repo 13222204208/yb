@@ -37,7 +37,7 @@ class VipApiController extends Controller
 
 
         if ($vip > 0) {
-            $state= Transaction::where('username',$user->username)->where('business_mode',$vip)->where('business_type','VIP升级礼金')->first();
+            $state= Transaction::where('username',$user->username)->where('business_mode','vip'.$vip)->where('business_type','VIP升级礼金')->first();
 
             if ($state == null) {
                 $cash_gift= VipRebate::where('vip',$vip)->value('cash_gift');
@@ -45,7 +45,7 @@ class VipApiController extends Controller
                 $transaction->order_num = 'cash_gift'.$user->username.time();
                 $transaction->username = $user->username;
                 $transaction->business_type = 'VIP升级礼金';
-                $transaction->business_mode = $vip;
+                $transaction->business_mode = 'vip'.$vip;
                 $transaction->business_money = $cash_gift;
                 $transaction->business_state = 1;
                 $transaction->save();
@@ -64,5 +64,52 @@ class VipApiController extends Controller
             'vip' => $vip,
             'code' => 200
         ],200);
+    }
+
+    public function redPacket(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $user= JWTAuth::authenticate($request->token);
+
+        $y = date('Y',time());
+        $m = date('m',time());
+        $d = date('d',time());
+        $time = $y.$m.$d;
+        if ($time == $y.$m.'14') {
+            $money= UserDetail::where('username',$user->username)->first();
+            $vip = $money->vip;
+
+            $state= Transaction::where('username',$user->username)->where('business_mode',$time.$vip)->where('business_type','VIP每月红包')->first();
+
+            if ($state == null) {
+
+                $red_packet= VipRebate::where($time,$vip)->value('red_packet');
+                $transaction = new Transaction;
+                $transaction->order_num = 'red_packet'.$user->username.time();
+                $transaction->username = $user->username;
+                $transaction->business_type = 'VIP每月红包';
+                $transaction->business_mode = $time.$vip;
+                $transaction->business_money = $red_packet;
+                $transaction->business_state = 1;
+                $transaction->save();
+                $money= UserDetail::where('username',$user->username)->first();
+                $money->balance = $money->balance + $red_packet;
+                $money->save();
+
+                return response()->json([
+                    'msg' => '每月红包发放成功',
+                    'red_packet' => $red_packet,
+                    'code' => 200
+                ],200);
+            }else{
+                return response()->json([
+                    'msg' => '已经发放',
+                    'code' => 2001
+                ],200);
+            }
+        }
     }
 }

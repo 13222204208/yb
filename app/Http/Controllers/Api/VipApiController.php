@@ -81,35 +81,47 @@ class VipApiController extends Controller
         if ($time == $y.$m.'14') {
             $money= UserDetail::where('username',$user->username)->first();
             $vip = $money->vip;
+            if ($vip > 0) {
+                $state= Transaction::where('username',$user->username)->where('business_mode',$time.$vip)->where('business_type','VIP每月红包')->first();
 
-            $state= Transaction::where('username',$user->username)->where('business_mode',$time.$vip)->where('business_type','VIP每月红包')->first();
+                if ($state == null) {
 
-            if ($state == null) {
+                    $red_packet= VipRebate::where($time,$vip)->value('red_packet');
+                    $transaction = new Transaction;
+                    $transaction->order_num = 'red_packet'.$user->username.time();
+                    $transaction->username = $user->username;
+                    $transaction->business_type = 'VIP每月红包';
+                    $transaction->business_mode = $time.$vip;
+                    $transaction->business_money = $red_packet;
+                    $transaction->business_state = 1;
+                    $transaction->save();
+                    $money= UserDetail::where('username',$user->username)->first();
+                    $money->balance = $money->balance + $red_packet;
+                    $money->save();
 
-                $red_packet= VipRebate::where($time,$vip)->value('red_packet');
-                $transaction = new Transaction;
-                $transaction->order_num = 'red_packet'.$user->username.time();
-                $transaction->username = $user->username;
-                $transaction->business_type = 'VIP每月红包';
-                $transaction->business_mode = $time.$vip;
-                $transaction->business_money = $red_packet;
-                $transaction->business_state = 1;
-                $transaction->save();
-                $money= UserDetail::where('username',$user->username)->first();
-                $money->balance = $money->balance + $red_packet;
-                $money->save();
-
-                return response()->json([
-                    'msg' => '每月红包发放成功',
-                    'red_packet' => $red_packet,
-                    'code' => 200
-                ],200);
+                    return response()->json([
+                        'msg' => '每月红包发放成功',
+                        'red_packet' => $red_packet,
+                        'code' => 200
+                    ],200);
+                }else{
+                    return response()->json([
+                        'msg' => '已经发放',
+                        'code' => 2001
+                    ],200);
+                }
             }else{
                 return response()->json([
-                    'msg' => '已经发放',
-                    'code' => 2001
+                    'msg' => '不是vip',
+                    'code' => 2002
                 ],200);
             }
+
+        }else{
+            return response()->json([
+                'msg' => '不到发放日期',
+                'code' => 2003
+            ],200);
         }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\VipRebate;
 use App\Model\UserDetail;
 use App\Model\Transaction;
 use Illuminate\Http\Request;
@@ -35,7 +36,24 @@ class VipApiController extends Controller
         if ($amount >= 30000000 && $running >= 180000000) $vip = 10;
 
         UserDetail::where('username',$user->username)->update(['vip'=>$vip]);
+        if ($vip > 0) {
+            $state= Transaction::where('username',$user->username)->where('business_mode',$vip)->first();
+            if (!$state) {
+                $cash_gift= VipRebate::where('vip',$vip)->value('cash_gift');
+                $transaction = new Transaction;
+                $transaction->order_num = 'cash_gift'.$user->username.time();
+                $transaction->username = $user->username;
+                $transaction->business_type = 'VIP升级礼金';
+                $transaction->business_mode = $vip;
+                $transaction->business_money = $cash_gift;
+                $transaction->business_state = 1;
+                $transaction->save();
+                $money= UserDetail::where('username',$user->username)->first();
+                $money->balance = $money->balance + $cash_gift;
+                $money->save();
+            }
 
+        }
         return response()->json([
             'msg' => '成功',
             'amount' => $amount,

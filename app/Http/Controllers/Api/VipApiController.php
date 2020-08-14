@@ -18,12 +18,12 @@ class VipApiController extends Controller
 
         $user= JWTAuth::authenticate($request->token);
 
-        $amount= Transaction::where('username',$user->username)->where('business_state',1)->where('business_type','存款')->sum('business_money');
+        $amount= Transaction::where('username',$user->username)->where('business_state',1)->where('business_type','存款')->sum('business_money');//查询用户存款额度
 
-        $running= Transaction::where('username',$user->username)->where('business_state',1)->where('business_type','转账')->sum('business_money');
+        $running= Transaction::where('username',$user->username)->where('business_state',1)->where('business_type','转账')->sum('business_money');//查询用户的流水
 
         $vip = 0;
-
+//判断用户的vip等级
         if ($amount >= 500 && $running >= 3000) $vip = 1;
         if ($amount >= 2000 && $running >= 12000) $vip = 2;
         if ($amount >= 10000 && $running >= 60000) $vip = 3;
@@ -37,20 +37,21 @@ class VipApiController extends Controller
 
 
         if ($vip > 0) {
-            $state= Transaction::where('username',$user->username)->where('business_mode','vip'.$vip)->where('business_type','VIP升级礼金')->first();
+            $state= Transaction::where('username',$user->username)->where('business_mode','vip'.$vip)->where('business_type','VIP升级礼金')->first();//查询升级礼金是否发放
 
             if ($state == null) {
-                $cash_gift= VipRebate::where('vip',$vip)->value('cash_gift');
+                $cash_gift= VipRebate::where('vip',$vip)->value('cash_gift');//查询升级礼金额度
                 $transaction = new Transaction;
                 $transaction->order_num = 'cash_gift'.$user->username.time();
                 $transaction->username = $user->username;
                 $transaction->business_type = 'VIP升级礼金';
                 $transaction->business_mode = 'vip'.$vip;
                 $transaction->business_money = $cash_gift;
+                $transaction->ask_time= date('Y-m-d H:i:s',time());
                 $transaction->business_state = 1;
                 $transaction->save();
                 $money= UserDetail::where('username',$user->username)->first();
-                $money->balance = $money->balance + $cash_gift;
+                $money->balance = $money->balance + $cash_gift;//添加升级礼金到余额
                 $money->save();
             }
 
@@ -78,25 +79,26 @@ class VipApiController extends Controller
         $m = date('m',time());
         $d = date('d',time());
         $time = $y.$m.$d;
-        if ($time == $y.$m.'14') {
-            $money= UserDetail::where('username',$user->username)->first();
+        if ($time == $y.$m.'01') {//每月红包的发放日期,
+            $money= UserDetail::where('username',$user->username)->first();//查询用户vip等级
             $vip = $money->vip;
             if ($vip > 0) {
-                $state= Transaction::where('username',$user->username)->where('business_mode',$time.$vip)->where('business_type','VIP每月红包')->first();
+                $state= Transaction::where('username',$user->username)->where('business_mode',$time.$vip)->where('business_type','VIP每月红包')->first();//查询用户本月是否已领取每月红包
 
                 if ($state == null) {
 
-                    $red_packet= VipRebate::where('vip',$vip)->value('red_packet');
+                    $red_packet= VipRebate::where('vip',$vip)->value('red_packet');//查询vip的红包额度
                     $transaction = new Transaction;
                     $transaction->order_num = 'red_packet'.$user->username.time();
                     $transaction->username = $user->username;
                     $transaction->business_type = 'VIP每月红包';
                     $transaction->business_mode = $time.$vip;
                     $transaction->business_money = $red_packet;
+                    $transaction->ask_time= date('Y-m-d H:i:s',time());
                     $transaction->business_state = 1;
                     $transaction->save();
                     $money= UserDetail::where('username',$user->username)->first();
-                    $money->balance = $money->balance + $red_packet;
+                    $money->balance = $money->balance + $red_packet;//红包添加到余额
                     $money->save();
 
                     return response()->json([

@@ -19,15 +19,15 @@ use Illuminate\Support\Facades\Route;
 }); */
 
 Route::middleware('cors')->prefix('user')->group(function (){
-    Route::post('register','Api\UserController@register');
-    Route::post('login','Api\UserController@login');
-    Route::get('reg/code','Api\UserController@regCode');
+    Route::post('register','Api\UserController@register');//注册
+    Route::post('login','Api\UserController@login');//登录
+    Route::get('reg/code','Api\UserController@regCode');//注册验证码
 
 
     Route::group(['middleware' => 'auth.jwt'], function () {
-        Route::get('logout', 'Api\UserController@logout');
+        Route::get('logout', 'Api\UserController@logout');//退出登录
 
-        Route::post('newpass', 'Api\UserController@newpass');
+        Route::post('newpass', 'Api\UserController@newpass');//修改密码
         Route::post('info', 'Api\UserController@update');//修改用户信息
         Route::post('user_head', 'Api\UserController@uploadUserHead');//上传头像
         Route::post('myActivity','Api\UserController@myActivity');//获取消息中心的活动

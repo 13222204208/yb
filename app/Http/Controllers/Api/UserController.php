@@ -34,7 +34,7 @@ class UserController extends Controller
         $validator = Validator::make($data, [
             'key' => 'required',
             'regCode' => 'required|captcha_api:' . $request->input('key')
-        ]);
+        ]);//注册验证码
 
         if ($validator->fails()) {
             return [
@@ -48,7 +48,7 @@ class UserController extends Controller
             ]);
          } */
 
-        if ($request->register_ip) {
+        if ($request->register_ip) {//判断ip
             if(!filter_var($request->register_ip, FILTER_VALIDATE_IP)) {
                 $request->register_ip ="错误的ip格式";
             }
@@ -61,14 +61,14 @@ class UserController extends Controller
             $user->password = bcrypt($request->password);
             $user->register_ip = $request->register_ip;
             $user->register_time = date('Y-m-d H:i:s',time());
-            $user->save();
+            $user->save();//保存注册用户
 
             $detail = new UserDetail;
             $detail->username = $request->username;
-            $detail->save();
+            $detail->save();//保存注册用户详细信息
 
             if ($this->loginAfterSignUp) {
-                return $this->login($request);
+                return $this->login($request);//注册完成后直接登陆
             }
 
             return response()->json([
@@ -94,10 +94,10 @@ class UserController extends Controller
             'username' => $detail->username,
             'login_ip'=>$request->login_ip,
             'login_time'=> $request->login_time
-        ]);
+        ]);//保存登陆用户的ip和登录时间
 
         UserInfo::where('username',$detail->username)->update(['login_time'=>$request->login_time]);
-
+//更新用户的最后登录时间
 
         return response()->json([
             'code' => 201,
@@ -116,7 +116,7 @@ class UserController extends Controller
 
         $user = JWTAuth::authenticate($request->token);
         $detail = UserDetail::where('username',$user->username)->first();
-
+//更新用户信息
             if ($request->true_name) {
                 if ($detail->true_name) {
                     return response()->json([
@@ -183,7 +183,7 @@ class UserController extends Controller
 
         $user = JWTAuth::authenticate($request->token);
         $pass = UserInfo::where('username',$user->username)->first();
-
+//修改用户密码
         if (password_verify($request->password ,$pass->password)) {
             $pass->password = bcrypt($request->newpass);
             $state= $pass->save();
@@ -204,8 +204,8 @@ class UserController extends Controller
     public function uploadUserHead(Request $request)
     {
         $upload= new UploadController;
-        $namePath= $upload->uploadImg($request->file('file'),'UserHeadImg');
-        $namePath = 'http://'.$_SERVER['HTTP_HOST'].'/'.$namePath;
+        $namePath= $upload->uploadImg($request->file('file'),'UserHeadImg');//上传用户头像1,图片,2图片存放目录
+        $namePath = 'http://'.$_SERVER['HTTP_HOST'].'/'.$namePath;//图片访问地址
         if ($namePath) {
             $this->validate($request, [
                 'token' => 'required'
@@ -224,7 +224,7 @@ class UserController extends Controller
         }
     }
 
-    public function myActivity(Request $request)
+    public function myActivity(Request $request)//活动
     {
         $this->validate($request, [
             'token' => 'required'

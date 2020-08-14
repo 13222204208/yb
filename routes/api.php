@@ -63,7 +63,7 @@ Route::middleware('cors')->prefix('content')->group(function (){
 
         Route::post('vip/grade','Api\VipApiController@vipGrade');//获取vip等级
 
-        Route::post('vip/red_packet','Api\VipApiController@redPacket');//领取每月红包，每个月的1号
+        Route::post('vip/redPacket','Api\VipApiController@redPacket');//领取每月红包，每个月的1号
     });
 });
 

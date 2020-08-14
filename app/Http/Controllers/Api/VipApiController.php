@@ -86,7 +86,7 @@ class VipApiController extends Controller
 
                 if ($state == null) {
 
-                    $red_packet= VipRebate::where($time,$vip)->value('red_packet');
+                    $red_packet= VipRebate::where('vip',$vip)->value('red_packet');
                     $transaction = new Transaction;
                     $transaction->order_num = 'red_packet'.$user->username.time();
                     $transaction->username = $user->username;

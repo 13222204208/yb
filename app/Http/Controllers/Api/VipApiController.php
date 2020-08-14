@@ -35,7 +35,7 @@ class VipApiController extends Controller
         if ($amount >= 10000000 && $running >= 60000000) $vip = 9;
         if ($amount >= 30000000 && $running >= 180000000) $vip = 10;
 
-        UserDetail::where('username',$user->username)->update(['vip'=>$vip]);
+
         if ($vip > 0) {
             $state= Transaction::where('username',$user->username)->where('business_mode',$vip)->first();
             if (!$state) {
@@ -54,6 +54,8 @@ class VipApiController extends Controller
             }
 
         }
+
+        UserDetail::where('username',$user->username)->update(['vip'=>$vip]);
         return response()->json([
             'msg' => '成功',
             'amount' => $amount,

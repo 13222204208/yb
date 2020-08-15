@@ -13,7 +13,7 @@ class VipRebate extends Migration
      */
     public function up()
     {
-        Schema::create('vip_rebate', function (Blueprint $table) {
+        Schema::create('vip_rebate', function (Blueprint $table) {//vip表
             $table->increments('id');
             $table->integer('vip')->default(0)->comment('vip级别 最高到vip10');
             $table->integer('day_num')->default(0)->comment('每日提款次数');

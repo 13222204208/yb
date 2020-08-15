@@ -283,7 +283,7 @@ class YBApiController extends Controller
     {
         $beginTime = time()-300;
         $endTime  = time();
-
+//亚博棋牌api链接
         $url='https://uatbetinfo.fun100.site/queryGameOrders'."?agent=".$this->agent."&timestamp=".$this->timestamp."&randno=".$this->randno."&sign=".$this->sign;
 
         $data = array();

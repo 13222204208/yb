@@ -13,7 +13,7 @@ class BgRunHorse extends Migration
      */
     public function up()
     {
-        Schema::create('bg_run_horse', function (Blueprint $table) {
+        Schema::create('bg_run_horse', function (Blueprint $table) {//应用内通知表
             $table->increments('id');
             $table->string('content',300)->default('')->comment('通知的内容');
             $table->string('type',30)->default('')->comment('通知的类型');

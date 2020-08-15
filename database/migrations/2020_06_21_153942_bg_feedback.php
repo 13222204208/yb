@@ -13,7 +13,7 @@ class BgFeedback extends Migration
      */
     public function up()
     {
-        Schema::create('bg_feedback', function (Blueprint $table) {
+        Schema::create('bg_feedback', function (Blueprint $table) {//应用提交反馈表
             $table->increments('id');
             $table->string('username',50)->comment('意见反馈提交人帐号');
             $table->integer('feedback_type')->default(0)->comment('反馈问题类型');

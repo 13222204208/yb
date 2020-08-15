@@ -28,7 +28,7 @@ class PayApiController extends Controller
         curl_close($ch);
     }
 
-    public function recharge(Request $request)
+    public function recharge(Request $request)//调用(9pay存款)
     {
         $this->validate($request, [
             'token' => 'required'
@@ -41,7 +41,7 @@ class PayApiController extends Controller
         $transaction->business_type= '存款';
         $transaction->business_mode= $request->service;
         $transaction->business_money= $request->amount;
-        $transaction->business_state = 1;
+        $transaction->business_state = 0;
         $transaction->ask_time= date('Y-m-d H:i:s');
         $transaction->save();
 
@@ -65,7 +65,7 @@ class PayApiController extends Controller
 
     }
 
-    public function agentPay(Request $request)
+    public function agentPay(Request $request)//代付
     {
         $this->validate($request, [
             'token' => 'required'
@@ -135,7 +135,7 @@ class PayApiController extends Controller
 
     }
 
-    public function orderQuery(Request $request)
+    public function orderQuery(Request $request)//订单查询
     {
         $this->validate($request, [
             'token' => 'required'
@@ -156,7 +156,7 @@ class PayApiController extends Controller
 
     }
 
-    public function balanceQuery(Request $request)
+    public function balanceQuery(Request $request)//余额查询
     {
         $this->validate($request, [
             'token' => 'required'
@@ -176,7 +176,7 @@ class PayApiController extends Controller
 
     }
 
-    public function notifyUrl(Request $request)
+    public function notifyUrl(Request $request)//付款回调
     {
 
         Transaction::where('order_num',$request->outTradeNo)->update([

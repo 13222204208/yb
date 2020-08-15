@@ -9,7 +9,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CardController extends Controller
 {
-    public function addCard(CardRequest $request)
+    public function addCard(CardRequest $request)//添加银行卡
     {
         $card = new BankCard;
         $user = JWTAuth::authenticate($request->token);
@@ -37,7 +37,7 @@ class CardController extends Controller
         }
     }
 
-    public function lookCard(Request $request)
+    public function lookCard(Request $request)//查看银行卡
     {
         $this->validate($request, [
             'token' => 'required'
@@ -58,7 +58,7 @@ class CardController extends Controller
         }
     }
 
-    public function removeCard(Request $request)
+    public function removeCard(Request $request)//移除银行卡
     {
         $this->validate($request, [
             'token' => 'required',

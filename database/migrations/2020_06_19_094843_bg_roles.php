@@ -13,7 +13,7 @@ class BgRoles extends Migration
      */
     public function up()
     {
-        Schema::create('bg_roles', function (Blueprint $table) {
+        Schema::create('bg_roles', function (Blueprint $table) {//后台角色表
             $table->increments('role_id');
             $table->string('role_name',50)->comment('角色名称');
             $table->string('role_scope',500)->default('')->comment('角色的权限范围');

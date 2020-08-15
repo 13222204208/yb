@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Log;
 
 class FastApiController extends Controller
 {
-    public $apiKey= 'testbyyl2020720';
-    public $apiSecret = 'zocGNgmOkQTkseY5c3TnqdzGi1fYGoqp3rkbak1MGYiBa97am3';
+    public $apiKey= 'testbyyl2020720';//商家apikey 奥奇平台
+    public $apiSecret = 'zocGNgmOkQTkseY5c3TnqdzGi1fYGoqp3rkbak1MGYiBa97am3';//私匙
 
     public function curlData($url,$data)
     {
@@ -226,7 +226,7 @@ class FastApiController extends Controller
         $data['EndDate'] = $EndDate;
 
 
-        $url = 'http://api.test.fastapi2020.com:6080/Api/Game/BetRecord';
+        $url = 'http://api.test.fastapi2020.com:6080/Api/Game/BetRecord';//奥奇api链接
 
         $game= array('AG','BBIN','OGPlus','AllBet','EG','WM','AVIA','IMSB','LC','VR','ThreeSing','SABA');
 

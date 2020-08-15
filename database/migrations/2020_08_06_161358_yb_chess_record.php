@@ -13,7 +13,7 @@ class YbChessRecord extends Migration
      */
     public function up()
     {
-        Schema::create('yb_chess_record', function (Blueprint $table) {
+        Schema::create('yb_chess_record', function (Blueprint $table) {//亚博棋牌投注记录
             $table->increments('id');
             $table->bigInteger('bi')->default(0)->comment('注单id');
             $table->bigInteger('mi')->default(0)->comment('商户id');

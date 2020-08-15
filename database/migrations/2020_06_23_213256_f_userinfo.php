@@ -13,7 +13,7 @@ class FUserinfo extends Migration
      */
     public function up()
     {
-        Schema::create('f_userinfo', function (Blueprint $table) {
+        Schema::create('f_userinfo', function (Blueprint $table) {//应用用户表
             $table->increments('id');
             $table->string('username',20)->comment('用户名');
             $table->string('nickname',30)->default('')->comment('昵称');

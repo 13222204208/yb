@@ -13,7 +13,7 @@ class BgBankCard extends Migration
      */
     public function up()
     {
-        Schema::create('bg_bank_card', function (Blueprint $table) {
+        Schema::create('bg_bank_card', function (Blueprint $table) {//用户绑定的银行卡
             $table->increments('id');
             $table->string('username',30)->default('')->comment('用户名');
             $table->string('card_name',30)->default('')->comment('持卡人姓名');

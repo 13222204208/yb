@@ -11,15 +11,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(ActivityTableSeeder::class);
+/*          $this->call(ActivityTableSeeder::class);
          $this->call(ApplyActivityTableSeeder::class);
-         $this->call(BettingTableSeeder::class);
+         $this->call(BettingTableSeeder::class); */
          $this->call(BgUsersTableSeeder::class);
-        // $this->call(FeedbackTableSeeder::class);
+/*          $this->call(FeedbackTableSeeder::class);
          $this->call(FRechargeTableSeeder::class);
          $this->call(PlatformTableSeeder::class);
-         $this->call(TransactionTableSeeder::class); 
-         //$this->call(UserInfoTableSeeder::class);
+         $this->call(TransactionTableSeeder::class);
+         $this->call(UserInfoTableSeeder::class);
          $this->call(UserStatisticsTableSeeder::class);
          $this->call(WithdrawalTableSeeder::class);
          $this->call(MemberRechargeTableSeeder::class);
@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
          $this->call(RunHorseTableSeeder::class);
          $this->call(BankCardTableSeeder::class);
          $this->call(WechatPayTableSeeder::class);
-         $this->call(AlipayTableSeeder::class);     
-         //$this->call(UserDetailTableSeeder::class); 
+         $this->call(AlipayTableSeeder::class);
+         $this->call(UserDetailTableSeeder::class); */
     }
 }

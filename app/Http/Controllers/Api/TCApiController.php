@@ -13,7 +13,7 @@ class TCApiController extends Controller
 {
     public function __construct()
     {
-        $this->url = 'http://www.connect6play.com/doBusiness.do';                    //API 连接
+        $this->url = 'http://www.connect6play.com/doBusiness.do';                    //天成API 连接
         $this->merchant_code = 'byylcny';        //代理商号
         $this->desKey = 'ZADKwrWZ';                //加密金钥
         $this->signKey = 'tw3947BNYH3Y1pn9';                //加密签名档

@@ -13,7 +13,7 @@ class BgApplyActivity extends Migration
      */
     public function up()
     {
-        Schema::create('bg_apply_activity', function (Blueprint $table) {
+        Schema::create('bg_apply_activity', function (Blueprint $table) {//活动申请表
             $table->increments('id');
             $table->string('username',30)->default('')->comment('申请活动的用户，用户名');
             $table->string('activity_title',300)->default('')->comment('申请的活动的标题');

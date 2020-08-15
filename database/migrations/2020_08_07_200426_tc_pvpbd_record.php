@@ -13,7 +13,7 @@ class TcPvpbdRecord extends Migration
      */
     public function up()
     {
-        Schema::create('tc_pvpbd_record', function (Blueprint $table) {
+        Schema::create('tc_pvpbd_record', function (Blueprint $table) {//天成棋牌投注记录
             $table->increments('id');
             $table->string('gameCode',50)->default('')->comment('游戏代码  ');
             $table->string('betTime',50)->default('')->comment('投注时间');

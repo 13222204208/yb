@@ -13,7 +13,7 @@ class TcLotteryRecord extends Migration
      */
     public function up()
     {
-        Schema::create('tc_lottery_record', function (Blueprint $table) {
+        Schema::create('tc_lottery_record', function (Blueprint $table) {//天成彩票投注记录
             $table->increments('id');
             $table->decimal('betAmount',16,4)->default(0)->comment('投注金额');
             $table->string('gameCode',50)->default('')->comment('游戏代码');

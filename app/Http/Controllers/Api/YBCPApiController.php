@@ -8,8 +8,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class YBCPApiController extends Controller
 {
-    public $merchant= "byyl";
-    public $signKey= "94D5BD8FCF4940CD";
+    public $merchant= "byyl";//商户号
+    public $signKey= "94D5BD8FCF4940CD";//key值
     public function curlData($url,$data,$type)
     {
         $ch = curl_init();

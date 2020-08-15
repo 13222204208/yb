@@ -13,7 +13,7 @@ class BgLoginRecord extends Migration
      */
     public function up()
     {
-        Schema::create('bg_login_record', function (Blueprint $table) {
+        Schema::create('bg_login_record', function (Blueprint $table) {//用户登录记录
             $table->increments('id');
             $table->string('username',50)->comment('用户名  ');
             $table->string('login_ip',50)->default('')->comment('登陆ip');

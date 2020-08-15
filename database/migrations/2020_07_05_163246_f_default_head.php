@@ -13,7 +13,7 @@ class FDefaultHead extends Migration
      */
     public function up()
     {
-        Schema::create('f_default_head', function (Blueprint $table) {
+        Schema::create('f_default_head', function (Blueprint $table) {//用户的默认头像表
             $table->increments('id');
             $table->string('img_name',20)->comment('默认头像');
             $table->string('default_head',200)->default('')->comment('默认的用户头像');

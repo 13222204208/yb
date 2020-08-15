@@ -13,7 +13,7 @@ class YbLotteryRecord extends Migration
      */
     public function up()
     {
-        Schema::create('yb_lottery_record', function (Blueprint $table) {
+        Schema::create('yb_lottery_record', function (Blueprint $table) {//亚博彩票投注记录
             $table->increments('id');
             $table->bigInteger('orderId')->default(0)->comment(' 注单id');
             $table->bigInteger('playId')->default(0)->comment(' 玩id');

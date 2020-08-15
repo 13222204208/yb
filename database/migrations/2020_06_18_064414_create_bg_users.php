@@ -13,7 +13,7 @@ class CreateBgUsers extends Migration
      */
     public function up()
     {
-        Schema::create('bg_users', function (Blueprint $table) {
+        Schema::create('bg_users', function (Blueprint $table) {//后台登录帐号表
             $table->increments('id');
             $table->string('account_num',30)->default('')->comment('后台登录帐号');
             $table->string('nickname',30)->default('')->comment('后台用户昵称');

@@ -13,7 +13,7 @@ class BgTransaction extends Migration
      */
     public function up()
     {
-        Schema::create('bg_transaction', function (Blueprint $table) {
+        Schema::create('bg_transaction', function (Blueprint $table) {//交易记录表
             $table->increments('id');
             $table->string('order_num',50)->default('')->comment('订单号');
             $table->string('username',20)->default('')->comment('用户名');

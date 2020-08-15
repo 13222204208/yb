@@ -13,7 +13,7 @@ class BgActivity extends Migration
      */
     public function up()
     {
-        Schema::create('bg_activity', function (Blueprint $table) {
+        Schema::create('bg_activity', function (Blueprint $table) {//应用内活动表
             $table->increments('id');
             $table->string('activity_type',30)->default('')->comment('活动的类型');
             $table->string('application_mode',30)->default('')->comment('申请的模式');

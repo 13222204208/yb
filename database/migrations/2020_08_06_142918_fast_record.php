@@ -13,7 +13,7 @@ class FastRecord extends Migration
      */
     public function up()
     {
-        Schema::create('fast_record', function (Blueprint $table) {
+        Schema::create('fast_record', function (Blueprint $table) {//奥奇游戏投注记录
             $table->increments('id');
             $table->string('BetID',30)->comment('投注单号');
             $table->decimal('Odds',16,1)->default(0)->comment('注单赔率');

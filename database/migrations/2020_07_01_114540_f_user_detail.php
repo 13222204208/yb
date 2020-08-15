@@ -13,7 +13,7 @@ class FUserDetail extends Migration
      */
     public function up()
     {
-        Schema::create('f_user_detail', function (Blueprint $table) {
+        Schema::create('f_user_detail', function (Blueprint $table) {//应用用户详情表
             $table->increments('id');
             $table->string('username',20)->comment('用户名');
             $table->string('user_head',200)->default('')->comment('用户头像');

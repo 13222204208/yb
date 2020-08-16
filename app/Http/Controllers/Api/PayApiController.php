@@ -217,10 +217,10 @@ class PayApiController extends Controller
 
         if ($vip >0) {
             $data= VipRebate::where('vip',$vip)->get(['day_num','balance','min_transfer'])->toArray();
-            if ($data == null) {
+            if ($v == null) {
                 $day_num = $data[0]['day_num'];
             }else {
-                $day_num = $data[0]['day_num'] - 0;
+                $day_num = $data[0]['day_num'] - $v;
             }
 
             if ($money == null) {

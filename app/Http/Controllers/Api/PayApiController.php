@@ -220,7 +220,7 @@ class PayApiController extends Controller
             if ($data == null) {
                 $day_num = $data[0]['day_num'];
             }else {
-                $day_num = $data[0]['day_num'] - $v;
+                $day_num = $data[0]['day_num'] - 0;
             }
 
             if ($money == null) {

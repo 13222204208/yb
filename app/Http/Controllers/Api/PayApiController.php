@@ -223,7 +223,7 @@ class PayApiController extends Controller
                 $day_num = $data[0]['day_num'] - $v;
             }
 
-            if ($money == null) {
+            if (!isset($money)) {
                 $balance = $data[0]['balance'];
             }else{
                 $balance = intval($data[0]['balance']) - intval($balance);
